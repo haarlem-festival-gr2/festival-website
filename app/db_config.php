@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 $db_type = getenv('DB_TYPE');
