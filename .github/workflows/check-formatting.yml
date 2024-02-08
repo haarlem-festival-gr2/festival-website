@@ -1,0 +1,19 @@
+name: Validate formatting
+on:
+  pull_request:
+    branches:
+      - main
+      - next
+jobs:
+  pint-format-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: pint
+      - name: Run pint
+        run: pint --test
