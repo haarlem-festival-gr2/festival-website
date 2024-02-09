@@ -10,23 +10,37 @@ namespace Core\Route;
 
 use Jenssegers\Blade\Blade;
 
+enum ErrorCode
+{
+    case NOT_FOUND;
+}
+
 enum Method
 {
     case GET;
     case POST;
-}
 
-class MethodImpl
-{
-    public static function compare(Method $method): bool {
-        $req_method = $_SERVER["REQUEST_METHOD"];
-        switch ($method) {
+    /**
+     * @return array<mixed>
+     */
+    public function props(): array
+    {
+        switch ($this) {
             case Method::GET:
-                return $req_method == "GET";
+                return $_GET;
             case Method::POST:
-                return $req_method == "POST";
-            default:
-                return false;
+                return $_POST;
+        }
+    }
+
+    public function compare(): bool
+    {
+        $req_method = $_SERVER['REQUEST_METHOD'];
+        switch ($this) {
+            case Method::GET:
+                return $req_method == 'GET';
+            case Method::POST:
+                return $req_method == 'POST';
         }
     }
 }
@@ -56,13 +70,27 @@ class Route
     public static function end_buffer(): void
     {
         ob_end_flush();
-        exit;
     }
 
-    public static function start_router(): void
+    /**
+     * @param  callable(array<string>): mixed  $callback
+     */
+    public static function start_router(callable $callback): void
     {
-        ob_start(self::class.'::buffer_cb');
-        $routes = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+        $currentUrl = $_SERVER['REQUEST_URI'];
+
+        // Remove query parameters if they exist
+        if (($pos = strpos($currentUrl, '?')) !== false) {
+            $currentUrl = substr($currentUrl, 0, $pos);
+        }
+
+        $routes = explode('/', trim($currentUrl, '/'));
+
+        if ($routes[0] == '') {
+            $routes[0] = 'index';
+        }
+
+        $callback($routes);
     }
 
     /**
@@ -70,10 +98,14 @@ class Route
      */
     public static function serve(string $path, callable $callback, Method $method = Method::GET): void
     {
-        if (MethodImpl::compare($method)) {
-            $callback([]);
-            self::end_buffer();
+        ob_start(self::class.'::buffer_cb');
+        if ($method->compare()) {
+            $props = $method->props();
+            $props["_headers"] = getallheaders();
+            $props["_slots"] = "TODO";
+            $callback($props);
         }
+        self::end_buffer();
     }
 
     /**
@@ -85,7 +117,30 @@ class Route
         echo $blade->render($page, $data);
     }
 
-    public static function redirect(): void
+    /**
+     * @param  array<string,mixed>  $data
+     */
+    public static function json(array $data): void
     {
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    public static function redirect(string $route): void
+    {
+        echo 'redirecting'.$route;
+    }
+
+    public static function error(ErrorCode $code): void
+    {
+        switch ($code) {
+            case ErrorCode::NOT_FOUND:
+                header('HTTP/1.0 404 Not Found');
+                echo '404 - Page Not Found';
+                break;
+
+            default:
+                break;
+        }
     }
 }
