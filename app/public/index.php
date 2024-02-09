@@ -4,17 +4,26 @@ declare(strict_types=1);
 
 namespace App;
 
-use PDO;
-
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../core/Route.php';
 
-require __DIR__.'/../db_config.php';
+use Core\Route\Route;
 
-echo $db_conn;
+// require_once __DIR__.'/../db_config.php';
+// use PDO;
+//
+// $connection = new PDO($db_conn, $db_user, $db_pass);
+//
+// $staged = $connection->prepare('SELECT 1 + 1');
+// $staged->execute();
 
-$connection = new PDO($db_conn, $db_user, $db_pass);
+Route::start_router();
 
-$staged = $connection->prepare('SELECT 1 + 1');
-$staged->execute();
+Route::serve('/hello', function (array $props) {
+    $name = 'Senor Paparika';
+    Route::render('hello', ['greet' => $name]);
+});
 
-var_dump($staged->fetch());
+// The Fallback Transaction Ender󰩸 (FTE)
+// (patent pending)
+Route::end_buffer();

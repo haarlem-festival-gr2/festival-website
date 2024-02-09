@@ -1,0 +1,1 @@
+<span>Hola {{$greet}}</span>
