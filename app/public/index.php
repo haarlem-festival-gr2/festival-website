@@ -18,6 +18,8 @@ use Core\Route\Route;
 // $staged = $connection->prepare('SELECT 1 + 1');
 // $staged->execute();
 
+echo \hello_world("HIM");
+
 Route::start_router(function (array $routes) {
     $first_path = $routes[0];
     $controller_file = __DIR__.'/../controller/'.$first_path.'.php';

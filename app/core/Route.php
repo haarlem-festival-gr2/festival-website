@@ -72,6 +72,17 @@ class Route
         ob_end_flush();
     }
 
+    /*
+     * @return array<string>
+     */
+    private static function get_paths(): array
+    {
+        $url = parse_url($_SERVER['REQUEST_URI']);
+        var_dump($url);
+
+        return $url;
+    }
+
     /**
      * @param  callable(array<string>): mixed  $callback
      */
@@ -101,8 +112,8 @@ class Route
         ob_start(self::class.'::buffer_cb');
         if ($method->compare()) {
             $props = $method->props();
-            $props["_headers"] = getallheaders();
-            $props["_slots"] = "TODO";
+            $props['_headers'] = getallheaders();
+            $props['_slots'] = 'TODO';
             $callback($props);
         }
         self::end_buffer();

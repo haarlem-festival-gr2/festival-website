@@ -11,8 +11,14 @@ RUN apk add postgresql \
 # XDEBUG for better debug outputs
 RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS linux-headers \
  && pecl install xdebug \
- && docker-php-ext-enable xdebug \
+ # && docker-php-ext-enable xdebug \
  && apk del .build-deps
 
 
 COPY ./xdebug.ini "${PHP_INI_DIR}/conf.d"
+
+# compatibility for glibc
+RUN apk add gcompat
+
+COPY ./extensions/newstd/target/debug/libnewstd.so /usr/local/lib/php/extensions/no-debug-non-zts-20230831/libnewstd.so
+COPY ./newstd.ini "${PHP_INI_DIR}/conf.d"
