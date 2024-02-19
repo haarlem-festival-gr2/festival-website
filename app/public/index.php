@@ -10,6 +10,8 @@ require_once __DIR__.'/../core/Route.php';
 use Core\Route\ErrorCode;
 use Core\Route\Route;
 
+phpinfo();
+
 // require_once __DIR__.'/../db_config.php';
 // use PDO;
 //
