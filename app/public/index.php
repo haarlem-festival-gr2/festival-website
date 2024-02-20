@@ -10,16 +10,16 @@ require_once __DIR__.'/../core/Route.php';
 use Core\Route\ErrorCode;
 use Core\Route\Route;
 
-use PDO;
+// use PDO;
 
-$dsn = "mysql:host={$_ENV["PS_DB_HOST"]};dbname={$_ENV["PS_DB_NAME"]}";
-$options = array(
-  PDO::MYSQL_ATTR_SSL_CA => "/etc/ssl/certs/ca-certificates.crt",
-);
-$pdo = new PDO($dsn, $_ENV["PS_DB_USERNAME"], $_ENV["PS_DB_PASSWORD"], $options);
-
-$query = $pdo->prepare('SELECT * FROM User;');
-$query->execute();
+// $dsn = "mysql:host={$_ENV['PS_DB_HOST']};dbname={$_ENV['PS_DB_NAME']}";
+// $options = [
+//     PDO::MYSQL_ATTR_SSL_CA => '/etc/ssl/certs/ca-certificates.crt',
+// ];
+// $pdo = new PDO($dsn, $_ENV['PS_DB_USERNAME'], $_ENV['PS_DB_PASSWORD'], $options);
+//
+// $query = $pdo->prepare('SELECT * FROM User;');
+// $query->execute();
 
 //var_dump($query->fetchAll());
 
