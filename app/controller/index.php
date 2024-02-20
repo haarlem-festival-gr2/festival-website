@@ -5,6 +5,7 @@ use Core\Route\Route;
 
 Route::serve('/index', function (array $props) {
     var_dump($props);
+    Route::redirect("/hello");
     $name = 'Senor Paparika';
     Route::render('hello', ['greet' => $name, 'pupils' => ['taco', 'quesadila', 'guac']]);
 });

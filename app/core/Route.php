@@ -137,9 +137,13 @@ class Route
         echo json_encode($data);
     }
 
+    /**
+     * This function never returns
+     */
     public static function redirect(string $route): void
     {
-        echo 'redirecting'.$route;
+        header('Location: '.$route);
+        exit;
     }
 
     public static function error(ErrorCode $code): void
