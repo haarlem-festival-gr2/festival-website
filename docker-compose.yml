@@ -19,4 +19,7 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
-
+      PS_DB_HOST: ${PS_DB_HOST}
+      PS_DB_USERNAME: ${PS_DB_USERNAME}
+      PS_DB_PASSWORD: ${PS_DB_PASSWORD}
+      PS_DB_NAME: ${PS_DB_NAME}
