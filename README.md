@@ -1,7 +1,5 @@
 # Haarlem festival group project
 
-## Build instructions
-
-```
-$ git submodule
-```
+## Services
+[Festival Website](localhost:8080)
+[PHPMyAdmin](localhost:8081)
