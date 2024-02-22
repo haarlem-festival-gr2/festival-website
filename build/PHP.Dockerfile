@@ -17,6 +17,8 @@ RUN apk del .xdbg-build-deps
 
 COPY build/xdebug.ini "${PHP_INI_DIR}/conf.d"
 
+COPY vendor /app/vendor
+
 # compatibility for glibc
 RUN apk add gcompat
 
