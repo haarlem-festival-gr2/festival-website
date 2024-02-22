@@ -12,6 +12,7 @@ services:
       dockerfile: build/PHP.Dockerfile
     volumes:
       - ./app:/app
+      - ./vendor:/app/vendor
     environment:
       # DB_TYPE: ${DB_TYPE}
       # DB_HOST: ${DB_HOST}
