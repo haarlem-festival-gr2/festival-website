@@ -14,11 +14,11 @@ services:
       - ./app:/app
       - ./vendor:/app/vendor
     environment:
-      DB_TYPE: ${DB_TYPE}
-      DB_HOST: ${DB_HOST}
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASS: ${DB_PASS}
+      # DB_TYPE: ${DB_TYPE}
+      # DB_HOST: ${DB_HOST}
+      # DB_NAME: ${DB_NAME}
+      # DB_USER: ${DB_USER}
+      # DB_PASS: ${DB_PASS}
       PS_DB_HOST: ${PS_DB_HOST}
       PS_DB_USERNAME: ${PS_DB_USERNAME}
       PS_DB_PASSWORD: ${PS_DB_PASSWORD}
@@ -27,6 +27,10 @@ services:
     image: phpmyadmin:latest
     ports:
         - 8081:80
+    volumes:
+      - /etc/ssl/certificate.crt:/etc/ssl/certificate.crt
     environment:
-        - PMA_HOST=mysql
+      PMA_HOST: ${PS_DB_HOST}
+      PMA_USER: ${PS_DB_USERNAME}
+      PMA_PASSWORD: ${PS_DB_PASSWORD}
     restart: unless-stopped
