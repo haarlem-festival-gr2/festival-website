@@ -1,5 +1,5 @@
 # Haarlem festival group project
 
 ## Services
-[Festival Website](localhost:8080)
-[PHPMyAdmin](localhost:8081)
+[Festival Website](http://localhost:8080)
+[PHPMyAdmin](http://localhost:8081)
