@@ -17,7 +17,6 @@ class UserRepository extends BaseRepository
             /*
             * @var \PDOStatement $res
             */
-            $sql('DROP TABLE User');
             $res = $sql('SELECT Name, Role FROM User', "\Repository\User");
 
             return $res->fetchAll();

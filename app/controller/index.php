@@ -9,9 +9,8 @@ require_once __DIR__.'/../repository/UserRepository.php';
 
 Route::serve('/index', function (array $props) {
     var_dump($props);
-    $name = 'Senor Paparika';
-    Route::render('hello', ['greet' => $name, 'pupils' => ['taco', 'quesadila', 'guac']]);
-
+    $name = 'Welcome to our festival website!';
+    Route::render('hello', ['greet' => $name, 'pupils' => ['Ollibolen', 'Poferages', 'I am so sorry for the spellings']]);
     $repo = new UserRepository();
     var_dump($repo->get_all());
 });

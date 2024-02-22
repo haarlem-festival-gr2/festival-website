@@ -48,9 +48,12 @@ abstract class BaseRepository
         try {
             $ret = $fn([$this, 'sql']);
             $this->connection->commit();
+
             return $ret;
         } catch (Exception $e) {
             $this->connection->rollBack();
+            echo $e->getMessage();
+
             return null;
         }
     }
