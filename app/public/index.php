@@ -4,17 +4,38 @@ declare(strict_types=1);
 
 namespace App;
 
-use PDO;
-
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../core/Route.php';
 
-require __DIR__.'/../db_config.php';
+use Core\Route\ErrorCode;
+use Core\Route\Route;
 
-echo $db_conn;
+Route::start_router(function (array $routes) {
+    $first_path = $routes[0];
 
-$connection = new PDO($db_conn, $db_user, $db_pass);
+    if (pathinfo($first_path, PATHINFO_EXTENSION) == 'css') {
+        $file = '/app/public/'.$first_path;
+        Route::serve('/', function () use ($file) {
+            header('Content-Type: text/css');
+            readfile($file);
+        });
+        exit;
+    }
 
-$staged = $connection->prepare('SELECT 1 + 1');
-$staged->execute();
+    if (pathinfo($first_path, PATHINFO_EXTENSION) == 'png') {
+        $file = '/app/public/'.$first_path;
+        Route::serve('/', function () use ($file) {
+            header('Content-Type: image/png');
+            readfile($file);
+        });
+        exit;
+    }
 
-var_dump($staged->fetch());
+    $controller_file = __DIR__.'/../controller/'.$first_path.'.php';
+
+    if (file_exists($controller_file)) {
+        require_once $controller_file;
+    } else {
+        Route::error(ErrorCode::NOT_FOUND);
+    }
+});
