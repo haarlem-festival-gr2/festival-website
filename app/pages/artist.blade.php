@@ -3,60 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lilith Merlot Music Collection</title>
+    <title>Artist</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-        }
-        .album-name {
-            background-color: #d6a5b5; /* This color is a placeholder and should be replaced with the exact hex color from the screenshot */
-        }
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .font-noto-serif { font-family: 'Noto Serif', serif; }
         .button-buy {
-            background-color: #eb6eb0; /* This color is a placeholder and should be replaced with the exact hex color from the screenshot */
+            background-color: #B92090;
             color: white;
+        }
+        .artist-card {
+            overflow: hidden;
+            background-color: #FDC9EF;
         }
     </style>
 </head>
-<body class="bg-gray-200">
-<div class="container mx-auto p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="bg-white p-4">
-            <div class="border-4 border-pink-300 p-2">
-                <img src="https://placehold.co/300x300.png" alt="Album cover for 'I Can’t Make You Love Me' featuring Lilith Merlot turned away with a floral arrangement on her head, set in an outdoor scene, symbolizing the album's theme of unrequited love." class="mb-2">
-                <p class="album-name text-center text-white p-2">I Can’t Make You Love Me - 2021</p>
-            </div>
-        </div>
-        <div class="bg-white p-4">
-            <div class="border-4 border-pink-300 p-2">
-                <img src="https://placehold.co/300x300.png" alt="Album cover for 'I Can’t Make You Love Me' showing Lilith Merlot in a tulle dress, portraying a sense of longing and desire that resonates with the album's narrative." class="mb-2">
-                <p class="album-name text-center text-white p-2">I Can’t Make You Love Me - 2021</p>
-            </div>
-        </div>
-        <div class="bg-white p-4">
-            <div class="border-4 border-pink-300 p-2">
-                <img src="https://placehold.co/300x300.png" alt="Black and white close-up of Lilith Merlot for 'Shades of Blue' album, capturing her raw emotion and the soulful depth of the music." class="mb-2">
-                <p class="album-name text-center text-white p-2">Shades of Blue - 2023</p>
-            </div>
-        </div>
-        <div class="bg-white p-4">
-            <div class="border-4 border-pink-300 p-2">
-                <img src="https://placehold.co/300x300.png" alt="Cover art for 'Prepping Man', Lilith Merlot is adorned with a vibrant bouquet, the imagery reflects the album's exploration of growth and renewal." class="mb-2">
-                <p class="album-name text-center text-white p-2">Prepping Man - 2019</p>
-            </div>
+<body class="font-montserrat">
+
+<!-- header -->
+<div class="relative">
+    <img src="/lilithMerlotHeader.png" alt="Crowd enjoying the Haarlem Jazz Festival with fireworks in the background" class="w-full">
+    <div class="absolute inset-0 flex flex-col justify-center items-center p-8 text-center text-white">
+        <h1 class="text-7xl font-medium mb-2 font-noto-serif uppercase">Lilith Merlot</h1>
+    </div>
+</div>
+
+<!-- bio and imgs -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="flex items-center bg-[#FCC040] p-8 m-6">
+        <div class="text-left mx-auto">
+            <p class="mt-4">Known for her timeless voice, Dutch singer and songwriter Lilith Merlot has been enchanted by harmony and melody from a young age.</p>
+            <p class="mt-4"> Her mother was a classical violinist and, as a young girl, Lilith often joined her mother on tour through Europe.</p>
+            <p class="mt-4"> During her Jazz vocals studies at the Rotterdam Conservatory, Lilith performed in front of American singer Renée Neufville, who remarked: “Your voice is just like a Merlot; it’s so warm, deep, and round”. This inspired Lilith to use Merlot as her stage name.</p>
         </div>
     </div>
-    <div class="text-center my-8">
-        <div class="inline-block mb-4">
-            <a href="#" class="font-bold text-pink-500 hover:text-pink-600"><i class="fas fa-music mr-2"></i>Click to listen to the most popular songs</a>
-        </div>
-        <div class="flex flex-col items-center">
-            <button class="button-buy px-6 py-2 rounded-full text-lg mb-2">Buy Tickets!</button>
-            <p>Come to Patronaat on Saturday, 29th July to enjoy Lilith’s music!<br>21:00 - 22:00 | Third Hall - € 10,00</p>
+
+    <div class="p-6">
+        <img src="/lilithMerlot1.png" alt="Lilith Merlot" class="mb-4">
+    </div>
+
+    <div class="p-6">
+        <img src="/lilithMerlot2.png" alt="Lilith Merlot">
+    </div>
+
+    <div class=" flex items-center p-8 m-6 bg-[#FCC040]">
+        <div class="text-left mx-auto">
+            <p class="mt-4"> Since releasing her debut EP in 2017, Lilith has been experimenting with various genres, from Jazz to Pop and Soul, influenced by Lizz Wright, Jeff Buckley, and Norah Jones, to name a few, creating music reminiscent of Nina Simone, Melody Gardot, and Madeleine Peyroux.</p>
+            <p class="mt-4"> With nearly 5 million streams across platforms, her music has aired across a number of stations under the established Netherlands public broadcaster NPO, earning spins on NPO Soul & Jazz, NPO 3FM Radio and Sublime FM. </p>
         </div>
     </div>
 </div>
+
+<!-- albums -->
+<div class="container mx-auto p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="p-4">
+            <div class="p-4 text-center artist-card cursor-pointer block">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2LsarF7MWgoNLK8DsCC1d9?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+        <div class="p-4">
+            <div class="p-4 text-center artist-card cursor-pointer block">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/3IYw1yRBBNYXGf2XLx1kl4?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+        <div class="p-4">
+            <div class="p-4 text-center artist-card cursor-pointer block">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/2AWCbsMHCCW6VFd3LFz9D1?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- songs -->
+<div class="md:grid md:grid-cols-3 gap-8 my-8">
+    <div class="text-center mb-4 md:mb-0">
+        <div class="inline-block">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5Ck86xT1yXsPRi1vRUTECa?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </div>
+    <div class="text-center mb-4 md:mb-0">
+        <div class="inline-block">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3d4k38C0dO6BWOkPn62eey?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </div>
+    <div class="text-center mb-4 md:mb-0">
+        <div class="inline-block">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7Iku7xW9nlXg6qaMi3xDV2?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </div>
+</div>
+    <!-- tickets -->
+    <div class="text-center">
+        <button class="button-buy px-6 py-2 rounded-full text-lg mb-2">Buy Tickets!</button>
+        <div class="flex flex-col bg-[#FCC040] items-center p-8 m-6">
+            <p>Come to Patronaat on Saturday, 29th July to enjoy Lilith’s music!<br>21:00 - 22:00 | Third Hall - € 10,00</p>
+        </div>
+        <!-- You can link this button to your ticket sales page -->
+    </div>
+
+
+
 </body>
 </html>

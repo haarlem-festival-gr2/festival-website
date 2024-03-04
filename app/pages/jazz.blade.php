@@ -14,24 +14,27 @@
         .button {
             background-color: #facc15;
             color: #000;
-            padding: 6px 12px; /* Adjusted padding */
-            border-radius: 6px; /* Adjusted border radius */
-            font-weight: 600; /* Adjusted font weight */
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
             text-transform: uppercase;
             cursor: pointer;
-            font-size: 12px; /* Adjusted font size */
+            font-size: 12px;
+            margin-left: 660px;
+            width: 200px;
         }
         .artist-card {
-            position: relative;
             overflow: hidden;
-            height: auto; /* Reset height */
-            background-color: rgba(143, 115, 116, 1);
+            background-color: #B92090;
         }
         .artist-image {
             display: block;
             max-width: 100%;
             height: auto;
-            object-fit: contain;
+            width: auto;
+            max-height: 200px;
+            object-fit: cover;
+
         }
         .artist-card:hover .artist-image {
             filter: brightness(50%);
@@ -163,32 +166,311 @@
 
 <div class="container mx-auto px-4 py-8">
     <div class="grid grid-cols-3 gap-4">
-        <a href="/artist" class="artist-card bg-purple-600 p-4 text-center cursor-pointer block">
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
             <img src="gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
-        <a href="/artist" class="artist-card bg-purple-600 p-4 text-center cursor-pointer block">
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
             <img src="evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
-        <a href="/artist" class="artist-card bg-purple-600 p-4 text-center cursor-pointer block">
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="jonnaFrazer.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
-        <a href="/artist" class="artist-card bg-purple-600 p-4 text-center cursor-pointer block">
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
             <img src="ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
-        <a href="/artist" class="artist-card bg-purple-600 p-4 text-center cursor-pointer block">
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
             <img src="soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
-        <a href="/artist" class="artist-card bg-purple-600 p-4 text-center cursor-pointer block">
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+    </div>
+</div>
+
+<!-- day 2 heading -->
+<div class="p-4" style="background-color: #B92090; text-align: center;">
+    <h3 class="text-2xl text-white font-bold">DAY 2 - Friday, July 27th 📍
+        <span class="tooltip"><u>Patronaat</u>
+            <span class="tooltiptext">
+                Patronaat<br>
+                Zijlsingel 2, 2013 DN<br>
+                Email: info@patronaat.nl<br>
+                Phone: 023 - 517 58 50 (office)<br>
+                023 - 517 58 58 (cash desk/information number)
+            </span>
+        </span>
+    </h3>
+</div>
+
+<!-- day 2 schedule -->
+<!-- make the img darker? -->
+<div class="relative">
+    <img src="jazzDay2.png" alt="Concert image with stage and musician playing drums" class="w-full">
+    <div class="absolute top-0 left-0 p-8 space-y-4 text-white">
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Jumbo Kings<br>18:00 - 19:00 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Wicked Jazz Sounds<br>18:00 - 19:00 | Second Hall - € 10,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center">
+            <p>All-Access pass for this day - €35,00</p>
+            <div class="button">Add all-day ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center">
+            <p>All-Access pass for Thu, Fri, Sat - €80,00.</p>
+            <div class="button">Add 3-day ticket to personal program</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- artists day 2-->
+
+<div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-3 gap-4">
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+    </div>
+</div>
+
+<!-- day 3 heading -->
+<div class="p-4" style="background-color: #B92090; text-align: center;">
+    <h3 class="text-2xl text-white font-bold">DAY 1 - Thursday, July 26th 📍
+        <span class="tooltip"><u>Patronaat</u>
+            <span class="tooltiptext">
+                Patronaat<br>
+                Zijlsingel 2, 2013 DN<br>
+                Email: info@patronaat.nl<br>
+                Phone: 023 - 517 58 50 (office)<br>
+                023 - 517 58 58 (cash desk/information number)
+            </span>
+        </span>
+    </h3>
+</div>
+
+<!-- day 3 schedule -->
+<!-- make the img darker? -->
+<div class="relative">
+    <img src="jazzDay3.png" alt="Concert image with stage and musician playing drums" class="w-full">
+    <div class="absolute top-0 left-0 p-8 space-y-4 text-white">
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Jumbo Kings<br>18:00 - 19:00 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Wicked Jazz Sounds<br>18:00 - 19:00 | Second Hall - € 10,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center">
+            <p>All-Access pass for this day - €35,00</p>
+            <div class="button">Add all-day ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center">
+            <p>All-Access pass for Thu, Fri, Sat - €80,00.</p>
+            <div class="button">Add 3-day ticket to personal program</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- artists day 3-->
+
+<div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-3 gap-4">
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+    </div>
+</div>
+
+<!-- day 4 heading -->
+<div class="p-4" style="background-color: #B92090; text-align: center;">
+    <h3 class="text-2xl text-white font-bold">DAY 1 - Thursday, July 26th 📍
+        <span class="tooltip"><u>Patronaat</u>
+            <span class="tooltiptext">
+                Patronaat<br>
+                Zijlsingel 2, 2013 DN<br>
+                Email: info@patronaat.nl<br>
+                Phone: 023 - 517 58 50 (office)<br>
+                023 - 517 58 58 (cash desk/information number)
+            </span>
+        </span>
+    </h3>
+</div>
+
+<!-- day 4 schedule -->
+<!-- make the img darker? -->
+<div class="relative">
+    <img src="jazzDay4.png" alt="Concert image with stage and musician playing drums" class="w-full">
+    <div class="absolute top-0 left-0 p-8 space-y-4 text-white">
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Jumbo Kings<br>18:00 - 19:00 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Wicked Jazz Sounds<br>18:00 - 19:00 | Second Hall - € 10,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <p class="text-white">Evolve<br>19:30 - 20:30 | Main Hall - € 15,00</p>
+            <div class="button">Add a ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center">
+            <p>All-Access pass for this day - €35,00</p>
+            <div class="button">Add all-day ticket to personal program</div>
+        </div>
+        <div class="flex justify-between items-center">
+            <p>All-Access pass for Thu, Fri, Sat - €80,00.</p>
+            <div class="button">Add 3-day ticket to personal program</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- artists day 4-->
+
+<div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-3 gap-4">
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
+            <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
+            <img src="soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <div class="overlay">FIND OUT MORE</div>
+        </a>
+        <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
             <img src="wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
