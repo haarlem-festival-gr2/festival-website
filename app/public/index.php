@@ -22,15 +22,6 @@ Route::start_router(function (array $routes) {
         exit;
     }
 
-    if (pathinfo($first_path, PATHINFO_EXTENSION) == 'png') {
-        $file = '/app/public/'.$first_path;
-        Route::serve('/', function () use ($file) {
-            header('Content-Type: image/png');
-            readfile($file);
-        });
-        exit;
-    }
-
     $controller_file = __DIR__.'/../controller/'.$first_path.'.php';
 
     if (file_exists($controller_file)) {

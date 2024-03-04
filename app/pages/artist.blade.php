@@ -23,7 +23,7 @@
 
 <!-- header -->
 <div class="relative">
-    <img src="/lilithMerlotHeader.png" alt="Crowd enjoying the Haarlem Jazz Festival with fireworks in the background" class="w-full">
+    <img src="img/jazz/lilithMerlotHeader.png" alt="Crowd enjoying the Haarlem Jazz Festival with fireworks in the background" class="w-full">
     <div class="absolute inset-0 flex flex-col justify-center items-center p-8 text-center text-white">
         <h1 class="text-7xl font-medium mb-2 font-noto-serif uppercase">Lilith Merlot</h1>
     </div>
@@ -40,11 +40,11 @@
     </div>
 
     <div class="p-6">
-        <img src="/lilithMerlot1.png" alt="Lilith Merlot" class="mb-4">
+        <img src="img/jazz/lilithMerlot1.png" alt="Lilith Merlot" class="mb-4">
     </div>
 
     <div class="p-6">
-        <img src="/lilithMerlot2.png" alt="Lilith Merlot">
+        <img src="img/jazz/lilithMerlot2.png" alt="Lilith Merlot">
     </div>
 
     <div class=" flex items-center p-8 m-6 bg-[#FCC040]">

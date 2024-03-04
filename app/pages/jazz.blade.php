@@ -86,7 +86,7 @@
 
 <!-- header -->
 <div class="relative">
-    <img src="/jazzHeader.png" alt="Crowd enjoying the Haarlem Jazz Festival with fireworks in the background" class="w-full">
+    <img src="img/jazz/jazzHeader.png" alt="Crowd enjoying the Haarlem Jazz Festival with fireworks in the background" class="w-full">
     <div class="absolute inset-0 flex flex-col justify-center items-center p-8 text-center text-white">
         <h1 class="text-7xl font-bold mb-2 font-noto-serif">Haarlem Jazz</h1>
         <p class="text-2xl mb-2"><span class="bold-dates">27 July - 31 July</span></p>
@@ -124,7 +124,7 @@
 <!-- day 1 schedule -->
 <!-- make the img darker? -->
 <div class="relative">
-    <img src="jazzDay1.png" alt="Concert image with stage and musician playing drums" class="w-full">
+    <img src="img/jazz/jazzDay1.png" alt="Concert image with stage and musician playing drums" class="w-full">
     <div class="absolute top-0 left-0 p-8 space-y-4 text-white">
         <div class="flex justify-between items-center mb-4">
             <p class="text-white">Jumbo Kings<br>18:00 - 19:00 | Main Hall - € 15,00</p>
@@ -168,32 +168,32 @@
     <div class="grid grid-cols-3 gap-4">
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
     </div>
@@ -217,7 +217,7 @@
 <!-- day 2 schedule -->
 <!-- make the img darker? -->
 <div class="relative">
-    <img src="jazzDay2.png" alt="Concert image with stage and musician playing drums" class="w-full">
+    <img src="img/jazz/jazzDay2.png" alt="Concert image with stage and musician playing drums" class="w-full">
     <div class="absolute top-0 left-0 p-8 space-y-4 text-white">
         <div class="flex justify-between items-center mb-4">
             <p class="text-white">Jumbo Kings<br>18:00 - 19:00 | Main Hall - € 15,00</p>
@@ -261,32 +261,32 @@
     <div class="grid grid-cols-3 gap-4">
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
     </div>
@@ -310,7 +310,7 @@
 <!-- day 3 schedule -->
 <!-- make the img darker? -->
 <div class="relative">
-    <img src="jazzDay3.png" alt="Concert image with stage and musician playing drums" class="w-full">
+    <img src="img/jazz/jazzDay3.png" alt="Concert image with stage and musician playing drums" class="w-full">
     <div class="absolute top-0 left-0 p-8 space-y-4 text-white">
         <div class="flex justify-between items-center mb-4">
             <p class="text-white">Jumbo Kings<br>18:00 - 19:00 | Main Hall - € 15,00</p>
@@ -354,32 +354,32 @@
     <div class="grid grid-cols-3 gap-4">
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
     </div>
@@ -403,7 +403,7 @@
 <!-- day 4 schedule -->
 <!-- make the img darker? -->
 <div class="relative">
-    <img src="jazzDay4.png" alt="Concert image with stage and musician playing drums" class="w-full">
+    <img src="img/jazz/jazzDay4.png" alt="Concert image with stage and musician playing drums" class="w-full">
     <div class="absolute top-0 left-0 p-8 space-y-4 text-white">
         <div class="flex justify-between items-center mb-4">
             <p class="text-white">Jumbo Kings<br>18:00 - 19:00 | Main Hall - € 15,00</p>
@@ -447,32 +447,32 @@
     <div class="grid grid-cols-3 gap-4">
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/gumboKings.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/evolve.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/mylesSanko.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/ntjamRosie.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/soulSix.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
         <a href="/artist" class="artist-card p-4 text-center cursor-pointer block">
             <h3 class="text-white text-xl font-bold mb-2">Gumbo Kings</h3>
-            <img src="wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
+            <img src="img/jazz/wickedJazzSounds.png" alt="Gumbo Kings" class="artist-image w-full h-auto">
             <div class="overlay">FIND OUT MORE</div>
         </a>
     </div>
