@@ -142,7 +142,7 @@ class Route
      */
     public static function redirect(string $route): void
     {
-        header('Location: '.$route);
+        header('HX-Redirect: '.$route);
         exit;
     }
 

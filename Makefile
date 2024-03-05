@@ -1,2 +1,2 @@
-migrate:
-	ls migrations
+dev:
+	sudo docker-compose up
