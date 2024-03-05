@@ -3,3 +3,7 @@
 @foreach ($pupils as $pupil)
 <p>eat {{$pupil}}</p>
 @endforeach
+
+@auth
+hello ass
+@endauth
