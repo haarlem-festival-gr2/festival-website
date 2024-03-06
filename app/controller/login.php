@@ -10,7 +10,7 @@ Route::serve('/login', function (array $props) {
     // require_once '/app/pages/login.html';
     $auth = Route::auth();
     if (Route::auth() != null) {
-        Route::redirect("/user");
+        Route::redirect('/user');
     } else {
         Route::render('login.login', []);
     }

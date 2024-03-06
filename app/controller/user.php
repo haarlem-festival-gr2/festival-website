@@ -9,13 +9,13 @@ Route::serve('/login', function (array $props) {
     if (Route::auth() != null) {
         Route::render('login.user', ['user' => $auth->Name]);
     } else {
-        Route::redirect("/login");
+        Route::redirect('/login');
     }
 });
 
-Route::serve("/login", function (array $props) {
-    if ($props['action'] == "Log Out") {
+Route::serve('/login', function (array $props) {
+    if ($props['action'] == 'Log Out') {
         $_SESSION['auth'] = null;
-        Route::redirect("/login");
+        Route::redirect('/login');
     }
 }, Method::POST);

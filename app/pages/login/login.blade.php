@@ -45,22 +45,15 @@
           />
         </label>
       </div>
-      <div>
-        <div class="grid grid-cols-2 gap-2 h-10">
+      <div class="flex flex-col">
           <input
             type="submit"
             name="action"
             value="Login"
-            class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100"
+            class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100 h-10"
           />
-          <input
-            type="submit"
-            name="action"
-            value="Register"
-            class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100"
-          />
-        </div>
         <p class="text-red-700" id="error"></p>
+        <a class="text-gray-600 hover:underline" href="/register">Register for a new account</a>
       </div>
     </form>
   </body>

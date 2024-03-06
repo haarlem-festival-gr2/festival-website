@@ -73,7 +73,7 @@
             class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100 h-10"
           />
         <p class="text-red-700" id="error"></p>
-        <a class="text-gray-500 hover:underline" href="login">Already have an account?</a>
+        <a class="text-gray-600 hover:underline" href="login">Already have an account?</a>
       </div>
     </form>
   </body>
