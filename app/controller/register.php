@@ -31,10 +31,10 @@ Route::serve('/login', function (array $props) {
         echo 'This user already exists';
     } elseif ($option == UserServiceError::INVALID_EMAIL) {
         echo 'The email name seems to be invalid';
-    } elseif ($option == UserServiceError::ERR_USER_IS_A_TEAPOT)  {
+    } elseif ($option == UserServiceError::ERR_USER_IS_A_TEAPOT) {
         echo 'WABA LABA DUB DUB';
     } else {
         $_SESSION['auth'] = $option; // now confirmed to be User
-        Route::redirect("/user");
+        Route::redirect('/user');
     }
 }, Method::POST);

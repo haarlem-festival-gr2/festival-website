@@ -19,7 +19,7 @@ class UserRepository extends BaseRepository
         return $res;
     }
 
-    public function create_new_user(string $email, string $password, string $username, string $name)
+    public function create_new_user(string $email, string $password, string $username, string $name): void
     {
         $query = $this->connection->prepare('INSERT INTO User (Email, PasswordHash, Username, Name, Role) VALUES (?,?,?,?,\'user\')');
         $query->execute([$email, $password, $username, $name]);

@@ -40,7 +40,7 @@ class UserService extends BaseService
 
     public function registerNewUser(string $email, string $password, string $username, string $name): UserServiceError|User
     {
-        if (!verifyEmail($email)) {
+        if (! verifyEmail($email)) {
             return UserServiceError::INVALID_EMAIL;
         }
 
@@ -50,7 +50,7 @@ class UserService extends BaseService
 
         try {
             $this->repository->create_new_user($email, $password, $username, $name);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return UserServiceError::ERR_USER_EXISTS;
         }
 
