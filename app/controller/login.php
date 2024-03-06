@@ -8,11 +8,11 @@ use Service\UserService;
 
 Route::serve('/login', function (array $props) {
     // require_once '/app/pages/login.html';
-    if (! Route::auth()) {
-        Route::render('login.login', []);
+    $auth = Route::auth();
+    if (Route::auth() != null) {
+        Route::redirect("/user");
     } else {
-        echo 'You are already logged in lmao';
-        $_SESSION['auth'] = null;
+        Route::render('login.login', []);
     }
 });
 
@@ -25,16 +25,10 @@ Route::serve('/login', function (array $props) {
     if ($props['action'] == 'Login') {
         $check = $service->verifyUserCredentials($email, $password);
         if ($check) {
-            $_SESSION['auth'] = true;
-            Route::redirect('/');
+            $_SESSION['auth'] = $check;
+            Route::redirect('/login'); // Header is Hx-Redirect instead of Location
         } else {
             echo 'Invalid username/password provided';
-        }
-    } else {
-        if (verifyEmail($email)) {
-            echo 'Registrations are on pause for now';
-        } else {
-            echo 'Please enter a valid email';
         }
     }
 }, Method::POST);

@@ -2,6 +2,7 @@
 
 namespace Service;
 
+use Model\User;
 use Repository\UserRepository;
 
 require_once __DIR__.'/../repository/UserRepository.php';
@@ -17,15 +18,21 @@ class UserService extends BaseService
         $this->repository = new UserRepository();
     }
 
-    public function verifyUserCredentials(string $email, string $password): bool
+    public function verifyUserCredentials(string $email, string $password): User|false
     {
 
         $user = $this->repository->get_with_cred($email);
 
-        if ($user) {
-            return $user->verifyPassword($password);
+        if ($user && $user->verifyPassword($password)) {
+            return $user;
         }
 
         return false;
+
+    }
+
+    public function registerNewUser(string $email, string $password, string $hello): bool
+    {
+
     }
 }

@@ -34,6 +34,26 @@
             required
           />
         </label>
+        <label for="username" class="flex flex-col">
+          Username
+          <input
+            id="username"
+            type="string"
+            name="username"
+            class="border border-black rounded p-2"
+            required
+          />
+        </label>
+        <label for="name" class="flex flex-col">
+          Name
+          <input
+            id="name"
+            type="string"
+            name="name"
+            class="border border-black rounded p-2"
+            required
+          />
+        </label>
         <label for="password" class="flex flex-col">
           Password
           <input
@@ -45,22 +65,15 @@
           />
         </label>
       </div>
-      <div>
-        <div class="grid grid-cols-2 gap-2 h-10">
-          <input
-            type="submit"
-            name="action"
-            value="Login"
-            class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100"
-          />
+      <div class="flex flex-col">
           <input
             type="submit"
             name="action"
             value="Register"
-            class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100"
+            class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100 h-10"
           />
-        </div>
         <p class="text-red-700" id="error"></p>
+        <a class="text-gray-500 hover:underline" href="login">Already have an account?</a>
       </div>
     </form>
   </body>

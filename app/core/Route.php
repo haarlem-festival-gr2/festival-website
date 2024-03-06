@@ -9,6 +9,9 @@
 namespace Core\Route;
 
 use Jenssegers\Blade\Blade;
+use Model\User;
+
+require_once __DIR__.'/../model/User.php';
 
 enum ErrorCode
 {
@@ -121,9 +124,13 @@ class Route
         self::end_buffer();
     }
 
-    public static function auth(): bool
+    public static function auth(): User|false
     {
-        return isset($_SESSION['auth']);
+        if (isset($_SESSION['auth'])) {
+            return $_SESSION['auth'];
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -162,7 +169,11 @@ class Route
      */
     public static function redirect(string $route): void
     {
-        header('HX-Redirect: '.$route);
+        if (isset(getallheaders()['Hx-Request'])) {
+            header('Hx-Redirect: '.$route);
+        } else {
+            header('Location: '.$route);
+        }
         exit;
     }
 
