@@ -2,8 +2,4 @@
 
 @foreach ($pupils as $pupil)
 <p>eat {{$pupil}}</p>
-@endforeach
-
-@auth
-hello ass
-@endauth
+@endforeach @auth hello ass @endauth

@@ -121,6 +121,11 @@ class Route
         self::end_buffer();
     }
 
+    public static function auth(): bool
+    {
+        return isset($_SESSION['auth']);
+    }
+
     /**
      * @param  array<string,mixed>  $data
      */
