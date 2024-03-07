@@ -131,7 +131,7 @@
                 DAY {{ $dayWithPerformances['day']->getDayNumber() }} -
                 {{ date(
                     'l, F
-                                                                        jS',
+                                                                                                                        jS',
                     strtotime($dayWithPerformances['day']->getDate()),
                 ) }}
                 📍
