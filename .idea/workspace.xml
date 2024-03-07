@@ -5,18 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa90266c-fa6f-42d3-babb-1ddffb01561d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/public/album1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/album2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/album3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/lilithMerlot1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/lilithMerlot2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/lilithMerlotHeader.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/mylesSanko.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/Album.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/Artist.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/FestivalEvent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/JazzDay.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/Performance.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/Song.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/model/Venue.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/artists/lilithMerlot1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/artists/lilithMerlot2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/artists/lilithMerlotHeader.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/chrisAllen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/evolve.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/foxAndTheMayors.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/gareDuNord.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/gumboKings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/hannBennink.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/jonnaFrazer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/lilithMerlot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/mylesSanko.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/ntjamRosie.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/rilanAndTheBombadiers.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/ruisSoundsystem.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/soulSix.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/theFamilyXL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/theNordanians.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/tomThompsonAssemble.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/wickedJazzSounds.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/repository/JazzRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/jazz.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/jazz.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/pages/artist.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/artist.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/pages/jazz.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/jazz.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/jazzDay1.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/img/jazz/jazzDay1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/jonnaFrazer.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/jonnaFrazer.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/album1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/album2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/album3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/evolve.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/gumboKings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/jonnaFrazer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/lilithMerlot1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/lilithMerlot2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/lilithMerlotHeader.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/mylesSanko.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/ntjamRosie.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/soulSix.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/wickedJazzSounds.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +65,18 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="localhost" id="8a9fd326-6cc0-40ed-8f57-3228e8cadbd6" name="docker-server" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="/" />
+          <mapping local-root="$PROJECT_DIR$/app" remote-root="/app" />
+          <mapping local-root="$PROJECT_DIR$/app/public" remote-root="/app/public" />
+          <mapping local-root="$PROJECT_DIR$/vendor/jenssegers/blade" remote-root="/usr/local/ect/php" />
+        </path_mappings>
+      </server>
+    </servers>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="festival-website-php:latest">
     <include_path>
@@ -68,34 +113,42 @@
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="2cRiHMZHSqIbiHCpMrbZv2Qs8sc" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;credentialsType com.jetbrains.php.remote.interpreter.ui.PhpCreateRemoteSdkForm&quot;: &quot;Docker&quot;,
-    &quot;credentialsType com.jetbrains.php.remote.interpreter.ui.PhpInplaceEditRemoteSdkForm&quot;: &quot;Docker&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;jazz&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/koval/Desktop/github testing/festival-website/vendor&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "PHP Remote Debug.docker.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "credentialsType com.jetbrains.php.remote.interpreter.ui.PhpCreateRemoteSdkForm": "Docker",
+    "credentialsType com.jetbrains.php.remote.interpreter.ui.PhpInplaceEditRemoteSdkForm": "Docker",
+    "git-widget-placeholder": "jazz",
+    "last_opened_file_path": "C:/Users/koval/Desktop/github testing/festival-website/vendor",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\koval\Desktop\github testing\festival-website\vendor" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\koval\Desktop\github testing\festival-website\app\public\img\jazz" />
       <recent name="C:\Users\koval\Desktop\github testing\festival-website\app\public" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="docker" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" filter_connections="FILTER" server_name="docker-server" session_id="PHPSTORM">
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -120,14 +173,26 @@
       <workItem from="1708608999604" duration="3124000" />
       <workItem from="1708721721265" duration="18163000" />
       <workItem from="1708991939824" duration="635000" />
-      <workItem from="1708992650784" duration="5160000" />
-      <workItem from="1709038746737" duration="1755000" />
-      <workItem from="1709043715186" duration="6628000" />
-      <workItem from="1709250437870" duration="4239000" />
+      <workItem from="1708992650784" duration="1557000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/app/controller/jazz.php</url>
+          <line>13</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
