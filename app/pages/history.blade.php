@@ -19,7 +19,7 @@
         const text = document.getElementById('festivalText').innerText;
         const utterance = new SpeechSynthesisUtterance(text);
         speechSynthesis.speak(utterance);
-    }-- >
+    }-- !>
 
     <
     body class = "bg-gray-100 font-sans leading-normal tracking-normal" >
@@ -449,7 +449,6 @@
         </div>
 
 
-
         <!-- Image Section -->
         <div style="background-color: #B92090;" class="flex-grow p-2 rounded-lg md:basis-1/2 max-w-md mx-auto">
             <img src="/img/history/audio-guide.png" alt="Descriptive Alt Text"
@@ -458,12 +457,6 @@
     </div>
 </section>
 
-
-<!-- Contact -->
-
-<footer class="py-4 text-center bg-gray-800 text-white">
-    <p>&copy; 2024 Haarlem Our Culture</p>
-</footer>
-</body>
+@extends('main.footer')
 
 </html>
