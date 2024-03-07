@@ -1,4 +1,4 @@
-/* General styles */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,8 +7,7 @@ body {
 }
 
 header {
-    background-color: #fcc040; /* Updated color */
-    color: #fff;
+    background-color: #fcc040; 
     padding: 20px;
     text-align: center;
 }
@@ -40,17 +39,16 @@ main {
 .hero h1 {
     font-size: 3em;
     margin: 30px 0 20px;
-    color: #fcc040; /* Updated color */
+    color: #fcc040; 
 }
 
 .hero p {
     font-size: 1.2em;
-    color: #fcc040; /* Updated color */
-    margin-bottom: 30px;
+    color: #fcc040; 
 }
 
 .hero a {
-    background-color: #fcc040; /* Updated color */
+    background-color: #fcc040; 
     color: #333;
     padding: 10px 20px;
     border: 1px solid #333;
@@ -62,7 +60,7 @@ main {
 /* Events section */
 .events {
     margin-top: 50px;
-    display: flex; /* Add flex display */
+    display: flex; 
 }
 
 /* Circles */
@@ -122,7 +120,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 50px 0; /* Add some margin for spacing */
+    margin: 50px 0; 
 }
 
 .video-frame {
@@ -133,8 +131,10 @@ main {
 
 
 /* Meet the Guides section */
+/* Meet the Guides section */
 .meet-the-guides {
     margin-top: 50px;
+    text-align: center; /* Center align the content */
 }
 
 .meet-the-guides h2 {
@@ -150,7 +150,7 @@ main {
 .guides {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center; /* Center the guides horizontally */
 }
 
 .guide {
@@ -176,9 +176,11 @@ main {
     line-height: 1.5;
 }
 
+
 /* Call to action section */
 .cta {
     margin-top: 50px;
+    margin-bottom: 50px;
     text-align: center;
 }
 
@@ -193,15 +195,18 @@ main {
 }
 
 .cta a {
-    background-color: #fcc040; /* Updated color */
+    background-color: #fcc040; 
     color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
+    margin-bottom: 80px; 
 }
-
+.cta a:first-child {
+    margin-bottom: 20px;
+}
 
 /* Schedule section */
 .schedule {
@@ -222,11 +227,13 @@ main {
 }
 
 .day {
-    background-color: #FDC9EF; /* Light pink background */
-    border-radius: 10px;
+    flex: 0 0 calc(25% - 20px); /* Adjust as needed */
+    margin-bottom: 20px;
     padding: 20px;
-    margin: 10px;
-    width: calc(33.333% - 20px); /* Three days per row, with margin */
+    background-color: #FDC9EF; 
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    box-sizing: border-box;
 }
 
 .day h3 {
@@ -236,7 +243,7 @@ main {
 }
 
 .session {
-    background-color: #f0f0f0; /* Light grey background */
+    background-color: #f0f0f0; 
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -248,62 +255,154 @@ main {
     color: #333;
 }
 
-/* Small screen adjustments */
+.session p.chinese-tour {
+    color: #e6739f; 
+}
+
+.session p.english-tour {
+    color: #5b8def; 
+}
+
+.session p.dutch-tour {
+    color: #ffdf64; 
+}
+
 @media (max-width: 768px) {
     .days {
         flex-direction: column;
     }
 
     .day {
-        width: 100%;
-        margin: 10px 0;
+        flex: 0 0 100%; /* Full width on smaller screens */
+        margin-bottom: 20px;
     }
 }
 
-.session p.chinese-tour {
-    color: #e6739f; /* Example color for Chinese tours */
-}
 
-.session p.english-tour {
-    color: #5b8def; /* Example color for English tours */
-}
-
-.session p.dutch-tour {
-    color: #ffdf64; /* Example color for Dutch tours */
-}
-
-
-
-/* Adjustments to the Schedule section for a flex layout */
-.schedule .days {
+/* info */
+.container {
     display: flex;
-    flex-wrap: wrap; /* Allows wrapping to the next line if the screen is not wide enough */
-    justify-content: space-between; /* This will space out the .day divs equally */
-    align-items: flex-start; /* Aligns items to the start of the flex container */
+    align-items: center;
+    background-color: #FCC040; 
+    padding: 20px; 
+    width: 1100px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
-.schedule .day {
-    flex: 1; /* This will allow each .day div to grow and take up equal space */
-    min-width: 250px; /* Adjust min-width as needed for your layout */
-    margin: 10px; /* This gives some space around each .day div */
-    padding: 20px;
-    background-color: #FDC9EF; /* Light pink background */
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for depth */
+.city-image {
+    width: 300px;
+    height: 200px;
+    margin-right: 20px;
+    border-radius: 0px 10px 0px 10px;
 }
 
-/* If you want to ensure that each .day div is the same width, you can set a specific flex-basis */
-.schedule .day {
-    flex-basis: calc(33.333% - 20px); /* 33.333% for 3 items in a row, minus margin */
+.text-container {
+    flex: 1;
+    margin-bottom: 40px; 
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .schedule .days {
-        flex-direction: column;
-    }
-
-    .schedule .day {
-        flex-basis: auto; /* On smaller screens, let the .day divs take the full width */
-    }
+.text-container h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
 }
+
+.text-container p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* .buy-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #B92090;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+} */
+
+.custom-button-container {
+    width: 496px;
+    height: 107px;
+    position: relative;
+    margin: auto; /* Center the button horizontally */
+    margin-top: 20px; /* Adjust as needed */
+  }
+  
+  .custom-button-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #B92090;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 55px;
+    border: 1px white solid;
+  }
+  
+  .custom-button-text {
+    width: 268px;
+    height: 64px;
+    position: absolute;
+    top: 22px;
+    left: 114px;
+    color: white;
+    font-size: 48px;
+    font-family: Noto Serif;
+    font-weight: 800;
+    word-wrap: break-word;
+    text-align: center; /* Center the text horizontally */
+    line-height: 64px; /* Center the text vertically */
+  }
+
+  /* Ticket Prices */
+.ticket {
+    width: 845px;
+    height: 222px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.ticket-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #FCC040;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 10px;
+}
+
+.ticket-info {
+    position: absolute;
+    color: black;
+    font-size: 36px;
+    font-family: Noto Serif;
+    font-weight: 700;
+}
+
+.ticket-type {
+    width: 319px;
+    height: 45px;
+    left: 217px;
+    top: 34px;
+}
+
+.ticket-price {
+    width: 436px;
+    height: 79px;
+    left: 95px;
+    top: 113px;
+}
+
+.ticket-included {
+    width: 168px;
+    height: 42px;
+    left: 503px;
+    top: 111px;
+    font-size: 32px;
+}
+
+  
