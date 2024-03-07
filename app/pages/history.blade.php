@@ -79,8 +79,8 @@
     <section class="my-12 flex justify-center items-center">
   <div class="p-5 rounded-lg bg-yellow-400">
     <video class="rounded-lg" width="560" height="315" controls>
-  <source src="videoHaarlem.mp4" type="video/mp4">
-  <source src="videoHaarlem.webm" type="video/webm">
+  <source src="/video/history/videoHaarlem.mp4" type="video/mp4">
+  <source src="video/history/videoHaarlem.webm" type="video/webm">
   Your browser does not support the video tag.
 </video>
 
