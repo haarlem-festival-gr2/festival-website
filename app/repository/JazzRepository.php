@@ -10,7 +10,6 @@ require_once __DIR__.'/../model/Album.php';
 require_once __DIR__.'/../model/Song.php';
 require_once __DIR__.'/../model/FestivalEvent.php';
 
-
 class JazzRepository extends BaseRepository
 {
     public function getArtistById(int $id): mixed // change it
@@ -19,6 +18,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$id]);
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\Artist");
+
         return $query->fetch();
     }
 
@@ -28,6 +28,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$id]);
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\Venue");
+
         return $query->fetch();
     }
 
@@ -37,6 +38,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$id]);
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\model\JazzDay");
+
         return $query->fetch();
     }
 
@@ -46,6 +48,7 @@ class JazzRepository extends BaseRepository
         $query->execute();
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\model\JazzDay");
+
         return $query->fetchAll();
     }
 
@@ -55,6 +58,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$id]);
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\model\Performance");
+
         return $query->fetch();
     }
 
@@ -64,6 +68,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$dayID]);
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\model\Performance");
+
         return $query->fetchAll();
     }
 
@@ -104,14 +109,13 @@ class JazzRepository extends BaseRepository
         return $performances;
     }
 
-
-
     public function getFestivalEventByName(string $name): mixed
     {
         $query = $this->connection->prepare('SELECT FestivalEventID, Name, Description, ImgPath, StartDate, EndDate FROM FestivalEvent WHERE Name = ?');
         $query->execute([$name]);
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\model\FestivalEvent");
+
         return $query->fetch();
     }
 
@@ -121,6 +125,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$artistId]);
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\model\Song");
+
         return $query->fetchAll();
     }
 
@@ -130,7 +135,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$artistId]);
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\model\Album");
+
         return $query->fetchAll();
     }
-
 }

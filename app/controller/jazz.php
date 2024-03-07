@@ -1,6 +1,5 @@
 <?php
 
-use Core\Route\Method;
 use Core\Route\Route;
 use Repository\JazzRepository;
 
@@ -31,4 +30,3 @@ Route::serve('/jazz', function (array $props) {
         'jazzDaysWithPerformances' => $jazzDaysWithPerformances,
     ]);
 });
-
