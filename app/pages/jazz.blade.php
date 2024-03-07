@@ -104,6 +104,7 @@
         <p class="text-2xl mb-2 font-bold">
           {{ date('j F', strtotime($festivalEvent->getStartDate())) }} - {{
           date('j F', strtotime($festivalEvent->getEndDate())) }}
+
         </p>
       </div>
     </div>
