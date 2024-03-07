@@ -19,7 +19,7 @@
 
     <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
-<div class="relative w-full h-screen bg-no-repeat bg-cover" style="background-image: url('walky.png');">
+<div class="relative w-full h-screen bg-no-repeat bg-cover" style="background-image: url('/img/history/walky.png');">
     <!-- overlay -->
     <div class="absolute w-full h-full bg-gradient-to-b from-transparent to-gray-900 opacity-75"></div>
     
@@ -202,7 +202,7 @@
     <div class="flex flex-col md:flex-row md:items-center bg-white shadow-lg rounded-lg overflow-hidden" style="background-color: #FCC040;">
   <!-- Image container -->
   <div class="md:flex-shrink-0">
-    <img class="h-96 w-full object-cover md:h-auto md:w-96" src="walk2.png" alt="City Walk">
+    <img class="h-96 w-full object-cover md:h-auto md:w-96" src="/img/history/walk2.png" alt="City Walk">
   </div>
   <!-- Content container -->
   <div class="p-4 flex-1">
@@ -295,7 +295,7 @@
   <section class="my-12 flex justify-center items-start space-x-4">
     <!-- Image container with rounded border similar to the video -->
     <div class="p-5 rounded-lg bg-yellow-400">
-      <img src="mapWithout.png" alt="Your Image" class="rounded-lg" style="border: 4px solid #FCC040;">
+      <img src="/img/history/mapWithout.png" alt="Tour Map" class="rounded-lg" style="border: 4px solid #FCC040;">
     </div>
 
     <!-- List of locations  -->
@@ -353,7 +353,7 @@
     <section class="my-12 flex justify-center items-start space-x-4">
       <!-- Image container with rounded border -->
       <div class="p-5 rounded-lg bg-yellow-400">
-        <img src="starting-point.png" alt="Your Image" class="rounded-lg" style="border: 4px solid #FCC040;">
+        <img src="/img/history/starting-point.png" alt="Starting Point" class="rounded-lg" style="border: 4px solid #FCC040;">
       </div>
     </section>
   </div>
@@ -398,7 +398,7 @@
 
     <!-- Image Section -->
     <div style="background-color: #B92090;" class="flex-grow p-2 rounded-lg md:basis-1/2 max-w-md mx-auto">
-      <img src="audio-guide.png" alt="Descriptive Alt Text" class="h-full w-full object-cover rounded-lg">
+      <img src="/img/history/audio-guide.png" alt="Descriptive Alt Text" class="h-full w-full object-cover rounded-lg">
     </div>
   </div>
 </section>
