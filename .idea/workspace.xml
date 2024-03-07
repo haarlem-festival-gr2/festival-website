@@ -5,51 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa90266c-fa6f-42d3-babb-1ddffb01561d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/model/Album.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/Artist.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/FestivalEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/JazzDay.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/Performance.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/Song.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/Venue.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/artists/lilithMerlot1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/artists/lilithMerlot2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/artists/lilithMerlotHeader.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/chrisAllen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/evolve.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/foxAndTheMayors.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/gareDuNord.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/gumboKings.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/hannBennink.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/jonnaFrazer.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/lilithMerlot.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/mylesSanko.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/ntjamRosie.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/rilanAndTheBombadiers.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/ruisSoundsystem.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/soulSix.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/theFamilyXL.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/theNordanians.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/tomThompsonAssemble.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/public/img/jazz/performances/wickedJazzSounds.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/repository/JazzRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controller/jazz.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/jazz.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/artist.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/artist.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/artist.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/artist.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/model/Performance.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/Performance.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/pages/jazz.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/jazz.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/album1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/album2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/album3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/evolve.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/gumboKings.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/jonnaFrazer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/lilithMerlot1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/lilithMerlot2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/lilithMerlotHeader.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/mylesSanko.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/ntjamRosie.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/soulSix.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/public/img/jazz/wickedJazzSounds.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

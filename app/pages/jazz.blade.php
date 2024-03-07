@@ -8,9 +8,7 @@
     <style>
         .font-montserrat { font-family: 'Montserrat', sans-serif; }
         .font-noto-serif { font-family: 'Noto Serif', serif; }
-        .bold-dates {
-            font-weight: bold;
-        }
+
         .button {
             background-color: #facc15;
             color: #000;
@@ -87,13 +85,12 @@
 
 <!-- header img??? -->
 <div class="relative w-full">
-    <img src="/img/jazz/jazzHeader.png" alt="Crowd enjoying the Haarlem Jazz Festival with fireworks in the background" class="w-full">
+    <img src="{{ $festivalEvent->getImgPath() }}" alt="{{ $festivalEvent->getFestivalEventName() }}" class="w-full">
     <div class="absolute inset-0 flex flex-col justify-center items-center p-8 text-center text-white">
         <h1 class="text-7xl font-bold mb-2 font-serif">{{ $festivalEvent->getFestivalEventName() }}</h1>
         <p class="text-2xl mb-2 font-bold">{{ date('j F', strtotime($festivalEvent->getStartDate())) }} - {{ date('j F', strtotime($festivalEvent->getEndDate())) }}</p>
     </div>
 </div>
-    <img src="{{ $festivalEvent->getImgPath() }}" alt="{{ $festivalEvent->getFestivalEventName() }}" class="w-full">
 
 <div class="p-8 relative bg-[#fdbef5] text-center">
     <p class="mb-4" id="festivalText">{{ $festivalEvent->getDescription() }}</p>
@@ -144,14 +141,13 @@
         <div class="grid grid-cols-3 gap-4">
             @foreach ($dayWithPerformances['performances'] as $performance)
                 @if ($artist = $performance->getArtist())
-                    <a href="/artist/{{ $artist->getArtistID() }}" class="artist-card p-4 text-center cursor-pointer block">
+                    <a href="/artist?id={{ $artist->getArtistID() }}" class="artist-card p-4 text-center cursor-pointer block">
                         <h3 class="text-white text-xl font-bold mb-2">{{ $artist->getArtistName() }}</h3>
                         <img src="{{ $artist->getPerformanceImg() }}" alt="{{ $artist->getArtistName() }}" class="artist-image w-full h-auto">
                         <div class="overlay">FIND OUT MORE</div>
                     </a>
                 @endif
             @endforeach
-
         </div>
     </div>
 @endforeach

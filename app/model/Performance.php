@@ -5,7 +5,6 @@ namespace model;
 class Performance {
     private int $PerformanceID;
     //private int $ArtistID;
-
     private Artist $Artist;
     private float $Price;
     private string $StartDateTime;
@@ -14,8 +13,6 @@ class Performance {
     private int $DayID;
     private int $VenueID;
     private ?string $Hall;
-
-
 
     public function getPerformanceID(): int {
         return $this->PerformanceID;
