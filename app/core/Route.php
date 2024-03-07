@@ -9,6 +9,9 @@
 namespace Core\Route;
 
 use Jenssegers\Blade\Blade;
+use Model\User;
+
+require_once __DIR__.'/../model/User.php';
 
 enum ErrorCode
 {
@@ -110,6 +113,8 @@ class Route
     public static function serve(string $path, callable $callback, Method $method = Method::GET): void
     {
         ob_start(self::class.'::buffer_cb');
+
+        @session_start();
         if ($method->compare()) {
             $props = $method->props();
             $props['_headers'] = getallheaders();
@@ -119,12 +124,34 @@ class Route
         self::end_buffer();
     }
 
+    public static function auth(): User|false
+    {
+        if (isset($_SESSION['auth'])) {
+            return $_SESSION['auth'];
+        } else {
+            return false;
+        }
+    }
+
     /**
      * @param  array<string,mixed>  $data
      */
     public static function render(string $page, array $data): void
     {
         $blade = self::get_blade();
+
+        $blade->directive('auth', function () {
+            return '<?php if(isset($_SESSION[\'auth\'])): ?>';
+        });
+
+        $blade->directive('authguest', function () {
+            return '<?php if(!isset($_SESSION[\'auth\'])): ?>';
+        });
+
+        $blade->directive('endauth', function () {
+            return '<?php endif ?>';
+        });
+
         echo $blade->render($page, $data);
     }
 
@@ -142,7 +169,11 @@ class Route
      */
     public static function redirect(string $route): void
     {
-        header('Location: '.$route);
+        if (isset(getallheaders()['Hx-Request'])) {
+            header('Hx-Redirect: '.$route);
+        } else {
+            header('Location: '.$route);
+        }
         exit;
     }
 

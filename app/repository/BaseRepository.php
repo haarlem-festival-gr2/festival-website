@@ -17,6 +17,7 @@ abstract class BaseRepository
         ];
         $pdo = new PDO($dsn, $_ENV['PS_DB_USERNAME'], $_ENV['PS_DB_PASSWORD'], $options);
         $this->connection = $pdo;
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     /*
