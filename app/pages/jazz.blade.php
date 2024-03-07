@@ -104,11 +104,9 @@
         <p class="text-2xl mb-2 font-bold">
           {{ date('j F', strtotime($festivalEvent->getStartDate())) }} - {{
           date('j F', strtotime($festivalEvent->getEndDate())) }}
-
         </p>
       </div>
     </div>
-
     <div class="p-8 relative bg-[#fdbef5] text-center">
       <p class="mb-4" id="festivalText">
         {{ $festivalEvent->getDescription() }}
