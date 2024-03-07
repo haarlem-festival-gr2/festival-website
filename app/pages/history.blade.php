@@ -406,21 +406,8 @@
                 class="h-full w-full object-cover rounded-lg">
         </div>
     </div>
-    <div>
-      <label for="ticket-number" class="block text-sm font-medium text-gray-700">Enter your ticket number*</label>
-      <input type="text" id="ticket-number" name="ticket-number" placeholder="692480" class="mt-1 p-2 w-full rounded-md border-gray-300 shadow-sm mb-4">
-    </div>
-    <button type="submit" style="background-color: #B92090;" class="w-full rounded-md p-2 text-white font-semibold hover:bg-purple-800 mt-4">Send</button>
-  </form>
+    </form>
 </div>
-
-
-
-    <!-- Image Section -->
-    <div style="background-color: #B92090;" class="flex-grow p-2 rounded-lg md:basis-1/2 max-w-md mx-auto">
-      <img src="/img/history/audio-guide.png" alt="Descriptive Alt Text" class="h-full w-full object-cover rounded-lg">
-    </div>
-  </div>
 </section>
 
 @extends('main.footer')
