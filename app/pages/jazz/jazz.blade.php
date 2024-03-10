@@ -110,6 +110,10 @@
                 </div>
             @endforeach
         </div>
+
+
+
+
         <div class="container mx-auto px-4 py-8">
             <div class="grid grid-cols-3 gap-4">
                 @foreach ($dayWithPerformances['performances'] as $performance)
@@ -126,6 +130,7 @@
                     @endif
                 @endforeach
             </div>
+
         </div>
     @endforeach
     <p>add footer</p>

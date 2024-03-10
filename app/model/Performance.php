@@ -114,7 +114,7 @@ class Performance
         $this->VenueID = $venueID;
     }
 
-    public function getDetails(): string
+    public function getDetails(): ?string
     {
         return $this->Details;
     }

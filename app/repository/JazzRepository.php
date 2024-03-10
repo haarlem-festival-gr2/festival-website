@@ -2,6 +2,9 @@
 
 namespace repository;
 
+use Model\Artist;
+use Model\Performance;
+
 require_once __DIR__.'/../model/Artist.php';
 require_once __DIR__.'/../model/JazzDay.php';
 require_once __DIR__.'/../model/Performance.php';
@@ -32,6 +35,19 @@ class JazzRepository extends BaseRepository
         return $query->fetch();
     }
 
+    public function getVenueByPerformanceId(int $performanceId): mixed
+    {
+        $query = $this->connection->prepare('SELECT v.VenueID, v.Name, v.Address, v.ContactDetails FROM Venue AS v
+                                                JOIN JazzDay AS jd ON v.VenueID = jd.VenueID
+                                                JOIN Performance AS p ON jd.DayID = p.DayID WHERE p.PerformanceID = ?');
+        $query->execute([$performanceId]);
+
+        $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\Venue");
+
+        return $query->fetch();
+    }
+
+
     public function getJazzDayById(int $id): mixed
     {
         $query = $this->connection->prepare('SELECT DayID, DayNumber, Date, ImgPath, VenueID, Note FROM JazzDay WHERE dayID = ?');
@@ -52,26 +68,29 @@ class JazzRepository extends BaseRepository
         return $query->fetchAll();
     }
 
-    public function getPerformanceById(int $id): mixed
-    {
-        $query = $this->connection->prepare('SELECT PerformanceID, ArtistID, Price, StartDateTime, EndDateTime, AvailableTickets, DayID, VenueID, Details, TotalTickets FROM Performance WHERE PerformanceID = ?');
-        $query->execute([$id]);
-
-        $query->setFetchMode(\PDO::FETCH_CLASS, "\model\Performance");
-
-        return $query->fetch();
-    }
-
     public function getPerformancesByArtistId(int $artistId): array
     {
-        $query = $this->connection->prepare('SELECT PerformanceID, ArtistID, Price, StartDateTime, EndDateTime, AvailableTickets, DayID, VenueID, Details, TotalTickets FROM Performance WHERE ArtistID = ?');
+        $query = $this->connection->prepare('SELECT PerformanceID, Price, StartDateTime, EndDateTime, AvailableTickets, DayID, VenueID, Details, TotalTickets FROM Performance WHERE ArtistID = ?');
         $query->execute([$artistId]);
 
-        $query->setFetchMode(\PDO::FETCH_CLASS, "\model\Performance");
+        $performanceData = $query->fetchAll(\PDO::FETCH_ASSOC);
 
-        return $query->fetch();
+        $performances = [];
+        foreach ($performanceData as $data) {
+            $performance = new Performance();
+            $performance->setPerformanceID($data['PerformanceID']);
+            $performance->setPrice($data['Price']);
+            $performance->setStartDateTime($data['StartDateTime']);
+            $performance->setEndDateTime($data['EndDateTime']);
+            $performance->setAvailableTickets($data['AvailableTickets']);
+            $performance->setDayID($data['DayID']);
+            $performance->setVenueID($data['VenueID']);
+            $performance->setDetails($data['Details'] ?? null);
+            $performance->setTotalTickets($data['TotalTickets']);
+            $performances[] = $performance;
+        }
+        return $performances;
     }
-
 
     public function getPerformancesByJazzDay(int $dayID): array
     {
@@ -81,7 +100,7 @@ class JazzRepository extends BaseRepository
 
         $performances = [];
         foreach ($performanceData as $data) {
-            $performance = new \Model\Performance();
+            $performance = new Performance();
 
             $performance->setPerformanceID($data['PerformanceID']);
             $performance->setPrice($data['Price']);
@@ -92,7 +111,7 @@ class JazzRepository extends BaseRepository
             $performance->setVenueID($data['VenueID']);
             $performance->setDetails($data['Details'] ?? null);
             $performance->setTotalTickets($data['TotalTickets']);
-            $artist = new \Model\Artist();
+            $artist = new Artist();
 
             $artist->setArtistID($data['ArtistArtistID']);
             $artist->setArtistName($data['Name']);

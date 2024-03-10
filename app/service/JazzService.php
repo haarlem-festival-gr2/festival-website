@@ -35,12 +35,6 @@ class JazzService extends BaseService
     {
         return $this->repository->getAllJazzDays();
     }
-
-    public function getPerformanceById(int $id): mixed
-    {
-        return $this->repository->getPerformanceById($id);
-    }
-
     public function getPerformancesByArtistId(int $artistId): array
     {
         return $this->repository->getPerformancesByArtistId($artistId);
@@ -64,5 +58,10 @@ class JazzService extends BaseService
     public function getAlbumsByArtistId(int $artistId): array
     {
         return $this->repository->getAlbumsByArtistId($artistId);
+    }
+
+    public function getVenueByPerformanceId(int $performanceId): mixed
+    {
+        return $this->repository->getVenueByPerformanceId($performanceId);
     }
 }
