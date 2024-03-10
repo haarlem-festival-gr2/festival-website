@@ -3,4 +3,4 @@
 
 <a href="localhost:8080/reset?token=THISISATEST">reset your email here</a><br>
 
-<p>If the above link does not work, click on this, paste this in your browser http://localhost:8080/reset?token=THISISATEST</p>
+<p>If the above link does not work, paste this in your browser http://localhost:8080/reset?token=THISISATEST</p>
