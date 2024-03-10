@@ -10,8 +10,6 @@ class Venue
 
     private string $Address;
 
-    private ?string $Email;
-
     private ?string $ContactDetails;
 
     public function getVenueID(): int
@@ -42,16 +40,6 @@ class Venue
     public function setAddress(string $address): void
     {
         $this->Address = $address;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->Email;
-    }
-
-    public function setEmail(string $email): void
-    {
-        $this->Email = $email;
     }
 
     public function getContactDetails(): string
