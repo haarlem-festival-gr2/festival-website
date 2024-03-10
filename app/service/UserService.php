@@ -2,6 +2,7 @@
 
 namespace Service;
 
+use Core\Route\Route;
 use Model\User;
 use Repository\UserRepository;
 
@@ -55,5 +56,39 @@ class UserService extends BaseService
         }
 
         return $this->repository->get_with_cred($email);
+    }
+
+    public function resetPassword(string $email): bool
+    {
+        $user = $this->repository->get_with_cred($email);
+
+        if (! $user) {
+            return false;
+        }
+
+        $curl = curl_init('https://api.resend.com/emails');
+
+        $data = [
+            'from' => 'Password Reset <no_reply@ishitmypants.zip>',
+            'to' => $email,
+            'subject' => 'Password reset - Haarlem Festival/Tourism',
+            'html' => Route::template('login.reset_email', ['name' => $user->Name]),
+        ];
+
+        $payload = json_encode($data);
+
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer '.getenv('RESEND_API'),
+            'Content-Type: application/json',
+        ]);
+
+        $res = curl_exec($curl);
+
+        return $res;
     }
 }

@@ -158,6 +158,16 @@ class Route
     /**
      * @param  array<string,mixed>  $data
      */
+    public static function template(string $page, array $data): string
+    {
+        $blade = self::get_blade();
+
+        return $blade->render($page, $data);
+    }
+
+    /**
+     * @param  array<string,mixed>  $data
+     */
     public static function json(array $data): void
     {
         header('Content-Type: application/json');
