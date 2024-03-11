@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="p-8 relative bg-[#fdbef5] text-center">
-        <p class="mb-4" id="festivalText">
+        <p class="mb-4" id="text">
             {{ $festivalEvent->getDescription() }}
         </p>
         <button onclick="speakText()" class="absolute bottom-5 right-10 bg-transparent border-none text-4xl">
