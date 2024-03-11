@@ -6,6 +6,7 @@
     <title>{{ $festivalEvent->getFestivalEventName() }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/script/jazzScript.js" defer></script>
+    <script src="/script/textToSpeech.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
     <link href="/css/jazzStyles.css" rel="stylesheet">
 </head>
