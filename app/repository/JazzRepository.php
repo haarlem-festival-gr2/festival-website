@@ -47,7 +47,6 @@ class JazzRepository extends BaseRepository
         return $query->fetch();
     }
 
-
     public function getJazzDayById(int $id): mixed
     {
         $query = $this->connection->prepare('SELECT DayID, DayNumber, Date, ImgPath, VenueID, Note FROM JazzDay WHERE dayID = ?');
@@ -89,6 +88,7 @@ class JazzRepository extends BaseRepository
             $performance->setTotalTickets($data['TotalTickets']);
             $performances[] = $performance;
         }
+
         return $performances;
     }
 

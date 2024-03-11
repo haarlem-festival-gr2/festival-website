@@ -2,13 +2,16 @@
 
 namespace model;
 
-
 class JazzPass
 {
     private int $JazzPassID;
+
     private float $Price;
+
     private string $StartDateTime;
+
     private string $EndDateTime;
+
     private string $Note;
 
     private int $TotalTickets;
@@ -85,4 +88,3 @@ class JazzPass
         $this->TotalTickets = $TotalTickets;
     }
 }
-

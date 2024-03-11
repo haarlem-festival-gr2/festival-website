@@ -15,6 +15,7 @@ class FestivalEventService extends BaseService
     {
         $this->repository = new FestivalEventRepository();
     }
+
     public function getFestivalEventByName(string $name): mixed
     {
         return $this->repository->getFestivalEventByName($name);

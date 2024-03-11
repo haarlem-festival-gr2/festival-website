@@ -32,7 +32,7 @@ Route::serve('/jazz', function (array $props) {
     }
 
     //if (!$user) {
-     //   Route::redirect('/login');
+    //   Route::redirect('/login');
     //}
 
     Route::render('jazz.jazz', [

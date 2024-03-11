@@ -17,14 +17,14 @@ Route::serve('/artist', function (array $props) {
     $songs = $jazzService->getSongsByArtistId($artistId);
     $performances = $jazzService->getPerformancesByArtistId($artistId);
     //foreach($performances as $performance){
-      //  $performance->setArtist($artist);
+    //  $performance->setArtist($artist);
     //}
     $events = [];
-    foreach($performances as $performance) {
+    foreach ($performances as $performance) {
         $venue = $jazzService->getVenueByPerformanceId($performance->getPerformanceID());
         $events[] = [
             'performance' => $performance,
-            'venue' => $venue
+            'venue' => $venue,
         ];
     }
 
