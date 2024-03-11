@@ -16,7 +16,7 @@ class Artist
 
     private ?string $ArtistImg2;
 
-    private string $PerformanceImg;
+    private ?string $PerformanceImg;
 
     public function getArtistID(): int
     {
@@ -38,7 +38,7 @@ class Artist
         $this->Name = $name;
     }
 
-    public function getBio(): string
+    public function getBio(): ?string
     {
         return $this->Bio;
     }
@@ -48,7 +48,7 @@ class Artist
         $this->Bio = $bio;
     }
 
-    public function getHeaderImg(): string
+    public function getHeaderImg(): ?string
     {
         return $this->HeaderImg;
     }
@@ -58,7 +58,7 @@ class Artist
         $this->HeaderImg = $headerImg;
     }
 
-    public function getArtistImg1(): string
+    public function getArtistImg1(): ?string
     {
         return $this->ArtistImg1;
     }
@@ -68,7 +68,7 @@ class Artist
         $this->ArtistImg1 = $artistImg1;
     }
 
-    public function getArtistImg2(): string
+    public function getArtistImg2(): ?string
     {
         return $this->ArtistImg2;
     }
@@ -78,7 +78,7 @@ class Artist
         $this->ArtistImg2 = $artistImg2;
     }
 
-    public function getPerformanceImg(): string
+    public function getPerformanceImg(): ?string
     {
         return $this->PerformanceImg;
     }

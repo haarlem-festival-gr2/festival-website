@@ -66,7 +66,7 @@ class JazzDay
         $this->VenueID = $venueID;
     }
 
-    public function getNote(): string
+    public function getNote(): ?string
     {
         return $this->Note;
     }
