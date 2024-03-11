@@ -6,7 +6,6 @@ class Performance
 {
     private int $PerformanceID;
 
-    //private int $ArtistID;
     private Artist $Artist;
 
     private float $Price;
@@ -17,11 +16,13 @@ class Performance
 
     private int $AvailableTickets;
 
+    private int $TotalTickets;
+
     private int $DayID;
 
     private int $VenueID;
 
-    private ?string $Hall;
+    private ?string $Details;
 
     public function getPerformanceID(): int
     {
@@ -83,6 +84,16 @@ class Performance
         $this->AvailableTickets = $availableTickets;
     }
 
+    public function getTotalTickets(): int
+    {
+        return $this->TotalTickets;
+    }
+
+    public function setTotalTickets(int $totalTickets): void
+    {
+        $this->TotalTickets = $totalTickets;
+    }
+
     public function getDayID(): int
     {
         return $this->DayID;
@@ -103,14 +114,14 @@ class Performance
         $this->VenueID = $venueID;
     }
 
-    public function getHall(): string
+    public function getDetails(): ?string
     {
-        return $this->Hall;
+        return $this->Details;
     }
 
-    public function setHall(string $hall): void
+    public function setDetails(string $details): void
     {
-        $this->Hall = $hall;
+        $this->Details = $details;
     }
 
     public function setArtist(Artist $artist): void

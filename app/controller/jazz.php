@@ -1,32 +1,43 @@
 <?php
 
 use Core\Route\Route;
-use Repository\JazzRepository;
+use service\FestivalEventService;
+use service\JazzService;
 
 require_once __DIR__.'/../repository/BaseRepository.php';
-require_once __DIR__.'/../repository/JazzRepository.php';
-require_once __DIR__.'/../model/FestivalEvent.php';
+require_once __DIR__.'/../service/FestivalEventService.php';
+require_once __DIR__.'/../service/JazzService.php';
 
 Route::serve('/jazz', function (array $props) {
-    $repo = new JazzRepository();
+    $festivalEventService = new FestivalEventService();
+    $jazzService = new JazzService();
 
-    $festivalEvent = $repo->getFestivalEventByName('Haarlem Jazz');
-    $jazzDays = $repo->getAllJazzDays();
+    $user = Route::auth();
+
+    $festivalEvent = $festivalEventService->getFestivalEventByName('Haarlem Jazz');
+    $jazzDays = $jazzService->getAllJazzDays();
 
     $jazzDaysWithPerformances = [];
 
     foreach ($jazzDays as $day) {
-        $performancesForDay = $repo->getPerformancesByJazzDay($day->getDayId());
-        $venue = $repo->getVenueById($day->getVenueID());
+        $performancesForDay = $jazzService->getPerformancesByJazzDay($day->getDayId());
+        $venue = $jazzService->getVenueById($day->getVenueID());
+        $jazzPasses = $jazzService->getJazzPassesByDate($day->getDate());
         $jazzDaysWithPerformances[] = [
             'day' => $day,
             'venue' => $venue,
             'performances' => $performancesForDay,
+            'passes' => $jazzPasses,
         ];
     }
 
-    Route::render('jazz', [
+    //if (!$user) {
+     //   Route::redirect('/login');
+    //}
+
+    Route::render('jazz.jazz', [
         'festivalEvent' => $festivalEvent,
         'jazzDaysWithPerformances' => $jazzDaysWithPerformances,
+        'user' => $user,
     ]);
 });
