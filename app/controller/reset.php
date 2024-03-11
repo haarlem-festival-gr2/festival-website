@@ -1,25 +1,31 @@
 <?php
 
 require_once __DIR__.'/../service/UserService.php';
+require_once __DIR__.'/../service/ResetTokenService.php';
 
 use Core\Route\Method;
 use Core\Route\Route;
-use Service\UserService;
+use Service\ResetTokenService;
 
 Route::serve('/reset', function (array $props) {
-    Route::render('login.reset', []);
+    if (! isset($props['token'])) {
+        Route::render('login.reset', []);
+    } else {
+        $token = $props['token'];
+        Route::render('login.reset_form', ['token' => $token]);
+    }
 });
 
 Route::serve('/reset', function (array $props) {
-    $service = new UserService();
-    $email = $props['email'];
+    $service = new ResetTokenService();
+    $password = $props['password'];
+    $passwordConfirm = $props['password_c'];
+    $token = $props['token'];
 
-    if ($service->resetPassword($email)) {
-        // the redirect will happen, but to
-        // a different form
-        header('Hx-Redirect: /login');
-    } else {
-        echo 'Please provide a valid email';
+    if ($password != $passwordConfirm) {
+        echo 'Passwords dont match';
+        exit;
     }
 
+    $service->setNewPassword($token, $password);
 }, Method::POST);

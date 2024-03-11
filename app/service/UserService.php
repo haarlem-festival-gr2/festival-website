@@ -4,9 +4,11 @@ namespace Service;
 
 use Core\Route\Route;
 use Model\User;
+use Repository\ResetTokenRepository;
 use Repository\UserRepository;
 
 require_once __DIR__.'/../repository/UserRepository.php';
+require_once __DIR__.'/../repository/ResetTokenRepository.php';
 require_once __DIR__.'/../service/BaseService.php';
 require_once __DIR__.'/../model/User.php';
 
@@ -21,9 +23,12 @@ class UserService extends BaseService
 {
     private UserRepository $repository;
 
+    private ResetTokenRepository $resetTokenRepository;
+
     public function __construct()
     {
         $this->repository = new UserRepository();
+        $this->resetTokenRepository = new ResetTokenRepository();
     }
 
     public function verifyUserCredentials(string $email, string $password): User|false
@@ -89,6 +94,11 @@ class UserService extends BaseService
 
         $res = curl_exec($curl);
 
-        return $res;
+        if ($res) {
+
+            return $res; // true
+        } else {
+            return $res; // false
+        }
     }
 }
