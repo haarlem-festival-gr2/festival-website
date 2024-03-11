@@ -30,6 +30,7 @@ Route::serve('/jazz', function (array $props) {
             'passes' => $jazzPasses,
         ];
     }
+
     //if (!$user) {
      //   Route::redirect('/login');
     //}

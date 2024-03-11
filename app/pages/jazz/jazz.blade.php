@@ -63,8 +63,8 @@
         <div class="relative">
             <img src="{{ $dayWithPerformances['day']->getImgPath() }}" alt="Jazz Day Image" class="w-full filter brightness-40" />
             @foreach ($dayWithPerformances['performances'] as $index => $performance)
-                <div class="absolute top-[calc(40px+{{ $index * 80 }}px)] left-0 w-full p-2 box-border">
-                    <div class="flex justify-between items-center mb-4 bg-black bg-opacity-40 p-2.5">
+                <div class="absolute top-[calc(10px+{{ $index * 80 }}px)] left-0 w-full p-2 box-border">
+                    <div class="flex justify-between items-center bg-black bg-opacity-40 p-2.5">
                         <p class="text-white">
                             {{ $performance->getArtist()->getArtistName() }}<br />{{ date('H:i', strtotime($performance->getStartDateTime())) }}
                             - {{ date('H:i', strtotime($performance->getEndDateTime())) }}
@@ -111,10 +111,6 @@
                 </div>
             @endforeach
         </div>
-
-
-
-
         <div class="container mx-auto px-4 py-8">
             <div class="grid grid-cols-3 gap-4">
                 @foreach ($dayWithPerformances['performances'] as $performance)
@@ -131,7 +127,6 @@
                     @endif
                 @endforeach
             </div>
-
         </div>
     @endforeach
     <p>add footer</p>

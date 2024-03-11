@@ -8,11 +8,19 @@ CREATE TABLE FestivalEvent (
     EndDate DATE
 );
 
+
+ALTER TABLE FestivalEvent
+    MODIFY COLUMN StartDate DATETIME,
+    MODIFY COLUMN EndDate DATETIME;
+
+
 INSERT INTO FestivalEvent (Name, Description, ImgPath, StartDate, EndDate)
 VALUES ('Haarlem Jazz', 'Haarlem Jazz, a cornerstone of our city\'s festival calendar, comes alive as we revive past echoes at Patronaat. Join us in this musical journey, where renowned bands recreate the festival\'s essence. Feel the vibrant rhythms and melodies on Sunday at Grote Markt, where bands perform for all, free of charge!', '/img/jazz/jazzHeader.png', '2023-07-27', '2023-07-31');
 
+
 ALTER TABLE FestivalEvent
     ADD COLUMN Title VARCHAR(255);
+
 
 UPDATE FestivalEvent
 SET Title = 'Festival in Haarlem 2023 schedule'
