@@ -191,6 +191,9 @@
             </div>
         </div>
     </section>
+    <section>
+        @extends('main.footer')
+    </section>
 </body>
 
 </html>

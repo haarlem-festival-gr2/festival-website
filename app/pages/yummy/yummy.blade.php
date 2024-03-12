@@ -252,7 +252,7 @@
                     <div class="col-span-6 p-2 row-span-4">
                         <img src="img/yummy/yummyCaféDeRoemer.png"
                             alt="A view of the inside of the Ratatouile restaurant, showing multiple seats, fancy lightning and some paintings."
-                            class="w-full shadow-lg rounded-3xl"/>
+                            class="w-full shadow-lg rounded-3xl" />
                     </div>
                 </div>
             </div>
@@ -272,6 +272,9 @@
 
             <!-- Restaurant W/Image Left End -->
         </div>
+    </section>
+    <section>
+        @extends('main.footer')
     </section>
 </body>
 
