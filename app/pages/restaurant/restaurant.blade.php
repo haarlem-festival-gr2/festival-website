@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Restaurant</title>
+    <title>{{ $restaurant->Title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"
@@ -22,62 +22,50 @@
     <section>
         <!-- Header -->
         @include('restaurant.restaurantHeader', [
-            'image' => 'img/yummy/RatatouileHeader.png',
-            'alt' => 'The Grote Markt which has people walking and restaurant stalls.',
-            'title' => 'Ratatouille!',
-            'subtitle' => 'Food & Wine',
+            'image' => $restaurant->HeaderImg,
+            'alt' => $restaurant->HeaderAlt,
+            'title' => $restaurant->Title,
+            'subtitle' => $restaurant->SubTitle,
         
-            'category1' => 'French',
-            'category2' => 'Fish & Seafood',
-            'category3' => 'European',
+            'category1' => $restaurant->Category1,
+            'category2' => $restaurant->Category2,
+            'category3' => $restaurant->Category3,
         ])
     </section>
     <section>
         <!-- Information-->
         <div class="grid grid-cols-10 mt-8 text-center text-3xl relative">
             @include('restaurant.restaurantInformation', [
-                'location' => 'Spaarne 96, 2011 CL Haarlem',
+                'location' => $restaurant->Location,
             
-                'filledStars' => 4,
+                'filledStars' => $restaurant->Stars,
             
-                'image1' => 'img/yummy/RatatouileFood1.png',
-                'alt1' => 'A fancy dish being displayed on a fancy plate.',
-                'image2' => 'img/yummy/RatatouileFood2.png',
-                'alt2' => 'Food on a grill looking tasty.',
-                'image3' => 'img/yummy/RatatouileFood3.png',
-                'alt3' => 'Fancy looking dish.',
+                'image1' => $restaurant->FoodImg1,
+                'alt1' => $restaurant->FoodAlt1,
+                'image2' => $restaurant->FoodImg2,
+                'alt2' => $restaurant->FoodAlt2,
+                'image3' => $restaurant->FoodImg3,
+                'alt3' => $restaurant->FoodAlt3,
             
                 'sessions' => '3 a day',
                 'sessionTime' => '2 hours',
-                'startTime' => 'session starts',
                 'startHour' => '17:00',
                 'seats' => 52,
             
-                'category1' => 'French',
-                'category2' => 'Fish & Seafood',
-                'category3' => 'European',
-                'priceAdult' => '45.00',
-                'priceChild' => '22.50',
+                'category1' => $restaurant->Category1,
+                'category2' => $restaurant->Category2,
+                'category3' => $restaurant->Category3,
+                'priceAdult' => number_format($restaurant->AdultPrice, 2),
+                'priceChild' => number_format($restaurant->ChildPrice, 2),
             ])
         </div>
 
         <!-- Cook along -->
         @include('restaurant.restaurantCookAlong', [
-            'image' => 'img/yummy/RatatouileRecipe.png',
-            'alt' => 'The dish called Ratatouile being displayed.',
+            'image' => $restaurant->RecipeImg,
+            'alt' => $restaurant->RecipeAlt,
             'title' => 'Cook along!',
-            'steps' => [
-                'Preheat oven to 190˚C.',
-                'Slice eggplant, tomatoes, squash, and zucchini into approximately 1-mm rounds.',
-                'Make sauce: Sauté onion, garlic, and bell peppers in olive oil until soft. Add crushed tomatoes, season, and stir in basil.',
-                'Arrange veggies in alternating slices on sauce. Season.',
-                'Make herb seasoning: Mix basil, garlic, parsley, thyme, salt, pepper, and olive oil. Spoon over veggies.',
-                'Cover with foil and bake for 40 minutes.',
-                'Uncover and bake for an additional 20 minutes until veggies are softened.',
-                'Serve hot as a main or side.',
-                'Reheat covered with foil at 180˚ C for 15 minutes or microwave.',
-                'Enjoy!',
-            ],
+            'steps' => $restaurant->Recipe,
         ])
 
         <!-- Schedule -->
@@ -169,10 +157,10 @@
 
                 <!-- Right side: Restaurant Contact Details -->
                 @include('restaurant.restaurantContactDetails', [
-                    'address' => 'Spaarne 96, 2011 CL Haarlem',
-                    'telephone' => '023 542 7270',
-                    'email' => 'info@ratatouillefoodandwine.nl',
-                    'chamber' => '58174923',
+                    'address' => $restaurant->Location,
+                    'telephone' => $restaurant->Telephone,
+                    'email' => $restaurant->Email,
+                    'chamber' => $restaurant->ChamberOfCommerce,
                 ])
                 <div class="grid grid-cols-2 col-span-2">
                     <div class="col-span-1 flex justify-center">

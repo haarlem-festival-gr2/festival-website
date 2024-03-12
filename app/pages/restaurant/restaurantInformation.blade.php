@@ -50,7 +50,7 @@
             <i class="fa-sharp fa-regular fa-clock fa-2xl" style="color: #c026d3;"></i>
             <!--Clock Icon-->
             <h1 class="mt-6">Start Time</h1>
-            <h1>{{ $startTime }}</h1>
+            <h1>session starts</h1>
             <h1><b>{{ $startHour }}</b></h1>
         </div>
         <div class="col-span-1 row-spawn-2 mt-12">
