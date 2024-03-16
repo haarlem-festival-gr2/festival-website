@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login/Create account</title>
+    <title>Haarlem festival | @yield('title', 'Login')</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="/css/style.css" rel="stylesheet" />

@@ -1,5 +1,7 @@
 @extends('login.layout')
 
+@section('title', 'Your Account')
+
 @section('content')
     <div class="flex flex-col gap-2">
         <h1 class="text-3xl font-semibold">Welcome {{ $user }}</h1>

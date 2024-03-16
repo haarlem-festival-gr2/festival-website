@@ -21,7 +21,7 @@ class ResetTokenService extends BaseService
     {
         $data = $this->repository->verify_token($token);
 
-        if (!$data) {
+        if (! $data) {
             return false;
         } else {
         }
