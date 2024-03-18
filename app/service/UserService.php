@@ -50,7 +50,7 @@ class UserService extends BaseService
             return UserServiceError::INVALID_EMAIL;
         }
 
-        if ($password == '' || $username == '' || $name = '') {
+        if ($password == '' || $username == '' || $name == '') {
             return UserServiceError::ERR_USER_IS_A_TEAPOT; // for editing my html client side
         }
 
