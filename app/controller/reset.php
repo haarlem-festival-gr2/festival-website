@@ -16,16 +16,31 @@ Route::serve('/reset', function (array $props) {
     }
 });
 
-Route::serve('/reset', function (array $props) {
-    $service = new ResetTokenService();
-    $password = $props['password'];
-    $passwordConfirm = $props['password_c'];
-    $token = $props['token'];
+Route::serve('/reset', function (array $props)   {
+    if ($props['action'] === 'Send recovery email') {
+        $service = new ResetTokenService();
+        $email = $props['email'];
+        $service->sendRecoveryEmail($email);
+        echo "If we find your email in our database, we will send you an email";
+    } else {
+        $service = new ResetTokenService();
+        $password = $props['password'];
+        $passwordConfirm = $props['password_c'];
+        $token = $props['token'];
 
-    if ($password != $passwordConfirm) {
-        echo 'Passwords dont match';
-        exit;
+        if ($password != $passwordConfirm) {
+            echo 'Passwords dont match';
+            exit;
+        }
+
+        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+
+        $res = $service->setNewPassword($token, $passwordHash);
+
+        if (! $res) {
+            echo "Something went wrong";
+        } else {
+            Route::redirect("/login");
+        }
     }
-
-    $service->setNewPassword($token, $password);
 }, Method::POST);

@@ -81,7 +81,6 @@ class Route
     private static function get_paths(): array
     {
         $url = parse_url($_SERVER['REQUEST_URI']);
-        var_dump($url);
 
         return $url;
     }

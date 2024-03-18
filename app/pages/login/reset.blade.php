@@ -26,8 +26,7 @@
         <div class="flex flex-col">
             <input type="submit" name="action" value="Send recovery email"
                 class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100 h-10" />
-            <p class="text-red-700" id="error"></p>
-            <p class="text-green-700" id="success"></p>
+            <p class="text-green-700" id="error"></p>
         </div>
     </form>
 </body>

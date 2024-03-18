@@ -63,12 +63,12 @@ class UserService extends BaseService
         return $this->repository->get_with_cred($email);
     }
 
-    public function resetPassword(string $email): bool
+    public function sendRecoveryEmail(string $email): void
     {
         $user = $this->repository->get_with_cred($email);
 
         if (! $user) {
-            return false;
+            return; // exit
         }
 
         $curl = curl_init('https://api.resend.com/emails');
@@ -95,10 +95,8 @@ class UserService extends BaseService
         $res = curl_exec($curl);
 
         if ($res) {
-
-            return $res; // true
+            
         } else {
-            return $res; // false
         }
     }
 }
