@@ -6,8 +6,16 @@ class Session
 {
     public int $SessionID;
     public int $RestaurantID;
-    public string $StartingHour;
-    public int $MaxSeats;
-    public string $RemainingSeats;
-    public string $Duration;
+    public int $DayID;
+    public string $Name;
+    public string $Description;
+    public string $StartDateTime;
+    public string $EndDateTime;
+    public int $TotalSeats;
+    public int $RemainingSeats;
+
+    public function getDayID(): int
+    {
+        return $this->DayID;
+    }
 }

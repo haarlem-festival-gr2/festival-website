@@ -47,16 +47,16 @@
                 'image3' => $restaurant->FoodImg3,
                 'alt3' => $restaurant->FoodAlt3,
             
-                'sessions' => '3 a day',
-                'sessionTime' => '2 hours',
-                'startHour' => '17:00',
-                'seats' => 52,
+                'sessions' => $restaurant->SessionsADay,
+                'sessionTime' => $restaurant->SessionsDuration,
+                'startHour' => $restaurant->SessionsStartTime,
+                'seats' => $restaurant->SessionsTotalSeats,
             
                 'category1' => $restaurant->Category1,
                 'category2' => $restaurant->Category2,
                 'category3' => $restaurant->Category3,
-                'priceAdult' => number_format($restaurant->AdultPrice, 2),
-                'priceChild' => number_format($restaurant->ChildPrice, 2),
+                'priceAdult' => number_format($restaurant->PriceAdult, 2),
+                'priceChild' => number_format($restaurant->PriceChild, 2),
             ])
         </div>
 
@@ -75,46 +75,13 @@
                 <h1 class="text-4xl p-2 font-bold text-center">Schedule</h1>
             </div>
             <div class="grid grid-cols-4 col-span-6 mt-4 p-2 bg-amber-400 shadow-lg rounded-3xl">
-                <!-- Day 1 -->
-                @include('restaurant.restaurantScheduleBox', [
-                    'date' => '25th of July',
-                    'day' => 'Thursday',
-                    'sessions' => [
-                        ['time' => '17:00', 'name' => 'Session 1'],
-                        ['time' => '19:00', 'name' => 'Session 2'],
-                        ['time' => '21:00', 'name' => 'Session 3'],
-                    ],
-                ])
-                <!-- Day 2 -->
-                @include('restaurant.restaurantScheduleBox', [
-                    'date' => '26th of July',
-                    'day' => 'Friday',
-                    'sessions' => [
-                        ['time' => '17:00', 'name' => 'Session 1'],
-                        ['time' => '19:00', 'name' => 'Session 2'],
-                        ['time' => '21:00', 'name' => 'Session 3'],
-                    ],
-                ])
-                <!-- Day 3 -->
-                @include('restaurant.restaurantScheduleBox', [
-                    'date' => '27th of July',
-                    'day' => 'Saturday',
-                    'sessions' => [
-                        ['time' => '17:00', 'name' => 'Session 1'],
-                        ['time' => '19:00', 'name' => 'Session 2'],
-                        ['time' => '21:00', 'name' => 'Session 3'],
-                    ],
-                ])
-                <!-- Day 4 -->
-                @include('restaurant.restaurantScheduleBox', [
-                    'date' => '28th of July',
-                    'day' => 'Sunday',
-                    'sessions' => [
-                        ['time' => '17:00', 'name' => 'Session 1'],
-                        ['time' => '19:00', 'name' => 'Session 2'],
-                        ['time' => '21:00', 'name' => 'Session 3'],
-                    ],
-                ])
+                @foreach ($restaurantSessions as $sessionInfo)
+                    @include('restaurant.restaurantScheduleBox', [
+                        'date' => $sessionInfo['date'],
+                        'day' => $sessionInfo['day'],
+                        'sessions' => $sessionInfo['sessions'],
+                    ])
+                @endforeach
             </div>
         </div>
 

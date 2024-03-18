@@ -20,4 +20,14 @@ class RestaurantService extends BaseService
     {
         return $this->repository->getRestaurantById($id);
     }
+
+    public function getSessionsByRestaurantId(int $restaurantId): array
+    {
+        return $this->repository->getSessionsByRestaurantId($restaurantId);
+    }
+
+    public function getYummyEventDays(): array
+    {
+        return $this->repository->getYummyEventDays();
+    }
 }
