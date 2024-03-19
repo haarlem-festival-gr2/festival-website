@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -11,16 +12,45 @@
     <link href="/css/jazzStyles.css" rel="stylesheet">
 </head>
 <body class="font-montserrat">
+
+<!-- temporary stuff -->
 <p>add nav bar</p>
+<p>add footer</p>
 @if($user)
     <p>user is logged in. Role: {{$user->Role}}</p>
 @else
     <p>user is not logged in</p>
 @endif
-<div class="mt-4">
-<a href="/managePerformances" class="px-4 py-2 mx-2 my-1 bg-blue-500 text-white rounded-md font-medium hover:bg-blue-600">Admin</a>
-</div>
 
+<nav class="bg-yellow-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex-shrink-0 flex items-center">
+                <a href="/login" class="text-black text-base font-bold">Login</a>
+            </div>
+            <div class="flex-shrink-0 flex items-center">
+                <a href="/manageUsers" class="text-red-500 text-base font-bold">Manage Users</a>
+            </div>
+            <div class="flex-shrink-0 flex items-center">
+                <a href="/manageVenues" class="text-black text-base font-bold">Manage Venues</a>
+            </div>
+            <div class="flex-shrink-0 flex items-center">
+                <a href="/manageArtists" class="text-black text-base font-bold">Manage Artists</a>
+            </div>
+            <div class="flex-shrink-0 flex items-center">
+                <a href="/managePerformances" class="text-black text-base font-bold">Manage Performances</a>
+            </div>
+            <div class="flex-shrink-0 flex items-center">
+                <a href="/manageJazzPasses" class="text-black text-base font-bold">Manage Passes</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- delete later -->
+
+
+<!-- make sections-->
+<!-- header-->
 <div class="relative w-full">
     <img src="{{ $festivalEvent->getImgPath() }}" alt="{{ $festivalEvent->getFestivalEventName() }}" class="w-full"/>
     <div class="absolute inset-0 flex flex-col justify-center items-center p-8 text-center text-white">
@@ -46,13 +76,17 @@
         {{ $festivalEvent->getTitle() }}
     </h2>
 </div>
-@foreach ($eventDays as $index => $eventDay)
+
+
+@foreach ($eventDays as $dayNumber => $eventDay)
+
+    <!-- schedule header-->
     <div class="p-4 bg-[#B92090] text-center">
         <h3 class="text-2xl text-white font-bold">
-            DAY {{ $index + 1 }} -
-            {{ date('l, F jS', strtotime($eventDay['day']->Date),) }} 📍
+            DAY {{ $dayNumber + 1 }} -
+            {{ date('l, F jS', strtotime($eventDay['day']->Date)) }} 📍
             <span class="tooltip relative inline cursor-pointer">
-                     <u class="underline">{{ $eventDay['day']->Venue->Name }}</u>
+                <u class="underline">{{ $eventDay['day']->Venue->Name }}</u>
                      <span class="tooltiptext absolute z-10 bg-[#B92090] text-white text-base rounded-md p-2 w-56 -translate-x-1/2 left-1/2 transform transition-opacity duration-300">
                         {{ $eventDay['day']->Venue->Name }}<br/>
                         {{ $eventDay['day']->Venue->Address }}<br/>
@@ -61,12 +95,16 @@
                              {{ $eventDay['day']->Note }}
                          @endif
                     </span>
-                </span>
+            </span>
         </h3>
     </div>
+
+
     <div class="relative">
         <img src="{{ $eventDay['day']->ImgPath }}" alt="Jazz Day Image"
              class="w-full filter brightness-40"/>
+
+        <!-- schedule-->
         @foreach ($eventDay['performances'] as $index => $performance)
             <div class="absolute top-[calc(10px+{{ $index * 80 }}px)] left-0 w-full p-2 box-border">
                 <div class="flex justify-between items-center bg-black bg-opacity-40 p-2.5">
@@ -82,6 +120,8 @@
                             - Free!
                         @endif
                     </p>
+
+                    <!-- button (and for artist's page as well) inside schedule?-->
                     <button
                             class="px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs ml-44 mr-[2rem] w-48 bg-yellow-400 text-black"
                             onclick="addTicketToProgram(this)"
@@ -92,9 +132,12 @@
                             {{ $performance->AvailableTickets < $performance->TotalTickets * 0.1 ? 'disabled' : '' }}>
                         Add a ticket to personal program
                     </button>
+
                 </div>
             </div>
         @endforeach
+
+        <!-- passes-->
         @php $passesStartOffset = count($eventDay['performances']) * 80 + 40; @endphp
         @foreach ($eventDay['passes'] as $index => $pass)
             <div class="absolute top-[calc({{ $passesStartOffset }}px+{{ $index * 80 }}px)] left-0 w-full p-2 box-border">
@@ -116,7 +159,11 @@
                 </div>
             </div>
         @endforeach
+        <!-- end-->
+
     </div>
+
+    <!-- artists-->
     <div class="container mx-auto px-4 py-8">
         <div class="grid grid-cols-3 gap-4">
             @foreach ($eventDay['performances'] as $performance)
@@ -134,7 +181,8 @@
             @endforeach
         </div>
     </div>
+    <!-- end-->
 @endforeach
-<p>add footer</p>
+
 </body>
 </html>

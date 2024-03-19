@@ -4,14 +4,20 @@
         <span class="text-2xl font-bold">Admin Panel</span>
     </h1>
     <nav>
-        <a href="/managePerformances" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
-            Manage Performances
+        <a href="/manageJazzDays" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+            Manage Days
         </a>
         <a href="/manageVenues" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
             Manage Venues
         </a>
+        <a href="/manageJazzPasses" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+            Manage Passes
+        </a>
         <a href="/manageArtists" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
             Manage Artists
+        </a>
+        <a href="/managePerformances" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
+            Manage Performances
         </a>
     </nav>
 </div>

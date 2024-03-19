@@ -6,6 +6,15 @@ use service\JazzService;
 
 require_once __DIR__.'/../service/JazzService.php';
 
+Route::serve('/manageVenues', function (array $props) {
+    $jazzService = new JazzService();
+
+    $jazzDays = $jazzService->getAllJazzDays();
+    Route::render('admin.jazz.manageDays', [
+        'jazzDays' => $jazzDays,
+    ]);
+}, Method::GET);
+
 Route::serve('/manageJazzDays', function (array $props) {
     $jazzService = new JazzService();
 
@@ -38,5 +47,5 @@ Route::serve('/manageJazzDays', function (array $props) {
                 $jazzService->deleteJazzDay($props['jazzday_id']);
         }
     }
-    Route::redirect('/manageVenues');
+    Route::redirect('/manageDays');
 }, Method::POST);

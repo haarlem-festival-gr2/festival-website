@@ -149,6 +149,7 @@ class JazzService extends BaseService
     {
         $imgPath = NULL;
             // Validate the file (size, type, etc.)
+        // change the size of image
             if ($image['size'] < 5000000) { // For example, less than 5MB
                 $validTypes = ['image/jpeg', 'image/png'];
                 if (in_array($image['type'], $validTypes)) {
