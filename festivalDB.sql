@@ -68,9 +68,9 @@ WHERE ArtistID = 11;
 
 UPDATE Artist
 SET Bio = 'Known for her timeless voice, Dutch singer and songwriter Lilith Merlot has been enchanted by harmony and melody from a young age. Her mother was a classical violinist and, as a young girl, Lilith often joined her mother on tour through Europe. During her Jazz vocals studies at the Rotterdam Conservatory, Lilith performed in front of American singer Renée Neufville, who remarked: “Your voice is just like a Merlot; it’s so warm, deep, and round”. This inspired Lilith to use Merlot as her stage name. Since releasing her debut EP in 2017, Lilith has been experimenting with various genres, from Jazz to Pop and Soul, influenced by Lizz Wright, Jeff Buckley, and Norah Jones, to name a few, creating music reminiscent of Nina Simone, Melody Gardot, and Madeleine Peyroux. With nearly 5 million streams across platforms, her music has aired across a number of stations under the established Netherlands public broadcaster NPO, earning spins on NPO Soul & Jazz, NPO 3FM Radio and Sublime FM.',
-    HeaderImg = '/img/artists/lilithMerlotHeader.png',
-    ArtistImg1 = '/img/artists/lilithMerlot1.png',
-    ArtistImg2 = '/img/artists/lilithMerlot2.png'
+    HeaderImg = '/img/jazz/artists/lilithMerlotHeader.png',
+    ArtistImg1 = '/img/jazz/artists/lilithMerlot1.png',
+    ArtistImg2 = '/img/jazz/artists/lilithMerlot2.png'
 WHERE Name = 'Lilith Merlot';
 
 UPDATE Artist
@@ -95,6 +95,11 @@ SET PerformanceImg =
         WHEN ArtistID = 18 THEN '/img/jazz/performances/theNordanians.png'
         WHEN ArtistID = 19 THEN '/img/jazz/performances/lilithMerlot.png'
     END;
+
+
+UPDATE Artist
+SET Bio = 'some bio'
+WHERE ArtistID NOT IN (11, 19);
 
 
 CREATE TABLE Venue (
@@ -280,3 +285,103 @@ VALUES (80.00, '2023-07-26', '2023-07-28', 'All-Access pass for Thu,Fri, Sat: �
     (35.00,'2023-07-28', '2023-07-28', 'All-Access pass for this day €35,00');
 
 
+INSERT INTO Album (ArtistID, SpotifyID) VALUES
+                                            (2, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (2, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (2, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (3, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (3, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (3, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (4, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (4, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (4, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (5, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (5, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (5, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (6, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (6, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (6, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (7, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (7, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (7, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (8, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (8, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (8, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (9, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (9, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (9, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (10, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (10, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (10, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (12, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (12, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (12, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (13, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (13, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (13, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (14, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (14, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (14, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (15, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (15, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (15, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (16, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (16, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (16, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (17, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (17, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (17, '0B7DKUR00yRXncWrlQwIR6'),
+                                            (18, '7oBC2PuPSvXkLEZdoCxsv5'),
+                                            (18, '18g4jSwIbYcbJI5U7PIzMz'),
+                                            (18, '0B7DKUR00yRXncWrlQwIR6');
+
+INSERT INTO Song (ArtistID, SpotifyID) VALUES
+                                           (2, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (2, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (2, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (3, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (3, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (3, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (4, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (4, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (4, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (5, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (5, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (5, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (6, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (6, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (6, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (7, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (7, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (7, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (8, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (8, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (8, '1otrWVcbCxemNnn7eiKW1P'),
+
+                                           (9, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (9, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (9, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (10, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (10, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (10, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (12, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (12, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (12, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (13, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (13, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (13, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (14, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (14, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (14, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (15, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (15, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (15, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (16, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (16, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (16, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (17, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (17, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (17, '1otrWVcbCxemNnn7eiKW1P'),
+                                           (18, '6XQHlsNu6so4PdglFkJQRJ'),
+                                           (18, '2VvDKx7lzdarObpQFn1iAh'),
+                                           (18, '1otrWVcbCxemNnn7eiKW1P');

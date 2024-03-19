@@ -3,6 +3,7 @@
 namespace repository;
 
 require_once __DIR__.'/../model/FestivalEvent.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
 
 class FestivalEventRepository extends BaseRepository
 {

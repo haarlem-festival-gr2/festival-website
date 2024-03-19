@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Login/Create account</title>
+    <title>Reset account password</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="/css/style.css" rel="stylesheet" />
@@ -22,17 +22,11 @@
                 Email
                 <input id="email" type="email" name="email" class="border border-black rounded p-2" required />
             </label>
-            <label for="password" class="flex flex-col">
-                Password
-                <input id="password" type="password" name="password" class="border border-black rounded p-2" required />
-            </label>
         </div>
         <div class="flex flex-col">
-            <input type="submit" name="action" value="Login"
+            <input type="submit" name="action" value="Send recovery email"
                 class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100 h-10" />
-            <p class="text-red-700" id="error"></p>
-            <a class="text-gray-600 hover:underline" href="/register">Register for a new account</a>
-            <a class="text-gray-600 hover:underline" href="/reset">Forgot password? Reset it here</a>
+            <p class="text-green-700" id="error"></p>
         </div>
     </form>
 </body>

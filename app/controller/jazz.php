@@ -4,7 +4,6 @@ use Core\Route\Route;
 use service\FestivalEventService;
 use service\JazzService;
 
-require_once __DIR__.'/../repository/BaseRepository.php';
 require_once __DIR__.'/../service/FestivalEventService.php';
 require_once __DIR__.'/../service/JazzService.php';
 
@@ -15,21 +14,7 @@ Route::serve('/jazz', function (array $props) {
     $user = Route::auth();
 
     $festivalEvent = $festivalEventService->getFestivalEventByName('Haarlem Jazz');
-    $jazzDays = $jazzService->getAllJazzDays();
-
-    $jazzDaysWithPerformances = [];
-
-    foreach ($jazzDays as $day) {
-        $performancesForDay = $jazzService->getPerformancesByJazzDay($day->getDayId());
-        $venue = $jazzService->getVenueById($day->getVenueID());
-        $jazzPasses = $jazzService->getJazzPassesByDate($day->getDate());
-        $jazzDaysWithPerformances[] = [
-            'day' => $day,
-            'venue' => $venue,
-            'performances' => $performancesForDay,
-            'passes' => $jazzPasses,
-        ];
-    }
+    $eventDays = $jazzService->getEventDaysWithDetails();
 
     //if (!$user) {
     //   Route::redirect('/login');
@@ -37,7 +22,7 @@ Route::serve('/jazz', function (array $props) {
 
     Route::render('jazz.jazz', [
         'festivalEvent' => $festivalEvent,
-        'jazzDaysWithPerformances' => $jazzDaysWithPerformances,
+        'eventDays' => $eventDays,
         'user' => $user,
     ]);
 });
