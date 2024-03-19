@@ -120,8 +120,8 @@
                     <tr class="hover:bg-gray-100">
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <a href="#" class="text-indigo-600 hover:text-indigo-900 edit-btn">Edit</a>
-                            <form action="/manageVenues" method="POST" onsubmit="return confirm('Are you sure you want to delete this venue?');">
-                                <input type="hidden" name="action" value="delete">
+                            <form action="/manageVenues/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this venue?');">
+                                <!--<input type="hidden" name="action" value="delete">-->
                                 <input type="hidden" name="venue_id" value="{{ $venue->VenueID }}">
                                 <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
                             </form>
@@ -133,8 +133,8 @@
                     </tr>
                     <tr class="edit-form hidden">
                         <td colspan="5">
-                            <form action="/manageVenues" method="POST" class="w-full">
-                                <input type="hidden" name="action" value="edit">
+                            <form action="/manageVenues/edit" method="POST" class="w-full">
+                                <!--<input type="hidden" name="action" value="edit">-->
                                 <input type="hidden" name="venue_id" value="{{ $venue->VenueID }}">
                                 <div class="grid grid-cols-5 gap-4">
                                     <div class="col-span-1">
@@ -160,9 +160,9 @@
         </div>
         <div class="my-4">
             <h2 class="text-lg font-semibold mb-2">Add New Venue</h2>
-            <form action="/manageVenues" method="POST">
+            <form action="/manageVenues/create" method="POST">
                 <div class="grid grid-cols-3 gap-4 mb-4">
-                    <input type="hidden" name="action" value="create">
+                    <!--<input type="hidden" name="action" value="create">-->
                     <input type="text" name="name" placeholder="Venue Name" required class="p-2 border rounded">
                     <input type="text" name="address" placeholder="Address" required class="p-2 border rounded">
                     <input type="text" name="contact_details" placeholder="Contact Details" class="p-2 border rounded">
