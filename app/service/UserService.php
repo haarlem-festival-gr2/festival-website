@@ -99,6 +99,13 @@ class UserService extends BaseService
         } else {
         }
     }
+
+
+    public function deleteUser($userId)
+    {
+        $this->repository->deleteUser($userId);
+        exit();
+    }
 }
 
 

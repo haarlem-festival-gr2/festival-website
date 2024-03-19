@@ -3,7 +3,7 @@
 use Core\Route\Route;
 
 Route::serve('/updateUser', function (array $props) {
-    Route::render('updateUser', []);
+    Route::render('manageUsers.updateUser', []);
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $userId = $_POST['userId'];
 

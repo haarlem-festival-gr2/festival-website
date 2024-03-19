@@ -26,12 +26,12 @@
                         Add Users
                     </a>
                 </li>
-                <li class="mb-4">
+                {{-- <li class="mb-4">
                     <a href="#"
                         class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg mb-2 text-lg">
                         Update Users
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </aside>
 

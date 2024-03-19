@@ -45,7 +45,7 @@
         </aside>
 
         <!-- Manage Users Section -->
-        <section class="p-4 w-4/5">
+        <section class="p-4 w-4/5 overflow-y-auto" style="max-height: calc(100vh - 100px);">
             <h2 class="text-xl font-bold mb-4">View Users List</h2>
 
             <!-- User List -->
@@ -87,14 +87,10 @@
                             <td class="border px-4 py-2">{{ $user->Role }}</td>
                             <td class="border px-4 py-2">{{ $user->Name }}</td>
                             <td class="border px-4 py-2">
-
-                                <form action="/editUser" method="GET">
-                                    <input type="hidden" name="userId" value="{{ $user->UserID }}">
-                                    <button type="submit"
-                                        class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Edit</button>
-                                    <button class="bg-red-500 text-white px-4 py-2 rounded"
-                                        onclick="confirmDelete({{ $user->UserID }})">Delete</button>
-                                </form>
+                                <button class="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                                    onclick="editUser({{ $user->UserID }})">Edit</button>
+                                <button class="bg-red-500 text-white px-4 py-2 rounded"
+                                    onclick="confirmDelete({{ $user->UserID }})">Delete</button>
 
                             </td>
                         </tr>
@@ -104,7 +100,34 @@
                 </tbody>
             </table>
         </section>
+
     </div>
+
+
+    <script>
+        function confirmDelete(userId) {
+            if (confirm("Are you sure you want to delete this user TEST?")) {
+                fetch(`/deleteUser?userId=${userId}`, {
+                        method: 'GET'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            console.error('Error deleting user');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error deleting user:', error);
+                    });
+            }
+        }
+
+
+        function editUser(userId) {
+            window.location.href = `/editUser?userId=${userId}`;
+        }
+    </script>
 
     <script>
         function searchUsers() {

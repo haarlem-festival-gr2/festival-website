@@ -3,13 +3,14 @@
 require_once __DIR__ . '/../repository/UserRepository.php';
 
 use Service\UserService;
+use Core\Route\Route;
 
 require_once __DIR__ . '/../service/UserService.php';
 
 $userService = new UserService();
 
 Route::serve('/createUser', function (array $props) {
-    Route::render('createUser', []);
+    Route::render('manageUsers.createUser', []);
 });
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

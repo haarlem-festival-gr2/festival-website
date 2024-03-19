@@ -72,5 +72,24 @@ class UserRepository extends BaseRepository
         $query = $this->connection->prepare('UPDATE User SET PasswordHash = ? WHERE Email = ?');
         $query->execute([$password, $email]);
     }
+
+    // public function deleteUser($userId)
+    // {
+    //     $query = "DELETE FROM users WHERE id = ?";
+    //     $statement = $this->db->prepare($query);
+
+    //     $statement->bind_param('i', $userId);
+
+    //     $result = $statement->execute();
+
+    //     if (!$result) {
+    //         die ('Error deleting user: ' . $this->db->error);
+    //     }
+
+    //     $statement->close();
+    // }
+
 }
+
+
 ?>

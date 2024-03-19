@@ -12,8 +12,5 @@ Route::serve('/manageUsers', function (array $props) {
     $filter = $_GET['filter'] ?? null;
     $users = $userRepository->getAllUsers($filter);
 
-    Route::render('manageUsers', ['users' => $users]);
+    Route::render('manageUsers.manageUsers', ['users' => $users]);
 });
-
-
-?>
