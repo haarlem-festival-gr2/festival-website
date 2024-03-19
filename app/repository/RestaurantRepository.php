@@ -13,6 +13,16 @@ require_once __DIR__ . '/../model/YummyEventDays.php';
 
 class RestaurantRepository extends BaseRepository
 {
+    public function getAllRestaurants(): array
+    {
+        $query = $this->connection->prepare('SELECT * FROM Restaurant');
+        $query->execute();
+
+        $restaurants = $query->fetchAll(\PDO::FETCH_CLASS, "\Model\Restaurant");
+
+        return $restaurants;
+    }
+
     public function getRestaurantById(int $id): ?Restaurant
     {
         $query = $this->connection->prepare('SELECT * FROM Restaurant WHERE RestaurantID = ?');

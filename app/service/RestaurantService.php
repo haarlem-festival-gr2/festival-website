@@ -4,8 +4,8 @@ namespace service;
 
 use Repository\RestaurantRepository;
 
-require_once __DIR__.'/../service/BaseService.php';
-require_once __DIR__.'/../repository/RestaurantRepository.php';
+require_once __DIR__ . '/../service/BaseService.php';
+require_once __DIR__ . '/../repository/RestaurantRepository.php';
 
 class RestaurantService extends BaseService
 {
@@ -14,6 +14,11 @@ class RestaurantService extends BaseService
     public function __construct()
     {
         $this->repository = new RestaurantRepository();
+    }
+
+    public function getAllRestaurants(): array
+    {
+        return $this->repository->getAllRestaurants();
     }
 
     public function getRestaurantById(int $id): mixed

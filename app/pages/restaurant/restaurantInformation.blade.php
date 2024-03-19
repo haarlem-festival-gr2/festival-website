@@ -36,7 +36,7 @@
     <div class="grid grid-cols-4 bg-amber-400 h-full rounded-2xl shadow-lg">
         <div class="col-span-1 row-spawn-2 mt-12">
             <i class="fa-sharp fa-solid fa-calendar-week fa-2xl" style="color: #c026d3;"></i>
-            <!--3 Icon-->
+            <!--Calendar Icon-->
             <h1 class="mt-6">Sessions</h1>
             <h1><b>{{ $sessions }}</b></h1>
         </div>
