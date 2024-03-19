@@ -1,22 +1,11 @@
 <?php
 
-use Core\Route\Method;
 use Core\Route\Route;
-use Repository\UserRepository;
 
 require_once __DIR__.'/../repository/BaseRepository.php';
 require_once __DIR__.'/../repository/UserRepository.php';
 
 Route::serve('/index', function (array $props) {
-    var_dump($props);
-    var_dump($_SESSION);
-    $name = 'Welcome to our festival website!';
-    Route::render('hello', ['greet' => $name, 'pupils' => ['Ollibolen', 'Poferages', 'I am so sorry for the spellings']]);
-    $repo = new UserRepository();
-    var_dump($repo->get_all());
+    echo "<h1>This is a WIP</h1>";
+    echo '<a href="/login">login</a>';
 });
-
-Route::serve('/index', function (array $props) {
-    $name = 'postman';
-    Route::json(['greet' => $name]);
-}, Method::POST);

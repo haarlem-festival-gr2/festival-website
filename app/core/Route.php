@@ -81,7 +81,6 @@ class Route
     private static function get_paths(): array
     {
         $url = parse_url($_SERVER['REQUEST_URI']);
-        var_dump($url);
 
         return $url;
     }
@@ -153,6 +152,16 @@ class Route
         });
 
         echo $blade->render($page, $data);
+    }
+
+    /**
+     * @param  array<string,mixed>  $data
+     */
+    public static function template(string $page, array $data): string
+    {
+        $blade = self::get_blade();
+
+        return $blade->render($page, $data);
     }
 
     /**

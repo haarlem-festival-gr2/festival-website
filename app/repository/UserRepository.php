@@ -24,4 +24,10 @@ class UserRepository extends BaseRepository
         $query = $this->connection->prepare('INSERT INTO User (Email, PasswordHash, Username, Name, Role) VALUES (?,?,?,?,\'user\')');
         $query->execute([$email, $password, $username, $name]);
     }
+
+    public function set_new_password(string $email, string $password): void
+    {
+        $query = $this->connection->prepare('UPDATE User SET PasswordHash = ? WHERE Email = ?');
+        $query->execute([$password, $email]);
+    }
 }
