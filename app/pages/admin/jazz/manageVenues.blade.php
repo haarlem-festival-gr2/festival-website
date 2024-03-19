@@ -12,77 +12,7 @@
 <div class="flex">
     @include('admin.jazz.jazzAdminSidebar')
     <div class="flex-1" style="margin-left: 16rem;">
-        <div class="p-4">
-            <h1 class="text-2xl font-bold mb-4">Manage Venues and Jazz Days</h1>
-            <h2 class="text-lg font-semibold mb-2">Manage Venues</h2>
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Venue ID</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact Details</th>
-                </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                @foreach ($venues as $venue)
-                    <tr class="hover:bg-gray-100">
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900 edit-btn">Edit</a>
-                            <form action="/manageVenues" method="POST" onsubmit="return confirm('Are you sure you want to delete this venue?');">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="venue_id" value="{{ $venue->VenueID }}">
-                                <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                            </form>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $venue->VenueID }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $venue->Name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $venue->Address }}</td>
-                        <td class="px-6 py-4 whitespace-normal break-words">{{ $venue->ContactDetails }}</td>
-                    </tr>
-                    <tr class="edit-form hidden">
-                        <td colspan="5">
-                            <form action="/manageVenues" method="POST" class="w-full">
-                                <input type="hidden" name="action" value="edit">
-                                <input type="hidden" name="venue_id" value="{{ $venue->VenueID }}">
-                                <div class="grid grid-cols-5 gap-4">
-                                    <div class="col-span-1">
-                                        <textarea name="name" class="w-full px-6 py-4 h-auto resize-y border rounded focus:outline-none focus:shadow-outline">{{ $venue->Name }}</textarea>
-                                    </div>
-                                    <div class="col-span-1">
-                                        <textarea name="address" class="w-full px-6 py-4 h-auto resize-y border rounded focus:outline-none focus:shadow-outline">{{ $venue->Address }}</textarea>
-                                    </div>
-                                    <div class="col-span-3">
-                                        <textarea name="contact_details" class="w-full px-6 py-4 h-auto resize-y border rounded focus:outline-none focus:shadow-outline">{{ $venue->ContactDetails }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="flex justify-end mt-4">
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded">Save</button>
-                                    <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded" onclick="cancelEditForm(this)">Cancel</button>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="my-4">
-            <h2 class="text-lg font-semibold mb-2">Add New Venue</h2>
-            <form action="/manageVenues" method="POST">
-                <div class="grid grid-cols-3 gap-4 mb-4">
-                    <input type="hidden" name="action" value="create">
-                    <input type="text" name="name" placeholder="Venue Name" required class="p-2 border rounded">
-                    <input type="text" name="address" placeholder="Address" required class="p-2 border rounded">
-                    <input type="text" name="contact_details" placeholder="Contact Details" class="p-2 border rounded">
-                </div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Create Venue
-                </button>
-            </form>
-        </div>
-
+        <h1 class="text-2xl font-bold mb-4">Manage Venues and Jazz Days</h1>
 
         <div class="p-4">
             <h2 class="text-lg font-semibold mb-2">Manage Jazz Days</h2>
@@ -171,6 +101,78 @@
                 </button>
             </form>
         </div>
+
+
+        <div class="p-4">
+            <h2 class="text-lg font-semibold mb-2">Manage Venues</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Venue ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact Details</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                @foreach ($venues as $venue)
+                    <tr class="hover:bg-gray-100">
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a href="#" class="text-indigo-600 hover:text-indigo-900 edit-btn">Edit</a>
+                            <form action="/manageVenues" method="POST" onsubmit="return confirm('Are you sure you want to delete this venue?');">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="venue_id" value="{{ $venue->VenueID }}">
+                                <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                            </form>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $venue->VenueID }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $venue->Name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $venue->Address }}</td>
+                        <td class="px-6 py-4 whitespace-normal break-words">{{ $venue->ContactDetails }}</td>
+                    </tr>
+                    <tr class="edit-form hidden">
+                        <td colspan="5">
+                            <form action="/manageVenues" method="POST" class="w-full">
+                                <input type="hidden" name="action" value="edit">
+                                <input type="hidden" name="venue_id" value="{{ $venue->VenueID }}">
+                                <div class="grid grid-cols-5 gap-4">
+                                    <div class="col-span-1">
+                                        <textarea name="name" class="w-full px-6 py-4 h-auto resize-y border rounded focus:outline-none focus:shadow-outline">{{ $venue->Name }}</textarea>
+                                    </div>
+                                    <div class="col-span-1">
+                                        <textarea name="address" class="w-full px-6 py-4 h-auto resize-y border rounded focus:outline-none focus:shadow-outline">{{ $venue->Address }}</textarea>
+                                    </div>
+                                    <div class="col-span-3">
+                                        <textarea name="contact_details" class="w-full px-6 py-4 h-auto resize-y border rounded focus:outline-none focus:shadow-outline">{{ $venue->ContactDetails }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end mt-4">
+                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded">Save</button>
+                                    <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded" onclick="cancelEditForm(this)">Cancel</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="my-4">
+            <h2 class="text-lg font-semibold mb-2">Add New Venue</h2>
+            <form action="/manageVenues" method="POST">
+                <div class="grid grid-cols-3 gap-4 mb-4">
+                    <input type="hidden" name="action" value="create">
+                    <input type="text" name="name" placeholder="Venue Name" required class="p-2 border rounded">
+                    <input type="text" name="address" placeholder="Address" required class="p-2 border rounded">
+                    <input type="text" name="contact_details" placeholder="Contact Details" class="p-2 border rounded">
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Create Venue
+                </button>
+            </form>
+        </div>
+
 
     </div>
 
