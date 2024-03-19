@@ -22,6 +22,7 @@ enum Method
 {
     case GET;
     case POST;
+    case DELETE;
 
     /**
      * @return array<mixed>
@@ -33,6 +34,8 @@ enum Method
                 return $_GET;
             case Method::POST:
                 return $_POST;
+            case Method::DELETE:
+                return $_GET;
         }
     }
 
@@ -44,6 +47,8 @@ enum Method
                 return $req_method == 'GET';
             case Method::POST:
                 return $req_method == 'POST';
+            case Method::DELETE:
+                return $req_method == 'DELETE';
         }
     }
 }
