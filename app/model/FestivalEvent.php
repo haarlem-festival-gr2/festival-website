@@ -16,6 +16,8 @@ class FestivalEvent
 
     private string $EndDate;
 
+    private string $Title;
+
     public function getFestivalEventID(): int
     {
         return $this->FestivalEventID;
@@ -24,6 +26,16 @@ class FestivalEvent
     public function setFestivalEventID(int $festivalEventID): void
     {
         $this->FestivalEventID = $festivalEventID;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->Title;
+    }
+
+    public function setTitle(string $title): void
+    {
+        $this->Title = $title;
     }
 
     public function getFestivalEventName(): string

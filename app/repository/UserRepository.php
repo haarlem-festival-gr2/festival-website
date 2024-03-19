@@ -66,5 +66,11 @@ class UserRepository extends BaseRepository
         $query = $this->connection->prepare('DELETE FROM User WHERE UserID = ?');
         $query->execute([$userId]);
     }
+
+    public function set_new_password(string $email, string $password): void
+    {
+        $query = $this->connection->prepare('UPDATE User SET PasswordHash = ? WHERE Email = ?');
+        $query->execute([$password, $email]);
+    }
 }
 ?>

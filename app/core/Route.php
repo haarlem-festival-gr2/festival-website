@@ -22,6 +22,7 @@ enum Method
 {
     case GET;
     case POST;
+    case DELETE;
 
     /**
      * @return array<mixed>
@@ -33,6 +34,8 @@ enum Method
                 return $_GET;
             case Method::POST:
                 return $_POST;
+            case Method::DELETE:
+                return $_GET;
         }
     }
 
@@ -44,6 +47,8 @@ enum Method
                 return $req_method == 'GET';
             case Method::POST:
                 return $req_method == 'POST';
+            case Method::DELETE:
+                return $req_method == 'DELETE';
         }
     }
 }
@@ -81,7 +86,6 @@ class Route
     private static function get_paths(): array
     {
         $url = parse_url($_SERVER['REQUEST_URI']);
-        var_dump($url);
 
         return $url;
     }
@@ -153,6 +157,16 @@ class Route
         });
 
         echo $blade->render($page, $data);
+    }
+
+    /**
+     * @param  array<string,mixed>  $data
+     */
+    public static function template(string $page, array $data): string
+    {
+        $blade = self::get_blade();
+
+        return $blade->render($page, $data);
     }
 
     /**
