@@ -2,6 +2,7 @@
 
 use Core\Route\Method;
 use Core\Route\Route;
+use Model\User;
 
 Route::serve('/login', function (array $props) {
     // require_once '/app/pages/login.html';

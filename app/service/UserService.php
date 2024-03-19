@@ -5,9 +5,9 @@ namespace Service;
 use Model\User;
 use Repository\UserRepository;
 
-require_once __DIR__.'/../repository/UserRepository.php';
-require_once __DIR__.'/../service/BaseService.php';
-require_once __DIR__.'/../model/User.php';
+require_once __DIR__ . '/../repository/UserRepository.php';
+require_once __DIR__ . '/../service/BaseService.php';
+require_once __DIR__ . '/../model/User.php';
 
 enum UserServiceError: int
 {
@@ -40,7 +40,7 @@ class UserService extends BaseService
 
     public function registerNewUser(string $email, string $password, string $username, string $name): UserServiceError|User
     {
-        if (! verifyEmail($email)) {
+        if (!verifyEmail($email)) {
             return UserServiceError::INVALID_EMAIL;
         }
 
@@ -57,3 +57,5 @@ class UserService extends BaseService
         return $this->repository->get_with_cred($email);
     }
 }
+
+
