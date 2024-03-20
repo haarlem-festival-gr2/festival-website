@@ -19,9 +19,6 @@
         <a href="/managePerformances" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
             Manage Performances
         </a>
-        <a href="/test" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">
-           test
-        </a>
     </nav>
 </div>
 </div>

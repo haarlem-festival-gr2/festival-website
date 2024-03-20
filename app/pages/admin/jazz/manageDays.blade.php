@@ -1,106 +1,71 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Manage days</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Days</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="/css/jazzStyles.css" rel="stylesheet">
 </head>
-<body class="font-montserrat">
-<div class="flex">
-    @include('admin.adminPanel')
-    <div class="flex-1 ml-64">
-        <h1 class="text-2xl font-bold mb-4">Manage Jazz days</h1>
-        <div class="p-4">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Day ID</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Venue</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Note</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image Path</th>
-                </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                @foreach ($jazzDays as $jazzDay)
-                    <tr class="hover:bg-gray-100">
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900 edit-btn">Edit</a>
-                            <form action="/manageJazzDays" method="POST" onsubmit="return confirm('Are you sure you want to delete this day?');">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="jazzday_id" value="{{ $jazzDay->DayID }}">
-                                <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                            </form>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $jazzDay->DayID }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $jazzDay->Date }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $jazzDay->Venue->Name }}</td>
-                        <td class="px-6 py-4 whitespace-normal">{{ $jazzDay->Note }}</td>
-                        <td class="px-6 py-4 whitespace-normal">
-                            @if($jazzDay->ImgPath)
-                                <img src="{{ $jazzDay->ImgPath }}" alt="Jazz Day Image" style="width: 200px; height: auto;">
-                            @else
-                                <span>No Image</span>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr class="edit-form hidden">
-                        <td colspan="5">
-                            <form action="/manageJazzDays" enctype="multipart/form-data" method="POST" class="w-full">
-                                <input type="hidden" name="action" value="edit">
-                                <input type="hidden" name="jazzday_id" value="{{ $jazzDay->DayID }}">
-                                <div class="grid grid-cols-5 gap-4">
-                                    <div class="col-span-1">
-                                        <textarea name="date" class="w-full px-6 py-4 h-auto resize-y border rounded focus:outline-none focus:shadow-outline">{{ $jazzDay->Date }}</textarea>
-                                    </div>
-                                    <div class="col-span-1">
-                                        <select name="venue_id" required class="p-2 border rounded">
-                                            @foreach ($venues as $venue)
-                                                <option value="{{ $venue->VenueID }}" @if($venue->VenueID == $jazzDay->Venue->VenueID) selected @endif>{{ $venue->Name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-span-3">
-                                        <textarea name="note" class="w-full px-6 py-4 h-auto resize-y border rounded focus:outline-none focus:shadow-outline">{{ $jazzDay->Note }}</textarea>
-                                    </div>
-                                    <input type="file" name="image" id="image" class="p-2 border rounded">
-                                </div>
-                                <div class="flex justify-end mt-4">
-                                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded">Save</button>
-                                    <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded" onclick="cancelEditForm(this)">Cancel</button>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+
+<body class="bg-gray-100 flex justify-center items-center h-screen font-montserrat">
+<div class="flex w-full justify-between">
+
+    @include('admin.jazz.panel')
+
+    <section class="p-4 w-4/5 overflow-y-auto" style="max-height: calc(100vh - 100px);">
+        <div class="flex space-x-8 items-center mb-4">
+            <h1 class="text-xl font-bold">Manage Jazz Days</h1>
+            <a href="/createJazzDay" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Create Jazz Day
+            </a>
         </div>
-        <div class="my-4">
-            <h2 class="text-lg font-semibold mb-2">Add New Jazz Day</h2>
-            <form action="/manageJazzDays" enctype="multipart/form-data" method="POST" class="w-full">
-                <div class="grid grid-cols-3 gap-4 mb-4">
-                    <input type="hidden" name="action" value="create">
-                    <input type="date" name="date" required class="p-2 border rounded">
-                    <select name="venue_id" required class="p-2 border rounded">
-                        @foreach ($venues as $venue)
-                            <option value="{{ $venue->VenueID }}">{{ $venue->Name }}</option>
-                        @endforeach
-                    </select>
-                    <input type="text" name="note" placeholder="Note" class="p-2 border rounded">
-                    <input type="file" name="image" id="image" class="p-2 border rounded">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @foreach ($jazzDays as $jazzDay)
+                <div class="bg-white shadow overflow-hidden rounded-lg">
+                    <div class="px-4 py-5 sm:px-6 flex justify-between">
+                        <h3 class="text-lg leading-6 font-semibold text-gray-900">{{ $jazzDay->Date }}</h3>
+                        <div class="flex space-x-2">
+                            <a href="/editJazzDay" class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm">Edit</a>
+                            <form action="/manageJazzDays" method="POST" onsubmit="return confirm('Are you sure you want to delete this day?');" class="block">
+                                <input type="hidden" name="id" value="{{ $jazzDay->DayID }}">
+                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-3 py-2 rounded text-sm">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200">
+                        <dl>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Day ID</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jazzDay->DayID }}</dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Venue</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jazzDay->Venue->Name }}</dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Note</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $jazzDay->Note }}</dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Image</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    @if($jazzDay->ImgPath)
+                                        <img src="{{ $jazzDay->ImgPath }}" alt="Jazz Day Image">
+                                    @else
+                                        <span>No Image</span>
+                                    @endif
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
                 </div>
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Create Jazz Day
-                </button>
-            </form>
+            @endforeach
         </div>
-    </div>
+    </section>
 </div>
+
 </body>
 </html>

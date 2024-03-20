@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Venue</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="/css/jazzStyles.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-montserrat">
+<div class="flex h-screen">
+
+@include('admin.jazz.panel')
+
+    <section class="w-4/5 p-4">
+        <div class="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
+            <h1 class="text-xl font-bold mb-4 flex justify-center">Create Venue</h1>
+            <form action="/createVenue" method="POST">
+                <div class="mb-4">
+                    <label for="name" class="block mb-2">Venue name:</label>
+                    <input type="text" id="name" name="name" placeholder="Patronaat" class="w-full border rounded-md px-3 py-2"
+                           required>
+                </div>
+                <div class="mb-4">
+                    <label for="address" class="block mb-2">Address:</label>
+                    <input type="text" id="address" name="address" class="w-full border rounded-md px-3 py-2"
+                           required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="contact_details" class="block mb-2">Contact details:</label>
+                    <textarea id="contact_details" name="contact_details" class="w-full border rounded-md px-3 py-2"></textarea>
+                </div>
+
+                <div class="flex justify-center space-x-4">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>
+                    <a href="/manageVenues" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

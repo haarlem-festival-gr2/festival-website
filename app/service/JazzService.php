@@ -4,6 +4,8 @@ namespace service;
 
 use Model\Artist;
 use model\JazzDay;
+use Model\JazzPass;
+use model\Performance;
 use model\Venue;
 use Repository\JazzRepository;
 
@@ -19,6 +21,7 @@ class JazzService extends BaseService
         $this->repository = new JazzRepository();
     }
 
+    // jazz overview page
     public function getEventDaysWithDetails(): array {
         $days = $this->repository->getAllJazzDays();
 
@@ -36,15 +39,6 @@ class JazzService extends BaseService
         }
 
         return $eventDays;
-    }
-
-    public function getArtistWithDetailsById(int $id): ?Artist
-    {
-        return $this->repository->getArtistWithDetailsById($id);
-    }
-    public function getAllArtistsWithDetails(): array
-    {
-        return $this->repository->getAllArtistsWithDetails();
     }
 
     //artist
@@ -74,24 +68,26 @@ class JazzService extends BaseService
         return $this->repository->getAllPerformances();
     }
 
+    public function getPerformanceById(int $performanceId): ?Performance{
+        return $this->repository->getPerformanceById($performanceId);
+    }
+
     // passes
     public function getJazzPassesByDate(string $date): array
     {
         return $this->repository->getJazzPassesByDate($date);
     }
 
-    // jazz days
-    public function getJazzDayById(int $id): ?JazzDay
-    {
-        return $this->repository->getJazzDayById($id);
+    public function getJazzPassById(int $id): ?JazzPass {
+        return $this->repository->getJazzPassById($id);
     }
 
-    public function getAllJazzDays(): array
+    public function getAllJazzPasses(): array
     {
-        return $this->repository->getAllJazzDays();
+        return $this->repository->getAllJazzPasses();
     }
 
-    // venue
+    // venues
     public function getVenueById(int $id): ?Venue
     {
         return $this->repository->getVenueById($id);
@@ -115,6 +111,17 @@ class JazzService extends BaseService
     public function deleteVenue(int $venueId): bool
     {
         return $this->repository->deleteVenue($venueId);
+    }
+
+    // jazz days
+    public function getJazzDayById(int $id): ?JazzDay
+    {
+        return $this->repository->getJazzDayById($id);
+    }
+
+    public function getAllJazzDays(): array
+    {
+        return $this->repository->getAllJazzDays();
     }
 
     public function updateJazzDay(int $jazzDayId, string $date, int $venueId, string $note, string $imgPath): bool

@@ -1,59 +1,81 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Manage performances</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Performances</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="/css/jazzStyles.css" rel="stylesheet">
 </head>
-<body class="font-montserrat">
-<div class="flex">
-@include('admin.adminPanel')
-    <div class="flex-1" style="margin-left: 16rem;">
-    <div class="p-4">
-        <h1 class="text-2xl font-bold mb-4">Manage Performances</h1>
-        <form action="/admin/update-performance" method="POST" class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 shadow-sm">
-                <thead class="bg-gray-50">
-                <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    <th scope="col" class="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Performance ID</th>
-                    <th scope="col" class="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Artist Name</th>
-                    <th scope="col" class="px-12 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event day and Location</th>
-                    <th scope="col" class="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Start Time</th>
-                    <th scope="col" class="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">End Time</th>
-                    <th scope="col" class="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                    <th scope="col" class="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Tickets</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Available Tickets</th>
-                </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                @foreach ($performances as $performance)
-                    <tr class="hover:bg-gray-100">
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="/admin/edit-performance/{{ $performance->PerformanceID }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                            <a href="#" onclick="deletePerformance({{ $performance->PerformanceID }})" class="text-red-600 hover:text-red-900 ml-4">Delete</a>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $performance->PerformanceID }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $performance->Artist->Name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $performance->Day->Date }} - {{ $performance->Day->Venue->Name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ date('H:i', strtotime($performance->StartDateTime)) }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ date('H:i', strtotime($performance->EndDateTime)) }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $performance->Price }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $performance->Details }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $performance->TotalTickets }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $performance->AvailableTickets }}</td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </form>
-    </div>
+
+<body class="bg-gray-100 flex justify-center items-center h-screen font-montserrat">
+<div class="flex w-full justify-between">
+
+    @include('admin.jazz.panel')
+
+    <section class="p-4 w-4/5 overflow-y-auto" style="max-height: calc(100vh - 100px);">
+        <div class="flex space-x-8 items-center mb-4">
+            <h1 class="text-xl font-bold">Manage Performances</h1>
+            <a href="/createPerformance" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Create Performance
+            </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @foreach ($performances as $performance)
+                <div class="bg-white shadow overflow-hidden rounded-lg">
+                    <div class="px-4 py-5 sm:px-6 flex justify-between">
+                        <h3 class="text-lg leading-6 font-semibold text-gray-900">{{ $performance->Artist->Name }}</h3>
+                        <div class="flex space-x-2">
+                            <a href="/editPerformance" class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm">Edit</a>
+                            <form action="/managePerformances/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this performance?');" class="block">
+                                <input type="hidden" name="id" value="{{ $performance->PerformanceID }}">
+                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-3 py-2 rounded text-sm">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-200">
+                        <dl>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Performance ID</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $performance->PerformanceID }}</dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Event day and Location</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $performance->Day->Date }} - {{ $performance->Day->Venue->Name }}</dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Start Time</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ date('H:i', strtotime($performance->StartDateTime)) }}</dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">End Time</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ date('H:i', strtotime($performance->EndDateTime)) }}</dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Details</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $performance->Details }}</dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Price</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $performance->Price }}</dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Total Tickets</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $performance->TotalTickets }}</dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Available Tickets</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $performance->AvailableTickets }}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </section>
 </div>
-</div>
+
 </body>
 </html>

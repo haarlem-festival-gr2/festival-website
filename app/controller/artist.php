@@ -10,7 +10,7 @@ Route::serve('/artist', function (array $props) {
 
     $jazzService = new JazzService();
 
-    $artist = $jazzService->getArtistWithDetailsById($artistId);
+    $artist = $jazzService->getArtistById($artistId);
     $performances = $jazzService->getPerformancesByArtist($artist);
 
 

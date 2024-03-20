@@ -29,7 +29,7 @@
                 <a href="/login" class="text-black text-base font-bold">Login</a>
             </div>
             <div class="flex-shrink-0 flex items-center">
-                <a href="/manageUsers" class="text-red-500 text-base font-bold">Manage Users</a>
+                <a href="/test" class="text-red-500 text-base font-bold">Manage Users</a>
             </div>
             <div class="flex-shrink-0 flex items-center">
                 <a href="/manageVenues" class="text-black text-base font-bold">Manage Venues</a>
