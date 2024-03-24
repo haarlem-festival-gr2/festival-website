@@ -11,7 +11,6 @@
         <!--     <h1 class="text-2xl text-gray-700 font-semibold font-serif">25th July</h1> -->
         <!--     <div class="bg-gray-400 flex-grow h-[1px]"></div> -->
         <!-- </div> -->
-        HELLO
     </div>
 
 </div>
