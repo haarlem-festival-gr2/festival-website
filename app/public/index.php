@@ -7,7 +7,6 @@ namespace App;
 require_once __DIR__.'/../core/Util.php';
 
 require_once __DIR__.'/../vendor/autoload.php';
-require_once __DIR__.'/../core/Route.php';
 
 use Core\Route\ErrorCode;
 use Core\Route\Route;

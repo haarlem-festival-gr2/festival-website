@@ -7,8 +7,17 @@
             <h1 class="text-4xl p-2 font-bold text-center">{{ $title }}</h1>
         </div>
         <div class="p-10 text-2xl">
-            @foreach ($steps as $key => $step)
-                <p><b>{{ $key + 1 }}</b>. {{ $step }}</p>
+            @php
+                $stepNumber = 1;
+            @endphp
+            @php
+                $stepArray = explode('. ', $steps); // Split the string into an array of steps
+            @endphp
+            @foreach ($stepArray as $step)
+                <p><b>{{ $stepNumber }}</b>. {{ $step }}</p>
+                @php
+                    $stepNumber++;
+                @endphp
             @endforeach
         </div>
     </div>
