@@ -1,6 +1,9 @@
 function addTicketToProgram(buttonElement) {
     if (buttonElement.disabled) {
-        return; // Exit if the button is disabled
+        buttonElement.textContent = "Tickets Sold Out";
+        buttonElement.classList.remove("bg-yellow-400");
+        buttonElement.classList.add("bg-red-500");
+        return;
     }
 
     const activeText = buttonElement.getAttribute('data-active-text');

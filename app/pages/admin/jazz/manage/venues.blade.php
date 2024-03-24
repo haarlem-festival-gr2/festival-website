@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Venues</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous">
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="/css/jazzStyles.css" rel="stylesheet">
 </head>
@@ -21,6 +24,7 @@
             <a href="/createVenue" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Create Venue
             </a>
+            <div id="error"></div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             @foreach ($venues as $venue)
@@ -28,9 +32,9 @@
                     <div class="px-4 py-5 sm:px-6 flex justify-between">
                         <h3 class="text-lg leading-6 font-semibold text-gray-900">{{ $venue->Name }}</h3>
                         <div class="flex space-x-2">
-                            <a href="/editVenue" class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm">Edit</a>
-                            <form action="/manageVenues" method="POST" onsubmit="return confirm('Are you sure you want to delete this venue?');" class="block">
-                                <input type="hidden" name="venue_id" value="{{ $venue->VenueID }}">
+                            <a href="/editVenue?id={{ $venue->VenueID }}" class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm">Edit</a>
+                            <form hx-post="/manageVenues" hx-target="#error" onsubmit="return confirm('Are you sure you want to delete this venue?');" class="block">
+                                <input type="hidden" name="id" value="{{ $venue->VenueID }}">
                                 <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-3 py-2 rounded text-sm">Delete</button>
                             </form>
                         </div>

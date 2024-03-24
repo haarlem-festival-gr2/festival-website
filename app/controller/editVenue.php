@@ -6,13 +6,27 @@ use service\JazzService;
 
 require_once __DIR__.'/../service/JazzService.php';
 
-Route::serve('/createVenue', function (array $props) {
-    Route::render('admin.jazz.create.venue', []);
+Route::serve('/editVenue', function (array $props) {
+
+    /*$user = Route::auth();
+    if (!$user) {
+        Route::error(ErrorCode::UNAUTHORIZED);
+        return;
+    }*/
+
+    $jazzService = new JazzService();
+    $venueId = $props['id'];
+    $venue = $jazzService->getVenueById($venueId);
+
+    Route::render('admin.jazz.edit.venue', [
+        'venue' => $venue,
+    ]);
 }, Method::GET);
 
-Route::serve('/createVenue', function (array $props) {
+Route::serve('/editVenue', function (array $props) {
     $jazzService = new JazzService();
 
+    $venueId = $props['id'];
     $name = $props['name'];
     $address = $props['address'];
     $contactDetails = $props['contact_details'];
@@ -23,7 +37,7 @@ Route::serve('/createVenue', function (array $props) {
         return;
     }
 
-    $jazzService->createVenue($name, $address, $contactDetails);
+    $jazzService->updateVenue($venueId, $name, $address, $contactDetails);
 
     Route::redirect('/manageVenues');
 }, Method::POST);

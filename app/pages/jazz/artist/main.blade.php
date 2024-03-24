@@ -85,7 +85,7 @@
             <div class="p-4">
                 <div class="p-4 text-center bg-pink-200 rounded-lg overflow-hidden cursor-pointer block">
                     <iframe style="border-radius: 12px"
-                            src="https://open.spotify.com/embed/album/{{ $album->SpotifyID }}?utm_source=generator"
+                            src="https://open.spotify.com/embed/album/{{ $album }}?utm_source=generator"
                             width="100%" height="352" allowfullscreen=""
                             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                             loading="lazy">
@@ -109,7 +109,7 @@
                 <div class="text-center mb-4 md:mb-0">
                     <div class="p-4 text-center overflow-hidden cursor-pointer block">
                         <iframe style="border-radius: 12px"
-                                src="https://open.spotify.com/embed/track/{{ $song->SpotifyID }}?utm_source=generator"
+                                src="https://open.spotify.com/embed/track/{{ $song }}?utm_source=generator"
                                 width="100%" height="352" allowfullscreen=""
                                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                                 loading="lazy">
@@ -140,17 +140,7 @@
             </p>
             @if ($performance->Price != '0.00')
                 <div class="mt-4 flex justify-center w-full">
-                    <!-- button-->
-                    <button
-                            class="px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs w-48 bg-yellow-400 text-black"
-                            onclick="addTicketToProgram(this)"
-                            data-default-text="Add a ticket to personal program"
-                            data-active-text="Ticket added to personal program"
-                            data-default-class="bg-yellow-400"
-                            data-active-class="bg-green-500"
-                            {{ $performance->AvailableTickets < $performance->TotalTickets * 0.1 ? 'disabled' : '' }}>
-                        Add a ticket to personal program
-                    </button>
+                    @include('jazz.addTicket')
                 </div>
             @else
                 <div class="mt-4 flex justify-center">

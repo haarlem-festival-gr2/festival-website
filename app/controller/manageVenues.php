@@ -10,7 +10,7 @@ Route::serve('/manageVenues', function (array $props) {
     $jazzService = new JazzService();
 
     $venues = $jazzService->getAllVenues();
-    Route::render('admin.jazz.manageVenues', [
+    Route::render('admin.jazz.manage.venues', [
         'venues' => $venues,
     ]);
 }, Method::GET);
@@ -19,20 +19,11 @@ Route::serve('/manageVenues', function (array $props) {
 Route::serve('/manageVenues', function (array $props) {
     $jazzService = new JazzService();
 
-    $uri = $_SERVER['REQUEST_URI'];
-
-    if ($uri == "/manageVenues/edit"){
-        $venueId = $props['venue_id'];
-        $name = $props['name'];
-        $address = $props['address'];
-        $contactDetails = $props['contact_details'];
-        $jazzService->updateVenue($venueId, $name, $address, $contactDetails);
-    }
-    else if(($uri == "/manageVenues/create")){
-        $jazzService->createVenue($props['name'], $props['address'], $props['contact_details']);
-    }
-    else if(($uri == "/manageVenues/delete")){
-        $jazzService->deleteVenue($props['venue_id']);
+    try {
+        $jazzService->deleteVenue($props['id']);
+    } catch (Exception $e) {
+        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
+        return;
     }
 
     Route::redirect('/manageVenues');

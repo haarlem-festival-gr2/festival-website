@@ -16,6 +16,7 @@
 <!-- temporary stuff -->
 <p>add nav bar</p>
 <p>add footer</p>
+<p>fix add to program button, disable if tickets are sold out</p>
 @if($user)
     <p>user is logged in. Role: {{$user->Role}}</p>
 @else
@@ -29,10 +30,10 @@
                 <a href="/login" class="text-black text-base font-bold">Login</a>
             </div>
             <div class="flex-shrink-0 flex items-center">
-                <a href="/test" class="text-red-500 text-base font-bold">Manage Users</a>
+                <a href="/manageVenues" class="text-black text-base font-bold">Manage Venues</a>
             </div>
             <div class="flex-shrink-0 flex items-center">
-                <a href="/manageVenues" class="text-black text-base font-bold">Manage Venues</a>
+                <a href="/manageJazzDays" class="text-black text-base font-bold">Manage Days</a>
             </div>
             <div class="flex-shrink-0 flex items-center">
                 <a href="/manageArtists" class="text-black text-base font-bold">Manage Artists</a>
@@ -48,8 +49,6 @@
 </nav>
 <!-- delete later -->
 
-
-<!-- make sections-->
 <!-- header-->
 <div class="relative w-full">
     <img src="{{ $festivalEvent->getImgPath() }}" alt="{{ $festivalEvent->getFestivalEventName() }}" class="w-full"/>
@@ -80,7 +79,7 @@
 
 @foreach ($eventDays as $dayNumber => $eventDay)
 
-    <!-- schedule header-->
+    <!-- venue-->
     <div class="p-4 bg-[#B92090] text-center">
         <h3 class="text-2xl text-white font-bold">
             DAY {{ $dayNumber + 1 }} -
@@ -91,7 +90,7 @@
                         {{ $eventDay['day']->Venue->Name }}<br/>
                         {{ $eventDay['day']->Venue->Address }}<br/>
                         {{ $eventDay['day']->Venue->ContactDetails }}
-                         @if (trim($eventDay['day']->Note) !== '')
+                         @if (!empty($eventDay['day']->Note))
                              {{ $eventDay['day']->Note }}
                          @endif
                     </span>
@@ -112,32 +111,23 @@
                         {{ $performance->Artist->Name }}
                         <br/>{{ date('H:i', strtotime($performance->StartDateTime)) }}
                         - {{ date('H:i', strtotime($performance->EndDateTime)) }}
-                        @if (trim($performance->Details) !== '')
+                        @if (!empty($performance->Details))
                             | {{ $performance->Details }}
-                        @endif @if ($performance->Price != '0.00')
+                        @endif
+                        @if ($performance->Price != '0.00')
                             - € {{ number_format($performance->Price, 2) }}
                         @else
                             - Free!
                         @endif
                     </p>
-
-                    <!-- button (and for artist's page as well) inside schedule?-->
-                    <button
-                            class="px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs ml-44 mr-[2rem] w-48 bg-yellow-400 text-black"
-                            onclick="addTicketToProgram(this)"
-                            data-default-text="Add a ticket to personal program"
-                            data-active-text="Ticket added to personal program"
-                            data-default-class="bg-yellow-400"
-                            data-active-class="bg-green-500"
-                            {{ $performance->AvailableTickets < $performance->TotalTickets * 0.1 ? 'disabled' : '' }}>
-                        Add a ticket to personal program
-                    </button>
-
+                    @include('jazz.addTicket', [
+                         'buttonClass' => 'ml-44 mr-[2rem]'
+                     ])
                 </div>
             </div>
         @endforeach
 
-        <!-- passes-->
+        <!-- passes -->
         @php $passesStartOffset = count($eventDay['performances']) * 80 + 40; @endphp
         @foreach ($eventDay['passes'] as $index => $pass)
             <div class="absolute top-[calc({{ $passesStartOffset }}px+{{ $index * 80 }}px)] left-0 w-full p-2 box-border">
@@ -146,16 +136,7 @@
                         {{ $pass->Note }}<br>
                         Price: €{{ number_format($pass->Price, 2) }}<br>
                     </p>
-                    <button
-                            class="px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs ml-44 mr-[2rem] w-48 bg-pink-500 text-white"
-                            onclick="addTicketToProgram(this)"
-                            data-default-text="Add a pass to personal program"
-                            data-active-text="Pass added to personal program"
-                            data-default-class="bg-pink-500"
-                            data-active-class="bg-green-500"
-                            {{ $pass->AvailableTickets < $pass->TotalTickets ? 'disabled' : '' }}>
-                        Add a pass to personal program
-                    </button>
+                    @include('jazz.addPass')
                 </div>
             </div>
         @endforeach

@@ -2,6 +2,7 @@
 
 namespace repository;
 
+use Exception;
 use Model\Artist;
 use model\JazzDay;
 use Model\JazzPass;
@@ -18,7 +19,7 @@ require_once __DIR__.'/../repository/BaseRepository.php';
 
 class JazzRepository extends BaseRepository
 {
-    // artist
+    // retrieve artists
     public function getArtistById(int $id): ?Artist
     {
         $query = $this->connection->prepare('SELECT * FROM Artist WHERE ArtistID = ?');
@@ -68,8 +69,62 @@ class JazzRepository extends BaseRepository
             ]
         );
     }
+    // create edit delete artists
+    public function updateArtist1(int $artistId, string $name, string $bio, array $songs, array $albums, string $headerImg, string $artistImg1, string $artistImg2, string $performanceImg): bool
+    {
+        $query = $this->connection->prepare('UPDATE Artist SET Name = ?, Bio = ?, HeaderImg = ?, ArtistImg1 = ?, ArtistImg2 = ?, PerformanceImg = ?, Song1 = ?, Song2 = ?, Song3 = ?, Album1 = ?, Album2 = ?, Album3 = ? WHERE ArtistID = ?');
+        return $query->execute([$name, $bio, $headerImg, $artistImg1, $artistImg2, $performanceImg, $songs[0], $songs[1], $songs[2], $albums[0], $albums[1], $albums[2], $artistId]);
+    }
 
-    // get venues
+    public function updateArtist(int $artistId, string $name, string $bio, array $songs, array $albums, ?string $headerImg = null, ?string $artistImg1 = null, ?string $artistImg2 = null, ?string $performanceImg = null): bool {
+        $sql = 'UPDATE Artist SET Name = ?, Bio = ?';
+
+        $parameters = [$name, $bio];
+
+        $images = ['HeaderImg' => $headerImg, 'ArtistImg1' => $artistImg1, 'ArtistImg2' => $artistImg2, 'PerformanceImg' => $performanceImg];
+        foreach ($images as $column => $path) {
+            if ($path !== null) {
+                $sql .= ", $column = ?";
+                $parameters[] = $path;
+            }
+        }
+
+        $sql .= ", Song1 = ?, Song2 = ?, Song3 = ?, Album1 = ?, Album2 = ?, Album3 = ?";
+        foreach ([$songs[0] ?? '', $songs[1] ?? '', $songs[2] ?? '', $albums[0] ?? '', $albums[1] ?? '', $albums[2] ?? ''] as $value) {
+            $parameters[] = $value;
+        }
+
+        $sql .= ' WHERE ArtistID = ?';
+        $parameters[] = $artistId;
+        $query = $this->connection->prepare($sql);
+
+        return $query->execute($parameters);
+    }
+
+    public function createArtist(string $name, string $bio, string $headerImg, string $artistImg1, string $artistImg2, string $performanceImg, array $songs, array $albums): bool
+    {
+        $query = $this->connection->prepare('INSERT INTO Artist (Name, Bio, HeaderImg, ArtistImg1, ArtistImg2, PerformanceImg, Song1, Song2, Song3, Album1, Album2, Album3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        return $query->execute([$name, $bio, $headerImg, $artistImg1, $artistImg2, $performanceImg, $songs[0], $songs[1], $songs[2], $albums[0], $albums[1], $albums[2]]);
+    }
+
+    public function deleteArtist(int $id): bool
+    {
+        if ($this->hasPerformancesForArtist($id))
+            throw new Exception("Cannot delete this artist as it has associated performances. PLease delete or link associated performances to other artists.");
+
+        $query = $this->connection->prepare('DELETE FROM Artist WHERE ArtistID = ?');
+        return $query->execute([$id]);
+    }
+
+    private function hasPerformancesForArtist($id): bool
+    {
+        $query = $this->connection->prepare('SELECT 1 FROM Performance WHERE ArtistID = ? LIMIT 1');
+        $query->execute([$id]);
+
+        return $query->rowCount() > 0;
+    }
+
+    // retrieve venues
     public function getVenueById(int $id): ?Venue
     {
         $query = $this->connection->prepare('SELECT * FROM Venue WHERE venueID = ?');
@@ -108,7 +163,7 @@ class JazzRepository extends BaseRepository
         );
     }
 
-    // venue crud
+    // edit crate delete venues
     public function updateVenue(int $venueId, string $name, string $address, string $contactDetails): bool
     {
         $query = $this->connection->prepare('UPDATE Venue SET Name = ?, Address = ?, ContactDetails = ? WHERE VenueID = ?');
@@ -121,20 +176,25 @@ class JazzRepository extends BaseRepository
         return $query->execute([$name, $address, $contactDetails]);
     }
 
-    public function deleteVenue(int $venueId): bool
+    public function deleteVenue(int $id): bool
     {
-        try {
-            $query = $this->connection->prepare('DELETE FROM Venue WHERE VenueID = ?');
-            return $query->execute([$venueId]);
-        } catch (PDOException $e) {
-            // Handle any exceptions here
-            echo "Error deleting venue: " . $e->getMessage();
-            return false;
-        }
+        if ($this->hasDaysForVenue($id))
+            throw new Exception("Cannot delete this venue as it has associated days. PLease delete or link associated days to other venues.");
+
+        $query = $this->connection->prepare('DELETE FROM Venue WHERE VenueID = ?');
+        return $query->execute([$id]);
+    }
+
+    private function hasDaysForVenue($id): bool
+    {
+        $query = $this->connection->prepare('SELECT 1 FROM JazzDay WHERE VenueID = ? LIMIT 1');
+        $query->execute([$id]);
+
+        return $query->rowCount() > 0;
     }
 
 
-    // get days
+    // retrieve jazz days
     public function getJazzDayById(int $id): ?JazzDay
     {
         $query = $this->connection->prepare('SELECT d.*, v.* FROM JazzDay d 
@@ -167,6 +227,24 @@ class JazzRepository extends BaseRepository
         return $jazzDays;
     }
 
+    public function getAllJazzDaysByVenueId($id): array
+    {
+        $query = $this->connection->prepare('SELECT d.*, v.* FROM JazzDay d
+                                                JOIN Venue v ON d.VenueID = v.VenueID
+                                                WHERE d.VenueID = ?');
+        $query->execute([$id]);
+
+        $jazzDaysData = $query->fetchAll(\PDO::FETCH_ASSOC);
+        $jazzDays = [];
+
+        foreach ($jazzDaysData as $jazzDayData) {
+            $jazzDays[] = $this->createJazzDayFromData($jazzDayData);
+        }
+
+        return $jazzDays;
+    }
+
+
     private function createJazzDayFromData(array $jazzDayData): JazzDay
     {
         $venue = $this->createVenueFromData($jazzDayData);
@@ -180,11 +258,21 @@ class JazzRepository extends BaseRepository
         );
     }
 
-    // day crud
-    public function updateJazzDay(int $dayId, string $date, int $venueId, string $note, string $imgPath): bool
+    // create edit delete days
+    public function updateJazzDay(int $dayId, string $date, int $venueId, string $note, ?string $imgPath = null): bool
     {
-        $query = $this->connection->prepare('UPDATE JazzDay SET Date = ?, VenueID = ?, Note = ?, ImgPath = ? WHERE DayID = ?');
-        return $query->execute([$date, $venueId, $note, $imgPath, $dayId]);
+        $sql = 'UPDATE JazzDay SET Date = ?, VenueID = ?, Note = ?';
+        $parameters = [$date, $venueId, $note];
+
+        if ($imgPath !== null) {
+            $sql .= ', ImgPath = ?';
+            $parameters[] = $imgPath;
+        }
+        $sql .= ' WHERE DayID = ?';
+        $parameters[] = $dayId;
+
+        $query = $this->connection->prepare($sql);
+        return $query->execute($parameters);
     }
 
     public function createJazzDay(string $date, int $venueId, string $note, string $imgPath): bool
@@ -193,28 +281,24 @@ class JazzRepository extends BaseRepository
         return $query->execute([$date, $venueId, $note, $imgPath]);
     }
 
-    public function deleteJazzDay(int $jazzDayId): bool
+    private function hasPerformancesForDay($id): bool
     {
-        try {
-        $query = $this->connection->prepare('DELETE FROM JazzDay WHERE DayID = ?');
-        return $query->execute([$jazzDayId]);
-        } catch (PDOException $e) {
-        // Handle any exceptions here
-        echo "Error deleting jazz day: " . $e->getMessage();
-        return false;
-        }
-    }
-
-    // img
-    public function getImgPath(int $id): ?string
-    {
-        $query = $this->connection->prepare('SELECT ImgPath FROM JazzDay WHERE DayID = ?');
+        $query = $this->connection->prepare('SELECT 1 FROM Performance WHERE DayID = ? LIMIT 1');
         $query->execute([$id]);
 
-        return $query->fetch(\PDO::FETCH_ASSOC)['ImgPath'];
+        return $query->rowCount() > 0;
     }
 
-    // performances
+    public function deleteJazzDay(int $id): bool
+    {
+        if ($this->hasPerformancesForDay($id))
+            throw new Exception("Cannot delete this jazz day as it has associated performances. PLease delete or link associated performances to other days.");
+
+        $query = $this->connection->prepare('DELETE FROM JazzDay WHERE DayID = ?');
+        return $query->execute([$id]);
+    }
+
+    // retrieve performances
     public function getPerformancesByArtist(Artist $artist): array
     {
 
@@ -306,7 +390,25 @@ class JazzRepository extends BaseRepository
         );
     }
 
-    // passes
+    // create edit delete performances
+    public function deletePerformance(int $performanceId): bool
+    {
+        $query = $this->connection->prepare('DELETE FROM Performance WHERE PerformanceID = ?');
+        return $query->execute([$performanceId]);
+    }
+    public function createPerformance(int $ArtistID, int $DayID, float $Price, string $StartDateTime, string $EndDateTime, int $AvailableTickets, int $TotalTickets, string $Details): bool
+    {
+        $query = $this->connection->prepare('INSERT INTO Performance (ArtistID, DayID, Price, StartDateTime, EndDateTime, AvailableTickets, TotalTickets, Details) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+        return $query->execute([$ArtistID, $DayID, $Price, $StartDateTime, $EndDateTime, $AvailableTickets, $TotalTickets, $Details]);
+    }
+
+    public function updatePerformance(int $PerformanceID,int $ArtistID, int $DayID, float $Price, string $StartDateTime, string $EndDateTime, int $AvailableTickets, int $TotalTickets, string $Details): bool
+    {
+        $query = $this->connection->prepare('UPDATE Performance SET ArtistID = ?, DayID = ?, Price = ?, StartDateTime = ?, EndDateTime = ?, AvailableTickets = ?, TotalTickets = ?, Details = ? WHERE PerformanceID = ?');
+        return $query->execute([$ArtistID, $DayID, $Price, $StartDateTime, $EndDateTime, $AvailableTickets, $TotalTickets, $Details, $PerformanceID]);
+    }
+
+    // retrieve passes
     public function getJazzPassesByDate(string $date): array
     {
         $query = $this->connection->prepare('SELECT JazzPassID, Price, StartDateTime, EndDateTime, Note, TotalTickets, AvailableTickets FROM JazzPass WHERE StartDateTime <= ? AND EndDateTime >= ?');
@@ -360,4 +462,24 @@ class JazzRepository extends BaseRepository
             $passData['AvailableTickets']
         );
     }
+
+    // create edit delete passes
+    public function createPass(float $price, string $startDateTime, string $endDateTime, string $note, int $totalTickets, int $availableTickets): bool
+    {
+        $query = $this->connection->prepare('INSERT INTO JazzPass (Price, StartDateTime, EndDateTime, Note, TotalTickets, AvailableTickets) VALUES (?, ?, ?, ?, ?, ?)');
+        return $query->execute([$price, $startDateTime, $endDateTime, $note, $totalTickets, $availableTickets]);
+    }
+
+    public function updatePass(int $id, float $price, string $startDateTime, string $endDateTime, string $note, int $totalTickets, int $availableTickets): bool
+    {
+        $query = $this->connection->prepare('UPDATE JazzPass SET Price = ?, StartDateTime = ?, EndDateTime = ?, Note = ?, TotalTickets = ?, AvailableTickets = ? WHERE JazzPassID = ?');
+        return $query->execute([$price, $startDateTime, $endDateTime, $note, $totalTickets, $availableTickets, $id]);
+    }
+
+    public function deletePass(int $id): bool
+    {
+        $query = $this->connection->prepare('DELETE FROM JazzPass WHERE JazzPassID = ?');
+        return $query->execute([$id]);
+    }
+
 }

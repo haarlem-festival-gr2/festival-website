@@ -6,11 +6,11 @@ use service\JazzService;
 
 require_once __DIR__.'/../service/JazzService.php';
 
-Route::serve('/manageVenues', function (array $props) {
+Route::serve('/manageJazzDays', function (array $props) {
     $jazzService = new JazzService();
 
     $jazzDays = $jazzService->getAllJazzDays();
-    Route::render('admin.jazz.manageDays', [
+    Route::render('admin.jazz.manage.days', [
         'jazzDays' => $jazzDays,
     ]);
 }, Method::GET);
@@ -18,34 +18,12 @@ Route::serve('/manageVenues', function (array $props) {
 Route::serve('/manageJazzDays', function (array $props) {
     $jazzService = new JazzService();
 
-    if (isset($props['action'])) {
-        switch ($props['action']) {
-            case 'edit':
-                if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                    $image = $_FILES['image'];
-                    $imgPath = $jazzService->uploadImage($image);
-                    if (isset($props['jazzday_id'])) {
-                        // Perform the update
-                        $jazzDayId = $props['jazzday_id'];
-                        $date = $props['date'];
-                        $venueId = $props['venue_id'];
-                        $note = $props['note'];
-                        //$imgPath = $props['img_path'];
-                        $jazzService->updateJazzDay($jazzDayId, $date, $venueId, $note, $imgPath);
-                    }
-                }
-                break;
-            case 'create':
-                // Perform the creation
-                if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                    $image = $_FILES['image'];
-                    $imgPath = $jazzService->uploadImage($image);
-                    $jazzService->createJazzDay($props['date'], $props['venue_id'], $props['note'], $imgPath);
-                }
-                break;
-            case 'delete':
-                $jazzService->deleteJazzDay($props['jazzday_id']);
-        }
+    try {
+        $jazzService->deleteJazzDay($props['id']);
+    } catch (Exception $e) {
+        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
+        return;
     }
-    Route::redirect('/manageDays');
+
+    Route::redirect('/manageJazzDays');
 }, Method::POST);
