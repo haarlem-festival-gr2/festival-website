@@ -29,3 +29,5 @@ class EventRepository extends BaseRepository
         return $query->fetchAll();
     }
 }
+
+// SELECT * FROM (SELECT 'Yummy' as Type, Name, StartDateTime FROM Session UNION ALL SELECT 'JAZZ' as Type, a.Name, p.StartDateTime FROM Performance AS p JOIN Artist AS a ON p.ArtistID = a.ArtistID JOIN JazzDay AS j ON p.DayID = j.DayID JOIN Venue AS v ON j.VenueID = v.VenueID) as Comb ORDER BY StartDateTime;
