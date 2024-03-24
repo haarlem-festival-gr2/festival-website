@@ -90,22 +90,22 @@ class JazzService extends BaseService
 
     private function setDefaultSongsAndAlbumsIfEmpty(array &$songs, array &$albums): void
     {
-        if ($albums[0] === null) {
+        if ($albums[0] == null) {
             $albums[0] = '7oBC2PuPSvXkLEZdoCxsv5';
         }
-        if ($albums[1] === null) {
+        if ($albums[1] == null) {
             $albums[1] = '18g4jSwIbYcbJI5U7PIzMz';
         }
-        if ($albums[2] === null) {
+        if ($albums[2] == null) {
             $albums[2] = '0B7DKUR00yRXncWrlQwIR6';
         }
-        if ($songs[0] === null) {
+        if ($songs[0] == null) {
             $songs[0] = '6XQHlsNu6so4PdglFkJQRJ';
         }
-        if ($songs[1] === null) {
+        if ($songs[1] == null) {
             $songs[1] = '2VvDKx7lzdarObpQFn1iAh';
         }
-        if ($songs[2] === null) {
+        if ($songs[2] == null) {
             $songs[2] = '1otrWVcbCxemNnn7eiKW1P';
         }
     }

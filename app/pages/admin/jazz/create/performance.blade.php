@@ -32,7 +32,7 @@
                     <label for="day" class="block mb-2">Jazz Day:</label>
                     <select id="day" name="day" class="w-full border rounded-md px-3 py-2" required>
                         @foreach ($jazzDays as $jazzDay)
-                            <option value="{{ $jazzDay->DayID }}">{{ date('d-m-Y', strtotime($jazzDay->Date)) }}</option>
+                            <option value="{{ $jazzDay->DayID }}">{{ date('d-m-Y', strtotime($jazzDay->Date)) }} - {{$jazzDay->Venue->Name}}</option>
                         @endforeach
                     </select>
                 </div>

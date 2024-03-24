@@ -64,8 +64,6 @@ class ImageService extends BaseService
                 if (!$deleted) {
                     throw new Exception("Failed to delete the image at: {$imgPath}.");
                 }
-            } else {
-                throw new Exception("The image does not exist: {$imgPath}.");
             }
         } else {
             throw new Exception("No image path provided.");

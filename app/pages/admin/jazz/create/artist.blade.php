@@ -88,5 +88,32 @@
         </div>
     </section>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Script loaded");
+        const MAX_FILE_SIZE = 5000000; // Max file size in bytes (e.g., 5MB)
+        const form = document.querySelector('form');
+        const errorDiv = document.getElementById('error');
+
+        form.addEventListener('submit', function(e) {
+            const files = document.querySelectorAll('input[type=file]');
+            let totalSize = 0;
+            files.forEach(function(file) {
+                if (file.files[0]) {
+                    console.log("File size: ", file.files[0].size);
+                    totalSize += file.files[0].size;
+                }
+            });
+
+            console.log("Total size: ", totalSize);
+            if (totalSize > 1000000) {
+                e.preventDefault(); // Stop the form submission
+                console.log("Total file size exceeds limit");
+                errorDiv.innerHTML = 'The total size of files should not exceed 5MB.';
+                errorDiv.style.display = 'block';
+            }
+        });
+    });
+</script>
 </body>
 </html>

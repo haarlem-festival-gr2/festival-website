@@ -127,7 +127,7 @@ class JazzRepository extends BaseRepository
     // retrieve venues
     public function getVenueById(int $id): ?Venue
     {
-        $query = $this->connection->prepare('SELECT * FROM Venue WHERE venueID = ?');
+        $query = $this->connection->prepare('SELECT VenueID, Name as VenueName, Address, ContactDetails FROM Venue WHERE VenueID = ?');
         $query->execute([$id]);
 
         $venueData = $query->fetch(\PDO::FETCH_ASSOC);
@@ -141,7 +141,7 @@ class JazzRepository extends BaseRepository
 
     public function getAllVenues(): array
     {
-        $query = $this->connection->prepare('SELECT * FROM Venue');
+        $query = $this->connection->prepare('SELECT VenueID, Name as VenueName, Address, ContactDetails FROM Venue');
         $query->execute();
 
         $venuesData = $query->fetchAll(\PDO::FETCH_ASSOC);
@@ -157,7 +157,7 @@ class JazzRepository extends BaseRepository
     private function createVenueFromData(array $venueData): Venue {
         return new Venue(
             $venueData['VenueID'],
-            $venueData['Name'],
+            $venueData['VenueName'],
             $venueData['Address'],
             $venueData['ContactDetails']
         );
@@ -197,7 +197,7 @@ class JazzRepository extends BaseRepository
     // retrieve jazz days
     public function getJazzDayById(int $id): ?JazzDay
     {
-        $query = $this->connection->prepare('SELECT d.*, v.* FROM JazzDay d 
+        $query = $this->connection->prepare('SELECT d.*, v.VenueID, v.Name as VenueName, v.Address, v.ContactDetails FROM JazzDay d 
                                                     JOIN Venue v ON d.VenueID = v.VenueID WHERE d.DayID = ?');
         $query->execute([$id]);
 
@@ -212,7 +212,7 @@ class JazzRepository extends BaseRepository
 
     public function getAllJazzDays(): array
     {
-        $query = $this->connection->prepare('SELECT d.*, v.* FROM JazzDay d
+        $query = $this->connection->prepare('SELECT d.*, v.VenueID, v.Name as VenueName, v.Address, v.ContactDetails FROM JazzDay d
                                                     JOIN Venue v ON d.VenueID = v.VenueID
                                                     ORDER BY d.Date ASC');
         $query->execute();
@@ -229,7 +229,7 @@ class JazzRepository extends BaseRepository
 
     public function getAllJazzDaysByVenueId($id): array
     {
-        $query = $this->connection->prepare('SELECT d.*, v.* FROM JazzDay d
+        $query = $this->connection->prepare('SELECT d.*, v.VenueID, v.Name as VenueName,  v.Address, v.ContactDetails FROM JazzDay d
                                                 JOIN Venue v ON d.VenueID = v.VenueID
                                                 WHERE d.VenueID = ?');
         $query->execute([$id]);
@@ -302,7 +302,7 @@ class JazzRepository extends BaseRepository
     public function getPerformancesByArtist(Artist $artist): array
     {
 
-        $query = $this->connection->prepare('SELECT p.*, j.*, v.* FROM Performance p
+        $query = $this->connection->prepare('SELECT p.*, j.*, v.VenueID, v.Name as VenueName, v.Address, v.ContactDetails FROM Performance p
                                                     LEFT JOIN JazzDay j ON p.DayID = j.DayID
                                                     LEFT JOIN Venue v ON j.VenueID = v.VenueID
                                                     WHERE p.ArtistID = ?');
@@ -334,7 +334,7 @@ class JazzRepository extends BaseRepository
 
     public function getAllPerformances(): array
     {
-        $query = $this->connection->prepare('SELECT p.*, a.*, j.*, v.* FROM Performance p
+        $query = $this->connection->prepare('SELECT p.*, a.*, j.*, v.VenueID, v.Name as VenueName, v.Address, v.ContactDetails FROM Performance p
                                                     LEFT JOIN Artist a ON p.ArtistID = a.ArtistID
                                                     LEFT JOIN JazzDay j ON p.DayID = j.DayID
                                                     LEFT JOIN Venue v ON j.VenueID = v.VenueID');
@@ -352,7 +352,7 @@ class JazzRepository extends BaseRepository
 
     public function getPerformanceById(int $performanceId): ?Performance
     {
-        $query = $this->connection->prepare('SELECT p.*, a.*, j.*, v.* FROM Performance p
+        $query = $this->connection->prepare('SELECT p.*, a.*, j.*, v.VenueID, v.Name as VenueName, v.Address, v.ContactDetails FROM Performance p
                                                     LEFT JOIN Artist a ON p.ArtistID = a.ArtistID
                                                     LEFT JOIN JazzDay j ON p.DayID = j.DayID
                                                     LEFT JOIN Venue v ON j.VenueID = v.VenueID

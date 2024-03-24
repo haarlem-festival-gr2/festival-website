@@ -34,7 +34,7 @@
                         <h3 class="text-lg leading-6 font-semibold text-gray-900">{{ $performance->Artist->Name }}</h3>
                         <div class="flex space-x-2">
                             <a href="/editPerformance?id={{ $performance->PerformanceID }}" class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm">Edit</a>
-                            <form ahx-post="/managePerformances" hx-target="#error"
+                            <form hx-post="/managePerformances" hx-target="#error"
                                   onsubmit="return confirm('Are you sure you want to delete this performance?');" class="block">
                                 <input type="hidden" name="id" value="{{ $performance->PerformanceID }}">
                                 <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-3 py-2 rounded text-sm">Delete</button>

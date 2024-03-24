@@ -18,7 +18,7 @@
 
     @include('admin.jazz.panel')
 
-    <section class="w-4/5 p-4">
+    <section class="w-4/5 p-4" >
         <div class="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
             <h1 class="text-xl font-bold mb-4 flex justify-center">Edit Performance</h1>
             <form hx-post="/editPerformance" hx-target="#error">
@@ -35,7 +35,7 @@
                     <label for="day" class="block mb-2">Jazz Day:</label>
                     <select id="day" name="day" class="w-full border rounded-md px-3 py-2" required>
                         @foreach ($jazzDays as $jazzDay)
-                            <option value="{{ $jazzDay->DayID }}" {{ $jazzDay->DayID == $performance->Day->DayID ? 'selected' : '' }}>{{ date('d-m-Y', strtotime($jazzDay->Date)) }}</option>
+                            <option value="{{ $jazzDay->DayID }}" {{ $jazzDay->DayID == $performance->Day->DayID ? 'selected' : '' }}>{{ date('d-m-Y', strtotime($jazzDay->Date)) }} - {{$jazzDay->Venue->Name}}</option>
                         @endforeach
                     </select>
                 </div>
