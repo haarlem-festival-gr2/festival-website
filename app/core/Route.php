@@ -36,7 +36,7 @@ enum Method
             case Method::POST:
                 return $_POST;
             case Method::ALL:
-                return array('get' => $_GET, 'post' => $_POST);
+                return ['get' => $_GET, 'post' => $_POST];
             case Method::DELETE:
                 return $_GET;
         }
