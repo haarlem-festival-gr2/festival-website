@@ -10,7 +10,7 @@
 </head>
 <body class="font-montserrat">
 <div class="flex">
-@include('admin.jazz.jazzAdminSidebar')
+@include('admin.adminPanel')
     <div class="flex-1" style="margin-left: 16rem;">
     <div class="p-4">
         <h1 class="text-2xl font-bold mb-4">Manage Performances</h1>

@@ -20,6 +20,27 @@ Route::serve('/manageVenues', function (array $props) {
 
 Route::serve('/manageVenues', function (array $props) {
     $jazzService = new JazzService();
+
+    $uri = $_SERVER['REQUEST_URI'];
+    if ($uri == "/manageVenues/edit"){
+        $venueId = $props['venue_id'];
+        $name = $props['name'];
+        $address = $props['address'];
+        $contactDetails = $props['contact_details'];
+        $jazzService->updateVenue($venueId, $name, $address, $contactDetails);
+    }
+    else if(($uri == "/manageVenues/create")){
+        $jazzService->createVenue($props['name'], $props['address'], $props['contact_details']);
+    }
+    else if(($uri == "/manageVenues/delete")){
+        $jazzService->deleteVenue($props['venue_id']);
+    }
+
+    Route::redirect('/manageVenues');
+}, Method::POST);
+
+/*Route::serve('/manageVenues', function (array $props) {
+    $jazzService = new JazzService();
     if (isset($props['action'])) {
         switch ($props['action']) {
             case 'edit':
@@ -41,7 +62,7 @@ Route::serve('/manageVenues', function (array $props) {
         }
     }
     Route::redirect('/manageVenues');
-}, Method::POST);
+}, Method::POST);*/
 
 
 /*Route::serve('/manageVenues', function (array $props) {
