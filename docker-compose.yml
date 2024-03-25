@@ -30,6 +30,7 @@ services:
       PS_DB_PASSWORD: ${PS_DB_PASSWORD}
       PS_DB_NAME: ${PS_DB_NAME}
       RESEND_API: ${RESEND_API}
+      STRIPE_KEY: ${STRIPE_KEY}
     depends_on:
       composer:
         condition: service_completed_successfully

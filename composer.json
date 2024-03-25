@@ -3,7 +3,8 @@
         "laravel/pint": "^1.13"
     },
     "require": {
-        "jenssegers/blade": "^2.0"
+        "jenssegers/blade": "^2.0",
+        "stripe/stripe-php": "*"
     },
     "autoload": {
       "psr-4": {
