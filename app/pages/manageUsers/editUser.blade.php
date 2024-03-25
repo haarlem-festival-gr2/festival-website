@@ -14,7 +14,7 @@
         <form action="/updateUser" method="POST">
             <input type="hidden" name="userId" value="{{ $userId }}">
 
-            <!-- First Name -->
+            <!-- Name -->
             <div class="mb-4">
                 <label for="firstName" class="block mb-2">Name:</label>
                 <input type="text" id="firstName" name="firstName" class="w-full border rounded-md px-3 py-2"
