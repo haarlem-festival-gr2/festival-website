@@ -16,7 +16,7 @@
 <body class="bg-gray-100 flex justify-center items-center h-screen font-montserrat">
 <div class="flex w-full justify-between">
 
-    @include('admin.jazz.panel')
+    @include('admin.panel')
 
     <section class="p-4 w-4/5 overflow-y-auto" style="max-height: calc(100vh - 100px);">
         <div class="flex space-x-8 items-center mb-4">

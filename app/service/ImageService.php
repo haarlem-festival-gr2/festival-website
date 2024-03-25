@@ -17,17 +17,11 @@ class ImageService extends BaseService
      * @throws Exception If the file upload fails due to invalid file type, size, or other errors.
      */
 
-    // TODO: change the max image size for uploading in project setup
     public function uploadImage(array $image, string $subDir = ''): string
     {
-        $maxFileSize = 5000000;
         $validTypes = ['image/jpeg', 'image/png'];
         $imgDir = '/img/' . ($subDir ? $subDir . '/' : '');
         $uploadDir = $_SERVER['DOCUMENT_ROOT'] . $imgDir ;
-
-        if ($image['size'] > $maxFileSize) {
-            throw new Exception("File size exceeds the limit.");
-        }
 
         if (!in_array($image['type'], $validTypes)) {
             throw new Exception("Invalid file type. Only JPEG and PNG are allowed.");

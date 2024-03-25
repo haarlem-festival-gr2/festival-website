@@ -16,8 +16,8 @@
 
 <body class="bg-gray-100 font-montserrat">
 <div class="flex h-screen">
-    @include('admin.jazz.panel')
-    <section class="w-4/5 p-4">
+    @include('admin.panel')
+    <section class="w-4/5 p-4 overflow-y-auto" style="max-height: calc(100vh - 50px);">
         <div class="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
             <h1 class="text-xl font-bold mb-4 flex justify-center">Edit Jazz Day</h1>
             <form hx-post="/editJazzDay" hx-target="#error" hx-encoding="multipart/form-data">
