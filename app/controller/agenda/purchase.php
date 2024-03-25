@@ -11,31 +11,38 @@ Route::serve('/agenda/purchase', function () {
 Route::serve('/agenda/purchase', function ($props) {
     $service = new EventService();
     $action = $props['action'];
+    $events = [];
+
+    if (isset($props['event'])) {
+        $events = $props['event'];
+    }
 
     $cart = [];
 
     switch ($action) {
         case 'Filter':
-            $output = "";
+            $eventCards = $service->getEventsWithFilter($events);
 
-            $jazzEvents = $service->getJazzEvents();
+            if (count($eventCards) == 0) {
+                echo "No results found, please re-check your filters";
+            }
 
-            foreach ($jazzEvents as $key => $event) {
-                $item = Route::template('agenda.event_horiz', [
+            foreach ($eventCards as $key => $event) {
+                $item = Route::render('agenda.event_horiz', [
                     'img' => $event->getImg(),
                     'title' => $event->getName(),
                     'date' => $event->getStartDateTime()->format('jS F Y'),
                     'venue' => $event->getVenue(),
                     'time' => $event->getStartDateTime()->format('H:i'),
                     'cost' => number_format($event->getPrice(), 2),
+                    'id' => $event->getID(),
+                    'bg' => $event->getCssClass(),
                 ]);
-                $output .= $item;
             }
 
-            echo $output;
             break;
         case 'Add to Cart':
-            $service->getJazzEvents();
+            var_dump($props);
             break;
         default:
             // ¯\_(ツ)_/¯

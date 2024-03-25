@@ -1,4 +1,4 @@
-<form class="bg-white flex flex-col gap-4 p-4 w-64 rounded-lg h-min" hx-post hx-target="#out">
+<form class="bg-white flex flex-col gap-4 p-4 w-80 rounded-lg h-min" hx-post hx-target="#out">
     <label class="text-2xl font-semibold">Filter</label>
     <label for="date">
         <p class="text-lg font-bold">Date</p>
@@ -29,27 +29,27 @@
                     <div class="w-4 h-4 bg-[#95D4EB] rounded-full"></div>
                     <p>History</p>
                 </div>
-                <input id="hist-event" type="checkbox" name="event[]" value="History">
+                <input id="hist-event" type="checkbox" name="event[]" value="History" checked>
             </label>
             <label for="jazz-event" class="flex flex-row justify-between gap-4">
                 <div class="flex flex-row items-center gap-2">
                     <div class="w-4 h-4 bg-[#B92090] rounded-full"></div>
                     <p>Jazz</p>
                 </div>
-                <input id="jazz-event" type="checkbox" name="event[]" value="Jazz">
+                <input id="jazz-event" type="checkbox" name="event[]" value="Jazz" checked>
             </label>
             <label for="yum-event" class="flex flex-row justify-between gap-4">
                 <div class="flex flex-row items-center gap-2">
                     <div class="w-4 h-4 bg-[#e49287] rounded-full"></div>
                     <p>Yummy</p>
                 </div>
-                <input id="yum-event" type="checkbox" name="event[]" value="Yummy">
+                <input id="yum-event" type="checkbox" name="event[]" value="Yummy" checked>
             </label>
         </div>
     </label>
     <label for="time">
         <p class="text-lg font-bold">Start time</p>
-        <input type="time" name="time" class="border p-2 rounded-md text-gray-700">
+        <input type="datetime-local" name="time" class="border p-2 rounded-md text-gray-700" min="2024-07-25T00:00" value="2024-07-25T00:00" max="2024-07-28T21:59:00+02:00">
     </label>
     <input type="submit" name="action" value="Filter" class="cursor-pointer border-black border rounded">
 </form>

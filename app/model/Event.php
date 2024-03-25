@@ -21,9 +21,10 @@ class Event
         return $this->Type;
     }
 
-    public function getID(): int
+    public function getID(): string
     {
-        return $this->ID;
+        $type = strtolower($this->Type[0]);
+        return $type . '-' . $this->ID;
     }
 
     public function getPrice(): float
@@ -59,5 +60,17 @@ class Event
     public function getEndDateTime(): DateTime
     {
         return new DateTime($this->EndDateTime);
+    }
+
+    public function getCssClass(): string
+    {
+        switch (strtolower($this->Type[0])) {
+            case 'j':
+                return 'bg-[#B92090]';
+            case 'y':
+                return 'bg-[#E49287]';
+            case 'h':
+                return 'bg-[#95D4EB]';
+        }
     }
 }
