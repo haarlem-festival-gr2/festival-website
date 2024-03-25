@@ -12,10 +12,19 @@ class User extends BaseModel
 
     public string $Role;
 
+    public string $Email;
+
+    public string $Username;
+
     private string $PasswordHash;
 
     public function verifyPassword(string $password): bool
     {
         return password_verify($password, $this->PasswordHash);
+    }
+
+    public function getId() : int
+    {
+        return $this->UserID;
     }
 }

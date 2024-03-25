@@ -99,4 +99,11 @@ class UserService extends BaseService
         } else {
         }
     }
+
+
+    public function updateUser(User $user): void
+    {
+        $this->repository->update_user($user);
+    }
+
 }

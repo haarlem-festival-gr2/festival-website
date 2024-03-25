@@ -21,8 +21,9 @@
 <div class="flex flex-col">
     <input type="submit" name="action" value="Update the modified values"
         class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100 h-10" />
-    <p class="text-red-700" id="error"></p>
+    <p class="text-green-700" id="error"></p>
     <a class="text-gray-600 hover:underline" href="reset">Forgot your password?</a>
+    <a class="text-gray-600 hover:underline" href="user">Go back</a>
 </div>
 @endauth
 @endsection
