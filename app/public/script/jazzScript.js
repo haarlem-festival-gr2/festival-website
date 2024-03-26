@@ -1,8 +1,6 @@
 function addTicketToProgram(buttonElement) {
+    console.log("hello");
     if (buttonElement.disabled) {
-        buttonElement.textContent = "Tickets Sold Out";
-        buttonElement.classList.remove("bg-yellow-400");
-        buttonElement.classList.add("bg-red-500");
         return;
     }
 

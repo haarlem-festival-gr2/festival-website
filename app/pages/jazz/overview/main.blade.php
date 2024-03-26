@@ -120,9 +120,7 @@
                             - Free!
                         @endif
                     </p>
-                    @include('jazz.addTicket', [
-                         'buttonClass' => 'ml-44 mr-[2rem]'
-                     ])
+                    @include('jazz.addTicket', ['buttonClass' => 'ml-44 mr-[2rem]'])
                 </div>
             </div>
         @endforeach
