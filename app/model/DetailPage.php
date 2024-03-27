@@ -35,5 +35,4 @@ class DetailPage
     public $Email;
 
     public $WebsiteAddress;
-
 }

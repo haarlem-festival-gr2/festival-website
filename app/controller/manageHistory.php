@@ -3,8 +3,7 @@
 use Core\Route\Route;
 use service\HistoryService;
 
-require_once __DIR__ . '/../service/HistoryService.php';
-
+require_once __DIR__.'/../service/HistoryService.php';
 
 Route::serve('/history', function (array $props) {
     $historyService = new HistoryService();
@@ -14,7 +13,7 @@ Route::serve('/history', function (array $props) {
     $languages = $historyService->getHistoryLanguages();
     $locations = $historyService->getLocations();
 
-    // $ticketsInfo = $historyService->getTicketsByDay(); 
+    // $ticketsInfo = $historyService->getTicketsByDay();
 
     Route::render('history.history', [
         'homeInfo' => $homeInfo,
