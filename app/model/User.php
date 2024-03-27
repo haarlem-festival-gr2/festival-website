@@ -12,11 +12,11 @@ class User extends BaseModel
 
     public string $Role;
 
-    private string $PasswordHash;
-
     public string $Email;
 
     public string $Username;
+
+    private string $PasswordHash;
 
     public string $RegistrationDate;
 
@@ -32,4 +32,8 @@ class User extends BaseModel
         return $this->PasswordHash;
     }
 
+    public function getId() : int
+    {
+        return $this->UserID;
+    }
 }

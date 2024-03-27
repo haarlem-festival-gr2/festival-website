@@ -106,6 +106,11 @@ class UserService extends BaseService
         $this->repository->deleteUser($userId);
         exit();
     }
+
+    public function updateUser(User $user): void
+    {
+        $this->repository->update_user($user);
+    }
 }
 
 
