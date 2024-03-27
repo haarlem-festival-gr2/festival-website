@@ -6,7 +6,6 @@ use PDO;
 
 class EventRepository extends BaseRepository
 {
-
     public function get_jazz_query(): string
     {
         $queryJazz = "SELECT 'JAZZ' as Type,
@@ -54,6 +53,7 @@ class EventRepository extends BaseRepository
      * I hate this function but I cba to unify the tables
      * backend side. too much individuality to be broken
      * for that to be possible
+     *
      * @return array<\Model\Event>|false
      */
     public function get_all_events(): array|false
@@ -71,8 +71,9 @@ class EventRepository extends BaseRepository
 
         return $query->fetchAll();
     }
+
     /**
-     * @param array<string> $filters
+     * @param  array<string>  $filters
      */
     public function get_events_with_filter(array $filters): array|false
     {
@@ -80,11 +81,11 @@ class EventRepository extends BaseRepository
             return false;
         }
 
-        $final = "";
-        for ($i=0; $i < count($filters); $i++) { 
+        $final = '';
+        for ($i = 0; $i < count($filters); $i++) {
             $final .= $filters[$i];
-            if ($i+1 < count($filters)) {
-                $final .= " UNION ALL ";
+            if ($i + 1 < count($filters)) {
+                $final .= ' UNION ALL ';
             }
         }
 

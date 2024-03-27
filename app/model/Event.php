@@ -7,13 +7,21 @@ use DateTime;
 class Event
 {
     private string $Type;
+
     private int $ID;
+
     private float $Price;
+
     private int $TotalTickets;
+
     private string $Name;
+
     private string $Venue;
+
     private string $Img;
+
     private string $StartDateTime;
+
     private string $EndDateTime;
 
     public function getType(): string
@@ -24,7 +32,8 @@ class Event
     public function getID(): string
     {
         $type = strtolower($this->Type[0]);
-        return $type . '-' . $this->ID;
+
+        return $type.'-'.$this->ID;
     }
 
     public function getPrice(): float

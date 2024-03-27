@@ -2,8 +2,8 @@
 
 namespace Service;
 
-use Repository\EventRepository;
 use Model\Event;
+use Repository\EventRepository;
 
 class EventService extends BaseService
 {
@@ -13,6 +13,7 @@ class EventService extends BaseService
     {
         $this->repository = new EventRepository();
     }
+
     /**
      * @return array<Event>
      */
@@ -25,9 +26,9 @@ class EventService extends BaseService
             return $events;
         }
     }
+
     /**
-     * @param array<string> $filters
-     * @return array
+     * @param  array<string>  $filters
      */
     public function getEventsWithFilter(array $filters): array
     {

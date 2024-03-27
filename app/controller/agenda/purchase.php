@@ -23,7 +23,7 @@ Route::serve('/agenda/purchase', function ($props) {
     switch ($action) {
         case 'Filter':
             if (count($eventCards) == 0) {
-                echo "No results found, please re-check your filters";
+                echo 'No results found, please re-check your filters';
             }
 
             foreach ($eventCards as $key => $event) {
@@ -40,7 +40,7 @@ Route::serve('/agenda/purchase', function ($props) {
             }
             break;
         case 'Add to Cart':
-            Route::render("agenda.cart_item", ['item' => $eventCards[$props['id']]]);
+            Route::render('agenda.cart_item', ['item' => $eventCards[$props['id']]]);
             break;
         default:
             // ¯\_(ツ)_/¯
