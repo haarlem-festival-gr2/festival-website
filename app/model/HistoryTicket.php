@@ -4,17 +4,17 @@ namespace model;
 
 class HistoryTicket
 {
-    public int $TourI;
+    public int $TourID;
     public int $DayID;
     public int $LanguageID;
     public string $Name;
     public string $StartDateTime;
     public string $EndDateTime;
-    public int $TotalSeats;
-    public int $RemainingSeats;
+    public int $TotalTickets;
+    public int $RemainingTickets;
 
-    public function getDayID(): int
-    {
-        return $this->DayID;
-    }
+    // public function getDayID(): int
+    // {
+    //     return $this->DayID;
+    // }
 }
