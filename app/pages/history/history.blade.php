@@ -14,59 +14,54 @@
         integrity="sha512-Q85xgzayNwtT9vIkzYuhCe9zgbjXJtexzAUcSUcvz6SaNEcYGTl4PvaYT2RtN1dfqZUhz7tCOBbXJkWNHNlxuA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<!-- <script>
-    function speakText() {
-        const text = document.getElementById('festivalText').innerText;
-        const utterance = new SpeechSynthesisUtterance(text);
-        speechSynthesis.speak(utterance);
-    }-- >
 
-    <
-    body class = "bg-gray-100 font-sans leading-normal tracking-normal" >
+<div class="relative w-full h-screen bg-no-repeat bg-cover" style="background-image: url('/img/history/walky.png');">
+    <!-- Overlay -->
+    <div class="absolute w-full h-full bg-gradient-to-b from-transparent to-gray-900 opacity-75"></div>
 
-    <
-    div class = "relative w-full h-screen bg-no-repeat bg-cover"
-    style = "background-image: url('/img/history/walky.png');" >
-        <
-        !--overlay-- >
-        <
-        div class = "absolute w-full h-full bg-gradient-to-b from-transparent to-gray-900 opacity-75" > < /div>
+    <!-- Centered content -->
+    <div class="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center text-center z-10">
+        <h1 class="text-6xl text-white font-bold mb-4">A stroll through history</h1>
+        <p class="text-xl text-white mb-8">Let's explore Haarlem</p>
+        <a href="#next-section" onclick="scrollToNextSection()"
+            class="bg-yellow-400 text-gray-800 py-2 px-4 border border-gray-800 rounded text-lg font-bold no-underline">Discover
+            Haarlem</a>
+    </div>
+</div>
 
-        <
-        !--centered content-- >
-        <
-        div class =
-        "absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center text-center z-10" >
-        <
-        h1 class = "text-6xl text-white font-bold mb-4" > A stroll through history < /h1> <
-    p class = "text-xl text-white mb-8" > Let 's explore Haarlem</p> <
-    a href = "#next-section"
-    onclick = "scrollToNextSection()"
-    class = "bg-yellow-400 text-gray-800 py-2 px-4 border border-gray-800 rounded text-lg font-bold no-underline" >
-    Discover Haarlem < /a> < /
-    div >
-
-        <
-        /div>
-
-        <
-        script >
-        function scrollToNextSection() {
-            var nextSection = document.getElementById('next-section');
-            nextSection.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
+<script>
+    function scrollToNextSection() {
+        var nextSection = document.getElementById('next-section');
+        nextSection.scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
 </script>
 
 <section id="next-section">
-<div class="p-8 relative" style="background-color: #fcc040; text-align: center;">
-<h2 class="text-4xl font-bold mb-4">Discover Haarlem through the eyes of a local!</h2>
-    <p class="mb-4" id="festivalText">Come and explore Haarlem like a local on our next tour! Discover this charming town known as 'Little Amsterdam.' Walk around the city center without cars, learn about the famous Dutch flower's history, explore the art influence of painter Frans Hals, and find hidden spots loved by locals. Join us for our next tour and experience the historic vibes of 17th-century Haarlem.</p>
-    <button onclick="speakText()" type="button" aria-label="Play audio description" style="position: absolute; bottom: 10px; right: 10px; background: none; border: none; font-size: 24px;">
-        🔊</button>
-</div>
-</section> -->
+    <div class="p-8 relative" style="background-color: #fcc040; text-align: center;">
+        <h2 class="text-4xl font-bold mb-4">Discover Haarlem through the eyes of a local!</h2>
+        <p class="mb-4" id="festivalText">Come and explore Haarlem like a local on our next tour! Discover this
+            charming town known as 'Little Amsterdam.' Walk around the city center without cars, learn about the famous
+            Dutch flower's history, explore the art influence of painter Frans Hals, and find hidden spots loved by
+            locals. Join us for our next tour and experience the historic vibes of 17th-century Haarlem.</p>
+
+        <button onclick="speakText()" type="button" aria-label="Play audio description"
+            style="position: absolute; bottom: 10px; right: 10px; background: none; border: none; font-size: 24px;">🔊</button>
+    </div>
+
+    <script>
+        function speakText() {
+            let synth = window.speechSynthesis;
+            let textToRead = document.getElementById("festivalText").textContent;
+            let utterThis = new SpeechSynthesisUtterance(textToRead);
+
+            utterThis.lang = "en-US";
+            synth.speak(utterThis);
+        }
+    </script>
+</section>
+
 
 <!-- Circles -->
 <section class="my-12 mx-4 md:mx-0">

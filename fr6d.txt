@@ -1,0 +1,5 @@
+DB_TYPE=postgresql
+DB_HOST=ep-young-wave-a2hc850n.eu-central-1.aws.neon.tech
+DB_NAME=neondb
+DB_USER=RocKing1001
+DB_PASS=Y3WEJLKGkM6q
