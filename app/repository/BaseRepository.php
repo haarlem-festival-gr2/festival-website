@@ -12,10 +12,7 @@ abstract class BaseRepository
     public function __construct()
     {
         $dsn = "mysql:host={$_ENV['PS_DB_HOST']};dbname={$_ENV['PS_DB_NAME']}";
-        $options = [
-            PDO::MYSQL_ATTR_SSL_CA => '/etc/ssl/certs/ca-certificates.crt',
-        ];
-        $pdo = new PDO($dsn, $_ENV['PS_DB_USERNAME'], $_ENV['PS_DB_PASSWORD'], $options);
+        $pdo = new PDO($dsn, $_ENV['PS_DB_USERNAME'], $_ENV['PS_DB_PASSWORD']);
         $this->connection = $pdo;
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
