@@ -19,7 +19,7 @@
             <p>{{ $cost }}</p>
         </span>
     </div>
-    <form hx-post hx-target="#cart" class="flex flex-col gap-4" hx-vals='{"id": "{{$id}}"}'>
+    <form hx-post hx-target="#cart" class="flex flex-col gap-4" hx-vals='{"id": "{{$id}}"}' hx-include="#filters">
         <input type="submit" name="action" value="Add to Cart" class="cursor-pointer border-black border rounded bg-white px-4">
         <!-- <input type="submit" name="action" value="More Info" class="cursor-pointer border-black border rounded bg-white px-4"> -->
     </form>

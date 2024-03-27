@@ -19,10 +19,9 @@ Route::serve('/agenda/purchase', function ($props) {
 
     $cart = [];
 
+    $eventCards = $service->getEventsWithFilter($events);
     switch ($action) {
         case 'Filter':
-            $eventCards = $service->getEventsWithFilter($events);
-
             if (count($eventCards) == 0) {
                 echo "No results found, please re-check your filters";
             }
@@ -35,14 +34,13 @@ Route::serve('/agenda/purchase', function ($props) {
                     'venue' => $event->getVenue(),
                     'time' => $event->getStartDateTime()->format('H:i'),
                     'cost' => number_format($event->getPrice(), 2),
-                    'id' => $event->getID(),
+                    'id' => $key,
                     'bg' => $event->getCssClass(),
                 ]);
             }
-
             break;
         case 'Add to Cart':
-            var_dump($props);
+            Route::render("agenda.cart_item", ['item' => $eventCards[$props['id']]]);
             break;
         default:
             // ¯\_(ツ)_/¯

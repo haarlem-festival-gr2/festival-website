@@ -1,4 +1,4 @@
-<form class="bg-white flex flex-col gap-4 p-4 w-80 rounded-lg h-min" hx-post hx-target="#out">
+<form id="filters" class="bg-white flex flex-col gap-4 p-4 w-80 rounded-lg h-min" hx-post hx-target="#out">
     <label class="text-2xl font-semibold">Filter</label>
     <label for="date">
         <p class="text-lg font-bold">Date</p>

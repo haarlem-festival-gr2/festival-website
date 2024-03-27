@@ -12,13 +12,10 @@
         <!--     <div class="bg-gray-400 flex-grow h-[1px]"></div> -->
         <!-- </div> -->
     </div>
-    <div id="cart" class="bg-white rounded-lg w-[40rem]">
+    <div class="bg-white rounded-lg flex flex-col gap-4">
         <h1 class="font-serif font-semibold text-4xl whitespace-nowrap m-4">Your Cart</h1>
-        <div>
-            
-        </div>
+        <div id="cart"></div>
     </div>
-    
 </div>
 
 @endsection
