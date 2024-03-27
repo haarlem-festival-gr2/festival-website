@@ -20,7 +20,7 @@ Route::serve('/jazz', function (array $props) {
     //   Route::redirect('/login');
     //}
 
-    Route::render('jazz.jazz', [
+    Route::render('jazz.overview.main', [
         'festivalEvent' => $festivalEvent,
         'eventDays' => $eventDays,
         'user' => $user,

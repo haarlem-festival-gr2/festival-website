@@ -18,4 +18,5 @@ class User extends BaseModel
     {
         return password_verify($password, $this->PasswordHash);
     }
+
 }

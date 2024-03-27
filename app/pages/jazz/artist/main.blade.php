@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Artist</title>
+    <title>{{ $artist->Name }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/script/jazzScript.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
@@ -12,10 +12,13 @@
 </head>
 
 <body class="font-montserrat">
+
+<!-- header-->
 <div class="relative w-full">
     @if ($artist->HeaderImg)
         <img src="{{ $artist->HeaderImg }}" alt="{{ $artist->Name }}" class="w-full"/>
     @else
+        <!-- remove?-->
         <p class="text-gray-500">Header Image</p>
     @endif
 
@@ -26,6 +29,7 @@
     </div>
 </div>
 
+<!-- bio with img-->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
     <div class="flex flex-col bg-[#FCC040] p-8 m-10">
         <div class="text-left mx-auto">
@@ -60,7 +64,6 @@
             <p class="text-gray-500">Image</p>
         @endif
     </div>
-
     <div class="flex flex-col p-8 m-10 bg-[#FCC040]">
         <div class="text-left mx-auto overflow-hidden">
             <p class="mt-4 leading-relaxed">
@@ -70,6 +73,7 @@
     </div>
 </div>
 
+<!-- albums-->
 <div class="text-center py-6">
     <h2 class="text-4xl font-noto-serif">
         Discover albums of {{ $artist->Name }}!
@@ -81,7 +85,7 @@
             <div class="p-4">
                 <div class="p-4 text-center bg-pink-200 rounded-lg overflow-hidden cursor-pointer block">
                     <iframe style="border-radius: 12px"
-                            src="https://open.spotify.com/embed/album/{{ $album->SpotifyID }}?utm_source=generator"
+                            src="https://open.spotify.com/embed/album/{{ $album }}?utm_source=generator"
                             width="100%" height="352" allowfullscreen=""
                             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                             loading="lazy">
@@ -91,6 +95,8 @@
         @endforeach
     </div>
 </div>
+
+<!-- songs-->
 <div class="text-center py-6">
     <h2 class="text-4xl font-noto-serif">
         Discover most popular songs of {{ $artist->Name }}!
@@ -103,7 +109,7 @@
                 <div class="text-center mb-4 md:mb-0">
                     <div class="p-4 text-center overflow-hidden cursor-pointer block">
                         <iframe style="border-radius: 12px"
-                                src="https://open.spotify.com/embed/track/{{ $song->SpotifyID }}?utm_source=generator"
+                                src="https://open.spotify.com/embed/track/{{ $song }}?utm_source=generator"
                                 width="100%" height="352" allowfullscreen=""
                                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                                 loading="lazy">
@@ -115,6 +121,7 @@
     </div>
 </div>
 
+<!-- tickets-->
 @foreach ($performances as $performance)
     <div class="text-center">
         <div class="flex flex-col bg-pink-200 items-center p-8 m-6">
@@ -133,16 +140,7 @@
             </p>
             @if ($performance->Price != '0.00')
                 <div class="mt-4 flex justify-center w-full">
-                    <button
-                            class="px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs w-48 bg-yellow-400 text-black"
-                            onclick="addTicketToProgram(this)"
-                            data-default-text="Add a ticket to personal program"
-                            data-active-text="Ticket added to personal program"
-                            data-default-class="bg-yellow-400"
-                            data-active-class="bg-green-500"
-                            {{ $performance->AvailableTickets < $performance->TotalTickets * 0.1 ? 'disabled' : '' }}>
-                        Add a ticket to personal program
-                    </button>
+                    @include('jazz.addTicket')
                 </div>
             @else
                 <div class="mt-4 flex justify-center">

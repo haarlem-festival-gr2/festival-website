@@ -11,5 +11,7 @@ class JazzPass {
         public ?string $Note,
         public int $TotalTickets,
         public int $AvailableTickets
-    ) {}
+    ) {
+        $this->Note = $this->Note ?? '';
+    }
 }

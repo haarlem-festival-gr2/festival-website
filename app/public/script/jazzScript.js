@@ -1,6 +1,7 @@
 function addTicketToProgram(buttonElement) {
+    console.log("hello");
     if (buttonElement.disabled) {
-        return; // Exit if the button is disabled
+        return;
     }
 
     const activeText = buttonElement.getAttribute('data-active-text');
