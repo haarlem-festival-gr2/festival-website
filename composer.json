@@ -8,7 +8,10 @@
     },
     "autoload": {
       "psr-4": {
-        "Core\\Route\\": "core"
+        "Core\\Route\\": "core",
+        "Repository\\": "repository",
+        "Service\\": "service",
+        "Model\\": "model"
       }
     }
 }

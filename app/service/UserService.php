@@ -95,8 +95,19 @@ class UserService extends BaseService
         $res = curl_exec($curl);
 
         if ($res) {
-            
+
         } else {
         }
+    }
+
+    public function deleteUser($userId)
+    {
+        $this->repository->deleteUser($userId);
+        exit();
+    }
+
+    public function updateUser(User $user): void
+    {
+        $this->repository->update_user($user);
     }
 }

@@ -14,6 +14,7 @@ require_once __DIR__.'/../model/User.php';
 class ResetTokenService extends BaseService
 {
     private ResetTokenRepository $repository;
+
     private UserRepository $userRepository;
 
     public function __construct()
@@ -32,6 +33,7 @@ class ResetTokenService extends BaseService
             $email = $data['Email'];
             $this->userRepository->set_new_password($email, $password);
             $this->repository->remove_token($email);
+
             return true;
         }
     }
