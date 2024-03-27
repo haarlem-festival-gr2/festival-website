@@ -16,12 +16,12 @@ Route::serve('/reset', function (array $props) {
     }
 });
 
-Route::serve('/reset', function (array $props)   {
+Route::serve('/reset', function (array $props) {
     if ($props['action'] === 'Send recovery email') {
         $service = new ResetTokenService();
         $email = $props['email'];
         $service->sendRecoveryEmail($email);
-        echo "If we find your email in our database, we will send you an email";
+        echo 'If we find your email in our database, we will send you an email';
     } else {
         $service = new ResetTokenService();
         $password = $props['password'];
@@ -38,9 +38,9 @@ Route::serve('/reset', function (array $props)   {
         $res = $service->setNewPassword($token, $passwordHash);
 
         if (! $res) {
-            echo "Something went wrong";
+            echo 'Something went wrong';
         } else {
-            Route::redirect("/login");
+            Route::redirect('/login');
         }
     }
 }, Method::POST);

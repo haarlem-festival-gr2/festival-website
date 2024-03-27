@@ -20,7 +20,6 @@ Route::serve('/editJazzDay', function (array $props) {
     ]);
 }, Method::GET);
 
-
 Route::serve('/editJazzDay', function (array $props) {
     $jazzService = new JazzService();
 
@@ -29,9 +28,10 @@ Route::serve('/editJazzDay', function (array $props) {
     $venueId = $props['venue'];
     $note = $props['note'];
 
-    if ( empty($date) || empty($venueId)) {
+    if (empty($date) || empty($venueId)) {
         $error = 'All fields marked with * are required.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 
@@ -42,6 +42,7 @@ Route::serve('/editJazzDay', function (array $props) {
             $imgPath = $imageService->uploadImage($_FILES['image'], 'jazz');
         } catch (Exception $e) {
             echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
+
             return;
         }
     }

@@ -15,7 +15,7 @@ Route::serve('/editArtist', function (array $props) {
     $artist = $jazzService->getArtistById($artistId);
 
     Route::render('admin.jazz.edit.artist',
-        ['artist'=> $artist]
+        ['artist' => $artist]
     );
 }, Method::GET);
 
@@ -27,13 +27,14 @@ Route::serve('/editArtist', function (array $props) {
     $name = $props['name'];
     $bio = $props['bio'];
 
-    if ( empty($name) || empty($bio)){
+    if (empty($name) || empty($bio)) {
         $error = 'All fields marked with * are required.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
-    $songs = [$_POST['song1'] ?? null, $_POST['song2'] ?? null, $_POST['song3'] ?? null,];
-    $albums = [$_POST['album1'] ?? null, $_POST['album2'] ?? null, $_POST['album3'] ?? null,];
+    $songs = [$_POST['song1'] ?? null, $_POST['song2'] ?? null, $_POST['song3'] ?? null];
+    $albums = [$_POST['album1'] ?? null, $_POST['album2'] ?? null, $_POST['album3'] ?? null];
 
     $headerImgPath = null;
     $artistImg2Path = null;
@@ -46,6 +47,7 @@ Route::serve('/editArtist', function (array $props) {
             $headerImgPath = $imageService->uploadImage($_FILES['header_img'], 'jazz/artists');
         } catch (Exception $e) {
             echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
+
             return;
         }
     }
@@ -56,6 +58,7 @@ Route::serve('/editArtist', function (array $props) {
             $artistImg1Path = $imageService->uploadImage($_FILES['artist_img1'], 'jazz/artists');
         } catch (Exception $e) {
             echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
+
             return;
         }
     }
@@ -66,6 +69,7 @@ Route::serve('/editArtist', function (array $props) {
             $artistImg2Path = $imageService->uploadImage($_FILES['artist_img2'], 'jazz/artists');
         } catch (Exception $e) {
             echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
+
             return;
         }
     }
@@ -76,6 +80,7 @@ Route::serve('/editArtist', function (array $props) {
             $performanceImgPath = $imageService->uploadImage($_FILES['performance_img'], 'jazz/performances');
         } catch (Exception $e) {
             echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
+
             return;
         }
     }

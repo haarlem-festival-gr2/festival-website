@@ -14,10 +14,10 @@ require_once __DIR__.'/../service/BaseService.php';
 require_once __DIR__.'/../repository/JazzRepository.php';
 require_once __DIR__.'/../service/ImageService.php';
 
-
 class JazzService extends BaseService
 {
     private JazzRepository $repository;
+
     private ImageService $imageService;
 
     public function __construct()
@@ -42,19 +42,19 @@ class JazzService extends BaseService
         $artist = $this->repository->getArtistById($artistId);
 
         $this->setDefaultSongsAndAlbumsIfEmpty($songs, $albums);
-        $this->repository->updateArtist($artistId, $name, $bio,  $songs, $albums, $headerImg, $artistImg1, $artistImg2, $performanceImg);
+        $this->repository->updateArtist($artistId, $name, $bio, $songs, $albums, $headerImg, $artistImg1, $artistImg2, $performanceImg);
 
         // delete old images if new were uploaded and if old images aren't placeholders
-        if($headerImg !== null && $artist->HeaderImg !== '/img/jazz/artists/artistPlaceholder.jpg'){
+        if ($headerImg !== null && $artist->HeaderImg !== '/img/jazz/artists/artistPlaceholder.jpg') {
             $this->imageService->deleteImage($artist->HeaderImg);
         }
-        if ($artistImg1 !== null && $artist->ArtistImg1 !== '/img/jazz/artists/placeholder.jpg'){
+        if ($artistImg1 !== null && $artist->ArtistImg1 !== '/img/jazz/artists/placeholder.jpg') {
             $this->imageService->deleteImage($artist->ArtistImg1);
         }
-        if ($artistImg2 !== null && $artist->ArtistImg2 !== '/img/jazz/artists/placeholder.jpg'){
+        if ($artistImg2 !== null && $artist->ArtistImg2 !== '/img/jazz/artists/placeholder.jpg') {
             $this->imageService->deleteImage($artist->ArtistImg2);
         }
-        if ($performanceImg !== null){
+        if ($performanceImg !== null) {
             $this->imageService->deleteImage($artist->PerformanceImg);
         }
     }
@@ -68,7 +68,7 @@ class JazzService extends BaseService
 
     public function deleteArtist(int $id): void
     {
-        try{
+        try {
             $artist = $this->repository->getArtistById($id);
             $this->repository->deleteArtist($id);
 
@@ -153,7 +153,7 @@ class JazzService extends BaseService
 
         $this->repository->updateJazzDay($id, $date, $venueId, $note, $imgPath);
 
-        if($imgPath !== null){
+        if ($imgPath !== null) {
             $this->imageService->deleteImage($currentImg);
         }
     }
@@ -176,13 +176,14 @@ class JazzService extends BaseService
     }
 
     // jazz overview page
-    public function getEventDaysWithDetails(): array {
+    public function getEventDaysWithDetails(): array
+    {
         $days = $this->repository->getAllJazzDays();
 
         $eventDays = [];
         foreach ($days as $day) {
             $performances = $this->repository->getPerformancesByJazzDay($day);
-            if (!empty($performances)) {
+            if (! empty($performances)) {
                 $jazzPasses = $this->repository->getJazzPassesByDate($day->Date);
                 $eventDays[] = [
                     'day' => $day,
@@ -191,6 +192,7 @@ class JazzService extends BaseService
                 ];
             }
         }
+
         return $eventDays;
     }
 
@@ -218,13 +220,15 @@ class JazzService extends BaseService
     public function createPerformance(int $ArtistID, int $DayID, float $Price, string $StartDateTime, string $EndDateTime, int $AvailableTickets, int $TotalTickets, string $Details): bool
     {
         $date = ($this->repository->getJazzDayById($DayID))->Date;
-        return $this->repository->createPerformance($ArtistID, $DayID, $Price, $date . ' ' . $StartDateTime, $date . ' ' . $EndDateTime, $AvailableTickets, $TotalTickets, $Details);
+
+        return $this->repository->createPerformance($ArtistID, $DayID, $Price, $date.' '.$StartDateTime, $date.' '.$EndDateTime, $AvailableTickets, $TotalTickets, $Details);
     }
 
-    public function updatePerformance(int $PerformanceID,int $ArtistID, int $DayID, float $Price, string $StartDateTime, string $EndDateTime, int $AvailableTickets, int $TotalTickets, string $Details): bool
+    public function updatePerformance(int $PerformanceID, int $ArtistID, int $DayID, float $Price, string $StartDateTime, string $EndDateTime, int $AvailableTickets, int $TotalTickets, string $Details): bool
     {
         $date = ($this->repository->getJazzDayById($DayID))->Date;
-        return $this->repository->updatePerformance($PerformanceID, $ArtistID, $DayID, $Price, $date . ' ' . $StartDateTime, $date . ' ' . $EndDateTime, $AvailableTickets, $TotalTickets, $Details);
+
+        return $this->repository->updatePerformance($PerformanceID, $ArtistID, $DayID, $Price, $date.' '.$StartDateTime, $date.' '.$EndDateTime, $AvailableTickets, $TotalTickets, $Details);
     }
 
     // passes
@@ -233,7 +237,8 @@ class JazzService extends BaseService
         return $this->repository->getJazzPassesByDate($date);
     }
 
-    public function getJazzPassById(int $id): ?JazzPass {
+    public function getJazzPassById(int $id): ?JazzPass
+    {
         return $this->repository->getJazzPassById($id);
     }
 

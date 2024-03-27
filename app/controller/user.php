@@ -2,7 +2,6 @@
 
 use Core\Route\Method;
 use Core\Route\Route;
-use Model\User;
 
 Route::serve('/login', function (array $props) {
     // require_once '/app/pages/login.html';
@@ -19,8 +18,8 @@ Route::serve('/login', function (array $props) {
         $_SESSION['auth'] = null;
         Route::redirect('/login');
     } elseif ($props['action'] == 'View Agenda') {
-     Route::redirect('/agenda');
+        Route::redirect('/agenda');
     } elseif ($props['action'] == 'Change account info') {
-        Route::redirect("/updateUserInfo");
+        Route::redirect('/updateUserInfo');
     }
 }, Method::POST);

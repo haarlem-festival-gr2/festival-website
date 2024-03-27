@@ -11,7 +11,7 @@ Route::serve('/manageArtists', function (array $props) {
     $artists = $jazzService->getAllArtists();
 
     Route::render('admin.jazz.manage.artists', [
-        'artists' => $artists
+        'artists' => $artists,
     ]);
 });
 
@@ -22,6 +22,7 @@ Route::serve('/manageArtists', function (array $props) {
         $jazzService->deleteArtist($props['id']);
     } catch (Exception $e) {
         echo "<script>alert('".addslashes($e->getMessage())."');</script>";
+
         return;
     }
 

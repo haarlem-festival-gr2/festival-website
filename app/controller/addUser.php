@@ -29,4 +29,3 @@ Route::serve('/addUser', function (array $props) {
 //         exit ('Invalid request method');
 //     }
 // });
-?>

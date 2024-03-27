@@ -31,9 +31,10 @@ Route::serve('/editVenue', function (array $props) {
     $address = $props['address'];
     $contactDetails = $props['contact_details'];
 
-    if ( empty($name) || empty($address)){
+    if (empty($name) || empty($address)) {
         $error = 'All fields marked with * are required.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 

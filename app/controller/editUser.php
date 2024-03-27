@@ -4,8 +4,8 @@
 use Core\Route\Route;
 use Repository\UserRepository;
 
-require_once __DIR__ . '/../repository/UserRepository.php';
-require_once __DIR__ . '/../model/User.php';
+require_once __DIR__.'/../repository/UserRepository.php';
+require_once __DIR__.'/../model/User.php';
 
 Route::serve('/editUser', function (array $props) {
     // retrieve user ID from query parameters

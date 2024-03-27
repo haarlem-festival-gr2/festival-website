@@ -19,13 +19,14 @@ Route::serve('/createArtist', function (array $props) {
     $name = $props['name'];
     $bio = $props['bio'];
 
-    if ( empty($name) || empty($bio)){
+    if (empty($name) || empty($bio)) {
         $error = 'All fields marked with * are required.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
-    $songs = [$_POST['song1'] ?? null, $_POST['song2'] ?? null, $_POST['song3'] ?? null,];
-    $albums = [$_POST['album1'] ?? null, $_POST['album2'] ?? null, $_POST['album3'] ?? null,];
+    $songs = [$_POST['song1'] ?? null, $_POST['song2'] ?? null, $_POST['song3'] ?? null];
+    $albums = [$_POST['album1'] ?? null, $_POST['album2'] ?? null, $_POST['album3'] ?? null];
 
     $imageService = new ImageService();
 
@@ -34,6 +35,7 @@ Route::serve('/createArtist', function (array $props) {
     } else {
         $error = 'Please upload an image.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 
@@ -42,6 +44,7 @@ Route::serve('/createArtist', function (array $props) {
     } else {
         $error = 'Please upload an image.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 
@@ -50,6 +53,7 @@ Route::serve('/createArtist', function (array $props) {
     } else {
         $error = 'Please upload an image.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 
@@ -58,6 +62,7 @@ Route::serve('/createArtist', function (array $props) {
     } else {
         $error = 'Please upload an image.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 

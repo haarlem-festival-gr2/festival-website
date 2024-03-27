@@ -15,7 +15,6 @@ Route::serve('/manageVenues', function (array $props) {
     ]);
 }, Method::GET);
 
-
 Route::serve('/manageVenues', function (array $props) {
     $jazzService = new JazzService();
 
@@ -23,6 +22,7 @@ Route::serve('/manageVenues', function (array $props) {
         $jazzService->deleteVenue($props['id']);
     } catch (Exception $e) {
         echo "<script>alert('".addslashes($e->getMessage())."');</script>";
+
         return;
     }
 

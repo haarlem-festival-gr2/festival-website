@@ -3,8 +3,8 @@
 use Core\Route\Route;
 use Service\RestaurantService;
 
-require_once __DIR__ . '/../repository/BaseRepository.php';
-require_once __DIR__ . '/../service/RestaurantService.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
+require_once __DIR__.'/../service/RestaurantService.php';
 
 Route::serve('/manageYummy', function (array $props) {
     $restaurantService = new RestaurantService();
@@ -17,4 +17,3 @@ Route::serve('/manageYummy', function (array $props) {
         'yummies' => $yummies[0],
     ]);
 });
-

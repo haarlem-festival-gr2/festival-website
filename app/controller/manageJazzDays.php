@@ -22,6 +22,7 @@ Route::serve('/manageJazzDays', function (array $props) {
         $jazzService->deleteJazzDay($props['id']);
     } catch (Exception $e) {
         echo "<script>alert('".addslashes($e->getMessage())."');</script>";
+
         return;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../service/UserService.php";
+require_once __DIR__.'/../service/UserService.php';
 
 use Core\Route\Method;
 use Core\Route\Route;

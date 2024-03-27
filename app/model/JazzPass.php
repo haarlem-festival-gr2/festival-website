@@ -2,7 +2,8 @@
 
 namespace Model;
 
-class JazzPass {
+class JazzPass
+{
     public function __construct(
         public int $JazzPassID,
         public float $Price,

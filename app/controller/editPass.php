@@ -13,7 +13,7 @@ Route::serve('/editPass', function (array $props) {
     $pass = $jazzService->getJazzPassById($passId);
 
     Route::render('admin.jazz.edit.pass',
-        ['pass'=> $pass]
+        ['pass' => $pass]
     );
 }, Method::GET);
 
@@ -28,28 +28,31 @@ Route::serve('/editPass', function (array $props) {
     $totalTickets = $props['total_tickets'];
     $note = $props['note'];
 
-
-    if ( empty($startDate) || empty($endDate) || (!isset($price) && $price !== '0') || (!isset($availableTickets) && $availableTickets !== '0') || (!isset($totalTickets) && $totalTickets !== '0')){
+    if (empty($startDate) || empty($endDate) || (! isset($price) && $price !== '0') || (! isset($availableTickets) && $availableTickets !== '0') || (! isset($totalTickets) && $totalTickets !== '0')) {
         $error = 'All fields marked with * are required.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 
-    if (!is_numeric($price) || $price < 0) {
+    if (! is_numeric($price) || $price < 0) {
         $error = 'Price must be a non-negative number.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 
-    if (!is_numeric($availableTickets) || !is_numeric($totalTickets) || $availableTickets < 0 || $totalTickets < 0 || !is_int((int)$availableTickets) || !is_int((int)$totalTickets) || (int)$availableTickets > (int)$totalTickets) {
+    if (! is_numeric($availableTickets) || ! is_numeric($totalTickets) || $availableTickets < 0 || $totalTickets < 0 || ! is_int((int) $availableTickets) || ! is_int((int) $totalTickets) || (int) $availableTickets > (int) $totalTickets) {
         $error = 'Available and total tickets must be valid non-negative integers, and available tickets cannot exceed total tickets.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 
     if (strtotime($startDate) > strtotime($endDate)) {
         $error = 'Start date must be before end date.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+
         return;
     }
 

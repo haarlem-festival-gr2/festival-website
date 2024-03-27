@@ -2,8 +2,8 @@
 
 namespace Repository;
 
-require_once __DIR__ . '/../model/User.php';
-require_once __DIR__ . '/../repository/BaseRepository.php';
+require_once __DIR__.'/../model/User.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
 
 use Model\User;
 
@@ -25,15 +25,16 @@ class UserRepository extends BaseRepository
         $query = $this->connection->prepare('INSERT INTO User (Email, PasswordHash, Username, Name, Role) VALUES (?,?,?,?,?)');
         $query->execute([$email, $password, $username, $name, $role]);
     }
+
     /**
      * @return array<User>
      */
-    public function getAllUsers(string $filter = null): array
+    public function getAllUsers(?string $filter = null): array
     {
         $query = 'SELECT UserID, Email, Username, Name, Role, RegistrationDate FROM User';
 
         if ($filter !== null) {
-            $query .= " WHERE Role = :filter OR Name = :filter OR Username = :filter OR UserID = :filter";
+            $query .= ' WHERE Role = :filter OR Name = :filter OR Username = :filter OR UserID = :filter';
         }
 
         $statement = $this->connection->prepare($query);
@@ -47,16 +48,15 @@ class UserRepository extends BaseRepository
         return $statement->fetchAll(\PDO::FETCH_CLASS, "\Model\User");
     }
 
-
     public function getUserById(int $userId): \Model\User|false
     {
         $query = $this->connection->prepare('SELECT UserID, Email, Username, Name, Role, RegistrationDate FROM User WHERE UserID = ?;');
         $query->execute([$userId]);
         $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\User");
         $user = $query->fetch();
+
         return $user;
     }
-
 
     public function updateUser(int $userId, string $email, string $username, string $name, string $role): void
     {
@@ -76,7 +76,7 @@ class UserRepository extends BaseRepository
         $query->execute([$password, $email]);
     }
 
-    public function update_user(User $user) : void
+    public function update_user(User $user): void
     {
         $query = $this->connection->prepare('UPDATE User SET Email = ?, Name = ?, Username = ? WHERE UserID = ?');
         $query->execute([$user->Email, $user->Name, $user->Username, $user->getId()]);

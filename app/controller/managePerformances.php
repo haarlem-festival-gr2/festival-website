@@ -15,8 +15,6 @@ Route::serve('/managePerformances', function (array $props) {
     ]);
 });
 
-
-
 Route::serve('/managePerformances', function (array $props) {
     $jazzService = new JazzService();
 

@@ -4,13 +4,13 @@ use Core\Route\Method;
 use Core\Route\Route;
 use Service\RestaurantService;
 
-require_once __DIR__ . '/../repository/BaseRepository.php';
-require_once __DIR__ . '/../service/RestaurantService.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
+require_once __DIR__.'/../service/RestaurantService.php';
 
 Route::serve('/manageRestaurants', function (array $props) {
     $restaurantService = new RestaurantService();
 
-    if (isset ($props['action'])) {
+    if (isset($props['action'])) {
         switch ($props['action']) {
             case 'edit':
                 break;

@@ -2,17 +2,9 @@
 
 namespace repository;
 
-use Model\HistoryDays;
-use Model\HistoryLanguageType;
-use model\HistoryTicket;
-
-
-
-require_once __DIR__ . '/../model/HistoryDays.php';
-require_once __DIR__ . '/../model/HistoryLanguageType.php';
-require_once __DIR__ . '/../model/HistoryTicket.php';
-
-
+require_once __DIR__.'/../model/HistoryDays.php';
+require_once __DIR__.'/../model/HistoryLanguageType.php';
+require_once __DIR__.'/../model/HistoryTicket.php';
 
 class HistoryRepository extends BaseRepository
 {
@@ -25,5 +17,4 @@ class HistoryRepository extends BaseRepository
 
         return $historyDays;
     }
-    
 }

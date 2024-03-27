@@ -2,7 +2,7 @@
 
 namespace Model;
 
-require_once __DIR__ . '/../model/BaseModel.php';
+require_once __DIR__.'/../model/BaseModel.php';
 
 class User extends BaseModel
 {
@@ -32,7 +32,7 @@ class User extends BaseModel
         return $this->PasswordHash;
     }
 
-    public function getId() : int
+    public function getId(): int
     {
         return $this->UserID;
     }

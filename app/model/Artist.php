@@ -14,5 +14,6 @@ class Artist
         public string $PerformanceImg,
         public array $Songs = [],
         public array $Albums = []
-    ) {}
+    ) {
+    }
 }

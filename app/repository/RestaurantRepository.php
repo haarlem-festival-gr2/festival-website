@@ -3,15 +3,12 @@
 namespace repository;
 
 use Model\Restaurant;
-use Model\Session;
-use Model\YummyEventDays;
-use Model\YummyHome;
 
-require_once __DIR__ . '/../repository/BaseRepository.php';
-require_once __DIR__ . '/../model/Restaurant.php';
-require_once __DIR__ . '/../model/Session.php';
-require_once __DIR__ . '/../model/YummyEventDays.php';
-require_once __DIR__ . '/../model/YummyHome.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
+require_once __DIR__.'/../model/Restaurant.php';
+require_once __DIR__.'/../model/Session.php';
+require_once __DIR__.'/../model/YummyEventDays.php';
+require_once __DIR__.'/../model/YummyHome.php';
 
 class RestaurantRepository extends BaseRepository
 {
@@ -82,7 +79,7 @@ class RestaurantRepository extends BaseRepository
             $restaurantData['RecipeAlt'],
             $restaurantData['Telephone'],
             $restaurantData['Email'],
-            $restaurantData['ChamberOfCommerce']
+            $restaurantData['ChamberOfCommerce'],
         ];
 
         return $query->execute($data);
