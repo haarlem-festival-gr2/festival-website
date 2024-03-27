@@ -16,6 +16,11 @@ class RestaurantService extends BaseService
         $this->repository = new RestaurantRepository();
     }
 
+    public function getAllYummy(): array
+    {
+        return $this->repository->getAllYummy();
+    }
+
     public function getAllRestaurants(): array
     {
         return $this->repository->getAllRestaurants();
@@ -24,6 +29,16 @@ class RestaurantService extends BaseService
     public function getRestaurantById(int $id): mixed
     {
         return $this->repository->getRestaurantById($id);
+    }
+
+    public function createRestaurant(array $restaurantData): bool
+    {
+        return $this->repository->createRestaurant($restaurantData);
+    }
+
+    public function deleteRestaurant(int $id): bool
+    {
+        return $this->repository->deleteRestaurant($id);
     }
 
     public function getSessionsByRestaurantId(int $restaurantId): array

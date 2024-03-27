@@ -26,7 +26,7 @@ Route::serve('/restaurant', function (array $props) {
 
     $restaurantSessions = [];
     foreach ($yummyEventDays as $yummyEventDay) {
-        $dayOfWeek = date('l', strtotime($yummyEventDay->Date));
+        $dayOfWeek = date('l', strtotime($yummyEventDay->Date)); // Make more use of models to pass along information / data
 
         $sessionsForDay = array_filter($sessions, function ($session) use ($yummyEventDay) {
             return $session->getDayID() === $yummyEventDay->getDayID();
