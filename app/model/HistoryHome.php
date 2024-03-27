@@ -1,7 +1,12 @@
 <?php
 
+namespace Model;
+
+
 class HistoryHome
 {
+    public $HomeID;
+
     public $HeaderImage;
 
     public $ImageAlt;
@@ -46,6 +51,10 @@ class HistoryHome
 
     public $NoteText;
 
+    public $MapImage;
+
+    public $MapAlt;
+
     public $WheelchairTitle;
 
     public $WheelchairText;
@@ -59,40 +68,6 @@ class HistoryHome
     public $ContactTitle;
 
     public $ContactSubtitle;
-
-    // Constructor
-    public function __construct($HeaderImage, $ImageAlt, $Title, $SubTitle, $DiscoverTitle, $DiscoverText, $Location, $Dates, $Times, $IndividualPrice, $FamilyPrice, $GroupInfo, $VideoMp4, $VideoWebm, $CityWalkTitle, $CityWalkText, $CityWalkImage, $CityWalkImageAlt, $GuidesTitle, $GuidesText, $NoteTitle, $NoteText, $WheelchairTitle, $WheelchairText, $StartLocationImage, $StartLocationAlt, $StartLocationText, $ContactTitle, $ContactSubtitle)
-    {
-        $this->HeaderImage = $HeaderImage;
-        $this->ImageAlt = $ImageAlt;
-        $this->Title = $Title;
-        $this->SubTitle = $SubTitle;
-        $this->DiscoverTitle = $DiscoverTitle;
-        $this->DiscoverText = $DiscoverText;
-        $this->Location = $Location;
-        $this->Dates = $Dates;
-        $this->Times = $Times;
-        $this->IndividualPrice = $IndividualPrice;
-        $this->FamilyPrice = $FamilyPrice;
-        $this->GroupInfo = $GroupInfo;
-        $this->VideoMp4 = $VideoMp4;
-        $this->VideoWebm = $VideoWebm;
-        $this->CityWalkTitle = $CityWalkTitle;
-        $this->CityWalkText = $CityWalkText;
-        $this->CityWalkImage = $CityWalkImage;
-        $this->CityWalkImageAlt = $CityWalkImageAlt;
-        $this->GuidesTitle = $GuidesTitle;
-        $this->GuidesText = $GuidesText;
-        $this->NoteTitle = $NoteTitle;
-        $this->NoteText = $NoteText;
-        $this->WheelchairTitle = $WheelchairTitle;
-        $this->WheelchairText = $WheelchairText;
-        $this->StartLocationImage = $StartLocationImage;
-        $this->StartLocationAlt = $StartLocationAlt;
-        $this->StartLocationText = $StartLocationText;
-        $this->ContactTitle = $ContactTitle;
-        $this->ContactSubtitle = $ContactSubtitle;
-    }
 
     // Getters
     public function getHeaderImage()

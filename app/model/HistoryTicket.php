@@ -1,10 +1,10 @@
 <?php
 
-namespace model;
+namespace Model;
 
 class HistoryTicket
 {
-    public int $TourI;
+    public int $TourID;
 
     public int $DayID;
 
@@ -16,12 +16,12 @@ class HistoryTicket
 
     public string $EndDateTime;
 
-    public int $TotalSeats;
+    public int $TotalTickets;
 
-    public int $RemainingSeats;
+    public int $RemainingTickets;
 
-    public function getDayID(): int
-    {
-        return $this->DayID;
-    }
+    // public function getDayID(): int
+    // {
+    //     return $this->DayID;
+    // }
 }
