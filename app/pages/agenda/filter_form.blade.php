@@ -47,9 +47,5 @@
             </label>
         </div>
     </label>
-    <label for="time">
-        <p class="text-lg font-bold">Start time</p>
-        <input type="datetime-local" name="time" class="border p-2 rounded-md text-gray-700" min="2024-07-25T00:00" value="2024-07-25T00:00" max="2024-07-28T21:59:00+02:00">
-    </label>
     <input type="submit" name="action" value="Filter" class="cursor-pointer border-black border rounded">
 </form>

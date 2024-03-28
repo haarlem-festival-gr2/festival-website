@@ -28,23 +28,24 @@ class EventService extends BaseService
     }
 
     /**
-     * @param  array<string>  $filters
+     * @param  array<string>  $events
+     * @return array<\Model\Event>
      */
-    public function getEventsWithFilter(array $filters): array
+    public function getEventsWithFilter(array $events): array
     {
         $sqlFilter = [];
 
-        if (in_array('History', $filters)) {
+        if (in_array('History', $events)) {
             $sqlFilter[] = $this->repository->get_history_query();
         }
-        if (in_array('Jazz', $filters)) {
+        if (in_array('Jazz', $events)) {
             $sqlFilter[] = $this->repository->get_jazz_query();
         }
-        if (in_array('Yummy', $filters)) {
+        if (in_array('Yummy', $events)) {
             $sqlFilter[] = $this->repository->get_yummy_query();
         }
 
-        $events = $this->repository->get_events_with_filter($sqlFilter);
+        $events = $this->repository->get_events_with_filter($sqlFilter, 26, 26);
         if ($events === false) {
             return [];
         } else {

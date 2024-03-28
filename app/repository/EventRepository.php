@@ -49,6 +49,8 @@ class EventRepository extends BaseRepository
         return $queryHistory;
     }
 
+    
+
     /**
      * I hate this function but I cba to unify the tables
      * backend side. too much individuality to be broken
@@ -73,23 +75,26 @@ class EventRepository extends BaseRepository
     }
 
     /**
-     * @param  array<string>  $filters
+     * @param  array<string>  $events
      */
-    public function get_events_with_filter(array $filters): array|false
+    public function get_events_with_filter(array $events, int $start, int $end): array|false
     {
-        if (count($filters) == 0) {
+        if (count($events) == 0) {
             return false;
         }
 
         $final = '';
-        for ($i = 0; $i < count($filters); $i++) {
-            $final .= $filters[$i];
-            if ($i + 1 < count($filters)) {
+        for ($i = 0; $i < count($events); $i++) {
+            $final .= $events[$i];
+            if ($i + 1 < count($events)) {
                 $final .= ' UNION ALL ';
             }
         }
 
-        $sql = "SELECT * FROM ($final) as Events ORDER BY StartDateTime";
+        $sql = "SELECT * FROM ($final) as Events 
+                WHERE StartDateTime >= '2024-7-$start 00:00:00'
+                AND EndDateTime <= '2024-7-$end 23:59:59'
+                ORDER BY StartDateTime";
 
         $query = $this->connection->prepare($sql);
         $query->execute();
