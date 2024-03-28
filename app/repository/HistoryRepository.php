@@ -96,8 +96,15 @@ class HistoryRepository extends BaseRepository
         $query = $this->connection->prepare('SELECT * FROM Locations');
         $query->execute();
 
-        $query->setFetchMode(\PDO::FETCH_CLASS, "model\Location"); // Correcting the class name
+        $query->setFetchMode(\PDO::FETCH_CLASS, "model\Location");
         return $query->fetchAll();
+    }
+
+    public function getDayNames(): array
+    {
+        $query = $this->connection->prepare('SELECT DayOfTheWeek FROM HistoryDays');
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_COLUMN);
     }
 
 }

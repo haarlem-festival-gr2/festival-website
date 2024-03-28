@@ -40,4 +40,9 @@ class HistoryService
     {
         return $this->historyRepository->getLocations();
     }
+
+    public function getDayNames(): array
+    {
+        return $this->historyRepository->getDayNames();
+    }
 }
