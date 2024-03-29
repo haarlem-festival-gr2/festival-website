@@ -5,7 +5,9 @@ namespace model;
 class Location
 {
     public $LocationID;
+
     public $DetailPageID;
+
     public $Name;
 
     // Constructor
@@ -31,4 +33,3 @@ class Location
     //     return $this->Name;
     // }
 }
-?>

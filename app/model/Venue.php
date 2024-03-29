@@ -9,5 +9,7 @@ class Venue
         public string $Name,
         public string $Address,
         public ?string $ContactDetails
-    ) {}
+    ) {
+        $this->ContactDetails = $this->ContactDetails ?? '';
+    }
 }

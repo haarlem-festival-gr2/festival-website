@@ -14,5 +14,7 @@ class Performance
         public int $AvailableTickets,
         public int $TotalTickets,
         public ?string $Details
-    ) {}
+    ) {
+        $this->Details = $this->Details ?? '';
+    }
 }

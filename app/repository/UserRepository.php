@@ -2,15 +2,16 @@
 
 namespace Repository;
 
-require_once __DIR__ . '/../model/User.php';
-require_once __DIR__ . '/../repository/BaseRepository.php';
+require_once __DIR__.'/../model/User.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
+
+use Model\User;
 
 class UserRepository extends BaseRepository
 {
     public function get_with_cred(string $email): \Model\User|false
     {
-        // TODO: Make fetch easier. Maybe a GraphQL type API
-        $query = $this->connection->prepare('SELECT UserID, Name, Role, PasswordHash FROM User WHERE Email = ?;');
+        $query = $this->connection->prepare('SELECT UserID, Name, Role, PasswordHash, Email, Username FROM User WHERE Email = ?;');
         $query->execute([$email]);
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\User");
@@ -25,12 +26,15 @@ class UserRepository extends BaseRepository
         $query->execute([$email, $password, $username, $name, $role]);
     }
 
-    public function getAllUsers(string $filter = null): array
+    /**
+     * @return array<User>
+     */
+    public function getAllUsers(?string $filter = null): array
     {
         $query = 'SELECT UserID, Email, Username, Name, Role, RegistrationDate FROM User';
 
         if ($filter !== null) {
-            $query .= " WHERE Role = :filter OR Name = :filter OR Username = :filter OR UserID = :filter";
+            $query .= ' WHERE Role = :filter OR Name = :filter OR Username = :filter OR UserID = :filter';
         }
 
         $statement = $this->connection->prepare($query);
@@ -44,16 +48,15 @@ class UserRepository extends BaseRepository
         return $statement->fetchAll(\PDO::FETCH_CLASS, "\Model\User");
     }
 
-
     public function getUserById(int $userId): \Model\User|false
     {
         $query = $this->connection->prepare('SELECT UserID, Email, Username, Name, Role, RegistrationDate FROM User WHERE UserID = ?;');
         $query->execute([$userId]);
         $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\User");
         $user = $query->fetch();
+
         return $user;
     }
-
 
     public function updateUser(int $userId, string $email, string $username, string $name, string $role): void
     {
@@ -73,23 +76,9 @@ class UserRepository extends BaseRepository
         $query->execute([$password, $email]);
     }
 
-    // public function deleteUser($userId)
-    // {
-    //     $query = "DELETE FROM users WHERE id = ?";
-    //     $statement = $this->db->prepare($query);
-
-    //     $statement->bind_param('i', $userId);
-
-    //     $result = $statement->execute();
-
-    //     if (!$result) {
-    //         die ('Error deleting user: ' . $this->db->error);
-    //     }
-
-    //     $statement->close();
-    // }
-
+    public function update_user(User $user): void
+    {
+        $query = $this->connection->prepare('UPDATE User SET Email = ?, Name = ?, Username = ? WHERE UserID = ?');
+        $query->execute([$user->Email, $user->Name, $user->Username, $user->getId()]);
+    }
 }
-
-
-?>

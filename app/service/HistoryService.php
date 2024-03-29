@@ -4,8 +4,7 @@ namespace Service;
 
 use Repository\HistoryRepository;
 
-require_once __DIR__ . '/../repository/HistoryRepository.php';
-
+require_once __DIR__.'/../repository/HistoryRepository.php';
 
 class HistoryService
 {

@@ -2,7 +2,7 @@
 
 namespace Model;
 
-require_once __DIR__ . '/../model/BaseModel.php';
+require_once __DIR__.'/../model/BaseModel.php';
 
 class User extends BaseModel
 {
@@ -12,11 +12,11 @@ class User extends BaseModel
 
     public string $Role;
 
-    private string $PasswordHash;
-
     public string $Email;
 
     public string $Username;
+
+    private string $PasswordHash;
 
     public string $RegistrationDate;
 
@@ -26,9 +26,14 @@ class User extends BaseModel
     {
         return password_verify($password, $this->PasswordHash);
     }
+
     public function getPasswordHash(): string
     {
         return $this->PasswordHash;
     }
 
+    public function getId(): int
+    {
+        return $this->UserID;
+    }
 }

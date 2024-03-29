@@ -7,10 +7,10 @@ use Model\User;
 use Repository\ResetTokenRepository;
 use Repository\UserRepository;
 
-require_once __DIR__ . '/../repository/UserRepository.php';
-require_once __DIR__ . '/../repository/ResetTokenRepository.php';
-require_once __DIR__ . '/../service/BaseService.php';
-require_once __DIR__ . '/../model/User.php';
+require_once __DIR__.'/../repository/UserRepository.php';
+require_once __DIR__.'/../repository/ResetTokenRepository.php';
+require_once __DIR__.'/../service/BaseService.php';
+require_once __DIR__.'/../model/User.php';
 
 enum UserServiceError: int
 {
@@ -46,7 +46,7 @@ class UserService extends BaseService
 
     public function registerNewUser(string $email, string $password, string $username, string $name): UserServiceError|User
     {
-        if (!verifyEmail($email)) {
+        if (! verifyEmail($email)) {
             return UserServiceError::INVALID_EMAIL;
         }
 
@@ -67,7 +67,7 @@ class UserService extends BaseService
     {
         $user = $this->repository->get_with_cred($email);
 
-        if (!$user) {
+        if (! $user) {
             return; // exit
         }
 
@@ -88,7 +88,7 @@ class UserService extends BaseService
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . getenv('RESEND_API'),
+            'Authorization: Bearer '.getenv('RESEND_API'),
             'Content-Type: application/json',
         ]);
 
@@ -100,12 +100,14 @@ class UserService extends BaseService
         }
     }
 
-
     public function deleteUser($userId)
     {
         $this->repository->deleteUser($userId);
         exit();
     }
+
+    public function updateUser(User $user): void
+    {
+        $this->repository->update_user($user);
+    }
 }
-
-

@@ -12,7 +12,7 @@ Route::serve('/login', function (array $props) {
     if (Route::auth() != null) {
         Route::redirect('/user');
     } else {
-        Route::render('login.login', []);
+        Route::render('login.login', ['error' => '']);
     }
 });
 

@@ -15,16 +15,18 @@ class ResetTokenRepository extends BaseRepository
         try {
             $query = $this->connection->prepare('INSERT INTO ResetToken (Email) VALUES (?) ON DUPLICATE KEY UPDATE Token = VALUES(Token), Time = VALUES(Time)');
             $query->execute([$email]);
+
             return $this->get_token($email);
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
 
     private function get_token(string $email): string|false
     {
-        $query = $this->connection->prepare("SELECT Token FROM ResetToken WHERE Email = ? AND Time >= NOW() - INTERVAL 15 MINUTE");
+        $query = $this->connection->prepare('SELECT Token FROM ResetToken WHERE Email = ? AND Time >= NOW() - INTERVAL 15 MINUTE');
         $query->execute([$email]);
+
         return $query->fetch(PDO::FETCH_ASSOC)['Token'];
     }
 
@@ -38,7 +40,7 @@ class ResetTokenRepository extends BaseRepository
 
     public function remove_token(string $email): void
     {
-        $query = $this->connection->prepare("DELETE FROM ResetToken WHERE Email = ?");
+        $query = $this->connection->prepare('DELETE FROM ResetToken WHERE Email = ?');
         $query->execute([$email]);
     }
 }

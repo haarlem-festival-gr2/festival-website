@@ -1,13 +1,19 @@
 <?php
+
 namespace model;
 
 class Story
 {
     public $StoryID;
+
     public $DetailPageID;
+
     public $Title;
+
     public $Description;
+
     public $ImagePath;
+
     public $ImageAlt;
 
     // Constructor
@@ -52,4 +58,3 @@ class Story
     //     return $this->ImageAlt;
     // }
 }
-?>

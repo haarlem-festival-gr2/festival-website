@@ -2,7 +2,8 @@
 
 namespace Model;
 
-class JazzPass {
+class JazzPass
+{
     public function __construct(
         public int $JazzPassID,
         public float $Price,
@@ -11,5 +12,7 @@ class JazzPass {
         public ?string $Note,
         public int $TotalTickets,
         public int $AvailableTickets
-    ) {}
+    ) {
+        $this->Note = $this->Note ?? '';
+    }
 }

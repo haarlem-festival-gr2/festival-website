@@ -35,8 +35,8 @@ services:
         condition: service_completed_successfully
   phpmyadmin:
     image: phpmyadmin:latest
-    volumes:
-      - ./build/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+#   volumes:
+#     - ./build/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
     ports:
       - 8081:80
     environment:

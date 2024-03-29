@@ -30,7 +30,7 @@
         <div class="flex flex-col">
             <input type="submit" name="action" value="Login"
                 class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100 h-10" />
-            <p class="text-red-700" id="error"></p>
+            <p class="text-red-700" id="error">{{ $error }}</p>
             <a class="text-gray-600 hover:underline" href="/register">Register for a new account</a>
             <a class="text-gray-600 hover:underline" href="/reset">Forgot password? Reset it here</a>
         </div>
