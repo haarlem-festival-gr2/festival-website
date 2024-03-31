@@ -11,7 +11,7 @@ class Order
     private string $SessionID;
     private string $Status;
     private float $TotalPrice;
-    private array $Tickets = [];
+    private array $OrderItems = [];
     private string $DateTime;
 
     public function getDatetime(): string {
@@ -72,14 +72,14 @@ class Order
         $this->TotalPrice = $TotalPrice;
     }
 
-    public function getTickets(): array
+    public function getOrderItems(): array
     {
-        return $this->Tickets;
+        return $this->OrderItems;
     }
 
-    public function setTickets(array $Tickets): void
+    public function setOrderItems(array $OrderItems): void
     {
-        $this->Tickets = $Tickets;
+        $this->OrderItems = $OrderItems;
     }
 
     const ORDER_STATUS_PAID = 'paid';

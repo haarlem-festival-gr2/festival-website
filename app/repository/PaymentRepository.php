@@ -4,7 +4,7 @@ namespace Repository;
 
 use DateTime;
 use DateTimeZone;
-use Model\Invoice;
+use Model\Payment;
 use PDO;
 use model\Order;
 
@@ -25,6 +25,37 @@ class PaymentRepository extends BaseRepository
         ]);
     }
 
+    private function getOrderUUID($sessionID): string
+    {
+        $query = $this->connection->prepare('SELECT OrderUUID FROM `Order` WHERE SessionID = ?');
+        $query->execute([$sessionID]);
+
+        return $query->fetchColumn();
+    }
+
+    public function saveOrderItems($orderItems, $sessionId): void
+    {
+        $orderUUID = ($this->getOrderUUID($sessionId));
+
+        $query = $this->connection->prepare('INSERT INTO OrderItem (OrderID, EventName, StartDateTime, EndDateTime, Price, Quantity, Venue, CustomerName, EventID, Type, Note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+
+        foreach ($orderItems as $orderItem) {
+            $query->execute([
+                $orderUUID,
+                $orderItem->getEventName(),
+                $orderItem->getStartDateTime()->format('Y-m-d H:i:s'),
+                $orderItem->getEndDateTime()->format('Y-m-d H:i:s'),
+                $orderItem->getPrice(),
+                $orderItem->getQuantity(),
+                $orderItem->getVenue(),
+                $orderItem->getCustomerName(),
+                $orderItem->getEventID(),
+                $orderItem->getType(),
+                $orderItem->getNote()
+            ]);
+        }
+    }
+
     public function getOrderBySessionID($sessionID): ?Order
     {
         $query = $this->connection->prepare('SELECT * FROM `Order` WHERE SessionID = ?');
@@ -40,31 +71,9 @@ class PaymentRepository extends BaseRepository
         return $query->execute([$newStatus, $sessionID]);
     }
 
-    public function saveTickets($tickets, $sessionId): void
+    public function registerPayment(string $paymentDateTime, string $customerName, string $email, string $phoneNumber, string $paymentMethod, string $billingAddress, float $totalAmount, float $tax, string $currency, string $orderUUID): int
     {
-        $orderUUID = ($this->getOrderBySessionID($sessionId))->getOrderUUID();
-
-        $query = $this->connection->prepare('INSERT INTO Ticket (OrderID, EventName, StartDateTime, EndDateTime, Price, Quantity, IsScanned, Venue, CustomerName, timestamp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-
-        foreach ($tickets as $ticket) {
-            $query->execute([
-                $orderUUID,
-                $ticket->getEventName(),
-                $ticket->getStartDateTime()->format('Y-m-d H:i:s'),
-                $ticket->getEndDateTime()->format('Y-m-d H:i:s'),
-                $ticket->getPrice(),
-                $ticket->getQuantity(),
-                $ticket->getIsScanned() ? 1 : 0 ,
-                $ticket->getVenue(),
-                $ticket->getCustomerName(),
-                (new DateTime('now', new DateTimeZone('+0100')))->format('Y-m-d H:i:s')
-            ]);
-        }
-    }
-
-    public function createInvoice(string $paymentDateTime, string $customerName, string $email, string $phoneNumber, string $paymentMethod, string $billingAddress, float $totalAmount, float $tax, string $currency, string $orderUUID): int
-    {
-        $sql = "INSERT INTO Invoice (PaymentDateTime, CustomerName, Email, PhoneNumber, PaymentMethod, BillingAddress, TotalAmount, Tax, Currency, OrderID, InvoiceDateTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO Payment (PaymentDateTime, CustomerName, Email, PhoneNumber, PaymentMethod, BillingAddress, TotalAmount, Tax, Currency, OrderID, InvoiceDateTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $query = $this->connection->prepare($sql);
         $query->execute([
             $paymentDateTime,
@@ -80,36 +89,62 @@ class PaymentRepository extends BaseRepository
             (new DateTime('now', new DateTimeZone('+0100')))->format('Y-m-d H:i:s')
         ]);
 
-        return $invoiceId = $this->connection->lastInsertId();
+        return $this->connection->lastInsertId();
     }
 
-    public function getInvoiceById($invoiceId): Invoice
+    public function getPaymentById($id): Payment
     {
-        $query = $this->connection->prepare('SELECT * FROM Invoice WHERE InvoiceID = ?');
-        $query->execute([$invoiceId]);
-        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\Invoice');
+        $query = $this->connection->prepare('SELECT * FROM Payment WHERE InvoiceID = ?');
+        $query->execute([$id]);
+        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\Payment');
 
         return $query->fetch();
     }
 
-    public function getLineItemsByOrder(string $orderUUID): bool|array
+    public function getLineItemsByOrder(string $orderID): bool|array
     {
-        $query = $this->connection->prepare('SELECT EventName, Quantity, Price FROM Ticket WHERE OrderID = ?');
-        $query->execute([$orderUUID]);
+        $query = $this->connection->prepare('SELECT EventName, Quantity, Price FROM OrderItem WHERE OrderID = ?');
+        $query->execute([$orderID]);
         $query->setFetchMode(PDO::FETCH_CLASS, '\Model\LineItem');
 
         return $query->fetchAll();
     }
 
-    public function getTicketsByOrderID(string $orderUUID): bool|array
+    public function createTickets($tickets): void
     {
-        $query = $this->connection->prepare('SELECT TicketUUID, EventName, StartDateTime, EndDateTime, Price, Quantity, IsScanned, Venue, CustomerName FROM Ticket WHERE OrderID = ?');
+        $query = $this->connection->prepare("INSERT INTO Ticket (OrderItemID, IsScanned) VALUES (?, ?)");
+        foreach ($tickets as $ticket) {
+            $query->execute([$ticket['orderItemID'], $ticket['isScanned']]);
+        }
+    }
+
+    public function getOrderItemsByOrderID(string $orderUUID): bool|array
+    {
+        $query = $this->connection->prepare('SELECT ItemID, EventName, StartDateTime, EndDateTime, Price, Quantity, Venue, CustomerName, EventID, Type , Note FROM OrderItem WHERE OrderID = ?');
         $query->execute([$orderUUID]);
-        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\Ticket');
+        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\OrderItem');
 
         return $query->fetchAll();
     }
 
+    public function createTicket($OrderItemID, int $isScanned): void
+    {
+        $query = $this->connection->prepare('INSERT INTO Ticket (OrderItemID, IsScanned) VALUES (?, ?)');
+        $query->execute([$OrderItemID, $isScanned]);
+    }
+
+    public function getTicketsWithDetails($orderID): bool|array
+    {
+        $query = $this->connection->prepare('SELECT t.TicketUUID, t.IsScanned, oi.EventName, oi.StartDateTime, oi.EndDateTime, oi.Price, oi.Venue, oi.CustomerName, oi.Note 
+                                                    FROM Ticket t 
+                                                    JOIN OrderItem oi ON t.OrderItemID = oi.ItemID 
+                                                    JOIN `Order` o ON oi.OrderID = o.OrderUUID
+                                                    WHERE o.OrderUUID = ?');
+        $query->execute([$orderID]);
+        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\Ticket');
+
+        return $query->fetchAll();
+    }
 
 //////////////////////////////////////////////////////////////////////////////////////////
     public function get_jazz_query(): string

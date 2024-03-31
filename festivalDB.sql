@@ -475,8 +475,9 @@ CREATE TABLE `Order` (
                         SessionID CHAR(200),
                         TotalPrice DECIMAL(10, 2),
                         DateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
-                        FOREIGN KEY (UserID) REFERENCES User(UserID)
+                        FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE SET NULL;
 );
+
 
 DELIMITER $$
 
@@ -505,6 +506,24 @@ CREATE TABLE Ticket (
                         OrderID CHAR(50),
                         FOREIGN KEY (OrderID) REFERENCES `Order`(OrderUUID)
 );
+
+CREATE TABLE OrderItem (
+                           ItemID INT AUTO_INCREMENT PRIMARY KEY,
+                           OrderID CHAR(50),
+                           EventName VARCHAR(255),
+                           Venue VARCHAR(255),
+                           StartDateTime DATETIME,
+                           EndDateTime DATETIME,
+                           Price DECIMAL(10, 2),
+                           Quantity INT,
+                           CustomerName VARCHAR(255),
+                           EventID VARCHAR(255),
+                           Type VARCHAR(255),
+                           Note VARCHAR(255),
+                           FOREIGN KEY (OrderID) REFERENCES `Order`(OrderUUID)
+);
+
+
 
 DELIMITER $$
 

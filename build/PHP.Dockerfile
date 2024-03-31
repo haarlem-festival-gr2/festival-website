@@ -22,6 +22,7 @@ RUN docker-php-ext-configure gd \
     --with-xpm \
  && docker-php-ext-install gd
 
+
 # XDEBUG for better debug outputs
 RUN apk add --no-cache --virtual .xdbg-build-deps $PHPIZE_DEPS linux-headers \
  && pecl install xdebug \

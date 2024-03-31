@@ -2,11 +2,9 @@
 
 use Core\Route\Method;
 use Core\Route\Route;
-use Model\Invoice;
 use model\Order;
 use Service\PaymentService;
 use Service\QRCodeService;
-use Stripe\Charge;
 use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use Stripe\PaymentMethod;
@@ -15,10 +13,7 @@ use Stripe\Stripe;
 require_once __DIR__.'/../service/PaymentService.php';
 require_once __DIR__.'/../service/QRCodeService.php';
 
-//echo "SUCCESS!!";
-
 $paymentService = new PaymentService();
-$qrcodes= new QRCodeService();
 
 Stripe::setApiKey(getenv("STRIPE_KEY"));
 $sessionID = $_GET['session_id'];
@@ -27,10 +22,6 @@ $sessionID = $_GET['session_id'];
     $session = Session::retrieve($sessionID);
     $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
     $paymentMethod = PaymentMethod::retrieve($paymentIntent->payment_method);
-    //$charge = Charge::retrieve($paymentIntent->latest_charge);
-
-
-
 
     /*echo "<pre>";
     print_r($session);
@@ -42,24 +33,18 @@ $sessionID = $_GET['session_id'];
 
     echo "<pre>";
     print_r($paymentMethod);
-    echo "</pre>";*/
-
+    echo "</pre>";
 
     $sessionJson = json_encode($session);
     $paymentIntentJson = json_encode($paymentIntent);
     $paymentMethodJson = json_encode($paymentMethod);
 
-
-// Output to JavaScript console
-    /*echo "<script>";
+    Output to JavaScript console
+    echo "<script>";
     echo "console.log('Session: ', " . $sessionJson . ");";
-    echo "console.log('Invoice Intent: ', " . $paymentIntentJson . ");";
-    echo "console.log('Invoice Method: ', " . $paymentMethodJson . ");";
+    echo "console.log('Payment Intent: ', " . $paymentIntentJson . ");";
+    echo "console.log('Payment Method: ', " . $paymentMethodJson . ");";
     echo "</script>";*/
-
-
-
-
 
      $order = $paymentService->getOrderBySessionID($sessionID);
      if(!$order) {
@@ -83,14 +68,11 @@ $sessionID = $_GET['session_id'];
          $tax = (float)($session->total_details['amount_tax']/100);
          $currency = $session->currency;
 
-         $invoiceId = $paymentService->createInvoice($paymentDateTime, $customerName, $email, $phoneNumber, $method, $billingAddress, $totalAmount, $tax, $currency, $order->getOrderUUID());
-         $paymentService->sendInvoice($invoiceId);
+         $id = $paymentService->registerPayment($paymentDateTime, $customerName, $email, $phoneNumber, $method, $billingAddress, $totalAmount, $tax, $currency, $order->getOrderUUID());
+         $paymentService->sendInvoice($id);
 
          $paymentService->sendTickets($order->getOrderUUID(), $email, $customerName);
 
-         phpinfo();
-
-         $qrcodes->generateQRCode($order->getOrderUUID());
          Route::redirect('/confirmation');
      } else {
          echo "Payment failed.";

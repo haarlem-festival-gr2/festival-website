@@ -2,7 +2,7 @@
 
 namespace Service;
 
-use Model\Invoice;
+use Model\Payment;
 use model\Order;
 use Repository\PaymentRepository;
 
@@ -27,7 +27,7 @@ class PaymentService extends BaseService
     {
         $this->repository->saveOrder($order);
 
-        $this->repository->saveTickets($order->getTickets(), $order->getSessionID());
+        $this->repository->saveOrderItems($order->getOrderItems(), $order->getSessionID());
     }
 
     public function getOrderBySessionID(string $sessionID): ?Order
@@ -51,27 +51,39 @@ class PaymentService extends BaseService
         return $this->repository->get3events();
     }
     ////////////////////////////////////////////////////////////////////////////////
-    public function createInvoice(string $paymentDateTime, string $customerName, string $email, string $phoneNumber, string $paymentMethod, string $billingAddress, float $totalAmount, float $tax,string $currency, string $orderUUID): int
+    public function registerPayment(string $paymentDateTime, string $customerName, string $email, string $phoneNumber, string $paymentMethod, string $billingAddress, float $totalAmount, float $tax,string $currency, string $orderUUID): int
     {
-        return $this->repository->createInvoice($paymentDateTime, $customerName, $email, $phoneNumber, $paymentMethod, $billingAddress, $totalAmount, $tax, $currency, $orderUUID);
+        return $this->repository->registerPayment($paymentDateTime, $customerName, $email, $phoneNumber, $paymentMethod, $billingAddress, $totalAmount, $tax, $currency, $orderUUID);
     }
 
-    public function sendInvoice(int $invoiceId): void
+    public function sendInvoice(int $id): void
     {
-        $invoice = $this->repository->getInvoiceById($invoiceId);
-        $lineItems = $this->repository->getLineItemsByOrder($invoice->getOrderID());
+        $payment = $this->repository->getPaymentById($id);
+        $lineItems = $this->repository->getLineItemsByOrder($payment->getOrderID());
 
-        $pdf = $this->pdfService->generateInvoice($invoice, $lineItems);
+        $pdf = $this->pdfService->generateInvoice($payment, $lineItems);
 
-        $this->emailService->sendEmail(EmailService::TYPE_INVOICE, $pdf, $invoice->getEmail(), $invoice->getCustomerName());
+        $this->emailService->sendEmail(EmailService::TYPE_INVOICE, $pdf, $payment->getEmail(), $payment->getCustomerName());
     }
 
     public function sendTickets(string $orderID, string $email, string $customerName): void
     {
-        $tickets = $this->repository->getTicketsByOrderID($orderID);
+        $this->createTickets($orderID);
+        $tickets = $this->repository->getTicketsWithDetails($orderID);
+
         $pdf = $this->pdfService->generateTickets($tickets);
 
         $this->emailService->sendEmail(EmailService::TYPE_TICKET, $pdf, $email, $customerName);
+    }
+
+    public function createTickets(string $orderId): void
+    {
+        $orderItems = $this->repository->getOrderItemsByOrderID($orderId);
+        foreach ($orderItems as $orderItem) {
+            for ($i = 0; $i < $orderItem->getQuantity(); $i++) {
+                $this->repository->createTicket($orderItem->getOrderItemID(), 0);
+            }
+        }
     }
 }
 

@@ -3,94 +3,95 @@
 use Core\Route\Method;
 use Core\Route\Route;
 use model\Order;
-use model\Ticket;
+use model\OrderItem;
 use Service\PaymentService;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 
-/*Invoice succeeds - 4242 4242 4242 4242
-Invoice requires authentication - 4000 0025 0000 3155
-Invoice is declined - 4000 0000 0000 9995*/
+/*Payment succeeds - 4242 4242 4242 4242
+Payment requires authentication - 4000 0025 0000 3155
+Payment is declined - 4000 0000 0000 9995*/
 
 require_once __DIR__.'/../model/Order.php';
-require_once __DIR__ . '/../model/Ticket.php';
+require_once __DIR__ . '/../model/OrderItem.php';
 require_once __DIR__.'/../service/PaymentService.php';
 
 Route::serve('/payment', function (array $props) {
-
     // user has to be logged it to buy tickets
     $user = Route::auth();
     if (!$user) {
         Route::redirect('/login');
-    } // how to show the message to log in and also store cart?
+    }
+    // in agenda page it will be displayed that the user has to be
+    // logged in/register if the user presses button buy?
+
+    // card is empty
+    /*$cart = $props['cart'];
+    if(!$cart) {
+        Route::redirect('/agenda');
+    }*/
 
     $paymentService = new PaymentService();
 
-    //$cart = $props['cart'];
-
+    // temporary cart
     $cart = $paymentService->get5events();
     $cart1 = $paymentService->get3events();
     $cart = array_merge($cart, $cart1);
 
+    // counts the quantity of each item in the cart
     $events = [];
     foreach ($cart as $item) {
-        $itemIndex = null;
-        foreach ($events as $index => $eventItem) {
-            if ($eventItem['event']->getID() === $item->getID()) {
-                $itemIndex = $index;
-                break;
-            }
-        }
-        if ($itemIndex !== null) {
-            $events[$itemIndex]['quantity']++;
-        } else {
-            $events[] = [
+        $itemId = $item->getID();
+        if (!isset($events[$itemId])) {
+            $events[$itemId] = [
                 'event' => $item,
                 'quantity' => 1
             ];
+        } else {
+            $events[$itemId]['quantity']++;
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////
-
-    $tickets = [];
+    // creates order items
+    $orderItems = [];
     $totalPrice = 0;
 
     foreach ($events as $eventData) {
         $event = $eventData['event'];
-        $ticket = new Ticket();
-        $ticket->setEventName($event->getName());
-        $ticket->setVenue($event->getVenue());
-        $ticket->setStartDateTime($event->getStartDateTime());
-        $ticket->setEndDateTime($event->getEndDateTime());
-        $ticket->setPrice($event->getPrice());
-        $ticket->setQuantity($eventData['quantity']);
-        $ticket->setIsScanned(false);
-        $ticket->setCustomerName($user->Name);
-
-        $tickets[] = $ticket;
-        $totalPrice += $ticket->getPrice() * $ticket->getQuantity();
+        $orderItem = new OrderItem();
+        $orderItem->setEventName($event->getName());
+        $orderItem->setVenue($event->getVenue());
+        $orderItem->setStartDateTime($event->getStartDateTime());
+        $orderItem->setEndDateTime($event->getEndDateTime());
+        $orderItem->setPrice($event->getPrice());
+        $orderItem->setQuantity($eventData['quantity']);
+        $orderItem->setCustomerName($user->Name);
+        $orderItem->setEventID($event->getID());
+        $orderItem->setType($event->getType());
+        if($event->getType() == 'YUMMY') {
+            $orderItem->setNote('This is the reservation fee for the restaurant.');
+        }
+        $orderItems[] = $orderItem;
+        $totalPrice += $orderItem->getPrice() * $orderItem->getQuantity();
     }
 
     $lineItems = [];
-    foreach ($tickets as $ticket) {
+    foreach ($orderItems as $orderItem) {
         $lineItems[] = [
-            'quantity' => $ticket->getQuantity(),
+            'quantity' => $orderItem->getQuantity(),
             'tax_rates' => ['txr_1OzSdc09Czi7f69FhRqATKYo'],
             'price_data' => [
                 'currency' => 'eur',
-                'unit_amount' => $ticket->getPrice() * 100, // in cents
+                'unit_amount' => $orderItem->getPrice() * 100, // in cents
                 'product_data' => [
-                    'name' => $ticket->getEventName(),
-                    'description' => $ticket->getVenue(),
+                    'name' => $orderItem->getEventName(),
+                    'description' => $orderItem->getVenue() . (empty($orderItem->getNote()) ? '' : ' - ' . $orderItem->getNote()),
                 ],
             ],
         ];
     }
 
     Stripe::setApiKey(getenv("STRIPE_KEY"));
-
-
         $session = Session::create([
             'mode' => 'payment',
             'phone_number_collection' => ['enabled' => true],
@@ -107,12 +108,12 @@ Route::serve('/payment', function (array $props) {
             'billing_address_collection' => 'required',
         ]);
 
-
+    // create order
     $order = new Order();
     $order->SetStatus(Order::ORDER_STATUS_UNPAID);
     $order->SetTotalPrice($totalPrice);
     $order->SetSessionID($session->id);
-    $order->SetTickets($tickets);
+    $order->setOrderItems($orderItems);
     $order->SetUserID($user->UserID);
 
     $paymentService->saveOrder($order);

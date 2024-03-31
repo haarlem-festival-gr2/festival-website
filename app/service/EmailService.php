@@ -67,7 +67,7 @@ class EmailService {
     {
         $mail->addAddress($email, $name);
 
-        $mail->Subject = 'Invoice for Haarlem Festival Tickets';
+        $mail->Subject = 'Payment for Haarlem Festival Tickets';
         $mail->Body = 'Thank you for your purchase. Please find your invoice attached.';
         $mail->AltBody = 'Thank you for your purchase. Please find your invoice attached.';
 

@@ -356,7 +356,7 @@ main {
     line-height: 64px; /* Center the text vertically */
   }
 
-  /* Ticket Prices */
+  /* OrderItem Prices */
 .ticket {
     width: 845px;
     height: 222px;

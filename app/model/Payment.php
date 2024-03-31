@@ -5,7 +5,7 @@ namespace Model;
 use DateTime;
 use DateTimeZone;
 
-class Invoice
+class Payment
 {
     private int $InvoiceID;
 

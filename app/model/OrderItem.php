@@ -1,21 +1,32 @@
 <?php
 
-namespace Model;
+namespace model;
 
 use DateTime;
-use Illuminate\Support\Facades\Date;
 
-class Ticket
+class OrderItem
 {
-    private string $TicketUUID;
+    private int $ItemID;
     private string $EventName;
     private string $Venue;
     private string $StartDateTime;
     private string $EndDateTime;
     private float $Price;
+    private int $Quantity;
     private string $CustomerName;
-    private bool $IsScanned;
+    private string $EventID;
+    private string $Type;
     private ?string $Note;
+
+    public function getType(): string
+    {
+        return $this->Type;
+    }
+
+    public function setType(string $Type): void
+    {
+        $this->Type = $Type;
+    }
 
     public function getNote(): string
     {
@@ -27,14 +38,24 @@ class Ticket
         $this->Note = $Note;
     }
 
-    public function getTicketUUID(): string
+    public function getEventID(): string
     {
-        return $this->TicketUUID;
+        return $this->EventID;
     }
 
-    public function setTicketUUID(string $TicketUUID): void
+    public function setEventID(string $EventID): void
     {
-        $this->TicketUUID = $TicketUUID;
+        $this->EventID = $EventID;
+    }
+
+    public function getOrderItemID(): int
+    {
+        return $this->ItemID;
+    }
+
+    public function setOrderItemID(int $OrderItemID): void
+    {
+        $this->ItemID = $OrderItemID;
     }
 
     public function getEventName(): string
@@ -57,13 +78,19 @@ class Ticket
         return new DateTime($this->EndDateTime);
     }
 
-    public function setStartDateTime(string $startDateTime): void
+
+    public function setStartDateTime($startDateTime): void
     {
+        if (!is_string($startDateTime)) {
+            $startDateTime = $startDateTime->format('Y-m-d H:i:s');
+        }
         $this->StartDateTime = $startDateTime;
     }
 
-    public function setEndDateTime(string $endDateTime): void
+    public function setEndDateTime($endDateTime): void
     {
+        if (!is_string($endDateTime))
+            $endDateTime = $endDateTime->format('Y-m-d H:i:s');
         $this->EndDateTime = $endDateTime;
     }
 
@@ -77,23 +104,24 @@ class Ticket
         $this->Price = $Price;
     }
 
-    public function getCustomerName(): string {
+    public function getQuantity(): int
+    {
+        return $this->Quantity;
+    }
+
+    public function setQuantity(int $Quantity): void
+    {
+        $this->Quantity = $Quantity;
+    }
+
+    public function getCustomerName(): string
+    {
         return $this->CustomerName;
     }
 
     public function setCustomerName(string $customerName): void
     {
         $this->CustomerName = $customerName;
-    }
-
-    public function getIsScanned(): bool
-    {
-        return $this->IsScanned;
-    }
-
-    public function setIsScanned(bool $IsScanned): void
-    {
-        $this->IsScanned = $IsScanned;
     }
 
     public function setVenue(string $venue): void
