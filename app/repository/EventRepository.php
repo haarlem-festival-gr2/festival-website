@@ -49,29 +49,8 @@ class EventRepository extends BaseRepository
         return $queryHistory;
     }
 
-    
-
-    /**
-     * I hate this function but I cba to unify the tables
-     * backend side. too much individuality to be broken
-     * for that to be possible
-     *
-     * @return array<\Model\Event>|false
-     */
-    public function get_all_events(): array|false
-    {
-        $queryJazz = $this->get_jazz_query();
-        $queryYummy = $this->get_yummy_query();
-        $queryHistory = $this->get_history_query();
-
-        $sql = "SELECT * FROM ($queryJazz UNION ALL $queryYummy UNION ALL $queryHistory) as Events ORDER BY StartDateTime";
-
-        $query = $this->connection->prepare($sql);
-        $query->execute();
-
-        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\Event');
-
-        return $query->fetchAll();
+    public function get_date_sql(int $date): string {
+        return "StartDateTime >= '2024-7-$date 00:00:00' AND EndDateTime <= '2024-7-$date 23:59:59'";
     }
 
     /**
@@ -90,6 +69,22 @@ class EventRepository extends BaseRepository
                 $final .= ' UNION ALL ';
             }
         }
+
+        $finalDate = '';
+
+        $dates = [];
+
+        if (count($dates) == 0) {
+            return false;
+        }
+
+        for ($i = 0; $i < count($dates); $i++) {
+            $finalDate .= $dates[$i];
+            if ($i + 1 < count($events)) {
+                $finalDate .= ' AND ';
+            }
+        }
+
 
         $sql = "SELECT * FROM ($final) as Events 
                 WHERE StartDateTime >= '2024-7-$start 00:00:00'

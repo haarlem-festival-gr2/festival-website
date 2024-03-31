@@ -29,7 +29,7 @@ Route::serve('/agenda/purchase', function () use ($service) {
         return; // just in case, php is weird
     }
 
-    $eventCards = $service->getEventsWithFilter(["History", "Jazz", "Yummy"]);
+    $eventCards = $service->getEventsWithFilter([["History", "Jazz", "Yummy"], [25,26,27,28]]);
     $renderDefault = function () use ($eventCards) {
         renderCards($eventCards);
     };
@@ -54,7 +54,7 @@ Route::serve('/agenda/purchase', function ($props) use ($service) {
     $eventCards = [];
     switch ($action) {
         case 'Filter':
-            $eventCards = $service->getEventsWithFilter($events);
+            $eventCards = $service->getEventsWithFilter([$events, [26,27,28,29]]);
 
             if (count($eventCards) == 0) {
                 echo 'No results found, please re-check your filters';

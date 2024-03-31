@@ -2,7 +2,6 @@
 
 namespace Service;
 
-use Model\Event;
 use Repository\EventRepository;
 
 class EventService extends BaseService
@@ -15,37 +14,38 @@ class EventService extends BaseService
     }
 
     /**
-     * @return array<Event>
-     */
-    public function getAllEvents(): array
-    {
-        $events = $this->repository->get_all_events();
-        if ($events === false) {
-            return [];
-        } else {
-            return $events;
-        }
-    }
-
-    /**
-     * @param  array<string>  $events
+     * @param  array<mixed>  $filter
      * @return array<\Model\Event>
      */
-    public function getEventsWithFilter(array $events): array
+    public function getEventsWithFilter(array $filter): array
     {
-        $sqlFilter = [];
+        $sqlEventFilter = [];
+
+        $events = [];
+        $dates = [];
+        if (count($filter) >= 1) {
+            $events = $filter[0];
+        }
+
+        if (count($filter) >= 2) {
+            $dates = $filter[1];
+        }
 
         if (in_array('History', $events)) {
-            $sqlFilter[] = $this->repository->get_history_query();
+            $sqlEventFilter[] = $this->repository->get_history_query();
         }
         if (in_array('Jazz', $events)) {
-            $sqlFilter[] = $this->repository->get_jazz_query();
+            $sqlEventFilter[] = $this->repository->get_jazz_query();
         }
         if (in_array('Yummy', $events)) {
-            $sqlFilter[] = $this->repository->get_yummy_query();
+            $sqlEventFilter[] = $this->repository->get_yummy_query();
         }
 
-        $events = $this->repository->get_events_with_filter($sqlFilter, 26, 26);
+        foreach ($dates as $key => $value) {
+            # code...
+        }
+
+        $events = $this->repository->get_events_with_filter($sqlEventFilter, 26, 26);
         if ($events === false) {
             return [];
         } else {

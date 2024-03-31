@@ -5,19 +5,19 @@
         <div id="date" class="flex flex-col">
             <label for="day1" class="flex flex-row justify-between gap-4">
                 25th July, Thursday
-                <input id="day1" type="checkbox" name="event[]" value="History">
+                <input id="day1" type="checkbox" name="day[]" value="25" checked>
             </label>
             <label for="day2" class="flex flex-row justify-between gap-4">
                 26th July, Friday
-                <input id="day2" type="checkbox" name="event[]" value="Jazz">
+                <input id="day2" type="checkbox" name="day[]" value="26" checked>
             </label>
             <label for="day3" class="flex flex-row justify-between gap-4">
                 27th July, Saturday
-                <input id="day3" type="checkbox" name="event[]" value="Yummy">
+                <input id="day3" type="checkbox" name="day[]" value="27" checked>
             </label>
             <label for="day4" class="flex flex-row justify-between gap-4">
                 28th July, Sunday
-                <input id="day4" type="checkbox" name="event[]" value="Yummy">
+                <input id="day4" type="checkbox" name="day[]" value="28" checked>
             </label>
         </div>
     </label>
@@ -46,6 +46,10 @@
                 <input id="yum-event" type="checkbox" name="event[]" value="Yummy" checked>
             </label>
         </div>
+    </label>
+    <label for="name">
+        <p class="text-lg font-bold">Name</p>
+        <input name="name" type="text" class="border-gray-500 border rounded p-1">
     </label>
     <input type="submit" name="action" value="Filter" class="cursor-pointer border-black border rounded">
 </form>
