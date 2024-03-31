@@ -11,8 +11,15 @@ Route::serve('/agenda/*', function () {
         case '/agenda/purchase':
             require_once __DIR__.'/../controller/agenda/purchase.php';
             break;
+        case '/agenda/user':
+            require_once __DIR__.'/../controller/agenda/user';
+            break;
         default:
-            Route::redirect('/agenda/purchase');
+            if (Route::auth() === false) {
+                Route::redirect('/login');
+            } else {
+                Route::redirect('/agenda/purchase');
+            }
             break;
     }
 }, Method::ALL);
