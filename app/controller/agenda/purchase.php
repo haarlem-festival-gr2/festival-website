@@ -23,6 +23,8 @@ function renderCards(array $eventCards) {
 }
 
 Route::serve('/agenda/purchase', function ($props) use ($service) {
+    $_SESSION['cart'] = [];
+
     if (Route::auth() === false) {
         Route::redirect('/login');
         return; // just in case, php is weird
@@ -79,6 +81,7 @@ Route::serve('/agenda/purchase', function ($props) use ($service) {
             break;
         case 'Add to Cart':
             $event = $_SESSION['filtered'][$props['key']];
+            $_SESSION['cart'][] = $event;
             Route::render('agenda.cart_item', [
                 'img' => $event->getImg(),
                 'title' => $event->getName(),

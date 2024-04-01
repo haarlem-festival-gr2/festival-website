@@ -103,9 +103,6 @@ class EventRepository extends BaseRepository
             $values[] = "2024-07-$day 23:59:59";
         }
 
-        // deal with the inconsistent naming or pay me 65 euro an hour
-        //$dateValues[] = $name;
-
         $finalDateSql = implode(' OR ', $finalDate);
         $finalFilter = implode(' AND ', ['(Name = ?)', $finalDateSql]);
 
