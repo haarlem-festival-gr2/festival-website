@@ -16,6 +16,7 @@ require_once __DIR__ . '/../model/Order.php';
 require_once __DIR__ . '/../model/OrderItem.php';
 require_once __DIR__ . '/../service/PaymentService.php';
 
+
 Route::serve('/payment', function (array $props) {
 
     $user = Route::auth();
@@ -30,11 +31,52 @@ Route::serve('/payment', function (array $props) {
     }*/
 
     $paymentService = new PaymentService();
-
     // temporary cart
     $cart = $paymentService->get3events();
 
-    // counts the quantity of each item in the cart
+    $events = countQuantity($cart);
+    $orderData = createOrderItems($events, $user);
+    $orderItems = $orderData['orderItems'];
+    $totalPrice = $orderData['totalPrice'];
+
+    $lineItems = generateLineItems($orderItems);
+
+    Stripe::setApiKey(getenv("STRIPE_KEY"));
+    $session = Session::create([
+        'mode' => 'payment',
+        'phone_number_collection' => ['enabled' => true],
+        'line_items' => $lineItems,
+        'consent_collection' => ['terms_of_service' => 'required'],
+        'custom_text' => [
+            'terms_of_service_acceptance' => [
+                'message' => 'I agree to the [Terms of Service](https://example.com/terms)',
+            ],
+            'submit' => ['message' => 'Your tickets will be sent to the provided email address.'],
+        ],
+        'success_url' => "http://localhost:8080/success?session_id={CHECKOUT_SESSION_ID}",
+        'cancel_url' => "http://localhost:8080/cancelPayment?session_id={CHECKOUT_SESSION_ID}",
+        'billing_address_collection' => 'required',
+    ]);
+
+    $order = createOrder($session->id, $user->UserID, $orderItems, $totalPrice);
+    $paymentService->saveOrder($order);
+
+    Route::redirect($session->url);
+}, Method::GET);
+
+function createOrder($sessionId, $userId, $orderItems, $totalPrice): Order
+{
+    $order = new Order();
+    $order->SetStatus(Order::ORDER_STATUS_UNPAID);
+    $order->SetTotalPrice($totalPrice);
+    $order->SetSessionID($sessionId);
+    $order->setOrderItems($orderItems);
+    $order->SetUserID($userId);
+    return $order;
+}
+
+function countQuantity($cart): array
+{
     $events = [];
     foreach ($cart as $item) {
         $itemId = $item->getID();
@@ -47,8 +89,11 @@ Route::serve('/payment', function (array $props) {
             $events[$itemId]['quantity']++;
         }
     }
+    return $events;
+}
 
-    // creates order items
+function createOrderItems($events, $user): array
+{
     $orderItems = [];
     $totalPrice = 0;
 
@@ -70,7 +115,14 @@ Route::serve('/payment', function (array $props) {
         $orderItems[] = $orderItem;
         $totalPrice += $orderItem->getPrice() * $orderItem->getQuantity();
     }
+    return [
+        'orderItems' => $orderItems,
+        'totalPrice' => $totalPrice
+    ];
+}
 
+function generateLineItems($orderItems): array
+{
     $lineItems = [];
     foreach ($orderItems as $orderItem) {
         $lineItems[] = [
@@ -86,34 +138,5 @@ Route::serve('/payment', function (array $props) {
             ],
         ];
     }
-
-    Stripe::setApiKey(getenv("STRIPE_KEY"));
-        $session = Session::create([
-            'mode' => 'payment',
-            'phone_number_collection' => ['enabled' => true],
-            'line_items' => $lineItems,
-            'consent_collection' => ['terms_of_service' => 'required'],
-            'custom_text' => [
-                'terms_of_service_acceptance' => [
-                    'message' => 'I agree to the [Terms of Service](https://example.com/terms)',
-                ],
-                'submit' => ['message' => 'Your tickets will be sent to the provided email address.'],
-            ],
-            'success_url' => "http://localhost:8080/success?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => "http://localhost:8080/cancelPayment?session_id={CHECKOUT_SESSION_ID}",
-            'billing_address_collection' => 'required',
-        ]);
-
-    // create order
-    $order = new Order();
-    $order->SetStatus(Order::ORDER_STATUS_UNPAID);
-    $order->SetTotalPrice($totalPrice);
-    $order->SetSessionID($session->id);
-    $order->setOrderItems($orderItems);
-    $order->SetUserID($user->UserID);
-
-    $paymentService->saveOrder($order);
-
-    Route::redirect($session->url);
-}, Method::GET);
-
+    return $lineItems;
+}

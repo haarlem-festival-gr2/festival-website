@@ -27,6 +27,7 @@ Route::serve('/success', function (array $props) {
         if(!$order) {
             echo("Order is not found");
         }
+
         if( $session->payment_status == 'paid'){
             if($order->getStatus() == Order::ORDER_STATUS_UNPAID){
                 $paymentService->updateOrderStatus($sessionID, Order::ORDER_STATUS_PAID);
