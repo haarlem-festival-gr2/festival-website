@@ -49,7 +49,7 @@
     </label>
     <label for="name">
         <p class="text-lg font-bold">Name</p>
-        <input name="name" type="text" class="border-gray-500 border rounded p-1">
+        <input id="name" name="name" type="text" class="border-gray-500 border rounded p-1">
     </label>
     <input type="submit" name="action" value="Filter" class="cursor-pointer border-black border rounded">
 </form>

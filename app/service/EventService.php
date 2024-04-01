@@ -17,7 +17,7 @@ class EventService extends BaseService
      * @param  array<mixed>  $filter
      * @return array<\Model\Event>
      */
-    public function getEventsWithFilter(array $filter): array
+    public function getEventsWithFilter(array $filter, string $name): array
     {
         $sqlEventFilter = [];
 
@@ -41,11 +41,7 @@ class EventService extends BaseService
             $sqlEventFilter[] = $this->repository->get_yummy_query();
         }
 
-        foreach ($dates as $key => $value) {
-            # code...
-        }
-
-        $events = $this->repository->get_events_with_filter($sqlEventFilter, 26, 26);
+        $events = $this->repository->get_events_with_filter($sqlEventFilter, $dates, $name);
         if ($events === false) {
             return [];
         } else {
