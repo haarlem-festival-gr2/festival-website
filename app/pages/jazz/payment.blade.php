@@ -13,7 +13,7 @@
     <link href="/css/jazzStyles.css" rel="stylesheet">
 </head>
 
-<body class="font-montserrat bg-cover bg-no-repeat" style="background-image: url('/img/payment.png');">
+<body class="font-montserrat bg-cover bg-no-repeat" style="background-image: url('/img/confirmation.png');">
 <div class="container mx-auto my-10 p-8 bg-gray-100 bg-opacity-25 rounded-lg shadow-xl">
     <div class="header text-center text-4xl font-bold py-4 border-b-4 border-black mb-6">Payment</div>
     <div class="md:flex md:justify-between">

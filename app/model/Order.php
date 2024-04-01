@@ -84,6 +84,7 @@ class Order
 
     const ORDER_STATUS_PAID = 'paid';
     const ORDER_STATUS_UNPAID = 'unpaid';
+    const ORDER_STATUS_CANCELLED = 'cancelled';
 }
 
 

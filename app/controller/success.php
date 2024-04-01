@@ -4,78 +4,58 @@ use Core\Route\Method;
 use Core\Route\Route;
 use model\Order;
 use Service\PaymentService;
-use Service\QRCodeService;
 use Stripe\Checkout\Session;
 use Stripe\PaymentIntent;
 use Stripe\PaymentMethod;
 use Stripe\Stripe;
 
-require_once __DIR__.'/../service/PaymentService.php';
-require_once __DIR__.'/../service/QRCodeService.php';
+require_once __DIR__ . '/../service/PaymentService.php';
 
-$paymentService = new PaymentService();
+Route::serve('/success', function (array $props) {
 
-Stripe::setApiKey(getenv("STRIPE_KEY"));
-$sessionID = $_GET['session_id'];
+    if (isset($_GET['session_id']))
+    {
+        $paymentService = new PaymentService();
+        Stripe::setApiKey(getenv("STRIPE_KEY"));
+        $sessionID = $_GET['session_id'];
 
+        $session = Session::retrieve($sessionID);
+        $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
+        $paymentMethod = PaymentMethod::retrieve($paymentIntent->payment_method);
 
-    $session = Session::retrieve($sessionID);
-    $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
-    $paymentMethod = PaymentMethod::retrieve($paymentIntent->payment_method);
+        $order = $paymentService->getOrderBySessionID($sessionID);
+        if(!$order) {
+            echo("Order is not found");
+        }
+        if( $session->payment_status == 'paid'){
+            if($order->getStatus() == Order::ORDER_STATUS_UNPAID){
+                $paymentService->updateOrderStatus($sessionID, Order::ORDER_STATUS_PAID);
 
-    /*echo "<pre>";
-    print_r($session);
-    echo "</pre>";
+                $paymentDateTime = date('Y-m-d H:i:s', $paymentIntent->created + 3600);
+                $customerName = $session->customer_details['name'];
+                $email = $paymentIntent->receipt_email;
+                $phoneNumber = $session->customer_details['phone'];
+                $method = $paymentMethod->type;
+                $city = $paymentMethod->billing_details['address']['city'];
+                $country = $paymentMethod->billing_details['address']['country'];
+                $line1 = $paymentMethod->billing_details['address']['line1'];
+                $line2 = $paymentMethod->billing_details['address']['line2'] ?? '';
+                $postalCode = $paymentMethod->billing_details['address']['postal_code'];
+                $billingAddress = $line1 . $line2 . ', ' . $city . ', ' . $country . ', ' . $postalCode;
+                $totalAmount = (float)($session->amount_total/100);
+                $tax = (float)($session->total_details['amount_tax']/100);
+                $currency = $session->currency;
 
-    echo "<pre>";
-    print_r($paymentIntent);
-    echo "</pre>";
+                $id = $paymentService->registerPayment($paymentDateTime, $customerName, $email, $phoneNumber, $method, $billingAddress, $totalAmount, $tax, $currency, $order->getOrderUUID());
+                $paymentService->sendInvoice($id);
 
-    echo "<pre>";
-    print_r($paymentMethod);
-    echo "</pre>";
-
-    $sessionJson = json_encode($session);
-    $paymentIntentJson = json_encode($paymentIntent);
-    $paymentMethodJson = json_encode($paymentMethod);
-
-    Output to JavaScript console
-    echo "<script>";
-    echo "console.log('Session: ', " . $sessionJson . ");";
-    echo "console.log('Payment Intent: ', " . $paymentIntentJson . ");";
-    echo "console.log('Payment Method: ', " . $paymentMethodJson . ");";
-    echo "</script>";*/
-
-     $order = $paymentService->getOrderBySessionID($sessionID);
-     if(!$order) {
-         echo("Order is not found");
-     }
-     if( $session['payment_status'] == 'paid'){
-         $paymentService->updateOrderStatus($sessionID, Order::ORDER_STATUS_PAID);
-
-         $paymentDateTime = date('Y-m-d H:i:s', $paymentIntent->created + 3600);
-         $customerName = $session->customer_details['name'];
-         $email = $paymentIntent->receipt_email;
-         $phoneNumber = $session->customer_details['phone'];
-         $method = $paymentMethod->type;
-         $city = $paymentMethod->billing_details['address']['city'];
-         $country = $paymentMethod->billing_details['address']['country'];
-         $line1 = $paymentMethod->billing_details['address']['line1'];
-         $line2 = $paymentMethod->billing_details['address']['line2'] ?? '';
-         $postalCode = $paymentMethod->billing_details['address']['postal_code'];
-         $billingAddress = $line1 . $line2 . ', ' . $city . ', ' . $country . ', ' . $postalCode;
-         $totalAmount = (float)($session->amount_total/100);
-         $tax = (float)($session->total_details['amount_tax']/100);
-         $currency = $session->currency;
-
-         $id = $paymentService->registerPayment($paymentDateTime, $customerName, $email, $phoneNumber, $method, $billingAddress, $totalAmount, $tax, $currency, $order->getOrderUUID());
-         $paymentService->sendInvoice($id);
-
-         $paymentService->sendTickets($order->getOrderUUID(), $email, $customerName);
-
-         Route::redirect('/confirmation');
-     } else {
-         echo "Payment failed.";
-     }
-
-
+                $paymentService->sendTickets($order->getOrderUUID(), $email, $customerName);
+            }
+            Route::redirect('/confirm');
+        } else {
+            echo "Payment failed.";
+        }
+    } else {
+        Route::redirect('/agenda/overview');
+    }
+}, Method::GET);

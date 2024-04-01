@@ -12,18 +12,16 @@ use Stripe\Stripe;
 Payment requires authentication - 4000 0025 0000 3155
 Payment is declined - 4000 0000 0000 9995*/
 
-require_once __DIR__.'/../model/Order.php';
+require_once __DIR__ . '/../model/Order.php';
 require_once __DIR__ . '/../model/OrderItem.php';
-require_once __DIR__.'/../service/PaymentService.php';
+require_once __DIR__ . '/../service/PaymentService.php';
 
 Route::serve('/payment', function (array $props) {
-    // user has to be logged it to buy tickets
+
     $user = Route::auth();
     if (!$user) {
         Route::redirect('/login');
     }
-    // in agenda page it will be displayed that the user has to be
-    // logged in/register if the user presses button buy?
 
     // card is empty
     /*$cart = $props['cart'];
@@ -34,9 +32,7 @@ Route::serve('/payment', function (array $props) {
     $paymentService = new PaymentService();
 
     // temporary cart
-    $cart = $paymentService->get5events();
-    $cart1 = $paymentService->get3events();
-    $cart = array_merge($cart, $cart1);
+    $cart = $paymentService->get3events();
 
     // counts the quantity of each item in the cart
     $events = [];
@@ -104,7 +100,7 @@ Route::serve('/payment', function (array $props) {
                 'submit' => ['message' => 'Your tickets will be sent to the provided email address.'],
             ],
             'success_url' => "http://localhost:8080/success?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => "http://localhost:8080/agenda",
+            'cancel_url' => "http://localhost:8080/cancelPayment?session_id={CHECKOUT_SESSION_ID}",
             'billing_address_collection' => 'required',
         ]);
 

@@ -23,10 +23,10 @@ class QRCodeService
     {
         $checkTicketRepository = new CheckTicketRepository();
         try {
+            // if true - ticket is valid
             return $checkTicketRepository->checkTicket($ticketUUID);
         } catch (\Exception $e) {
             throw $e;
         }
-        // if true - ticket is valid
     }
 }
