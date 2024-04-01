@@ -3,11 +3,14 @@
 use Core\Route\Method;
 use Core\Route\Route;
 use service\JazzService;
+use Service\ValidateInputService;
 
 require_once __DIR__ . '/../../service/JazzService.php';
+require_once __DIR__ . '/../../service/ValidateInputService.php';
 
-Route::serve('/performances/createPerformance', function (array $props) {
-    $jazzService = new JazzService();
+$jazzService = new JazzService();
+
+Route::serve('/performances/createPerformance', function (array $props) use ($jazzService) {
     $artists = $jazzService->getAllArtists();
     $jazzDays = $jazzService->getAllJazzDays();
 
@@ -18,8 +21,8 @@ Route::serve('/performances/createPerformance', function (array $props) {
 }, Method::GET);
 
 
-Route::serve('/performances/createPerformance', function (array $props) {
-    $jazzService = new JazzService();
+Route::serve('/performances/createPerformance', function (array $props) use ($jazzService){
+    $validateInputService = new ValidateInputService();
 
     $artistId = $props['artist'];
     $dayId = $props['day'];
@@ -30,35 +33,24 @@ Route::serve('/performances/createPerformance', function (array $props) {
     $totalTickets = $props['total_tickets'];
     $details = $props['details'];
 
-    if (empty($artistId) || empty($dayId) || empty($startTime) || empty($endTime) || (! isset($price) && $price !== '0') || (! isset($availableTickets) && $availableTickets !== '0') || (! isset($totalTickets) && $totalTickets !== '0')) {
-        $error = 'All fields marked with * are required.';
-        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
-
-        return;
-    }
-
-    if (! is_numeric($price) || $price < 0) {
-        $error = 'Price must be a non-negative number.';
-        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
-
-        return;
-    }
-
-    if (! is_numeric($availableTickets) || ! is_numeric($totalTickets) || $availableTickets < 0 || $totalTickets < 0 || ! is_int((int) $availableTickets) || ! is_int((int) $totalTickets) || (int) $availableTickets > (int) $totalTickets) {
-        $error = 'Available and total tickets must be valid non-negative integers, and available tickets cannot exceed total tickets.';
-        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
-
-        return;
-    }
-
-    if (strtotime($startTime) > strtotime($endTime)) {
-        $error = 'Start time must be before end time.';
-        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
-
-        return;
-    }
+    $validateInputService->checkRequiredFields([$artistId, $dayId, $startTime, $endTime]);
+    $validateInputService->validateEmptyNumbers([$price, $availableTickets, $totalTickets]);
+    $validateInputService->validatePrice($price);
+    $validateInputService->validateTicketFields($availableTickets, $totalTickets);
+    $validateInputService->validateTime($startTime, $endTime);
 
     $jazzService->createPerformance($artistId, $dayId, $price, $startTime, $endTime, $availableTickets, $totalTickets, $details);
 
     Route::redirect('/performances/managePerformances');
 }, Method::POST);
+
+
+
+
+
+
+
+
+
+
+

@@ -5,9 +5,9 @@ use Core\Route\Route;
 use service\JazzService;
 
 require_once __DIR__ . '/../../service/JazzService.php';
+$jazzService = new JazzService();
 
-Route::serve('/jazzdays/manageDays', function (array $props) {
-    $jazzService = new JazzService();
+Route::serve('/jazzdays/manageDays', function (array $props) use($jazzService) {
 
     $jazzDays = $jazzService->getAllJazzDays();
     Route::render('admin.jazz.manage.days', [
@@ -16,8 +16,7 @@ Route::serve('/jazzdays/manageDays', function (array $props) {
 }, Method::GET);
 
 
-Route::serve('/jazzdays/manageDays', function (array $props) {
-    $jazzService = new JazzService();
+Route::serve('/jazzdays/manageDays', function (array $props) use ($jazzService) {
     try {
         $jazzService->deleteJazzDay($props['id']);
     } catch (Exception $e) {

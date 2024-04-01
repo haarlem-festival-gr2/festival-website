@@ -6,9 +6,9 @@ use service\JazzService;
 
 require_once __DIR__ . '/../../service/JazzService.php';
 
-Route::serve('/venues/manageVenues', function (array $props) {
-    $jazzService = new JazzService();
+$jazzService = new JazzService();
 
+Route::serve('/venues/manageVenues', function (array $props) use($jazzService) {
     $venues = $jazzService->getAllVenues();
     Route::render('admin.jazz.manage.venues', [
         'venues' => $venues,
@@ -16,14 +16,11 @@ Route::serve('/venues/manageVenues', function (array $props) {
 }, Method::GET);
 
 
-Route::serve('/venues/manageVenues', function (array $props) {
-    $jazzService = new JazzService();
-
+Route::serve('/venues/manageVenues', function (array $props) use ($jazzService) {
     try {
         $jazzService->deleteVenue($props['id']);
     } catch (Exception $e) {
         echo "<script>alert('".addslashes($e->getMessage())."');</script>";
-
         return;
     }
 

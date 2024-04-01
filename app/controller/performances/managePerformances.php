@@ -6,8 +6,9 @@ use service\JazzService;
 
 require_once __DIR__ . '/../../service/JazzService.php';
 
-Route::serve('/performances/managePerformances', function (array $props) {
-    $jazzService = new JazzService();
+$jazzService = new JazzService();
+
+Route::serve('/performances/managePerformances', function (array $props) use($jazzService) {
     $performances = $jazzService->getAllPerformances();
 
     Route::render('admin.jazz.manage.performances', [
@@ -16,9 +17,7 @@ Route::serve('/performances/managePerformances', function (array $props) {
 });
 
 
-Route::serve('/performances/managePerformances', function (array $props) {
-    $jazzService = new JazzService();
-
+Route::serve('/performances/managePerformances', function (array $props) use($jazzService) {
     $jazzService->deletePerformance($props['id']);
 
     Route::redirect('/performances/managePerformances');

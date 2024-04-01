@@ -4,12 +4,15 @@ use Core\Route\Method;
 use Core\Route\Route;
 use Service\ImageService;
 use service\JazzService;
+use Service\ValidateInputService;
 
 require_once __DIR__ . '/../../service/JazzService.php';
-require_once __DIR__ . '/../../service/ImageService.php';
+require_once __DIR__ . '/../../service/ValidateInputService.php';
 
-Route::serve('/jazzdays/createDay', function (array $props) {
-    $jazzService = new JazzService();
+$jazzService = new JazzService();
+
+Route::serve('/jazzdays/createDay', function (array $props)use ($jazzService) {
+
     $venues = $jazzService->getAllVenues();
 
     Route::render('admin.jazz.create.day', [
@@ -18,36 +21,18 @@ Route::serve('/jazzdays/createDay', function (array $props) {
 }, Method::GET);
 
 
-Route::serve('/jazzdays/createDay', function (array $props) {
-    $jazzService = new JazzService();
+Route::serve('/jazzdays/createDay', function (array $props) use ($jazzService)  {
+
+    $validateInputService = new ValidateInputService();
 
     $date = $props['date'];
     $venueId = $props['venue'];
     $note = $props['note'];
 
-    if (empty($date) || empty($venueId)) {
-        $error = 'All fields marked with * are required.';
-        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
+    $validateInputService->checkRequiredFields([$date, $venueId]);
+    $imgPath = $validateInputService->checkAndUploadImage('image', 'jazz');
 
-        return;
-    }
-
-    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        try {
-            $imageService = new ImageService();
-            $imgPath = $imageService->uploadImage($_FILES['image'], 'jazz');
-            $jazzService->createJazzDay($date, $venueId, $note, $imgPath);
-        } catch (Exception $e) {
-            echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
-
-            return;
-        }
-    } else {
-        $error = 'Please upload an image.';
-        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
-
-        return;
-    }
+    $jazzService->createJazzDay($date, $venueId, $note, $imgPath);
 
     Route::redirect('/jazzdays/manageDays');
 }, Method::POST);

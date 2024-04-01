@@ -3,11 +3,14 @@
 use Core\Route\Method;
 use Core\Route\Route;
 use service\JazzService;
+use Service\ValidateInputService;
 
 require_once __DIR__ . '/../../service/JazzService.php';
+require_once __DIR__ . '/../../service/ValidateInputService.php';
 
-Route::serve('/venues/editVenue', function (array $props) {
-    $jazzService = new JazzService();
+$jazzService = new JazzService();
+
+Route::serve('/venues/editVenue', function (array $props) use ($jazzService){
     $venueId = $props['id'];
     $venue = $jazzService->getVenueById($venueId);
 
@@ -17,19 +20,16 @@ Route::serve('/venues/editVenue', function (array $props) {
 }, Method::GET);
 
 
-Route::serve('/venues/editVenue', function (array $props) {
-    $jazzService = new JazzService();
+Route::serve('/venues/editVenue', function (array $props) use ($jazzService) {
+    $validateInputService = new ValidateInputService();
 
     $venueId = $props['id'];
     $name = $props['name'];
     $address = $props['address'];
     $contactDetails = $props['contact_details'];
 
-    if (empty($name) || empty($address)) {
-        $error = 'All fields marked with * are required.';
-        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
-        return;
-    }
+    $validateInputService->checkRequiredFields([$name, $address]);
+
     $jazzService->updateVenue($venueId, $name, $address, $contactDetails);
 
     Route::redirect('/venues/manageVenues');

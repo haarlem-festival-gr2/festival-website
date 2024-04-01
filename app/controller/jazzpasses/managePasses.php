@@ -5,9 +5,11 @@ use Core\Route\Route;
 use service\JazzService;
 
 require_once __DIR__ . '/../../service/JazzService.php';
+require_once __DIR__ . '/../../service/ValidateInputService.php';
 
-Route::serve('/jazzpasses/managePasses', function (array $props) {
-    $jazzService = new JazzService();
+$jazzService = new JazzService();
+
+Route::serve('/jazzpasses/managePasses', function (array $props) use ($jazzService) {
 
     $passes = $jazzService->getAllJazzPasses();
     Route::render('admin.jazz.manage.passes', [
@@ -16,9 +18,7 @@ Route::serve('/jazzpasses/managePasses', function (array $props) {
 }, Method::GET);
 
 
-Route::serve('/jazzpasses/managePasses', function (array $props) {
-    $jazzService = new JazzService();
-
+Route::serve('/jazzpasses/managePasses', function (array $props) use ($jazzService) {
     $jazzService->deletePass($props['id']);
 
     Route::redirect('/jazzpasses/managePasses');
