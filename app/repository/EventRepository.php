@@ -8,7 +8,7 @@ class EventRepository extends BaseRepository
 {
     public function get_jazz_query(): string
     {
-        $queryJazz = "SELECT 'JAZZ' as Type,
+        $queryJazzEvent = "SELECT 'JAZZ' as Type,
             p.PerformanceID as ID, p.Price, p.TotalTickets, p.StartDateTime, p.EndDateTime,
             a.Name as Name, a.PerformanceImg as Img,
             v.Name as Venue
@@ -16,6 +16,14 @@ class EventRepository extends BaseRepository
             JOIN Artist AS a ON p.ArtistID = a.ArtistID 
             JOIN JazzDay AS j ON p.DayID = j.DayID 
             JOIN Venue AS v ON j.VenueID = v.VenueID";
+
+        $queryDayPass = "SELECT 'DAY_JAZZ' as Type,
+            JazzPassID as ID, Price, TotalTickets, StartDateTime, EndDateTime,
+            'Jazz Day Pass' as Name, '/img/jazz/daypass.png' as Img,
+            'Patronaat' as Venue
+            FROM JazzPass";
+
+        $queryJazz = "$queryJazzEvent UNION $queryDayPass";
 
         return $queryJazz;
     }
@@ -28,7 +36,7 @@ class EventRepository extends BaseRepository
             FROM Session as s
             JOIN Restaurant as r ON s.RestaurantID = r.RestaurantID';
 
-        $queryYummyChild = 'SELECT "YUMMY" as Type,
+        $queryYummyChild = 'SELECT "CHILD_YUMMY" as Type,
             s.SessionID as ID, r.PriceChild as Price, s.RemainingSeats as TotalTickets, s.StartDateTime, s.EndDateTime,
             CONCAT(s.Description, " - Child Ticket") as Name, r.FoodImg1 as Img, r.Location as Venue
             FROM Session as s
@@ -83,7 +91,7 @@ class EventRepository extends BaseRepository
         }
 
         $finalDate = [];
-        $dateValues = [$name];
+        $values = [$name];
         for ($i = 0; $i < count($dates); $i++) {
             $day = $dates[$i];
             $daySql = $this->get_date_sql();
@@ -91,8 +99,8 @@ class EventRepository extends BaseRepository
             // DANGER ZONE
             // DO NOT DIRECTLY INTERPOLATE STRINGS
             // (Danger mitigated on line 103)
-            $dateValues[] = "2024-07-$day 00:00:00";
-            $dateValues[] = "2024-07-$day 23:59:59";
+            $values[] = "2024-07-$day 00:00:00";
+            $values[] = "2024-07-$day 23:59:59";
         }
 
         // deal with the inconsistent naming or pay me 65 euro an hour
@@ -107,7 +115,7 @@ class EventRepository extends BaseRepository
                 ORDER BY StartDateTime";
 
         $query = $this->connection->prepare($sql);
-        $query->execute($dateValues);
+        $query->execute($values);
 
         $query->setFetchMode(PDO::FETCH_CLASS, '\Model\Event');
 

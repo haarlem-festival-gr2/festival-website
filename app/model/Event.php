@@ -75,8 +75,10 @@ class Event
     {
         switch (strtolower($this->Type[0])) {
             case 'j':
+            case 'd':
                 return 'bg-[#B92090]';
             case 'y':
+            case 'c':
                 return 'bg-[#E49287]';
             case 'h':
                 return 'bg-[#95D4EB]';
