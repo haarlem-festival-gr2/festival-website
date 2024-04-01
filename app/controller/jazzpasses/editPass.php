@@ -4,9 +4,9 @@ use Core\Route\Method;
 use Core\Route\Route;
 use service\JazzService;
 
-require_once __DIR__.'/../service/JazzService.php';
+require_once __DIR__ . '/../../service/JazzService.php';
 
-Route::serve('/editPass', function (array $props) {
+Route::serve('/jazzpasses/editPass', function (array $props) {
 
     $jazzService = new JazzService();
     $passId = $props['id'];
@@ -17,7 +17,8 @@ Route::serve('/editPass', function (array $props) {
     );
 }, Method::GET);
 
-Route::serve('/editPass', function (array $props) {
+
+Route::serve('/jazzpasses/editPass', function (array $props) {
     $jazzService = new JazzService();
 
     $id = $props['id'];
@@ -58,5 +59,5 @@ Route::serve('/editPass', function (array $props) {
 
     $jazzService->updatePass($id, $price, $startDate, $endDate, $note, $availableTickets, $totalTickets);
 
-    Route::redirect('/manageJazzPasses');
+    Route::redirect('/jazzpasses/managePasses');
 }, Method::POST);

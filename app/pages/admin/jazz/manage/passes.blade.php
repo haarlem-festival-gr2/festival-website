@@ -21,7 +21,7 @@
     <section class="p-4 w-4/5 overflow-y-auto" style="max-height: calc(100vh - 100px);">
         <div class="flex space-x-8 items-center mb-4">
             <h1 class="text-xl font-bold">Manage Jazz Passes</h1>
-            <a href="/createPass"
+            <a href="/jazzpasses/createPass"
                class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Create Pass
             </a>
@@ -33,9 +33,9 @@
                     <div class="px-4 py-5 sm:px-6 flex justify-between">
                         <h3 class="text-lg leading-6 font-semibold text-gray-900">Pass</h3>
                         <div class="flex space-x-2">
-                            <a href="/editPass?id={{ $pass->JazzPassID }}"
+                            <a href="/jazzpasses/editPass?id={{ $pass->JazzPassID }}"
                                class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm">Edit</a>
-                            <form hx-post="/manageJazzPasses" hx-target="#error"
+                            <form hx-post="/jazzpasses/managePasses" hx-target="#error"
                                   onsubmit="return confirm('Are you sure you want to delete this pass?');"
                                   class="block">
                                 <input type="hidden" name="id" value="{{ $pass->JazzPassID }}">

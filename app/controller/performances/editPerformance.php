@@ -4,9 +4,9 @@ use Core\Route\Method;
 use Core\Route\Route;
 use service\JazzService;
 
-require_once __DIR__.'/../service/JazzService.php';
+require_once __DIR__ . '/../../service/JazzService.php';
 
-Route::serve('/editPerformance', function (array $props) {
+Route::serve('/performances/editPerformance', function (array $props) {
 
     $jazzService = new JazzService();
     $id = $props['id'];
@@ -21,7 +21,8 @@ Route::serve('/editPerformance', function (array $props) {
     ]);
 }, Method::GET);
 
-Route::serve('/editPerformance', function (array $props) {
+
+Route::serve('/performances/editPerformance', function (array $props) {
     $jazzService = new JazzService();
 
     $id = $props['id'];
@@ -56,7 +57,7 @@ Route::serve('/editPerformance', function (array $props) {
     }
 
     if (strtotime($startTime) > strtotime($endTime)) {
-        $error = 'Start date must be before end date.';
+        $error = 'Start time must be before end time.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
 
         return;
@@ -64,5 +65,5 @@ Route::serve('/editPerformance', function (array $props) {
 
     $jazzService->updatePerformance($id, $artistId, $dayId, $price, $startTime, $endTime, $availableTickets, $totalTickets, $details);
 
-    Route::redirect('/managePerformances');
+    Route::redirect('/performances/managePerformances');
 }, Method::POST);

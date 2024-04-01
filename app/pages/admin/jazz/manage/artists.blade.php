@@ -21,7 +21,7 @@
     <section class="p-4 w-4/5 overflow-y-auto" style="max-height: calc(100vh - 100px);">
         <div class="flex space-x-8 items-center mb-4">
             <h1 class="text-xl font-bold">Manage Artists</h1>
-            <a href="/createArtist"
+            <a href="/artists/createArtist"
                class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Create Artist
             </a>
@@ -33,9 +33,9 @@
                     <div class="px-4 py-5 sm:px-6 flex justify-between">
                         <h3 class="text-lg leading-6 font-semibold text-gray-900">{{ $artist->Name }}</h3>
                         <div class="flex space-x-2">
-                            <a href="/editArtist?id={{ $artist->ArtistID }}"
+                            <a href="/artists/editArtist?id={{ $artist->ArtistID }}"
                                class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm">Edit</a>
-                            <form hx-post="/manageArtists" hx-target="#error"
+                            <form hx-post="/artists/manageArtists" hx-target="#error"
                                   onsubmit="return confirm('Are you sure you want to delete this artist?');"
                                   class="block">
                                 <input type="hidden" name="id" value="{{ $artist->ArtistID }}">

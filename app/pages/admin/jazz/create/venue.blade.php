@@ -21,7 +21,7 @@
     <section class="w-4/5 p-4 overflow-y-auto" style="max-height: calc(100vh - 50px);">
         <div class="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
             <h1 class="text-xl font-bold mb-4 flex justify-center">Create Venue</h1>
-            <form hx-post="/createVenue" hx-target="#error">
+            <form hx-post="/venues/createVenue" hx-target="#error">
                 <div class="mb-4">
                     <label for="name" class="block mb-2">Venue name*:</label>
                     <input type="text" id="name" name="name" required class="w-full border rounded-md px-3 py-2">
@@ -37,7 +37,7 @@
                 <div id="error"></div>
                 <div class="flex justify-center space-x-4">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>
-                    <a href="/manageVenues" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded">Cancel</a>
+                    <a href="/venues/manageVenues" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded">Cancel</a>
                 </div>
             </form>
         </div>

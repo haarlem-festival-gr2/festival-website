@@ -21,7 +21,7 @@
     <section class="p-4 w-4/5 overflow-y-auto" style="max-height: calc(100vh - 100px);">
         <div class="flex space-x-8 items-center mb-4">
             <h1 class="text-xl font-bold">Manage Jazz Days</h1>
-            <a href="/createJazzDay" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <a href="/jazzdays/createDay" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Create Jazz Day
             </a>
             <div id="error"></div>
@@ -32,8 +32,8 @@
                     <div class="px-4 py-5 sm:px-6 flex justify-between">
                         <h3 class="text-lg leading-6 font-semibold text-gray-900">{{ date('d-m-Y', strtotime($jazzDay->Date)) }}</h3>
                         <div class="flex space-x-2">
-                            <a href="/editJazzDay?id={{ $jazzDay->DayID }}" class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm">Edit</a>
-                            <form hx-post="/manageJazzDays" hx-target="#error"
+                            <a href="/jazzdays/editDay?id={{ $jazzDay->DayID }}" class="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700 text-sm">Edit</a>
+                            <form hx-post="/jazzdays/manageDays" hx-target="#error"
                                   onsubmit="return confirm('Are you sure you want to delete this day?');" class="block">
                                 <input type="hidden" name="id" value="{{ $jazzDay->DayID }}">
                                 <button type="submit" class="bg-red-500 hover:bg-red-700 text-white px-3 py-2 rounded text-sm">Delete</button>

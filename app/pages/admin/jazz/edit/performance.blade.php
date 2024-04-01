@@ -21,7 +21,7 @@
     <section class="w-4/5 p-4 overflow-y-auto" style="max-height: calc(100vh - 50px);">
         <div class="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
             <h1 class="text-xl font-bold mb-4 flex justify-center">Edit Performance</h1>
-            <form hx-post="/editPerformance" hx-target="#error">
+            <form hx-post="/performances/editPerformance" hx-target="#error">
                 <div class="mb-4">
                     <input type="hidden" name = "id" value = "{{ $performance->PerformanceID }}">
                     <label for="artist" class="block mb-2">Artist:</label>
@@ -66,7 +66,7 @@
                 <div id="error"></div>
                 <div class="flex justify-center space-x-4">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>
-                    <a href="/managePerformances" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded">Cancel</a>
+                    <a href="/performances/managePerformances" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded">Cancel</a>
                 </div>
             </form>
         </div>

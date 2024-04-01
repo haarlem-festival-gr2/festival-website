@@ -11,18 +11,11 @@ Route::serve('/jazz', function (array $props) {
     $festivalEventService = new FestivalEventService();
     $jazzService = new JazzService();
 
-    $user = Route::auth();
-
     $festivalEvent = $festivalEventService->getFestivalEventByName('Haarlem Jazz');
     $eventDays = $jazzService->getEventDaysWithDetails();
-
-    //if (!$user) {
-    //   Route::redirect('/login');
-    //}
 
     Route::render('jazz.overview.main', [
         'festivalEvent' => $festivalEvent,
         'eventDays' => $eventDays,
-        'user' => $user,
     ]);
 });

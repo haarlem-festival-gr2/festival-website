@@ -13,42 +13,6 @@
 </head>
 <body class="font-montserrat">
 
-<!-- temporary stuff -->
-<p>add nav bar</p>
-<p>add footer</p>
-<p>fix add to program button, disable if tickets are sold out</p>
-@if($user)
-    <p>user is logged in. Role: {{$user->Role}}</p>
-@else
-    <p>user is not logged in</p>
-@endif
-
-<nav class="bg-yellow-400">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex-shrink-0 flex items-center">
-                <a href="/login" class="text-black text-base font-bold">Login</a>
-            </div>
-            <div class="flex-shrink-0 flex items-center">
-                <a href="/manageVenues" class="text-black text-base font-bold">Manage Venues</a>
-            </div>
-            <div class="flex-shrink-0 flex items-center">
-                <a href="/manageJazzDays" class="text-black text-base font-bold">Manage Days</a>
-            </div>
-            <div class="flex-shrink-0 flex items-center">
-                <a href="/manageArtists" class="text-black text-base font-bold">Manage Artists</a>
-            </div>
-            <div class="flex-shrink-0 flex items-center">
-                <a href="/managePerformances" class="text-black text-base font-bold">Manage Performances</a>
-            </div>
-            <div class="flex-shrink-0 flex items-center">
-                <a href="/manageJazzPasses" class="text-black text-base font-bold">Manage Passes</a>
-            </div>
-        </div>
-    </div>
-</nav>
-<!-- delete later -->
-
 <!-- header-->
 <div class="relative w-full">
     <img src="{{ $festivalEvent->getImgPath() }}" alt="{{ $festivalEvent->getFestivalEventName() }}" class="w-full"/>
@@ -147,7 +111,7 @@
         <div class="grid grid-cols-3 gap-4">
             @foreach ($eventDay['performances'] as $performance)
                 @if ($artist = $performance->Artist)
-                    <a href="/artist?id={{ $artist->ArtistID }}"
+                    <a href="/artistDetails?id={{ $artist->ArtistID }}"
                        class="artist-card p-4 text-center cursor-pointer block">
                         <h3 class="text-white text-xl font-bold mb-2">
                             {{ $artist->Name }}

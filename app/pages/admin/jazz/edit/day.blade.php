@@ -20,7 +20,7 @@
     <section class="w-4/5 p-4 overflow-y-auto" style="max-height: calc(100vh - 50px);">
         <div class="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
             <h1 class="text-xl font-bold mb-4 flex justify-center">Edit Jazz Day</h1>
-            <form hx-post="/editJazzDay" hx-target="#error" hx-encoding="multipart/form-data">
+            <form hx-post="/jazzdays/editDay" hx-target="#error" hx-encoding="multipart/form-data">
                 <input type="hidden" name = "id" value = "{{$day->DayID}}">
                 <div class="mb-4">
                     <label for="date" class="block mb-2">Date*:</label>
@@ -46,7 +46,7 @@
                 <div id="error"></div>
                 <div class="flex justify-center space-x-4">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>
-                    <a href="/manageJazzDays" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded">Cancel</a>
+                    <a href="/jazzdays/manageDays" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded">Cancel</a>
                 </div>
             </form>
         </div>

@@ -4,23 +4,33 @@ use Core\Route\Method;
 use Core\Route\Route;
 use service\JazzService;
 
-require_once __DIR__.'/../service/JazzService.php';
+require_once __DIR__ . '/../../service/JazzService.php';
 
-Route::serve('/createPass', function (array $props) {
-    Route::render('admin.jazz.create.pass', []);
+Route::serve('/performances/createPerformance', function (array $props) {
+    $jazzService = new JazzService();
+    $artists = $jazzService->getAllArtists();
+    $jazzDays = $jazzService->getAllJazzDays();
+
+    Route::render('admin.jazz.create.performance', [
+        'artists' => $artists,
+        'jazzDays' => $jazzDays,
+    ]);
 }, Method::GET);
 
-Route::serve('/createPass', function (array $props) {
+
+Route::serve('/performances/createPerformance', function (array $props) {
     $jazzService = new JazzService();
 
-    $startDate = $props['start_date'];
-    $endDate = $props['end_date'];
+    $artistId = $props['artist'];
+    $dayId = $props['day'];
+    $startTime = $props['start_time'];
+    $endTime = $props['end_time'];
     $price = $props['price'];
     $availableTickets = $props['available_tickets'];
     $totalTickets = $props['total_tickets'];
-    $note = $props['note'];
+    $details = $props['details'];
 
-    if (empty($startDate) || empty($endDate) || (! isset($price) && $price !== '0') || (! isset($availableTickets) && $availableTickets !== '0') || (! isset($totalTickets) && $totalTickets !== '0')) {
+    if (empty($artistId) || empty($dayId) || empty($startTime) || empty($endTime) || (! isset($price) && $price !== '0') || (! isset($availableTickets) && $availableTickets !== '0') || (! isset($totalTickets) && $totalTickets !== '0')) {
         $error = 'All fields marked with * are required.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
 
@@ -41,14 +51,14 @@ Route::serve('/createPass', function (array $props) {
         return;
     }
 
-    if (strtotime($startDate) > strtotime($endDate)) {
-        $error = 'Start date must be before end date.';
+    if (strtotime($startTime) > strtotime($endTime)) {
+        $error = 'Start time must be before end time.';
         echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
 
         return;
     }
 
-    $jazzService->createPass($price, $startDate, $endDate, $note, $availableTickets, $totalTickets);
+    $jazzService->createPerformance($artistId, $dayId, $price, $startTime, $endTime, $availableTickets, $totalTickets, $details);
 
-    Route::redirect('/manageJazzPasses');
+    Route::redirect('/performances/managePerformances');
 }, Method::POST);

@@ -19,7 +19,7 @@
     <section class="w-4/5 p-4 overflow-y-auto" style="max-height: calc(100vh - 50px);">
         <div class="max-w-lg mx-auto bg-white p-8 rounded-md shadow-md">
             <h1 class="text-xl font-bold mb-4 flex justify-center">Create Jazz Pass</h1>
-            <form hx-post="/createPass" hx-target="#error">
+            <form hx-post="/jazzpasses/createPass" hx-target="#error">
                 <div class="mb-4">
                     <label for="start_date" class="block mb-2">Start Date Time*:</label>
                     <input type="date" id="start_date" name="start_date" required class="w-full border rounded-md px-3 py-2">
@@ -47,7 +47,7 @@
                 <div id="error"></div>
                 <div class="flex justify-center space-x-4">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Save</button>
-                    <a href="/manageJazzPasses" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded">Cancel</a>
+                    <a href="/jazzpasses/managePasses" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded">Cancel</a>
                 </div>
             </form>
         </div>

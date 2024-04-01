@@ -4,9 +4,9 @@ use Core\Route\Method;
 use Core\Route\Route;
 use service\JazzService;
 
-require_once __DIR__.'/../service/JazzService.php';
+require_once __DIR__ . '/../../service/JazzService.php';
 
-Route::serve('/managePerformances', function (array $props) {
+Route::serve('/performances/managePerformances', function (array $props) {
     $jazzService = new JazzService();
     $performances = $jazzService->getAllPerformances();
 
@@ -15,10 +15,11 @@ Route::serve('/managePerformances', function (array $props) {
     ]);
 });
 
-Route::serve('/managePerformances', function (array $props) {
+
+Route::serve('/performances/managePerformances', function (array $props) {
     $jazzService = new JazzService();
 
     $jazzService->deletePerformance($props['id']);
 
-    Route::redirect('/managePerformances');
+    Route::redirect('/performances/managePerformances');
 }, Method::POST);

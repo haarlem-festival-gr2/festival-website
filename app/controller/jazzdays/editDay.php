@@ -5,21 +5,26 @@ use Core\Route\Route;
 use Service\ImageService;
 use service\JazzService;
 
-require_once __DIR__.'/../service/JazzService.php';
-require_once __DIR__.'/../service/ImageService.php';
+require_once __DIR__ . '/../../service/JazzService.php';
+require_once __DIR__ . '/../../service/ImageService.php';
 
-Route::serve('/createJazzDay', function (array $props) {
+Route::serve('/jazzdays/editDay', function (array $props) {
     $jazzService = new JazzService();
+    $dayId = $props['id'];
+    $day = $jazzService->getJazzDayById($dayId);
     $venues = $jazzService->getAllVenues();
 
-    Route::render('admin.jazz.create.day', [
+    Route::render('admin.jazz.edit.day', [
+        'day' => $day,
         'venues' => $venues,
     ]);
 }, Method::GET);
 
-Route::serve('/createJazzDay', function (array $props) {
+
+Route::serve('/jazzdays/editDay', function (array $props) {
     $jazzService = new JazzService();
 
+    $dayId = $props['id'];
     $date = $props['date'];
     $venueId = $props['venue'];
     $note = $props['note'];
@@ -31,22 +36,18 @@ Route::serve('/createJazzDay', function (array $props) {
         return;
     }
 
+    $imgPath = null;
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         try {
             $imageService = new ImageService();
             $imgPath = $imageService->uploadImage($_FILES['image'], 'jazz');
-            $jazzService->createJazzDay($date, $venueId, $note, $imgPath);
         } catch (Exception $e) {
             echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
 
             return;
         }
-    } else {
-        $error = 'Please upload an image.';
-        echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
-
-        return;
     }
+    $jazzService->updateJazzDay($dayId, $date, $venueId, $note, $imgPath);
 
-    Route::redirect('/manageJazzDays');
+    Route::redirect('/jazzdays/manageDays');
 }, Method::POST);

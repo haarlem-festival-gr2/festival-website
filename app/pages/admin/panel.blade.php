@@ -8,31 +8,31 @@
             </a>
         </li>
         <li class="mb-4">
-            <a href="/manageJazzDays"
+            <a href="/jazzdays/manageJazzDays"
                class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg mb-2 text-md">
                 Manage Jazz Days
             </a>
         </li>
         <li class="mb-4">
-            <a href="/manageVenues"
+            <a href="/venues/manageVenues"
                class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg mb-2 text-md">
                 Manage Jazz Venues
             </a>
         </li>
         <li class="mb-4">
-            <a href="/manageArtists"
+            <a href="/artists/manageArtists"
                class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg mb-2 text-md">
                 Manage Artists
             </a>
         </li>
         <li class="mb-4">
-            <a href="/managePerformances"
+            <a href="/performances/managePerformances"
                class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg mb-2 text-md">
                 Manage Performances
             </a>
         </li>
         <li class="mb-4">
-            <a href="/manageJazzPasses"
+            <a href="/jazzpasses/manageJazzPasses"
                class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg mb-2 text-md">
                 Manage Jazz Passes
             </a>

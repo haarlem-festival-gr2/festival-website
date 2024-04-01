@@ -5,7 +5,11 @@ use service\JazzService;
 
 require_once __DIR__.'/../service/JazzService.php';
 
-Route::serve('/artist', function (array $props) {
+Route::serve('/artistDetails', function (array $props) {
+    if(!isset($props['id'])) {
+        Route::redirect('/jazz');
+    }
+
     $artistId = $props['id'];
 
     $jazzService = new JazzService();

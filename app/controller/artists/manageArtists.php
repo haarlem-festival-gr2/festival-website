@@ -4,20 +4,20 @@ use Core\Route\Method;
 use Core\Route\Route;
 use service\JazzService;
 
-require_once __DIR__.'/../service/JazzService.php';
+require_once __DIR__ . '/../../service/JazzService.php';
 
-Route::serve('/manageArtists', function (array $props) {
+Route::serve('/artists/manageArtists', function (array $props) {
     $jazzService = new JazzService();
     $artists = $jazzService->getAllArtists();
 
     Route::render('admin.jazz.manage.artists', [
         'artists' => $artists,
     ]);
-});
+}, Method::GET);
 
-Route::serve('/manageArtists', function (array $props) {
+
+Route::serve('/artists/manageArtists', function (array $props) {
     $jazzService = new JazzService();
-
     try {
         $jazzService->deleteArtist($props['id']);
     } catch (Exception $e) {
@@ -26,5 +26,6 @@ Route::serve('/manageArtists', function (array $props) {
         return;
     }
 
-    Route::redirect('/manageArtists');
+    Route::redirect('/artists/manageArtists');
 }, Method::POST);
+
