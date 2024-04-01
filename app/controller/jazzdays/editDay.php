@@ -12,6 +12,10 @@ require_once __DIR__ . '/../../service/ValidateInputService.php';
 $jazzService = new JazzService();
 
 Route::serve('/jazzdays/editDay', function (array $props) use ($jazzService) {
+    if(!isset($props['id'])) {
+        Route::redirect('/jazzdays/manageDays');
+    }
+
     $dayId = $props['id'];
     $day = $jazzService->getJazzDayById($dayId);
     $venues = $jazzService->getAllVenues();

@@ -11,6 +11,9 @@ require_once __DIR__ . '/../../service/ValidateInputService.php';
 $jazzService = new JazzService();
 
 Route::serve('/jazzpasses/editPass', function (array $props) use ($jazzService){
+    if(!isset($props['id'])) {
+        Route::redirect('/jazzpasses/managePasses');
+    }
 
     $passId = $props['id'];
     $pass = $jazzService->getJazzPassById($passId);

@@ -8,7 +8,6 @@ require_once __DIR__.'/../service/ImageService.php';
 
 class ValidateInputService
 {
-
     private ImageService $imageService;
 
     public function __construct()
@@ -54,6 +53,7 @@ class ValidateInputService
         }
 
     }
+    
     public function validateEmptyNumbers($numbers): void
     {
         foreach($numbers as $number) {
@@ -89,17 +89,17 @@ class ValidateInputService
         }
     }
 
-    function handleImageUpload($image, $dir)
-    {
-        if (isset($_FILES[$image]) && $_FILES[$image]['error'] === UPLOAD_ERR_OK) {
-            try {
-                return $this->imageService->uploadImage($_FILES[$image], $dir);
-            } catch (Exception $e) {
-                echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
-                exit();
-            }
-        } else {
-            return null;
-        }
-    }
+   function handleImageUpload($image, $dir)
+   {
+       if (isset($_FILES[$image]) && $_FILES[$image]['error'] === UPLOAD_ERR_OK) {
+           try {
+               return $this->imageService->uploadImage($_FILES[$image], $dir);
+           } catch (Exception $e) {
+               echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
+               exit();
+           }
+       } else {
+           return null;
+       }
+   }
 }

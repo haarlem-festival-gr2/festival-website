@@ -10,8 +10,7 @@ require_once __DIR__ . '/../../service/JazzService.php';
 require_once __DIR__ . '/../../service/ValidateInputService.php';
 
 Route::serve('/artists/createArtist', function (array $props) {
-    Route::render('admin.jazz.create.artist',
-        []);
+    Route::render('admin.jazz.create.artist', []);
 }, Method::GET);
 
 
