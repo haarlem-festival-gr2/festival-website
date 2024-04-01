@@ -50,7 +50,7 @@ class EventRepository extends BaseRepository
     public function get_history_query(): string
     {
         $queryHistory = 'SELECT "HISTORY" as Type,
-            t.TourID as ID, 0 as Price, t.RemainingTickets as TotalTickets, StartDateTime, EndDateTime,
+            t.TourID as ID, 17.5 as Price, t.RemainingTickets as TotalTickets, StartDateTime, EndDateTime,
             CONCAT(l.LanguageType, " ", t.Name) as Name,
             CASE
                 WHEN l.LanguageType = "English" THEN "/img/flag/uk.png"
