@@ -49,7 +49,7 @@ class EventRepository extends BaseRepository
 
     public function get_history_query(): string
     {
-        $queryHistory = 'SELECT "HISTORY" as Type,
+        $queryHistorySingle = 'SELECT "HISTORY" as Type,
             t.TourID as ID, 17.5 as Price, t.RemainingTickets as TotalTickets, StartDateTime, EndDateTime,
             CONCAT(l.LanguageType, " ", t.Name) as Name,
             CASE
@@ -60,7 +60,18 @@ class EventRepository extends BaseRepository
             FROM HistoryTicket as t
             JOIN HistoryLanguageType as l ON t.LanguageID = l.LanguageID';
 
-        return $queryHistory;
+        $queryHistoryFour = 'SELECT "FAM_HISTORY" as Type,
+            t.TourID as ID, 60 as Price, t.RemainingTickets as TotalTickets, StartDateTime, EndDateTime,
+            CONCAT(l.LanguageType, " ", t.Name, " - x4 (Family) Package") as Name,
+            CASE
+                WHEN l.LanguageType = "English" THEN "/img/flag/uk.png"
+                WHEN l.LanguageType = "Dutch" THEN "/img/flag/nl.png"
+                WHEN l.LanguageType = "Chinese" THEN "/img/flag/ch.png" ELSE "HTTP/1.1 404 Not Found" END as Img,
+            "Church of St. Bavo" as Venue
+            FROM HistoryTicket as t
+            JOIN HistoryLanguageType as l ON t.LanguageID = l.LanguageID';
+
+        return "$queryHistorySingle UNION $queryHistoryFour";
     }
 
     public function get_date_sql(): string {

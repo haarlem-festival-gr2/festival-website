@@ -81,6 +81,7 @@ class Event
             case 'c':
                 return 'bg-[#E49287]';
             case 'h':
+            case 'f':
                 return 'bg-[#95D4EB]';
         }
     }
