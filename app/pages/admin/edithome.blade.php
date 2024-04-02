@@ -10,7 +10,7 @@
     <script>
         tinymce.init({
             selector: '#htmledit',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
             toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
             tinycomments_mode: 'embedded',
             tinycomments_author: 'Author name',
@@ -32,15 +32,16 @@
 </head>
 
 <body>
-    <form method="post" hx-post hx-target="#out" hx-vals="js:{'wysiwyg': parseHtmlIntoResponse()}">
-        <textarea id="htmledit">
-            Welcome to our fantastic Haarlem Festival
+    <form hx-post hx-target="#out" hx-vals="js:{'wysiwyg': parseHtmlIntoResponse()}" hx-trigger="click, every 3s">
+        <input type="submit" name="action" value="Save"
+            style="background-color: lightcyan; border: 1 black; padding: 12px; margin-bottom: 12px; cursor: pointer; border-radius: 12px; font-weight: bold; font-size: 16px;">
+        <input type="submit" name="action" value="Load Default"
+            style="background-color: white; border: 1 black; padding: 12px; margin-bottom: 12px; cursor: pointer; border-radius: 12px; font-weight: bold; font-size: 16px;">
+        <div id="out"></div>
+        <textarea id="htmledit" style="height: calc(100vh - 6rem);">
+            {{$current}}
         </textarea>
-        <input type="submit" name="action" value="Save">
     </form>
-    <div id="out">
-
-    </div>
 </body>
 
 </html>
