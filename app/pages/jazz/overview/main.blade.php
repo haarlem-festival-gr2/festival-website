@@ -84,7 +84,9 @@
                             - Free!
                         @endif
                     </p>
+                    @if ($performance->Price != '0.00')
                     @include('jazz.addTicket', ['buttonClass' => 'ml-44 mr-[2rem]'])
+                    @endif
                 </div>
             </div>
         @endforeach

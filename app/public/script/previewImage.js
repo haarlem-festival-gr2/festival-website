@@ -17,7 +17,7 @@ document.querySelectorAll('input[type="file"]').forEach(function(input) {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    const MAX_FILE_SIZE = 2000000; // Max file size in bytes (e.g., 5MB)
+    const MAX_FILE_SIZE = 1000000;
     const form = document.querySelector('form');
     const errorDiv = document.getElementById('error');
 
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (totalSize > MAX_FILE_SIZE) {
             e.preventDefault(); // Stop the form submission
             console.log("Total file size exceeds limit");
-            errorDiv.innerHTML = 'The total size of files should not exceed 2MB.';
+            errorDiv.innerHTML = 'The total size of files should not exceed 1MB.';
             errorDiv.className = 'error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4'; // This line applies the classes
             errorDiv.style.display = 'block';
         }

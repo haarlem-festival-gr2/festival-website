@@ -144,7 +144,7 @@
                 </div>
             @else
                 <div class="mt-4 flex justify-center">
-                    <span class="inline-block px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs bg-green-500 text-black">
+                    <span class="inline-block px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs text-black">
                         For free!
                     </span>
                 </div>
