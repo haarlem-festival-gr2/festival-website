@@ -2,7 +2,6 @@
 
 namespace Service;
 
-use Model\Event;
 use Repository\EventRepository;
 
 class EventService extends BaseService
@@ -15,36 +14,34 @@ class EventService extends BaseService
     }
 
     /**
-     * @return array<Event>
+     * @param  array<mixed>  $filter
+     * @return array<\Model\Event>
      */
-    public function getAllEvents(): array
+    public function getEventsWithFilter(array $filter, string $name): array
     {
-        $events = $this->repository->get_all_events();
-        if ($events === false) {
-            return [];
-        } else {
-            return $events;
-        }
-    }
+        $sqlEventFilter = [];
 
-    /**
-     * @param  array<string>  $filters
-     */
-    public function getEventsWithFilter(array $filters): array
-    {
-        $sqlFilter = [];
-
-        if (in_array('History', $filters)) {
-            $sqlFilter[] = $this->repository->get_history_query();
-        }
-        if (in_array('Jazz', $filters)) {
-            $sqlFilter[] = $this->repository->get_jazz_query();
-        }
-        if (in_array('Yummy', $filters)) {
-            $sqlFilter[] = $this->repository->get_yummy_query();
+        $events = [];
+        $dates = [];
+        if (count($filter) >= 1) {
+            $events = $filter[0];
         }
 
-        $events = $this->repository->get_events_with_filter($sqlFilter);
+        if (count($filter) >= 2) {
+            $dates = $filter[1];
+        }
+
+        if (in_array('History', $events)) {
+            $sqlEventFilter[] = $this->repository->get_history_query();
+        }
+        if (in_array('Jazz', $events)) {
+            $sqlEventFilter[] = $this->repository->get_jazz_query();
+        }
+        if (in_array('Yummy', $events)) {
+            $sqlEventFilter[] = $this->repository->get_yummy_query();
+        }
+
+        $events = $this->repository->get_events_with_filter($sqlEventFilter, $dates, $name);
         if ($events === false) {
             return [];
         } else {
