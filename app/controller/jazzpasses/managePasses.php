@@ -19,7 +19,9 @@ Route::serve('/jazzpasses/managePasses', function (array $props) use ($jazzServi
 
 
 Route::serve('/jazzpasses/managePasses', function (array $props) use ($jazzService) {
-    $jazzService->deletePass($props['id']);
+    if(isset($props['id'])) {
+        $jazzService->deletePass($props['id']);
+    }
 
     Route::redirect('/jazzpasses/managePasses');
 }, Method::POST);

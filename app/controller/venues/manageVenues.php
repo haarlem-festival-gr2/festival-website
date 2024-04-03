@@ -17,11 +17,13 @@ Route::serve('/venues/manageVenues', function (array $props) use($jazzService) {
 
 
 Route::serve('/venues/manageVenues', function (array $props) use ($jazzService) {
-    try {
-        $jazzService->deleteVenue($props['id']);
-    } catch (Exception $e) {
-        echo "<script>alert('".addslashes($e->getMessage())."');</script>";
-        return;
+    if(isset($props['id'])){
+        try {
+            $jazzService->deleteVenue($props['id']);
+        } catch (Exception $e) {
+            echo "<script>alert('".addslashes($e->getMessage())."');</script>";
+            return;
+        }
     }
 
     Route::redirect('/venues/manageVenues');

@@ -18,11 +18,13 @@ Route::serve('/artists/manageArtists', function (array $props) use($jazzService)
 
 
 Route::serve('/artists/manageArtists', function (array $props)  use ($jazzService)  {
-    try {
-        $jazzService->deleteArtist($props['id']);
-    } catch (Exception $e) {
-        echo "<script>alert('".addslashes($e->getMessage())."');</script>";
-        return;
+    if(isset($props['id'])){
+        try {
+            $jazzService->deleteArtist($props['id']);
+        } catch (Exception $e) {
+            echo "<script>alert('".addslashes($e->getMessage())."');</script>";
+            return;
+        }
     }
 
     Route::redirect('/artists/manageArtists');

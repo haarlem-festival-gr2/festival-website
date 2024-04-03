@@ -8,8 +8,8 @@ require_once __DIR__ . '/../../service/JazzService.php';
 $jazzService = new JazzService();
 
 Route::serve('/jazzdays/manageDays', function (array $props) use($jazzService) {
-
     $jazzDays = $jazzService->getAllJazzDays();
+
     Route::render('admin.jazz.manage.days', [
         'jazzDays' => $jazzDays,
     ]);
@@ -17,11 +17,13 @@ Route::serve('/jazzdays/manageDays', function (array $props) use($jazzService) {
 
 
 Route::serve('/jazzdays/manageDays', function (array $props) use ($jazzService) {
-    try {
-        $jazzService->deleteJazzDay($props['id']);
-    } catch (Exception $e) {
-        echo "<script>alert('".addslashes($e->getMessage())."');</script>";
-        return;
+    if(isset($props['id'])) {
+        try {
+            $jazzService->deleteJazzDay($props['id']);
+        } catch (Exception $e) {
+            echo "<script>alert('".addslashes($e->getMessage())."');</script>";
+            return;
+        }
     }
 
     Route::redirect('/jazzdays/manageDays');

@@ -28,7 +28,6 @@ Route::serve('/jazzdays/editDay', function (array $props) use ($jazzService) {
 
 
 Route::serve('/jazzdays/editDay', function (array $props) use ($jazzService)    {
-
     $validateInputService = new ValidateInputService();
 
     $dayId = $props['id'];

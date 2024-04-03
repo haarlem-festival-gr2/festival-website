@@ -18,7 +18,9 @@ Route::serve('/performances/managePerformances', function (array $props) use($ja
 
 
 Route::serve('/performances/managePerformances', function (array $props) use($jazzService) {
-    $jazzService->deletePerformance($props['id']);
+    if(isset($props['id'])) {
+        $jazzService->deletePerformance($props['id']);
+    }
 
     Route::redirect('/performances/managePerformances');
 }, Method::POST);

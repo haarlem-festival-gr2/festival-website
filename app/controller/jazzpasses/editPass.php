@@ -25,7 +25,6 @@ Route::serve('/jazzpasses/editPass', function (array $props) use ($jazzService){
 
 
 Route::serve('/jazzpasses/editPass', function (array $props) use ($jazzService){
-
     $validateInputService = new ValidateInputService();
 
     $id = $props['id'];
