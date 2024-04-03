@@ -38,9 +38,6 @@ class PDFGenerateService
         $htmlContent .= "<p><strong>Payment Date and Time:</strong> {$payment->getPaymentDateTime()}</p>";
         $htmlContent .= "<p><strong>Payment Method:</strong> {$payment->getPaymentMethod()}</p>";
         $htmlContent .= "<p><strong>Billing Address:</strong> {$payment->getBillingAddress()}</p>";
-        $htmlContent .= "<p><strong>Total Amount:</strong> {$payment->getCurrency()} {$payment->getTotalAmount()}</p>";
-        $htmlContent .= "<p><strong>Tax (included):</strong> {$payment->getCurrency()} {$payment->getTotalAmount()} </p>";
-
         $htmlContent .= '<h2>Tickets:</h2>';
         $htmlContent .= '<table><tr><th>Event</th><th>Quantity</th><th>Price</th></tr>';
 
@@ -52,6 +49,9 @@ class PDFGenerateService
                          </tr>";
         }
         $htmlContent .= '</table>';
+        $htmlContent .= "<p><strong>Total Amount:</strong> " . $payment->getCurrency() . " " . number_format($payment->getTotalAmount(), 2) . "</p>";
+        $htmlContent .= "<p><strong>Tax (included):</strong> " . $payment->getCurrency() . " " . number_format($payment->getTax(), 2) . "</p>";
+
         return $htmlContent;
     }
 

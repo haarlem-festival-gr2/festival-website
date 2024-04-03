@@ -24,4 +24,5 @@ class HistoryTicket
     // {
     //     return $this->DayID;
     // }
+    const FAMILY_TICKET_SIZE = 4;
 }

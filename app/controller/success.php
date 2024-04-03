@@ -11,7 +11,7 @@ use Stripe\Stripe;
 
 require_once __DIR__ . '/../service/PaymentService.php';
 
-Route::serve('/success', function (array $props) {
+Route::serve('/success', function () {
 
     if (isset($_GET['session_id']))
     {
@@ -31,8 +31,9 @@ Route::serve('/success', function (array $props) {
         if( $session->payment_status == 'paid'){
             if($order->getStatus() == Order::ORDER_STATUS_UNPAID){
                 $paymentService->updateOrderStatus($sessionID, Order::ORDER_STATUS_PAID);
+                $paymentService->updateTicketsAvailability($order->getOrderUUID());
 
-                $paymentDateTime = date('Y-m-d H:i:s', $paymentIntent->created + 3600);
+                $paymentDateTime = date('Y-m-d H:i:s', $paymentIntent->created + 7200);
                 $customerName = $session->customer_details['name'];
                 $email = $paymentIntent->receipt_email;
                 $phoneNumber = $session->customer_details['phone'];
@@ -43,14 +44,16 @@ Route::serve('/success', function (array $props) {
                 $line2 = $paymentMethod->billing_details['address']['line2'] ?? '';
                 $postalCode = $paymentMethod->billing_details['address']['postal_code'];
                 $billingAddress = $line1 . $line2 . ', ' . $city . ', ' . $country . ', ' . $postalCode;
-                $totalAmount = (float)($session->amount_total/100);
-                $tax = (float)($session->total_details['amount_tax']/100);
+                $totalAmount = (float)($session->amount_total / 100);
+                $tax = (float)($session->total_details['amount_tax'] / 100);
                 $currency = $session->currency;
 
                 $id = $paymentService->registerPayment($paymentDateTime, $customerName, $email, $phoneNumber, $method, $billingAddress, $totalAmount, $tax, $currency, $order->getOrderUUID());
                 $paymentService->sendInvoice($id);
 
                 $paymentService->sendTickets($order->getOrderUUID(), $email, $customerName);
+
+                $_SESSION['cart'] = [];
             }
             Route::redirect('/confirm');
         } else {

@@ -17,22 +17,20 @@ require_once __DIR__ . '/../model/OrderItem.php';
 require_once __DIR__ . '/../service/PaymentService.php';
 
 
-Route::serve('/payment', function (array $props) {
+Route::serve('/payment', function () {
 
     $user = Route::auth();
     if (!$user) {
         Route::redirect('/login');
     }
 
-    // card is empty
-    /*$cart = $props['cart'];
+    //card is empty
+    $cart = $_SESSION['cart'];
     if(!$cart) {
         Route::redirect('/agenda');
-    }*/
+    }
 
     $paymentService = new PaymentService();
-    // temporary cart
-    $cart = $paymentService->get3events();
 
     $events = countQuantity($cart);
     $orderData = createOrderItems($events, $user);
@@ -54,7 +52,7 @@ Route::serve('/payment', function (array $props) {
             'submit' => ['message' => 'Your tickets will be sent to the provided email address.'],
         ],
         'success_url' => "http://localhost:8080/success?session_id={CHECKOUT_SESSION_ID}",
-        'cancel_url' => "http://localhost:8080/cancelPayment?session_id={CHECKOUT_SESSION_ID}",
+        'cancel_url' => "http://localhost:8080/agenda",
         'billing_address_collection' => 'required',
     ]);
 
@@ -63,17 +61,6 @@ Route::serve('/payment', function (array $props) {
 
     Route::redirect($session->url);
 }, Method::GET);
-
-function createOrder($sessionId, $userId, $orderItems, $totalPrice): Order
-{
-    $order = new Order();
-    $order->SetStatus(Order::ORDER_STATUS_UNPAID);
-    $order->SetTotalPrice($totalPrice);
-    $order->SetSessionID($sessionId);
-    $order->setOrderItems($orderItems);
-    $order->SetUserID($userId);
-    return $order;
-}
 
 function countQuantity($cart): array
 {
@@ -133,10 +120,21 @@ function generateLineItems($orderItems): array
                 'unit_amount' => $orderItem->getPrice() * 100, // in cents
                 'product_data' => [
                     'name' => $orderItem->getEventName(),
-                    'description' => $orderItem->getVenue() . (empty($orderItem->getNote()) ? '' : ' - ' . $orderItem->getNote()),
+                    'description' => $orderItem->getVenue() . (empty($orderItem->getNote()) ? '' : '. ' . $orderItem->getNote()),
                 ],
             ],
         ];
     }
     return $lineItems;
+}
+
+function createOrder($sessionId, $userId, $orderItems, $totalPrice): Order
+{
+    $order = new Order();
+    $order->SetStatus(Order::ORDER_STATUS_UNPAID);
+    $order->SetTotalPrice($totalPrice);
+    $order->SetSessionID($sessionId);
+    $order->setOrderItems($orderItems);
+    $order->SetUserID($userId);
+    return $order;
 }

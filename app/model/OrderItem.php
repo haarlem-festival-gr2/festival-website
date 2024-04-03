@@ -109,6 +109,11 @@ class OrderItem
         return $this->Quantity;
     }
 
+    public function getEventIDInt(): int
+    {
+        return (int)preg_replace('/\D/', '', $this->EventID);
+    }
+
     public function setQuantity(int $Quantity): void
     {
         $this->Quantity = $Quantity;

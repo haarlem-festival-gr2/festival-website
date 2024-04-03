@@ -4,6 +4,7 @@ namespace Repository;
 
 use DateTime;
 use DateTimeZone;
+use Model\HistoryTicket;
 use Model\Payment;
 use PDO;
 use model\Order;
@@ -21,7 +22,7 @@ class PaymentRepository extends BaseRepository
             $order->getTotalPrice(),
             $order->getSessionID(),
             $order->getUserID(),
-            (new DateTime('now', new DateTimeZone('+0100')))->format('Y-m-d H:i:s')
+            (new DateTime('now', new DateTimeZone('+0200')))->format('Y-m-d H:i:s')
         ]);
     }
 
@@ -86,7 +87,7 @@ class PaymentRepository extends BaseRepository
             $tax,
             $currency,
             $orderUUID,
-            (new DateTime('now', new DateTimeZone('+0100')))->format('Y-m-d H:i:s')
+            (new DateTime('now', new DateTimeZone('+0200')))->format('Y-m-d H:i:s')
         ]);
 
         return $this->connection->lastInsertId();
@@ -146,50 +147,33 @@ class PaymentRepository extends BaseRepository
         return $query->fetchAll();
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////
-    public function get_jazz_query(): string
+    public function updateJazzTickets($id, $quantity): void
     {
-        $queryJazz = "SELECT 'JAZZ' as Type,
-            p.PerformanceID as ID, p.Price, p.TotalTickets, p.StartDateTime, p.EndDateTime,
-            a.Name as Name, a.PerformanceImg as Img,
-            v.Name as Venue
-            FROM Performance AS p 
-            JOIN Artist AS a ON p.ArtistID = a.ArtistID 
-            JOIN JazzDay AS j ON p.DayID = j.DayID 
-            JOIN Venue AS v ON j.VenueID = v.VenueID";
-
-        return $queryJazz;
+        $query = $this->connection->prepare('UPDATE Performance SET AvailableTickets = AvailableTickets - ? WHERE PerformanceID = ?');
+        $query->execute([$quantity, $id]);
     }
 
-    public function get5events(): array|false
+    public function updateJazzPasses($id, $quantity): void
     {
-        $queryJazz = $this->get_jazz_query(); // Modify this method to fetch only jazz events
-        // Remove other queries since we only want jazz events
-
-        // Concatenate the query and add LIMIT 5 to fetch only the first 5 rows
-        $sql = "SELECT * FROM ($queryJazz) as Events ORDER BY StartDateTime LIMIT 5";
-
-        $query = $this->connection->prepare($sql);
-        $query->execute();
-
-        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\Event');
-
-        return $query->fetchAll();
+        $query = $this->connection->prepare('UPDATE JazzPass SET AvailableTickets = AvailableTickets - ? WHERE JazzPassID = ?');
+        $query->execute([$quantity, $id]);
     }
 
-    public function get3events(): array|false
+    public function updateReservations($id, $quantity): void
     {
-        $queryJazz = $this->get_jazz_query(); // Modify this method to fetch only jazz events
-        // Remove other queries since we only want jazz events
+        $query = $this->connection->prepare('UPDATE Session SET RemainingSeats = RemainingSeats - ? WHERE SessionID = ?');
+        $query->execute([$quantity, $id]);
+    }
 
-        // Concatenate the query and add LIMIT 5 to fetch only the first 5 rows
-        $sql = "SELECT * FROM ($queryJazz) as Events ORDER BY StartDateTime LIMIT 3";
+    public function updateHistoryTours($id, $quantity): void
+    {
+        $query = $this->connection->prepare('UPDATE HistoryTicket SET RemainingTickets = RemainingTickets - ? WHERE TourID = ?');
+        $query->execute([$quantity, $id]);
+    }
 
-        $query = $this->connection->prepare($sql);
-        $query->execute();
-
-        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\Event');
-
-        return $query->fetchAll();
+    public function updateFamilyTours($id, $quantity): void
+    {
+        $query = $this->connection->prepare('UPDATE HistoryTicket SET RemainingTickets = RemainingTickets - ? WHERE TourID = ?');
+        $query->execute([$quantity * HistoryTicket::FAMILY_TICKET_SIZE, $id]);
     }
 }

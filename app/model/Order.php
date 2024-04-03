@@ -14,14 +14,6 @@ class Order
     private array $OrderItems = [];
     private string $DateTime;
 
-    public function getDatetime(): string {
-        return $this->DateTime;
-    }
-
-    public function setDatetime(string $Datetime): void {
-        $this->DateTime = $Datetime;
-    }
-
     public function getOrderUUID(): string
     {
         return $this->OrderUUID;
@@ -72,6 +64,14 @@ class Order
         $this->TotalPrice = $TotalPrice;
     }
 
+    public function getDatetime(): string {
+        return $this->DateTime;
+    }
+
+    public function setDatetime(string $Datetime): void {
+        $this->DateTime = $Datetime;
+    }
+
     public function getOrderItems(): array
     {
         return $this->OrderItems;
@@ -84,7 +84,6 @@ class Order
 
     const ORDER_STATUS_PAID = 'paid';
     const ORDER_STATUS_UNPAID = 'unpaid';
-    const ORDER_STATUS_CANCELLED = 'cancelled';
 }
 
 

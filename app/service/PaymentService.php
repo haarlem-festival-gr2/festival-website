@@ -40,17 +40,6 @@ class PaymentService extends BaseService
         return $this->repository->updateOrderStatus($sessionID, $newStatus);
     }
 
-    ///////////////////////////////////////////
-    public function get5events(): array|false
-    {
-        return $this->repository->get5events();
-    }
-
-    public function get3events(): array|false
-    {
-        return $this->repository->get3events();
-    }
-    ////////////////////////////////////////////////////////////////////////////////
     public function registerPayment(string $paymentDateTime, string $customerName, string $email, string $phoneNumber, string $paymentMethod, string $billingAddress, float $totalAmount, float $tax,string $currency, string $orderUUID): int
     {
         return $this->repository->registerPayment($paymentDateTime, $customerName, $email, $phoneNumber, $paymentMethod, $billingAddress, $totalAmount, $tax, $currency, $orderUUID);
@@ -82,6 +71,31 @@ class PaymentService extends BaseService
         foreach ($orderItems as $orderItem) {
             for ($i = 0; $i < $orderItem->getQuantity(); $i++) {
                 $this->repository->createTicket($orderItem->getOrderItemID(), 0);
+            }
+        }
+    }
+
+    public function updateTicketsAvailability(string $orderId): void
+    {
+        $orderItems = $this->repository->getOrderItemsByOrderID($orderId);
+
+        foreach($orderItems as $orderItem){
+            switch($orderItem->getType()){
+                case 'JAZZ':
+                    $this->repository->updateJazzTickets($orderItem->getEventIDInt(), $orderItem->getQuantity());
+                    break;
+                case 'DAY_JAZZ':
+                    $this->repository->updateJazzPasses($orderItem->getEventIDInt(), $orderItem->getQuantity());
+                    break;
+                case 'YUMMY':
+                    $this->repository->updateReservations($orderItem->getEventIDInt(), $orderItem->getQuantity());
+                    break;
+                case 'HISTORY':
+                    $this->repository->updateHistoryTours($orderItem->getEventIDInt(), $orderItem->getQuantity());
+                    break;
+                case 'FAM_HISTORY':
+                    $this->repository->updateFamilyTours($orderItem->getEventIDInt(), $orderItem->getQuantity());
+                    break;
             }
         }
     }
