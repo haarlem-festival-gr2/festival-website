@@ -14,6 +14,7 @@ Route::serve('/index', function (array $props) {
             }
 
             Route::render("admin.edithome", ['current' => $html]);
+            return;
         } else {
             Route::error(ErrorCode::NOT_FOUND);
         }
@@ -23,9 +24,9 @@ Route::serve('/index', function (array $props) {
     if (!is_file("/tmp/index.html")) {
         $ret = file_put_contents("/tmp/index.html", Route::template('index', []));
     }
-    Route::render('main.mainpage_head', []);
-    require "/tmp/index.html";
-
+    Route::render('main.mainpage_head', ['content' => function() {
+        echo file_get_contents("/tmp/index.html");
+    }]);
 });
 
 Route::serve('/index', function (array $props) {

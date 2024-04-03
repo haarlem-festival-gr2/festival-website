@@ -14,7 +14,6 @@
 <body class="font-montserrat">
 
 <!-- temporary stuff -->
-<p>add nav bar</p>
 <p>add footer</p>
 <p>fix add to program button, disable if tickets are sold out</p>
 @if($user)
