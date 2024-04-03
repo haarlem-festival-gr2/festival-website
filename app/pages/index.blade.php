@@ -1,0 +1,1 @@
+Hello World! This is our default configuration for the home page. But fret not! for we have included your most requested WYSIWYG editor in our package! To access it, navigate to the admin console. You will get training on how to do this in our handover.

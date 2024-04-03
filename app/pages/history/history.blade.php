@@ -15,6 +15,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
+
+@include('main.navbar')
+
 <div class="relative w-full h-screen bg-no-repeat bg-cover"
     style="background-image: url('{{ $homeInfo->HeaderImage }}');">
 </div>
