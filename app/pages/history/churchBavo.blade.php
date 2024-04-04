@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Molen De Adriaan</title>
+    <title>Church of St. Bavo</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -22,7 +22,7 @@
 
     <!-- Centered content -->
     <div class="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center text-center z-10">
-        <h1 class="text-6xl text-white font-bold mb-4">Molen De Adriaan</h1>
+        <h1 class="text-6xl text-white font-bold mb-4">Church of St. Bavo</h1>
     </div>
 </div>
 
@@ -226,8 +226,8 @@
 
     <section id="LocationAndContact" class="bg-yellow-300 w-screen">
         <div class="bg-yellow-300 p-4">
-            <div class="flex justify-center flex-col">
-                <div class="text-center">
+            <div class="flex justify-center flex-col"> <!-- Changed flex direction to column -->
+                <div class="text-center"> <!-- Centering the "Location and contact" heading -->
                     <h2 class="font-bold text-lg mb-2">Location and contact</h2>
                 </div>
                 <div class="flex justify-center">

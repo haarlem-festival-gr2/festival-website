@@ -4,7 +4,8 @@ namespace Service;
 
 use Repository\HistoryRepository;
 
-require_once __DIR__.'/../repository/HistoryRepository.php';
+require_once __DIR__ . '/../repository/HistoryRepository.php';
+
 
 class HistoryService
 {
@@ -44,4 +45,22 @@ class HistoryService
     {
         return $this->historyRepository->getDayNames();
     }
+
+    public function getDetailPageById($id)
+    {
+        return $this->historyRepository->getDetailPageById($id);
+    }
+
+    public function getStoriesByDetailPageId($detailPageId)
+    {
+        return $this->historyRepository->getStoriesByDetailPageId($detailPageId);
+    }
+    // Add method to get all detail pages
+    public function getAllDetailPages(): array
+    {
+        return $this->historyRepository->getAllDetailPages();
+    }
+
+
+
 }

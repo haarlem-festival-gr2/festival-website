@@ -5,28 +5,25 @@ use Service\HistoryService;
 
 require_once __DIR__ . '/../service/HistoryService.php';
 
-Route::serve('/molenDeAdriaan', function (array $props) {
+Route::serve('/groteMarkt', function (array $props) {
     $historyService = new HistoryService();
 
     $homeInfo = $historyService->getHomeInformation();
     $locations = $historyService->getLocations();
 
-    $detailPageId = 7;
+    $detailPageId = 2;
 
     $detailPage = $historyService->getDetailPageById($detailPageId);
     $stories = $historyService->getStoriesByDetailPageId($detailPageId);
-    // var_dump($stories); 
+
 
     $allDetailPages = $historyService->getAllDetailPages();
 
-    Route::render('history.molenDeAdriaan', [
+    Route::render('history.groteMarkt', [
         'detailPage' => $detailPage,
         'stories' => $stories,
         'locations' => $locations,
         'homeInfo' => $homeInfo,
-        'allDetailPages' => $allDetailPages, // Pass all detail pages to the view
+        'allDetailPages' => $allDetailPages,
     ]);
-
-    // Route::serve('/molenDeAdriaan', function (array $props) {
-//     Route::render('history.molenDeAdriaan', []);
 });

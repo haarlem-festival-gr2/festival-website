@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Molen De Adriaan</title>
+    <title>Grote Markt</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
@@ -22,7 +22,7 @@
 
     <!-- Centered content -->
     <div class="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center text-center z-10">
-        <h1 class="text-6xl text-white font-bold mb-4">Molen De Adriaan</h1>
+        <h1 class="text-6xl text-white font-bold mb-4">Grote Markt</h1>
     </div>
 </div>
 
@@ -58,23 +58,6 @@
                         </div>
                     </section>
                 </div>
-                {{-- <div class="flex-1">
-                    <ul class="list-none space-y-2">
-                        <li class="text-xl"><span class="text-red-500 mr-2">•</span> Church of St. Bavo</li>
-                        <li class="text-xl"><span class="text-orange-500 mr-2">•</span> Grote Markt</li>
-                        <li class="text-xl"><span class="text-yellow-500 mr-2">•</span> De Hallen</li>
-                        <li class="text-xl"><span class="text-green-500 mr-2">•</span> Proveniershof</li>
-                        <li class="text-xl"><span class="text-blue-500 mr-2">•</span> Jopenkerk (Break location)</li>
-                        <li class="text-xl"><span class="text-indigo-500 mr-2">•</span> Waalse Kerk</li>
-                        <li class="text-xl"><span class="text-purple-500 mr-2">•</span>
-                            <span class="inline-block bg-yellow-400 px-2 py-1 rounded-md">
-                                Molen De Adriaan
-                            </span>
-                        </li>
-                        <li class="text-xl"><span class="text-pink-500 mr-2">•</span> Amsterdamse Poort</li>
-                        <li class="text-xl"><span class="text-gray-500 mr-2">•</span> Hofje van Bakenes</li>
-                    </ul>
-                </div> --}}
             </section>
         </div>
     </section>
@@ -226,8 +209,8 @@
 
     <section id="LocationAndContact" class="bg-yellow-300 w-screen">
         <div class="bg-yellow-300 p-4">
-            <div class="flex justify-center flex-col">
-                <div class="text-center">
+            <div class="flex justify-center flex-col"> 
+                <div class="text-center"> 
                     <h2 class="font-bold text-lg mb-2">Location and contact</h2>
                 </div>
                 <div class="flex justify-center">
@@ -238,9 +221,6 @@
                             <ul class="list-disc ml-4">
                                 <li>{{ $detailPage->Address }}</li>
 
-                                {{-- <li>Papentorenvest 1a</li>
-                                <li>2011 AV Haarlem</li>
-                                <li>The Netherlands</li> --}}
                             </ul>
                             <button class="text-indigo-600 hover:text-indigo-800">SHOW ON MAP</button>
                         </div>
