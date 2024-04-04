@@ -27,7 +27,7 @@ class JazzService extends BaseService
     }
 
     //artist
-    public function getArtistById(int $id): ?Artist
+    public function getArtistById(int $id): Artist
     {
         return $this->repository->getArtistById($id);
     }
@@ -111,7 +111,7 @@ class JazzService extends BaseService
     }
 
     // venues
-    public function getVenueById(int $id): ?Venue
+    public function getVenueById(int $id): Venue
     {
         return $this->repository->getVenueById($id);
     }
@@ -137,7 +137,7 @@ class JazzService extends BaseService
     }
 
     // jazz days
-    public function getJazzDayById(int $id): ?JazzDay
+    public function getJazzDayById(int $id): JazzDay
     {
         return $this->repository->getJazzDayById($id);
     }
@@ -207,7 +207,7 @@ class JazzService extends BaseService
         return $this->repository->getAllPerformances();
     }
 
-    public function getPerformanceById(int $performanceId): ?Performance
+    public function getPerformanceById(int $performanceId): Performance
     {
         return $this->repository->getPerformanceById($performanceId);
     }
@@ -237,7 +237,7 @@ class JazzService extends BaseService
         return $this->repository->getJazzPassesByDate($date);
     }
 
-    public function getJazzPassById(int $id): ?JazzPass
+    public function getJazzPassById(int $id): JazzPass
     {
         return $this->repository->getJazzPassById($id);
     }

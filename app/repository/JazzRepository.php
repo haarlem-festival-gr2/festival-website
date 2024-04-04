@@ -19,17 +19,12 @@ require_once __DIR__.'/../repository/BaseRepository.php';
 class JazzRepository extends BaseRepository
 {
     // retrieve artists
-    public function getArtistById(int $id): ?Artist
+    public function getArtistById(int $id): Artist
     {
         $query = $this->connection->prepare('SELECT * FROM Artist WHERE ArtistID = ?');
         $query->execute([$id]);
 
         $artistData = $query->fetch(\PDO::FETCH_ASSOC);
-
-        if (! $artistData) {
-            return null;
-        }
-
         return $this->createArtistFromData($artistData);
     }
 
@@ -132,17 +127,12 @@ class JazzRepository extends BaseRepository
     }
 
     // retrieve venues
-    public function getVenueById(int $id): ?Venue
+    public function getVenueById(int $id): Venue
     {
         $query = $this->connection->prepare('SELECT VenueID, Name as VenueName, Address, ContactDetails FROM Venue WHERE VenueID = ?');
         $query->execute([$id]);
 
         $venueData = $query->fetch(\PDO::FETCH_ASSOC);
-
-        if (! $venueData) {
-            return null;
-        }
-
         return $this->createVenueFromData($venueData);
     }
 
@@ -206,18 +196,13 @@ class JazzRepository extends BaseRepository
     }
 
     // retrieve jazz days
-    public function getJazzDayById(int $id): ?JazzDay
+    public function getJazzDayById(int $id): JazzDay
     {
         $query = $this->connection->prepare('SELECT d.*, v.VenueID, v.Name as VenueName, v.Address, v.ContactDetails FROM JazzDay d 
                                                     JOIN Venue v ON d.VenueID = v.VenueID WHERE d.DayID = ?');
         $query->execute([$id]);
 
         $jazzDayData = $query->fetch(\PDO::FETCH_ASSOC);
-
-        if (! $jazzDayData) {
-            return null;
-        }
-
         return $this->createJazzDayFromData($jazzDayData);
     }
 
@@ -364,7 +349,7 @@ class JazzRepository extends BaseRepository
         return $performances;
     }
 
-    public function getPerformanceById(int $performanceId): ?Performance
+    public function getPerformanceById(int $performanceId): Performance
     {
         $query = $this->connection->prepare('SELECT p.*, a.*, j.*, v.VenueID, v.Name as VenueName, v.Address, v.ContactDetails FROM Performance p
                                                     LEFT JOIN Artist a ON p.ArtistID = a.ArtistID
@@ -374,11 +359,6 @@ class JazzRepository extends BaseRepository
         $query->execute([$performanceId]);
 
         $performanceData = $query->fetch(\PDO::FETCH_ASSOC);
-
-        if (! $performanceData) {
-            return null;
-        }
-
         return $this->createPerformanceFromData($performanceData);
     }
 
@@ -443,17 +423,12 @@ class JazzRepository extends BaseRepository
         return $passes;
     }
 
-    public function getJazzPassById(int $id): ?JazzPass
+    public function getJazzPassById(int $id): JazzPass
     {
         $query = $this->connection->prepare('SELECT * FROM JazzPass WHERE JazzPassID = ?');
         $query->execute([$id]);
 
         $passData = $query->fetch(\PDO::FETCH_ASSOC);
-
-        if (! $passData) {
-            return null;
-        }
-
         return $this->createJazzPassFromData($passData);
     }
 
