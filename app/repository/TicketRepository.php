@@ -2,11 +2,12 @@
 
 namespace Repository;
 
+use Model\SoldTicket;
 use PDO;
 
-class ScannerRepository extends BaseRepository
+class TicketRepository extends BaseRepository
 {
-    public function get_from_uuid(string $uuid): array
+    public function get_from_uuid(string $uuid): SoldTicket
     {
         $query = $this->connection->prepare('
             SELECT * FROM Ticket as t 
@@ -15,13 +16,30 @@ class ScannerRepository extends BaseRepository
 
         $query->execute([$uuid]);
 
-        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\SoldTicket');
 
         if ($query->rowCount() === 0) {
             throw new \Exception('TICKET NOT FOUND');
         }
 
         return $query->fetch();
+    }
+
+    public function get_all(): array
+    {
+        $query = $this->connection->prepare('
+            SELECT * FROM Ticket as t 
+            JOIN OrderItem as o ON o.ItemID = t.OrderItemID');
+
+        $query->execute();
+
+        $query->setFetchMode(PDO::FETCH_CLASS, '\Model\SoldTicket');
+
+        if ($query->rowCount() === 0) {
+            throw new \Exception('TICKET NOT FOUND');
+        }
+
+        return $query->fetchAll();
     }
 
     public function mark_scanned(string $uuid): void
