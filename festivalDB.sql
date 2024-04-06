@@ -13,6 +13,13 @@ ALTER TABLE FestivalEvent
     MODIFY COLUMN StartDate DATETIME,
     MODIFY COLUMN EndDate DATETIME;
 
+CREATE TABLE Order (
+    uid VARCHAR(36) PRIMARY KEY DEFAULT UUID(),
+    other_column1 datatype1,
+    other_column2 datatype2,
+
+);
+
 
 INSERT INTO FestivalEvent (Name, Description, ImgPath, StartDate, EndDate)
 VALUES ('Haarlem Jazz', 'Haarlem Jazz, a cornerstone of our city\'s festival calendar, comes alive as we revive past echoes at Patronaat. Join us in this musical journey, where renowned bands recreate the festival\'s essence. Feel the vibrant rhythms and melodies on Sunday at Grote Markt, where bands perform for all, free of charge!', '/img/jazz/jazzHeader.png', '2023-07-27', '2023-07-31');
@@ -461,4 +468,95 @@ ALTER TABLE Artist
     MODIFY COLUMN Song3 VARCHAR(100) NOT NULL;
 
 
+CREATE TABLE `Order` (
+                        OrderUUID CHAR(50) PRIMARY KEY,
+                        UserID INT,
+                        Status VARCHAR(50),
+                        SessionID CHAR(200),
+                        TotalPrice DECIMAL(10, 2),
+                        DateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE SET NULL;
+);
 
+
+DELIMITER $$
+
+CREATE TRIGGER BeforeInsertOrder
+    BEFORE INSERT ON `Order`
+    FOR EACH ROW
+BEGIN
+    IF NEW.OrderUUID IS NULL OR NEW.OrderUUID = '' THEN
+        SET NEW.OrderUUID = UUID();
+END IF;
+END$$
+
+DELIMITER ;
+
+
+CREATE TABLE Ticket (
+                        TicketUUID CHAR(50) PRIMARY KEY,
+                        EventName VARCHAR(255),
+                        Venue VARCHAR(255),
+                        StartDateTime DATETIME,
+                        EndDateTime DATETIME,
+                        Quantity INT,
+                        Price DECIMAL(10, 2),
+                        CustomerName VARCHAR(255),
+                        IsScanned BOOLEAN,
+                        OrderID CHAR(50),
+                        FOREIGN KEY (OrderID) REFERENCES `Order`(OrderUUID)
+);
+
+CREATE TABLE OrderItem (
+                           ItemID INT AUTO_INCREMENT PRIMARY KEY,
+                           OrderID CHAR(50),
+                           EventName VARCHAR(255),
+                           Venue VARCHAR(255),
+                           StartDateTime DATETIME,
+                           EndDateTime DATETIME,
+                           Price DECIMAL(10, 2),
+                           Quantity INT,
+                           CustomerName VARCHAR(255),
+                           EventID VARCHAR(255),
+                           Type VARCHAR(255),
+                           Note VARCHAR(255),
+                           FOREIGN KEY (OrderID) REFERENCES `Order`(OrderUUID)
+);
+
+
+
+DELIMITER $$
+
+CREATE TRIGGER BeforeInsertTicket
+    BEFORE INSERT ON Ticket
+    FOR EACH ROW
+BEGIN
+    IF NEW.TicketUUID IS NULL OR NEW.TicketUUID = '' THEN
+        SET NEW.TicketUUID = UUID();
+END IF;
+END$$
+
+DELIMITER ;
+
+
+CREATE TABLE Invoice (
+                         InvoiceID INT AUTO_INCREMENT PRIMARY KEY,
+                         PaymentDateTime DATETIME,
+                         PaymentMethod VARCHAR(100),
+                         InvoiceDateTime DATETIME,
+                         OrderID VARCHAR(200),
+                         CustomerName VARCHAR(100),
+                         Email VARCHAR(100),
+                         PhoneNumber VARCHAR(50),
+                         BillingAddress VARCHAR(255),
+                         FOREIGN KEY (OrderID) REFERENCES `Order`(OrderUUID)
+);
+
+Alter Table Invoice
+add column TotalAmount DECIMAL(10, 2);
+
+Alter Table Invoice
+    add column Tax DECIMAL(10, 2);
+
+Alter Table Invoice
+    add column Currency VARCHAR(20);

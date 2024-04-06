@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            <!-- Ticket purchase container -->
+            <!-- OrderItem purchase container -->
             <div class="md:w-1/4 lg:w-1/3">
                 <div class="bg-yellow-400 rounded-lg px-8 pt-6 pb-8 mb-4 flex flex-col justify-between"
                     style="background-color: #FCC040;">

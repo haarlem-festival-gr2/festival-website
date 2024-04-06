@@ -5,6 +5,24 @@ RUN apk update
 # PHP Data Objects
 RUN docker-php-ext-install pdo pdo_mysql
 
+# Install necessary packages for GD
+RUN apk add --no-cache \
+    freetype-dev \
+    libjpeg-turbo-dev \
+    libpng-dev \
+    libwebp-dev \
+    zlib-dev \
+    libxpm-dev
+
+# Configure and install GD extension
+RUN docker-php-ext-configure gd \
+    --with-freetype \
+    --with-jpeg \
+    --with-webp \
+    --with-xpm \
+ && docker-php-ext-install gd
+
+
 # XDEBUG for better debug outputs
 RUN apk add --no-cache --virtual .xdbg-build-deps $PHPIZE_DEPS linux-headers \
  && pecl install xdebug \
