@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <form hx-post hx-target="#out" hx-vals="js:{'wysiwyg': parseHtmlIntoResponse()}" hx-trigger="click, every 3s">
+    <form hx-post hx-target="#out" hx-vals="js:{'wysiwyg': parseHtmlIntoResponse()}" hx-trigger="submit, every 300s">
         <input type="submit" name="action" value="Save"
             style="background-color: lightcyan; border: 1 black; padding: 12px; margin-bottom: 12px; cursor: pointer; border-radius: 12px; font-weight: bold; font-size: 16px;">
         <input type="submit" name="action" value="Load Default"
