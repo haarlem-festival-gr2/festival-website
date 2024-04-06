@@ -3,47 +3,76 @@
 use Core\Route\Method;
 use Core\Route\Route;
 use Service\RestaurantService;
+use Service\ImageService;
+use model\Restaurant;
 
-require_once __DIR__.'/../repository/BaseRepository.php';
-require_once __DIR__.'/../service/RestaurantService.php';
+require_once __DIR__ . '/../repository/BaseRepository.php';
+require_once __DIR__ . '/../service/RestaurantService.php';
 
 Route::serve('/manageRestaurants', function (array $props) {
     $restaurantService = new RestaurantService();
 
-    if (isset($props['action'])) {
+    if (isset ($props['action'])) {
         switch ($props['action']) {
             case 'edit':
+                $restaurantData = [];
+                $reflectionClass = new ReflectionClass(Restaurant::class);
+                $properties = $reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC);
+
+                foreach ($properties as $property) {
+                    $propertyName = $property->getName();
+
+                    if (in_array($propertyName, ['HeaderImg', 'FoodImg1', 'FoodImg2', 'FoodImg3', 'RecipeImg'])) {
+                        // Check if a file is provided and it's not empty
+                        if (!empty ($_FILES[$propertyName]['tmp_name'])) {
+                            try {
+                                $imageService = new ImageService();
+                                $imagePath = $imageService->uploadImage($_FILES[$propertyName], 'yummy');
+                                $restaurantData[$propertyName] = $imagePath;
+                            } catch (Exception $e) {
+                                echo 'Error uploading ' . $propertyName . ' image: ' . $e->getMessage();
+                                return;
+                            }
+                        } elseif (!empty ($_POST[$propertyName])) {
+                            // If no file is uploaded, but a value exists in the form, retain the existing value
+                            $restaurantData[$propertyName] = $_POST[$propertyName];
+                        } else {
+                            // If no file is uploaded and no value exists in the form, set the value to null
+                            $restaurantData[$propertyName] = null;
+                        }
+                    } else {
+                        // For non-image fields, directly set the value from $_POST
+                        $restaurantData[$propertyName] = $_POST[$propertyName] ?? null;
+                    }
+                }
+
+
+                $restaurantService->updateRestaurant($restaurantData);
                 break;
             case 'create':
-                $restaurantData = [
-                    'Title' => $_POST['title'],
-                    'SubTitle' => $_POST['subtitle'],
-                    'HeaderImg' => $_POST['HeaderImg'],
-                    'HeaderAlt' => $_POST['HeaderAlt'],
-                    'Category1' => $_POST['Category1'],
-                    'Category2' => $_POST['Category2'],
-                    'Category3' => $_POST['Category3'],
-                    'Location' => $_POST['Location'],
-                    'Stars' => $_POST['Stars'],
-                    'FoodImg1' => $_POST['FoodImg1'],
-                    'FoodAlt1' => $_POST['FoodAlt1'],
-                    'FoodImg2' => $_POST['FoodImg2'],
-                    'FoodAlt2' => $_POST['FoodAlt2'],
-                    'FoodImg3' => $_POST['FoodImg3'],
-                    'FoodAlt3' => $_POST['FoodAlt3'],
-                    'SessionsADay' => $_POST['SessionsADay'],
-                    'SessionsDuration' => $_POST['SessionsDuration'],
-                    'SessionsStartTime' => $_POST['SessionsStartTime'],
-                    'SessionsTotalSeats' => $_POST['SessionsTotalSeats'],
-                    'PriceAdult' => $_POST['PriceAdult'],
-                    'PriceChild' => $_POST['PriceChild'],
-                    'Recipe' => $_POST['Recipe'],
-                    'RecipeImg' => $_POST['RecipeImg'],
-                    'RecipeAlt' => $_POST['RecipeAlt'],
-                    'Telephone' => $_POST['Telephone'],
-                    'Email' => $_POST['Email'],
-                    'ChamberOfCommerce' => $_POST['ChamberOfCommerce'],
-                ];
+                $restaurantData = [];
+                $reflectionClass = new ReflectionClass(Restaurant::class);
+                $properties = $reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC);
+                foreach ($properties as $property) {
+                    if ($property->getName() !== 'RestaurantID') {
+                        $propertyName = $property->getName();
+
+                        if (in_array($propertyName, ['HeaderImg', 'FoodImg1', 'FoodImg2', 'FoodImg3', 'RecipeImg'])) {
+                            if (isset ($_FILES[$propertyName])) {
+                                try {
+                                    $imageService = new ImageService();
+                                    $imagePath = $imageService->uploadImage($_FILES[$propertyName], 'yummy');
+                                    $restaurantData[$propertyName] = $imagePath;
+                                } catch (Exception $e) {
+                                    echo 'Error uploading ' . $propertyName . ' image: ' . $e->getMessage();
+                                    return;
+                                }
+                            }
+                        } else {
+                            $restaurantData[$propertyName] = $_POST[$propertyName];
+                        }
+                    }
+                }
                 $restaurantService->createRestaurant($restaurantData);
                 break;
             case 'delete':
