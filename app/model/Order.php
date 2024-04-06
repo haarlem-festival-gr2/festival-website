@@ -56,7 +56,7 @@ class Order
 
     public function getTotalPrice(): float
     {
-        return number_format($this->TotalPrice, 2);
+        return number_format($this->TotalPrice, 2, '.', '');
     }
 
     public function setTotalPrice(float $TotalPrice): void
