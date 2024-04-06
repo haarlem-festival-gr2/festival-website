@@ -14,6 +14,7 @@
     <a href="/agenda"
         class="text-center cursor-pointer inline-block bg-white border border-black rounded hover:bg-gray-100 h-10 px-4 py-2">View
         Agenda</a>
+    @if ($isAdmin)
     <div class="flex items-center justify-center">
         <div class="border-t border-gray-400 flex-grow"></div>
         <div class="mx-4 text-gray-500 font-bold">Admin</div>
@@ -25,6 +26,8 @@
         inline-block bg-white border border-black rounded hover:bg-gray-100 h-10 px-4 py-2">Dashboard</a>
     <a href="#" class="text-center cursor-pointer
         inline-block bg-white border border-black rounded hover:bg-gray-100 h-10 px-4 py-2">Dynamic page editor</a>
+    @endif
+    @if ($isEmployee)
     <div class="flex items-center justify-center">
         <div class="border-t border-gray-400 flex-grow"></div>
         <div class="mx-4 text-gray-500 font-bold">Employee</div>
@@ -33,6 +36,7 @@
     <a href="#" class="text-center cursor-pointer
         inline-block bg-white border border-black rounded hover:bg-gray-100 h-10 px-4 py-2">Scan Tickets</a>
     <p id="error"></p>
+    @endif
 
     <!-- TODO TODO TODO LINKS -->
 </div>
