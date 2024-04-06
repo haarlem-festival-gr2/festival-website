@@ -15,15 +15,6 @@
         .font-open-sans {
             font-family: "Open Sans", sans-serif;
         }
-
-        .button {
-            background-color: #c026d3;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
     </style>
 </head>
 
@@ -71,7 +62,6 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
             </section>
         </div>
