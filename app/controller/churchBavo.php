@@ -5,13 +5,13 @@ use Service\HistoryService;
 
 require_once __DIR__ . '/../service/HistoryService.php';
 
-Route::serve('/molenDeAdriaan', function (array $props) {
+Route::serve('/churchBavo', function (array $props) {
     $historyService = new HistoryService();
 
     $homeInfo = $historyService->getHomeInformation();
     $locations = $historyService->getLocations();
 
-    $detailPageId = 7;
+    $detailPageId = 1;
 
     $detailPage = $historyService->getDetailPageById($detailPageId);
     $stories = $historyService->getStoriesByDetailPageId($detailPageId);
@@ -19,7 +19,7 @@ Route::serve('/molenDeAdriaan', function (array $props) {
 
     $allDetailPages = $historyService->getAllDetailPages();
 
-    Route::render('history.molenDeAdriaan', [
+    Route::render('history.churchBavo', [
         'detailPage' => $detailPage,
         'stories' => $stories,
         'locations' => $locations,

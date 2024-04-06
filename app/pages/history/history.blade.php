@@ -121,24 +121,23 @@
         <div class="p-5 bg-pink-200 rounded-lg shadow-md mx-2 my-4 w-full md:w-1/5">
 
             {{-- Day 1 --}}
-            <h3 class="text-xl text-gray-800 mb-4"><strong>{{ $firstTicket[0]->StartDateTime }}</strong> - Thursday
+            <h3 class="text-xl text-gray-800 mb-4">
+                <strong>{{ date('jS F Y', strtotime($firstTicket[0]->StartDateTime)) }}</strong> - {{ $dayNames[0] }}
             </h3>
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $firstTicket[0]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($firstTicket[0]->StartDateTime)) }} -
                         {{ $firstTicket[0]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $firstTicket])
 
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $firstTicket[4]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($firstTicket[4]->StartDateTime)) }} -
                         {{ $firstTicket[4]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $firstTicket])
 
-
-
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $firstTicket[8]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($firstTicket[8]->StartDateTime)) }} -
                         {{ $firstTicket[8]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $firstTicket])
@@ -147,10 +146,12 @@
         {{-- Day 2 --}}
 
         <div class="p-5 bg-pink-200 rounded-lg shadow-md mx-2 my-4 w-full md:w-1/5">
-            <h3 class="text-xl text-gray-800 mb-4"><strong>{{ $secondTicketDay2[0]->StartDateTime }}</strong> - Friday
+            <h3 class="text-xl text-gray-800 mb-4">
+                <strong>{{ date('jS F Y', strtotime($secondTicketDay2[0]->StartDateTime)) }}</strong> -
+                {{ $dayNames[1] }}
             </h3>
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $secondTicketDay2[0]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($secondTicketDay2[0]->StartDateTime)) }} -
                         {{ $secondTicketDay2[0]->Name }}</strong></p>
             </div>
 
@@ -158,7 +159,7 @@
 
 
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $secondTicketDay2[4]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($secondTicketDay2[4]->StartDateTime)) }} -
                         {{ $secondTicketDay2[4]->Name }}</strong></p>
             </div>
 
@@ -166,7 +167,7 @@
 
 
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $secondTicketDay2[6]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($secondTicketDay2[6]->StartDateTime)) }} -
                         {{ $secondTicketDay2[6]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $secondTicketDay2])
@@ -177,22 +178,24 @@
         {{-- Day 3 --}}
 
         <div class="p-5 bg-pink-200 rounded-lg shadow-md mx-2 my-4 w-full md:w-1/5">
-            <h3 class="text-xl text-gray-800 mb-4"><strong>{{ $thirdTicketDay3[0]->StartDateTime }}</strong> - Saturday
+            <h3 class="text-xl text-gray-800 mb-4">
+                <strong>{{ date('jS F Y', strtotime($thirdTicketDay3[0]->StartDateTime)) }}</strong> -
+                {{ $dayNames[2] }}
             </h3>
             <div style="background-color: #B92090;" class="p-2 rouFnded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $thirdTicketDay3[0]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($thirdTicketDay3[0]->StartDateTime)) }} -
                         {{ $thirdTicketDay3[0]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $thirdTicketDay3])
 
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $thirdTicketDay3[4]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($thirdTicketDay3[4]->StartDateTime)) }} -
                         {{ $thirdTicketDay3[4]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $thirdTicketDay3])
 
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $thirdTicketDay3[10]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($thirdTicketDay3[10]->StartDateTime)) }} -
                         {{ $thirdTicketDay3[10]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $thirdTicketDay3])
@@ -202,27 +205,31 @@
 
         {{-- Day 4 --}}
         <div class="p-5 bg-pink-200 rounded-lg shadow-md mx-2 my-4 w-full md:w-1/5">
-            <h3 class="text-xl text-gray-800 mb-4"><strong>{{ $fourthTicketDay4[0]->StartDateTime }}</strong> - Sunday
+            <h3 class="text-xl text-gray-800 mb-4">
+                <strong>{{ date('jS F Y', strtotime($fourthTicketDay4[0]->StartDateTime)) }}</strong> -
+                {{ $dayNames[3] }}
             </h3>
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $fourthTicketDay4[0]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($fourthTicketDay4[0]->StartDateTime)) }} -
                         {{ $fourthTicketDay4[0]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $fourthTicketDay4])
 
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $fourthTicketDay4[6]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($fourthTicketDay4[6]->StartDateTime)) }} -
                         {{ $fourthTicketDay4[6]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $fourthTicketDay4])
 
             <div style="background-color: #B92090;" class="p-2 rounded-t mb-0">
-                <p class="mb-0 text-white"><strong>{{ $fourthTicketDay4[12]->StartDateTime }} -
+                <p class="mb-0 text-white"><strong>{{ date('H:i', strtotime($fourthTicketDay4[12]->StartDateTime)) }}
+                        -
                         {{ $fourthTicketDay4[12]->Name }}</strong></p>
             </div>
             @include('history.session_info_tours', ['tickets' => $fourthTicketDay4])
 
         </div>
+    </div>
 </section>
 
 

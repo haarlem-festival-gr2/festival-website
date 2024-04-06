@@ -2,19 +2,28 @@
 
 namespace Repository;
 
-use Model\HistoryHome;
+use Model\HistoryDays;
+use Model\HistoryLanguageType;
 use Model\HistoryTicket;
+use Model\HistoryHome;
+use Model\DetailPage;
 use Model\Locations;
+use Model\Stories;
+
+
 use PDO;
 
-require_once __DIR__.'/BaseRepository.php';
-require_once __DIR__.'/../model/HistoryDays.php';
-require_once __DIR__.'/../model/HistoryLanguageType.php';
-require_once __DIR__.'/../model/HistoryTicket.php';
-require_once __DIR__.'/../model/HistoryHome.php';
-require_once __DIR__.'/../model/DetailPage.php';
-require_once __DIR__.'/../model/Locations.php';
-require_once __DIR__.'/../model/Stories.php';
+require_once __DIR__ . '/BaseRepository.php';
+require_once __DIR__ . '/../model/HistoryDays.php';
+require_once __DIR__ . '/../model/HistoryLanguageType.php';
+require_once __DIR__ . '/../model/HistoryTicket.php';
+require_once __DIR__ . '/../model/HistoryHome.php';
+require_once __DIR__ . '/../model/DetailPage.php';
+require_once __DIR__ . '/../model/Locations.php';
+require_once __DIR__ . '/../model/Stories.php';
+
+
+
 
 class HistoryRepository extends BaseRepository
 {
@@ -22,7 +31,6 @@ class HistoryRepository extends BaseRepository
     {
         $query = $this->connection->prepare('SELECT * FROM HistoryDays');
         $query->execute();
-
         return $query->fetchAll(PDO::FETCH_CLASS, "\Model\HistoryDays");
     }
 
@@ -30,7 +38,6 @@ class HistoryRepository extends BaseRepository
     {
         $query = $this->connection->prepare('SELECT * FROM HistoryLanguageType');
         $query->execute();
-
         return $query->fetchAll(PDO::FETCH_CLASS, "\Model\HistoryLanguageType");
     }
 
@@ -39,28 +46,9 @@ class HistoryRepository extends BaseRepository
         $query = $this->connection->prepare('SELECT * FROM HistoryTicket WHERE DayID = :dayID');
         $query->bindValue(':dayID', $dayID, PDO::PARAM_INT);
         $query->execute();
-
         return $query->fetchAll(PDO::FETCH_CLASS, "\Model\HistoryTicket");
 
     }
-
-    // // public function getTicketsByDay(int $dayID): array
-    // // {
-    // //     $query = $this->connection->prepare('SELECT * FROM HistoryTicket WHERE DayID = :dayID');
-    // //     $query->bindValue(':dayID', $dayID, \PDO::PARAM_INT);
-    // //     $query->execute();
-    // //     return $query->fetchAll(\PDO::FETCH_CLASS, "\Model\HistoryTicket");
-    // // }
-
-    // public function getTicketsByDay(int $dayID): array
-    // {
-    //     $query = $this->connection->prepare('SELECT * FROM HistoryTicket WHERE DayID = :dayID');
-    //     $query->execute([':dayID' => $dayID]);
-
-    //     $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\HistoryTicket");
-
-    //     return $query->fetch();
-    // }
 
     public function getHomeInformation(): ?HistoryHome
     {
@@ -68,28 +56,51 @@ class HistoryRepository extends BaseRepository
         $query->execute();
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "Model\HistoryHome");
-
         return $query->fetch();
     }
-
-    // public function getLocations(): array
-    // {
-
-    //     $query = $this->connection->prepare('SELECT * FROM Locations');
-    //     $query->execute();
-
-    //     $query->setFetchMode(\PDO::FETCH_CLASS, "Model\Locations");
-    //     return $query->fetch();
-
-    // }
 
     public function getLocations(): array
     {
         $query = $this->connection->prepare('SELECT * FROM Locations');
         $query->execute();
 
-        $query->setFetchMode(\PDO::FETCH_CLASS, "model\Location"); // Correcting the class name
-
+        $query->setFetchMode(\PDO::FETCH_CLASS, "model\Location");
         return $query->fetchAll();
     }
+
+    public function getDayNames(): array
+    {
+        $query = $this->connection->prepare('SELECT DayOfTheWeek FROM HistoryDays');
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    public function getDetailPageById($id): ?DetailPage
+    {
+        $query = $this->connection->prepare('SELECT * FROM DetailPage WHERE DetailPageID = :id');
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+
+        $query->setFetchMode(PDO::FETCH_CLASS, "Model\DetailPage");
+        return $query->fetch();
+    }
+
+    public function getStoriesByDetailPageId($detailPageId): array
+    {
+        $query = $this->connection->prepare('SELECT * FROM Stories WHERE DetailPageID = :id');
+        $query->bindValue(':id', $detailPageId, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_CLASS, "Model\Stories");
+    }
+    
+    public function getAllDetailPages(): array
+    {
+        $query = $this->connection->prepare('SELECT * FROM DetailPage');
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_CLASS, "Model\DetailPage");
+    }
+
+
 }
