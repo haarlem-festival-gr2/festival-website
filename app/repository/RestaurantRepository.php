@@ -4,14 +4,33 @@ namespace repository;
 
 use Model\Restaurant;
 
-require_once __DIR__.'/../repository/BaseRepository.php';
-require_once __DIR__.'/../model/Restaurant.php';
-require_once __DIR__.'/../model/Session.php';
-require_once __DIR__.'/../model/YummyEventDays.php';
-require_once __DIR__.'/../model/YummyHome.php';
+require_once __DIR__ . '/../repository/BaseRepository.php';
+require_once __DIR__ . '/../model/Restaurant.php';
+require_once __DIR__ . '/../model/Session.php';
+require_once __DIR__ . '/../model/YummyEventDays.php';
+require_once __DIR__ . '/../model/YummyHome.php';
 
 class RestaurantRepository extends BaseRepository
 {
+    public function createRestaurant(array $restaurantData): bool
+    {
+        $query = $this->connection->prepare('
+        INSERT INTO Restaurant (
+            Title, SubTitle, HeaderImg, HeaderAlt, Category1, Category2, Category3, Location, Stars, FoodImg1, FoodAlt1, FoodImg2,
+            FoodAlt2, FoodImg3, FoodAlt3, SessionsADay, SessionsDuration, SessionsStartTime, SessionsTotalSeats, PriceAdult,
+            PriceChild, Recipe, RecipeImg, RecipeAlt, Telephone, Email, ChamberOfCommerce
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ');
+
+        $data = [];
+
+        foreach ($restaurantData as $key => $value) {
+            $data[] = $value;
+        }
+
+        return $query->execute($data);
+    }
+
     public function getAllYummy(): array
     {
         $query = $this->connection->prepare('SELECT * FROM YummyHome WHERE YummyID');
@@ -39,48 +58,38 @@ class RestaurantRepository extends BaseRepository
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\Restaurant");
 
-        return $query->fetch();
+        $restaurant = $query->fetch();
+
+        if ($restaurant === false) {
+            return null;
+        }
+
+        return $restaurant;
     }
 
-    public function createRestaurant(array $restaurantData): bool
+    public function restaurantExists(int $id): bool
+    {
+        $query = $this->connection->prepare('SELECT COUNT(*) FROM Restaurant WHERE RestaurantID = ?');
+        $query->execute([$id]);
+
+        return $query->fetchColumn() > 0;
+    }
+
+    public function updateRestaurant(int $id, array $restaurantData): bool
     {
         $query = $this->connection->prepare('
-        INSERT INTO Restaurant (
-            Title, SubTitle, HeaderImg, HeaderAlt, Category1, Category2, Category3, Location, Stars, FoodImg1, FoodAlt1, FoodImg2,
-            FoodAlt2, FoodImg3, FoodAlt3, SessionsADay, SessionsDuration, SessionsStartTime, SessionsTotalSeats, PriceAdult,
-            PriceChild, Recipe, RecipeImg, RecipeAlt, Telephone, Email, ChamberOfCommerce
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        UPDATE Restaurant SET
+            Title = ?, SubTitle = ?, HeaderImg = ?, HeaderAlt = ?, Category1 = ?, Category2 = ?, Category3 = ?, Location = ?, Stars = ?, FoodImg1 = ?, 
+            FoodAlt1 = ?, FoodImg2 = ?, FoodAlt2 = ?, FoodImg3 = ?, FoodAlt3 = ?, SessionsADay = ?, SessionsDuration = ?, SessionsStartTime = ?, SessionsTotalSeats = ?, 
+            PriceAdult = ?, PriceChild = ?, Recipe = ?, RecipeImg = ?, RecipeAlt = ?, Telephone = ?, Email = ?, ChamberOfCommerce = ?
+        WHERE RestaurantID = ?
     ');
 
-        $data = [
-            $restaurantData['Title'],
-            $restaurantData['SubTitle'],
-            $restaurantData['HeaderImg'],
-            $restaurantData['HeaderAlt'],
-            $restaurantData['Category1'],
-            $restaurantData['Category2'],
-            $restaurantData['Category3'],
-            $restaurantData['Location'],
-            $restaurantData['Stars'],
-            $restaurantData['FoodImg1'],
-            $restaurantData['FoodAlt1'],
-            $restaurantData['FoodImg2'],
-            $restaurantData['FoodAlt2'],
-            $restaurantData['FoodImg3'],
-            $restaurantData['FoodAlt3'],
-            $restaurantData['SessionsADay'],
-            $restaurantData['SessionsDuration'],
-            $restaurantData['SessionsStartTime'],
-            $restaurantData['SessionsTotalSeats'],
-            $restaurantData['PriceAdult'],
-            $restaurantData['PriceChild'],
-            $restaurantData['Recipe'],
-            $restaurantData['RecipeImg'],
-            $restaurantData['RecipeAlt'],
-            $restaurantData['Telephone'],
-            $restaurantData['Email'],
-            $restaurantData['ChamberOfCommerce'],
-        ];
+        $data = [];
+
+        foreach ($restaurantData as $value) {
+            $data[] = $value;
+        }
 
         return $query->execute($data);
     }

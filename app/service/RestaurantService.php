@@ -2,10 +2,11 @@
 
 namespace service;
 
+use model\Restaurant;
 use Repository\RestaurantRepository;
 
-require_once __DIR__.'/../service/BaseService.php';
-require_once __DIR__.'/../repository/RestaurantRepository.php';
+require_once __DIR__ . '/../service/BaseService.php';
+require_once __DIR__ . '/../repository/RestaurantRepository.php';
 
 class RestaurantService extends BaseService
 {
@@ -14,6 +15,11 @@ class RestaurantService extends BaseService
     public function __construct()
     {
         $this->repository = new RestaurantRepository();
+    }
+
+    public function createRestaurant(array $restaurantData): bool
+    {
+        return $this->repository->createRestaurant($restaurantData);
     }
 
     public function getAllYummy(): array
@@ -26,14 +32,26 @@ class RestaurantService extends BaseService
         return $this->repository->getAllRestaurants();
     }
 
-    public function getRestaurantById(int $id): mixed
+    public function getRestaurantById(int $id): ?Restaurant
     {
         return $this->repository->getRestaurantById($id);
+
+        if ($restaurant) {
+            return $restaurant;
+        } else {
+            return null;
+        }
     }
 
-    public function createRestaurant(array $restaurantData): bool
+    public function updateRestaurant(array $restaurantData): bool
     {
-        return $this->repository->createRestaurant($restaurantData);
+        $restaurantId = $restaurantData['RestaurantID'];
+
+        if (!$this->repository->restaurantExists($restaurantId)) {
+            throw new \Exception("Restaurant with ID $restaurantId not found.");
+        }
+
+        return $this->repository->updateRestaurant($restaurantId, $restaurantData);
     }
 
     public function deleteRestaurant(int $id): bool
