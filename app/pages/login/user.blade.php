@@ -35,9 +35,9 @@
     </div>
     <a href="#" class="text-center cursor-pointer
         inline-block bg-white border border-black rounded hover:bg-gray-100 h-10 px-4 py-2">Scan Tickets</a>
-    <p id="error"></p>
     @endif
 
     <!-- TODO TODO TODO LINKS -->
+    <p id="error"></p>
 </div>
 @endsection
