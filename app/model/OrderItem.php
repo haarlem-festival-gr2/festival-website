@@ -96,7 +96,7 @@ class OrderItem
 
     public function getPrice(): float
     {
-        return number_format($this->Price, 2);
+        return number_format($this->Price, 2, '.', '');
     }
 
     public function setPrice(float $Price): void
