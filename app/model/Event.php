@@ -58,7 +58,14 @@ class Event
 
     public function getImg(): string
     {
-        return $this->Img;
+        $img = $this->Img;
+
+
+        if ($img[0] !== '/') {
+            $img = "/$img";
+        }
+
+        return $img;
     }
 
     public function getStartDateTime(): DateTime
