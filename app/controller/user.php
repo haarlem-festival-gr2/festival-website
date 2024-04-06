@@ -17,8 +17,6 @@ Route::serve('/login', function (array $props) {
     if ($props['action'] == 'Log Out') {
         $_SESSION['auth'] = null;
         Route::redirect('/login');
-    } elseif ($props['action'] == 'View Agenda') {
-        Route::redirect('/agenda');
     } elseif ($props['action'] == 'Change account info') {
         Route::redirect('/updateUserInfo');
     }
