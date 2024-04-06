@@ -28,6 +28,7 @@
 </head>
 
 <body class="font-open-sans bg-amber-100 text-black overflow-x-hidden">
+    @include('main.navbar')
 
     @include('yummy.yummyHeader', [
         'headerImage' => $yummies->HeaderImg,

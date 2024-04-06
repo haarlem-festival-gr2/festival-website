@@ -18,7 +18,10 @@ Route::start_router(function (array $routes) {
 
     if (file_exists($controller_file)) {
         require_once $controller_file;
-    } else {
+    } else if (file_exists("/dynpages/$first_path")) {
+        require_once "/dynpages/$first_path.html";
+    }
+    else {
         Route::error(ErrorCode::NOT_FOUND);
     }
 });

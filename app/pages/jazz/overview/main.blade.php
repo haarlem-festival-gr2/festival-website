@@ -13,6 +13,12 @@
 </head>
 <body class="font-montserrat">
 
+<!-- TODO temporary stuff -->
+<p>fix add to program button, disable if tickets are sold out</p>
+
+@include('main.navbar')
+<!-- delete later -->
+
 <!-- header-->
 <div class="relative w-full">
     <img src="{{ $festivalEvent->getImgPath() }}" alt="{{ $festivalEvent->getFestivalEventName() }}" class="w-full"/>
@@ -129,5 +135,7 @@
     <!-- end-->
 @endforeach
 
+
+@include('main.footer')
 </body>
 </html>

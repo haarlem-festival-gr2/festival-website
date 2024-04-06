@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title></title>
+    <title>@yield('title')</title>
     <meta charset="UTF-8">
     <link href="/css/style.css" rel="stylesheet" />
     <link href="/css/tailwind.css" rel="stylesheet" />
@@ -14,6 +14,7 @@
 </head>
 
 <body class="flex flex-col">
+    @include('main.navbar')
     <h1 class="font-serif font-bold text-5xl my-6">@yield('title', 'Agenda')</h1>
     @yield('content')
     @extends('main.footer')
