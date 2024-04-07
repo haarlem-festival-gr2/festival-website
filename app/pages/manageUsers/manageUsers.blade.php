@@ -20,7 +20,9 @@
 <body class="bg-gray-100 flex justify-center items-center h-screen">
     <div class="flex w-full justify-between">
         <!-- Admin Panel -->
-        <aside class="w-1/5 bg-gray-200 p-4 h-screen">
+
+        @include('admin.panel')
+        {{-- <aside class="w-1/5 bg-gray-200 p-4 h-screen">
             <h2 class="text-xl font-bold mb-4">Admin Panel</h2>
             <ul>
                 <li class="mb-4">
@@ -35,19 +37,24 @@
                         Add Users
                     </a>
                 </li>
-                {{-- <li class="mb-4">
+                <li class="mb-4">
                     <a href="/updateUser"
                         class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg mb-2 text-lg">
                         Update Users
                     </a>
-                </li> --}}
+                </li> 
             </ul>
-        </aside>
+        </aside> --}}
 
         <!-- Manage Users Section -->
         <section class="p-4 w-4/5 overflow-y-auto" style="max-height: calc(100vh - 100px);">
-            <h2 class="text-xl font-bold mb-4">View Users List</h2>
-
+            <h2 class="text-xl font-bold mb-4 flex justify-between items-center">View Users List
+                <a href="/addUser"
+                    class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Add User
+                </a>
+            </h2>
+            
             <!-- User List -->
             <div class="mb-4 flex items-center">
                 <input id="searchInput" type="text" class="border rounded-l px-4 py-2 w-full"
@@ -138,7 +145,7 @@
             tr = table.getElementsByTagName("tr");
             for (i = 0; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[
-                    1]; // Change index according to the column you want to search (0-indexed)
+                    1];
                 if (td) {
                     txtValue = td.textContent || td.innerText;
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {

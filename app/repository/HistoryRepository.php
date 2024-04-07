@@ -10,7 +10,6 @@ use Model\DetailPage;
 use Model\Locations;
 use Model\Stories;
 
-
 use PDO;
 
 require_once __DIR__ . '/BaseRepository.php';
@@ -41,14 +40,25 @@ class HistoryRepository extends BaseRepository
         return $query->fetchAll(PDO::FETCH_CLASS, "\Model\HistoryLanguageType");
     }
 
+    // public function getTicketsByDay(int $dayID): array
+    // {
+    //     $query = $this->connection->prepare('SELECT * FROM HistoryTicket WHERE DayID = :dayID');
+    //     $query->bindValue(':dayID', $dayID, PDO::PARAM_INT);
+    //     $query->execute();
+    //     return $query->fetchAll(PDO::FETCH_CLASS, "\Model\HistoryTicket");
+
+    // }
     public function getTicketsByDay(int $dayID): array
     {
         $query = $this->connection->prepare('SELECT * FROM HistoryTicket WHERE DayID = :dayID');
         $query->bindValue(':dayID', $dayID, PDO::PARAM_INT);
         $query->execute();
-        return $query->fetchAll(PDO::FETCH_CLASS, "\Model\HistoryTicket");
 
+        $tickets = $query->fetchAll(PDO::FETCH_CLASS, "\Model\HistoryTicket");
+
+        return $tickets ? $tickets : [];
     }
+
 
     public function getHomeInformation(): ?HistoryHome
     {
@@ -93,7 +103,7 @@ class HistoryRepository extends BaseRepository
 
         return $query->fetchAll(PDO::FETCH_CLASS, "Model\Stories");
     }
-    
+
     public function getAllDetailPages(): array
     {
         $query = $this->connection->prepare('SELECT * FROM DetailPage');
@@ -102,5 +112,55 @@ class HistoryRepository extends BaseRepository
         return $query->fetchAll(PDO::FETCH_CLASS, "Model\DetailPage");
     }
 
+    public function updateTicket(HistoryTicket $ticket): bool
+    {
+        $query = $this->connection->prepare('UPDATE HistoryTicket SET Name = :name, LanguageID = :languageID, DayID = :dayID, StartDateTime = :startDateTime, EndDateTime = :endDateTime, TotalTickets = :totalTickets, RemainingTickets = :remainingTickets WHERE TourID = :tourID');
+        $query->bindValue(':name', $ticket->Name, PDO::PARAM_STR);
+        $query->bindValue(':languageID', $ticket->LanguageID, PDO::PARAM_INT);
+        $query->bindValue(':dayID', $ticket->DayID, PDO::PARAM_INT); 
+        $query->bindValue(':startDateTime', $ticket->StartDateTime, PDO::PARAM_STR);
+        $query->bindValue(':endDateTime', $ticket->EndDateTime, PDO::PARAM_STR);
+        $query->bindValue(':totalTickets', $ticket->TotalTickets, PDO::PARAM_INT);
+        $query->bindValue(':remainingTickets', $ticket->RemainingTickets, PDO::PARAM_INT);
+        $query->bindValue(':tourID', $ticket->TourID, PDO::PARAM_INT);
+
+        return $query->execute();
+    }
+
+    public function getTicketById(int $ticketId): ?HistoryTicket
+    {
+        $query = $this->connection->prepare('SELECT * FROM HistoryTicket WHERE TourID = :ticketId');
+        $query->bindValue(':ticketId', $ticketId, PDO::PARAM_INT);
+        $query->execute();
+
+        $query->setFetchMode(PDO::FETCH_CLASS, "\Model\HistoryTicket");
+        return $query->fetch();
+    }
+
+
+    public function addTicket(HistoryTicket $ticket): bool
+    {
+        $query = $this->connection->prepare('INSERT INTO HistoryTicket (Name, TourID, DayID, LanguageID, StartDateTime, EndDateTime, TotalTickets, RemainingTickets) VALUES (:name, :tourID, :dayID, :languageID, :startDateTime, :endDateTime, :totalTickets, :remainingTickets)');
+        $query->bindValue(':name', $ticket->Name, PDO::PARAM_STR);
+        $query->bindValue(':tourID', $ticket->TourID, PDO::PARAM_INT);
+        $query->bindValue(':dayID', $ticket->DayID, PDO::PARAM_INT);
+        $query->bindValue(':languageID', $ticket->LanguageID, PDO::PARAM_INT);
+        $query->bindValue(':startDateTime', $ticket->StartDateTime, PDO::PARAM_STR);
+        $query->bindValue(':endDateTime', $ticket->EndDateTime, PDO::PARAM_STR);
+        $query->bindValue(':totalTickets', $ticket->TotalTickets, PDO::PARAM_INT);
+        $query->bindValue(':remainingTickets', $ticket->RemainingTickets, PDO::PARAM_INT);
+
+        return $query->execute();
+    }
+
+    public function deleteTicket(int $ticketId): bool
+    {
+        $query = $this->connection->prepare('DELETE FROM HistoryTicket WHERE TourID = :ticketId');
+        $query->bindValue(':ticketId', $ticketId, PDO::PARAM_INT);
+        return $query->execute();
+    }
 
 }
+
+
+
