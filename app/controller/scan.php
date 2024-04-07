@@ -17,7 +17,7 @@ Route::serve("/scan", function($props) {
     $id = @$_GET['id'];
 
     if ($id === null) {
-        echo "Invalid ticket id";
+        echo "Use your camera app to scan tickets";
         exit;
     }
 

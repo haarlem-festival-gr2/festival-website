@@ -30,6 +30,7 @@ services:
       PS_DB_PASSWORD: ${PS_DB_PASSWORD}
       PS_DB_NAME: ${PS_DB_NAME}
       RESEND_API: ${RESEND_API}
+      HOST_ADDR: ${HOST_ADDR}
       STRIPE_KEY: ${STRIPE_KEY}
     depends_on:
       composer:

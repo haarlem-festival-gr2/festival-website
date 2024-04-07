@@ -33,7 +33,7 @@
         <div class="mx-4 text-gray-500 font-bold">Employee</div>
         <div class="border-t border-gray-400 flex-grow"></div>
     </div>
-    <a href="#" class="text-center cursor-pointer
+    <a href="/scan" class="text-center cursor-pointer
         inline-block bg-white border border-black rounded hover:bg-gray-100 h-10 px-4 py-2">Scan Tickets</a>
     @endif
 
