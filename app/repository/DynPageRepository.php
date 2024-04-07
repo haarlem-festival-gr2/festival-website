@@ -4,6 +4,12 @@ namespace Repository;
 
 class DynPageRepository extends BaseRepository
 {
+    public function delete_page(int $id): bool
+    {
+        $query = $this->connection->prepare("DELETE FROM DynPages WHERE ID = ?");
+        return $query->execute([$id]);
+    }
+
     public function get_page(string $path): array|false
     {
         $query = $this->connection->prepare("SELECT * FROM DynPages WHERE Path = ?");
@@ -30,9 +36,16 @@ class DynPageRepository extends BaseRepository
 
     public function set_page(string $path, string $content): void
     {
-        $query = $this->connection->prepare("INSERT INTO DynPages (Content, Path) VALUES (?, ?) 
+        $query = $this->connection->prepare("INSERT INTO DynPages (Content, Path) VALUES (?, ?)
             ON DUPLICATE KEY UPDATE Content = VALUES(Content)");
         $query->execute([$content, $path]);
+    }
+
+    public function set_page_title(string $path, string $content, string $title): void
+    {
+        $query = $this->connection->prepare("INSERT INTO DynPages (Content, Path, Title) VALUES (?, ?, ?)
+            ON DUPLICATE KEY UPDATE Content = VALUES(Content)");
+        $query->execute([$content, $path, $title]);
     }
 
     public function set_page_id(string $path, string $content): void

@@ -48,11 +48,11 @@
             class="bg-white-200 border border-black px-4 py-2 m-2 cursor-pointer rounded-2xl font-bold text-lg">
             Close
         </button>
-        <form hx-post="/admin/editpage" hx-swap="none">
+        <form hx-post="/admin/addpage" hx-swap="none">
             <input type="text" name="title" placeholder="Page Title"
-                class="bg-white-200 border border-black px-4 py-2 m-2 cursor-text rounded-2xl font-bold text-lg">
+                class="bg-white-200 border border-black px-4 py-2 m-2 cursor-text rounded-2xl font-bold text-lg" required>
             <input type="text" name="path" placeholder="Path"
-                class="bg-white-200 border border-black px-4 py-2 m-2 cursor-text rounded-2xl font-bold text-lg">
+                class="bg-white-200 border border-black px-4 py-2 m-2 cursor-text rounded-2xl font-bold text-lg" required>
             <input type="submit" value="Add or Edit"
                 class="bg-white-200 border border-black px-4 py-2 m-2 cursor-pointer rounded-2xl font-bold text-lg">
             </input>

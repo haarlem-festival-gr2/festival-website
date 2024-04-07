@@ -11,6 +11,15 @@ class DynPageService extends BaseService
         $this->repository = new DynPageRepository();
     }
 
+    public function deletePage(int $id): bool
+    {
+        if ($id !== 1) {
+            return $this->repository->delete_page($id);
+        }
+
+        return false;
+    }
+
     public function getPage(string $path): string|false
     {
         $data = $this->repository->get_page($path);
@@ -19,9 +28,13 @@ class DynPageService extends BaseService
             return false;
         }
 
-        $content = $data['Content'];
+        $content = '';
 
-        if ($content === null) {
+        // deal with it
+        $content .= "<script>document.title = '{$data['Title']}'</script>";
+        $content .= $data['Content'];
+
+        if ($data['Content'] === null) {
             return '';
         } else {
             return $content;
@@ -32,6 +45,16 @@ class DynPageService extends BaseService
     {
         try {
             $data = $this->repository->set_page($path, $content);
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    public function newPage(string $path, string $title): bool
+    {
+        try {
+            $data = $this->repository->set_page_title($path, '', $title);
             return true;
         } catch (\Exception $e) {
             return false;

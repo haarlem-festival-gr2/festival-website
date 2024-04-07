@@ -13,6 +13,10 @@ Route::serve('/index', function (array $props) use ($service) {
     $uri = $_SERVER['REQUEST_URI'];
     $uri = explode('?', $uri)[0];
 
+    if ($uri === '/index/edit/') {
+        Route::redirect('/index/edit');
+    }
+
     if ($uri === '/index/edit') {
         if ($user !== false && $user->Role === 'admin') {
             $id = @$props['id'];
@@ -37,8 +41,7 @@ Route::serve('/index', function (array $props) use ($service) {
     }]);
 });
 
-// only works in index/edit
-Route::serve('/index', function (array $props) use ($service) {
+Route::serve('/index/edit', function (array $props) use ($service) {
     $user = Route::auth();
 
     $uri = $_SERVER['REQUEST_URI'];
