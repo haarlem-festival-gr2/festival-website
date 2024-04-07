@@ -8,6 +8,7 @@
     <script src="/script/textToSpeech.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="/css/jazzStyles.css" rel="stylesheet">
+    <link href="/css/navBarStyle.css" rel="stylesheet">
 </head>
 <body class="font-montserrat">
 
