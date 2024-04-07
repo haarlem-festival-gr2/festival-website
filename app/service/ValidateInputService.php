@@ -56,8 +56,8 @@ class ValidateInputService
 
     public function validateEmptyNumbers($numbers): void
     {
-        foreach($numbers as $number) {
-            if (!isset($number) && $number !== '0') {
+        foreach ($numbers as $number) {
+            if (! isset($number) && $number !== '0') {
                 $error = 'All fields marked with * are required.';
                 echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' id='error' role='alert'>$error</div>";
                 exit();
@@ -74,7 +74,8 @@ class ValidateInputService
         }
     }
 
-   public  function validateAndUploadImage($image, $dir) {
+    public function validateAndUploadImage($image, $dir)
+    {
         if (isset($_FILES[$image]) && $_FILES[$image]['error'] === UPLOAD_ERR_OK) {
             try {
                 return $this->imageService->uploadImage($_FILES[$image], $dir);
@@ -90,19 +91,19 @@ class ValidateInputService
         }
     }
 
-   function updateImage($image, $dir)
-   {
-       if (isset($_FILES[$image]) && $_FILES[$image]['error'] === UPLOAD_ERR_OK) {
-           try {
-               return $this->imageService->uploadImage($_FILES[$image], $dir);
-           } catch (Exception $e) {
-               echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
-               exit();
-           }
-       } else {
-           return null;
-       }
-   }
+    public function updateImage($image, $dir)
+    {
+        if (isset($_FILES[$image]) && $_FILES[$image]['error'] === UPLOAD_ERR_OK) {
+            try {
+                return $this->imageService->uploadImage($_FILES[$image], $dir);
+            } catch (Exception $e) {
+                echo "<div class='error bg-red-100 border-l-4 border-red-500 text-red-700 p-4 m-4' role='alert'>{$e->getMessage()}</div>";
+                exit();
+            }
+        } else {
+            return null;
+        }
+    }
 
     public function validateArtistBio($bio): void
     {

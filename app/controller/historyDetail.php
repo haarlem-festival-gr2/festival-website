@@ -5,28 +5,33 @@ use Service\HistoryService;
 
 require_once __DIR__.'/../service/HistoryService.php';
 
-Route::serve('/molenDeAdriaan', function (array $props) {
+Route::serve('/deHallen', function (array $props) {
     $historyService = new HistoryService();
 
     $homeInfo = $historyService->getHomeInformation();
     $locations = $historyService->getLocations();
 
-    $detailPageId = 7;
+    $id = @$props['id'];
+
+    if ($id === null) {
+        http_response_code(422);
+        echo '422 Unprocessable Entity';
+    }
+
+    $detailPageId = $id;
 
     $detailPage = $historyService->getDetailPageById($detailPageId);
     $stories = $historyService->getStoriesByDetailPageId($detailPageId);
-    // var_dump($stories);
+    $name = $historyService->getNameFromId($detailPageId);
 
     $allDetailPages = $historyService->getAllDetailPages();
 
-    Route::render('history.molenDeAdriaan', [
+    Route::render('history.detail', [
         'detailPage' => $detailPage,
         'stories' => $stories,
         'locations' => $locations,
         'homeInfo' => $homeInfo,
-        'allDetailPages' => $allDetailPages, // Pass all detail pages to the view
+        'allDetailPages' => $allDetailPages,
+        'name' => $name,
     ]);
-
-    // Route::serve('/molenDeAdriaan', function (array $props) {
-    //     Route::render('history.molenDeAdriaan', []);
 });

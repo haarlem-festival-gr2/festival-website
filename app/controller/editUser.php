@@ -1,4 +1,3 @@
-?>
 <?php
 
 use Core\Route\Route;
@@ -17,5 +16,3 @@ Route::serve('/editUser', function (array $props) {
 
     Route::render('manageUsers.editUser', ['userId' => $userId, 'userDetails' => $userDetails]);
 });
-
-?>

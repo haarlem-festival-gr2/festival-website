@@ -5,12 +5,11 @@ namespace Repository;
 use DateTime;
 use DateTimeZone;
 use Model\HistoryTicket;
+use model\Order;
 use Model\Payment;
 use PDO;
-use model\Order;
 
 require_once __DIR__.'/../repository/BaseRepository.php';
-
 
 class PaymentRepository extends BaseRepository
 {
@@ -22,7 +21,7 @@ class PaymentRepository extends BaseRepository
             $order->getTotalPrice(),
             $order->getSessionID(),
             $order->getUserID(),
-            (new DateTime('now', new DateTimeZone('+0200')))->format('Y-m-d H:i:s')
+            (new DateTime('now', new DateTimeZone('+0200')))->format('Y-m-d H:i:s'),
         ]);
     }
 
@@ -52,7 +51,7 @@ class PaymentRepository extends BaseRepository
                 $orderItem->getCustomerName(),
                 $orderItem->getEventID(),
                 $orderItem->getType(),
-                $orderItem->getNote()
+                $orderItem->getNote(),
             ]);
         }
     }
@@ -69,12 +68,13 @@ class PaymentRepository extends BaseRepository
     public function updateOrderStatus($sessionID, $newStatus): bool
     {
         $query = $this->connection->prepare('UPDATE `Order` SET Status = ? WHERE SessionID = ?');
+
         return $query->execute([$newStatus, $sessionID]);
     }
 
     public function registerPayment(string $paymentDateTime, string $customerName, string $email, string $phoneNumber, string $paymentMethod, string $billingAddress, float $totalAmount, float $tax, string $currency, string $orderUUID): int
     {
-        $sql = "INSERT INTO Payment (PaymentDateTime, CustomerName, Email, PhoneNumber, PaymentMethod, BillingAddress, TotalAmount, Tax, Currency, OrderID, InvoiceDateTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = 'INSERT INTO Payment (PaymentDateTime, CustomerName, Email, PhoneNumber, PaymentMethod, BillingAddress, TotalAmount, Tax, Currency, OrderID, InvoiceDateTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $query = $this->connection->prepare($sql);
         $query->execute([
             $paymentDateTime,
@@ -87,7 +87,7 @@ class PaymentRepository extends BaseRepository
             $tax,
             $currency,
             $orderUUID,
-            (new DateTime('now', new DateTimeZone('+0200')))->format('Y-m-d H:i:s')
+            (new DateTime('now', new DateTimeZone('+0200')))->format('Y-m-d H:i:s'),
         ]);
 
         return $this->connection->lastInsertId();
@@ -113,7 +113,7 @@ class PaymentRepository extends BaseRepository
 
     public function createTickets($tickets): void
     {
-        $query = $this->connection->prepare("INSERT INTO Ticket (OrderItemID, IsScanned) VALUES (?, ?)");
+        $query = $this->connection->prepare('INSERT INTO Ticket (OrderItemID, IsScanned) VALUES (?, ?)');
         foreach ($tickets as $ticket) {
             $query->execute([$ticket['orderItemID'], $ticket['isScanned']]);
         }

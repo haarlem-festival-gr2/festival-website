@@ -3,18 +3,25 @@
 namespace Model;
 
 use DateTime;
-use Illuminate\Support\Facades\Date;
 
 class Ticket
 {
     private string $TicketUUID;
+
     private string $EventName;
+
     private string $Venue;
+
     private string $StartDateTime;
+
     private string $EndDateTime;
+
     private float $Price;
+
     private string $CustomerName;
+
     private bool $IsScanned;
+
     private ?string $Note;
 
     public function getNote(): string
@@ -30,7 +37,7 @@ class Ticket
     public function getTicketUUID(): string
     {
         // actually, we are gonna set it to be a url
-        return 'http://' . getenv('HOST_ADDR') . '/?id=' . $this->TicketUUID;
+        return 'http://'.getenv('HOST_ADDR').'/scan?id='.$this->TicketUUID;
     }
 
     public function setTicketUUID(string $TicketUUID): void
@@ -78,7 +85,8 @@ class Ticket
         $this->Price = $Price;
     }
 
-    public function getCustomerName(): string {
+    public function getCustomerName(): string
+    {
         return $this->CustomerName;
     }
 
@@ -101,6 +109,7 @@ class Ticket
     {
         $this->Venue = $venue;
     }
+
     public function getVenue(): string
     {
         return $this->Venue;

@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
@@ -7,14 +7,14 @@ use Endroid\QrCode\Writer\PngWriter;
 // Create a new instance of QrCode
 $qrCode = new QrCode('https://www.youtube.com/watch?v=q8uPqsslsvo&ab_channel=Dennis%27Video%27svoorinHolland');
 
-$qrCode->setSize(300); 
-$qrCode->setMargin(10); 
+$qrCode->setSize(300);
+$qrCode->setMargin(10);
 
 // Create a QR code writer instance
 $writer = new PngWriter();
 
 // Write the QR code to a file
-$writer->write($qrCode)->saveToFile(__DIR__ . '/qr.png');
+$writer->write($qrCode)->saveToFile(__DIR__.'/qr.png');
 ?>
 
 <!DOCTYPE html>

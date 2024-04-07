@@ -21,9 +21,7 @@ Route::serve('/jazzdays/*', function () {
                 Route::redirect('/jazzdays/manageDays');
                 break;
         }
-    } else{
+    } else {
         Route::redirect('/jazz');
     }
 }, Method::ALL);
-
-

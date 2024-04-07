@@ -9,19 +9,19 @@ Route::serve('/artists/*', function () {
     if (Route::auth() && Route::auth()->Role === 'admin') {
         switch ($uri) {
             case '/artists/manageArtists':
-                require_once __DIR__ . '/../controller/artists/manageArtists.php';
+                require_once __DIR__.'/../controller/artists/manageArtists.php';
                 break;
             case '/artists/createArtist':
-                require_once __DIR__ . '/../controller/artists/createArtist.php';
+                require_once __DIR__.'/../controller/artists/createArtist.php';
                 break;
             case '/artists/editArtist':
-                require_once __DIR__ . '/../controller/artists/editArtist.php';
+                require_once __DIR__.'/../controller/artists/editArtist.php';
                 break;
             default:
                 Route::redirect('/artists/manageArtists');
                 break;
         }
-    } else{
+    } else {
         Route::redirect('/jazz');
     }
 }, Method::ALL);

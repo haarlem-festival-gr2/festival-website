@@ -78,7 +78,7 @@ class UserRepository extends BaseRepository
 
     public function update_user(User $user): void
     {
-        $query = $this->connection->prepare('UPDATE User SET Email = ?, Name = ?, Username = ? WHERE UserID = ?');
-        $query->execute([$user->Email, $user->Name, $user->Username, $user->getId()]);
+        $query = $this->connection->prepare('UPDATE User SET Email = ?, Name = ?, Username = ?, Role = ? WHERE UserID = ?');
+        $query->execute([$user->Email, $user->Name, $user->Username, $user->Role, $user->getId()]);
     }
 }

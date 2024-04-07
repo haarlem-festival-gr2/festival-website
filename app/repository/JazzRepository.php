@@ -25,6 +25,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$id]);
 
         $artistData = $query->fetch(\PDO::FETCH_ASSOC);
+
         return $this->createArtistFromData($artistData);
     }
 
@@ -126,6 +127,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$id]);
 
         $venueData = $query->fetch(\PDO::FETCH_ASSOC);
+
         return $this->createVenueFromData($venueData);
     }
 
@@ -196,6 +198,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$id]);
 
         $jazzDayData = $query->fetch(\PDO::FETCH_ASSOC);
+
         return $this->createJazzDayFromData($jazzDayData);
     }
 
@@ -334,6 +337,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$performanceId]);
 
         $performanceData = $query->fetch(\PDO::FETCH_ASSOC);
+
         return $this->createPerformanceFromData($performanceData);
     }
 
@@ -404,6 +408,7 @@ class JazzRepository extends BaseRepository
         $query->execute([$id]);
 
         $passData = $query->fetch(\PDO::FETCH_ASSOC);
+
         return $this->createJazzPassFromData($passData);
     }
 

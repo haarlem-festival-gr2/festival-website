@@ -9,14 +9,13 @@ use Stripe\PaymentIntent;
 use Stripe\PaymentMethod;
 use Stripe\Stripe;
 
-require_once __DIR__ . '/../service/PaymentService.php';
+require_once __DIR__.'/../service/PaymentService.php';
 
 Route::serve('/success', function () {
 
-    if (isset($_GET['session_id']))
-    {
+    if (isset($_GET['session_id'])) {
         $paymentService = new PaymentService();
-        Stripe::setApiKey(getenv("STRIPE_KEY"));
+        Stripe::setApiKey(getenv('STRIPE_KEY'));
         $sessionID = $_GET['session_id'];
 
         $session = Session::retrieve($sessionID);
@@ -24,12 +23,12 @@ Route::serve('/success', function () {
         $paymentMethod = PaymentMethod::retrieve($paymentIntent->payment_method);
 
         $order = $paymentService->getOrderBySessionID($sessionID);
-        if(!$order) {
-            echo("Order is not found");
+        if (! $order) {
+            echo 'Order is not found';
         }
 
-        if( $session->payment_status == 'paid'){
-            if($order->getStatus() == Order::ORDER_STATUS_UNPAID){
+        if ($session->payment_status == 'paid') {
+            if ($order->getStatus() == Order::ORDER_STATUS_UNPAID) {
                 $paymentService->updateOrderStatus($sessionID, Order::ORDER_STATUS_PAID);
                 $paymentService->updateTicketsAvailability($order->getOrderUUID());
 
@@ -43,9 +42,9 @@ Route::serve('/success', function () {
                 $line1 = $paymentMethod->billing_details['address']['line1'];
                 $line2 = $paymentMethod->billing_details['address']['line2'] ?? '';
                 $postalCode = $paymentMethod->billing_details['address']['postal_code'];
-                $billingAddress = $line1 . $line2 . ', ' . $city . ', ' . $country . ', ' . $postalCode;
-                $totalAmount = (float)($session->amount_total / 100);
-                $tax = (float)($session->total_details['amount_tax'] / 100);
+                $billingAddress = $line1.$line2.', '.$city.', '.$country.', '.$postalCode;
+                $totalAmount = (float) ($session->amount_total / 100);
+                $tax = (float) ($session->total_details['amount_tax'] / 100);
                 $currency = $session->currency;
 
                 $id = $paymentService->registerPayment($paymentDateTime, $customerName, $email, $phoneNumber, $method, $billingAddress, $totalAmount, $tax, $currency, $order->getOrderUUID());
@@ -57,7 +56,7 @@ Route::serve('/success', function () {
             }
             Route::redirect('/confirm');
         } else {
-            echo "Payment failed.";
+            echo 'Payment failed.';
         }
     } else {
         Route::redirect('/agenda/overview');

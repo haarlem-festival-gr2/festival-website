@@ -5,8 +5,8 @@ namespace service;
 use model\Restaurant;
 use Repository\RestaurantRepository;
 
-require_once __DIR__ . '/../service/BaseService.php';
-require_once __DIR__ . '/../repository/RestaurantRepository.php';
+require_once __DIR__.'/../service/BaseService.php';
+require_once __DIR__.'/../repository/RestaurantRepository.php';
 
 class RestaurantService extends BaseService
 {
@@ -77,7 +77,7 @@ class RestaurantService extends BaseService
     {
         $yummyId = $yummyData['YummyID'];
 
-        if (!$this->repository->yummyExists($yummyId)) {
+        if (! $this->repository->yummyExists($yummyId)) {
             throw new \Exception("Yummy with ID $yummyId not found.");
         }
 
@@ -88,7 +88,7 @@ class RestaurantService extends BaseService
     {
         $restaurantId = $restaurantData['RestaurantID'];
 
-        if (!$this->repository->restaurantExists($restaurantId)) {
+        if (! $this->repository->restaurantExists($restaurantId)) {
             throw new \Exception("Restaurant with ID $restaurantId not found.");
         }
 

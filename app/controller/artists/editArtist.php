@@ -2,17 +2,16 @@
 
 use Core\Route\Method;
 use Core\Route\Route;
-use Service\ImageService;
 use service\JazzService;
 use Service\ValidateInputService;
 
-require_once __DIR__ . '/../../service/JazzService.php';
-require_once __DIR__ . '/../../service/ValidateInputService.php';
+require_once __DIR__.'/../../service/JazzService.php';
+require_once __DIR__.'/../../service/ValidateInputService.php';
 
 $jazzService = new JazzService();
 
-Route::serve('/artists/editArtist', function (array $props) use ($jazzService){
-    if(!isset($props['id'])) {
+Route::serve('/artists/editArtist', function (array $props) use ($jazzService) {
+    if (! isset($props['id'])) {
         Route::redirect('/artists/manageArtists');
     }
 
@@ -24,8 +23,7 @@ Route::serve('/artists/editArtist', function (array $props) use ($jazzService){
     );
 }, Method::GET);
 
-
-Route::serve('/artists/editArtist', function (array $props) use ($jazzService){
+Route::serve('/artists/editArtist', function (array $props) use ($jazzService) {
     $validateInputService = new ValidateInputService();
 
     $id = $props['id'];
@@ -35,7 +33,7 @@ Route::serve('/artists/editArtist', function (array $props) use ($jazzService){
     $validateInputService->checkRequiredFields([$name, $bio]);
     $validateInputService->validateArtistBio($bio);
 
-    $songs  = [$props['song1'], $props['song2'], $props['song3']];
+    $songs = [$props['song1'], $props['song2'], $props['song3']];
     $albums = [$props['album1'], $props['album2'], $props['album3']];
 
     $validateInputService->validateAlbums($albums);

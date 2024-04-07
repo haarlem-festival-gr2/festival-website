@@ -31,18 +31,12 @@ class EventRepository extends BaseRepository
     public function get_yummy_query(): string
     {
         $queryYummyAdult = 'SELECT "YUMMY" as Type,
-            s.SessionID as ID, r.PriceAdult as Price, s.RemainingSeats as TotalTickets, s.StartDateTime, s.EndDateTime,
-            s.Description as Name, r.FoodImg1 as Img, r.Location as Venue
+            s.SessionID as ID, 10 as Price, s.RemainingSeats as TotalTickets, s.StartDateTime, s.EndDateTime,
+            CONCAT(s.Description, " (Reservation)") as Name, r.FoodImg1 as Img, r.Location as Venue
             FROM Session as s
             JOIN Restaurant as r ON s.RestaurantID = r.RestaurantID';
 
-        $queryYummyChild = 'SELECT "CHILD_YUMMY" as Type,
-            s.SessionID as ID, r.PriceChild as Price, s.RemainingSeats as TotalTickets, s.StartDateTime, s.EndDateTime,
-            CONCAT(s.Description, " - Child Ticket") as Name, r.FoodImg1 as Img, r.Location as Venue
-            FROM Session as s
-            JOIN Restaurant as r ON s.RestaurantID = r.RestaurantID';
-
-        $queryYummy = "$queryYummyAdult UNION $queryYummyChild";
+        $queryYummy = "$queryYummyAdult";
 
         return $queryYummy;
     }
@@ -74,8 +68,9 @@ class EventRepository extends BaseRepository
         return "$queryHistorySingle UNION $queryHistoryFour";
     }
 
-    public function get_date_sql(): string {
-        return "StartDateTime >= ? AND EndDateTime <= ?";
+    public function get_date_sql(): string
+    {
+        return 'StartDateTime >= ? AND EndDateTime <= ?';
     }
 
     /**

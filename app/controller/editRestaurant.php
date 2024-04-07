@@ -3,14 +3,14 @@
 use Core\Route\Route;
 use Service\RestaurantService;
 
-require_once __DIR__ . '/../repository/BaseRepository.php';
-require_once __DIR__ . '/../service/RestaurantService.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
+require_once __DIR__.'/../service/RestaurantService.php';
 
 Route::serve('/editRestaurant', function (array $props) {
     $errorMessage = '';
     $restaurant = null;
 
-    if (isset ($_GET['id'])) {
+    if (isset($_GET['id'])) {
         $restaurantID = (int) $_GET['id'];
 
         $restaurantService = new RestaurantService();
@@ -20,6 +20,7 @@ Route::serve('/editRestaurant', function (array $props) {
             Route::render('admin.yummy.editRestaurant', [
                 'restaurant' => $restaurant,
             ]);
+
             return;
         } else {
             $errorMessage = 'Restaurant not found';

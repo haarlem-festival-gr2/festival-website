@@ -21,8 +21,7 @@ Route::serve('/venues/*', function () {
                 Route::redirect('/venues/manageVenues');
                 break;
         }
-    }
-    else{
+    } else {
         Route::redirect('/jazz');
-    }}, Method::ALL);
-
+    }
+}, Method::ALL);

@@ -5,14 +5,12 @@ use Core\Route\Route;
 use service\JazzService;
 use Service\ValidateInputService;
 
-require_once __DIR__ . '/../../service/JazzService.php';
-require_once __DIR__ . '/../../service/ValidateInputService.php';
-
+require_once __DIR__.'/../../service/JazzService.php';
+require_once __DIR__.'/../../service/ValidateInputService.php';
 
 Route::serve('/jazzpasses/createPass', function (array $props) {
     Route::render('admin.jazz.create.pass', []);
 }, Method::GET);
-
 
 Route::serve('/jazzpasses/createPass', function (array $props) {
     $jazzService = new JazzService();
@@ -29,9 +27,8 @@ Route::serve('/jazzpasses/createPass', function (array $props) {
     $validateInputService->checkRequiredFields([$startDate, $endDate]);
     $validateInputService->validateEmptyNumbers([$price, $availableTickets, $totalTickets]);
     $validateInputService->validatePrice($price);
-    $validateInputService->validateDate( $startDate, $endDate);
+    $validateInputService->validateDate($startDate, $endDate);
     $validateInputService->validateTicketFields($availableTickets, $totalTickets);
-
 
     $jazzService->createPass($price, $startDate, $endDate, $note, $availableTickets, $totalTickets);
 

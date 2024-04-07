@@ -5,6 +5,7 @@ namespace Model;
 class LineItem
 {
     public string $EventName;
+
     public int $Quantity;
 
     public float $Price;

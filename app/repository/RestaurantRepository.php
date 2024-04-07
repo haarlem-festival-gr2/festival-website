@@ -5,11 +5,11 @@ namespace repository;
 use Model\Restaurant;
 use PDO;
 
-require_once __DIR__ . '/../repository/BaseRepository.php';
-require_once __DIR__ . '/../model/Restaurant.php';
-require_once __DIR__ . '/../model/Session.php';
-require_once __DIR__ . '/../model/YummyEventDays.php';
-require_once __DIR__ . '/../model/YummyHome.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
+require_once __DIR__.'/../model/Restaurant.php';
+require_once __DIR__.'/../model/Session.php';
+require_once __DIR__.'/../model/YummyEventDays.php';
+require_once __DIR__.'/../model/YummyHome.php';
 
 class RestaurantRepository extends BaseRepository
 {
@@ -166,8 +166,8 @@ class RestaurantRepository extends BaseRepository
             }
 
             // If value is not empty, add to the SQL query and $data[]
-            if (!empty($value)) {
-                $sql .= $key . ' = ?, ';
+            if (! empty($value)) {
+                $sql .= $key.' = ?, ';
                 $data[] = $value;
             }
         }
@@ -180,6 +180,7 @@ class RestaurantRepository extends BaseRepository
         $data[] = $yummyData['YummyID'];
 
         $query = $this->connection->prepare($sql);
+
         return $query->execute($data);
     }
 
@@ -194,8 +195,8 @@ class RestaurantRepository extends BaseRepository
             }
 
             // If value is not empty, add to the SQL query and $data[]
-            if (!empty($value)) {
-                $sql .= $key . ' = ?, ';
+            if (! empty($value)) {
+                $sql .= $key.' = ?, ';
                 $data[] = $value;
             }
         }
@@ -208,6 +209,7 @@ class RestaurantRepository extends BaseRepository
         $data[] = $restaurantData['RestaurantID'];
 
         $query = $this->connection->prepare($sql);
+
         return $query->execute($data);
     }
     //endregion

@@ -6,7 +6,7 @@ use Core\Route\Route;
 use Service\DynPageService;
 
 $service = new DynPageService();
-Route::serve('/admin/*', function($props) use ($service) {
+Route::serve('/admin/*', function ($props) use ($service) {
     if (@Route::auth()->Role !== 'admin') {
         return Route::error(ErrorCode::NOT_FOUND);
     }
@@ -24,7 +24,7 @@ Route::serve('/admin/*', function($props) use ($service) {
                         Route::redirect('/index/edit');
                     } else {
                         http_response_code(403);
-                        echo "403 Forbidden";
+                        echo '403 Forbidden';
                     }
                 }
                 break;
@@ -34,7 +34,7 @@ Route::serve('/admin/*', function($props) use ($service) {
             default:
                 break;
         }
-    } else if ($url === '/admin/addpage') {
+    } elseif ($url === '/admin/addpage') {
         $title = $props['title'];
         $path = $props['path'];
 
@@ -49,12 +49,12 @@ Route::serve('/admin/*', function($props) use ($service) {
 
         if (empty($title) || empty($path)) {
             http_response_code(422);
-            echo "422 Unprocessable Entity";
+            echo '422 Unprocessable Entity';
         }
 
-        if (!$service->newPage($path, $title)) {
+        if (! $service->newPage($path, $title)) {
             http_response_code(500);
-            echo "500 Internal Server Error";
+            echo '500 Internal Server Error';
         } else {
             Route::redirect('/index/edit');
         }

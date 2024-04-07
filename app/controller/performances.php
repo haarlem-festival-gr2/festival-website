@@ -21,9 +21,7 @@ Route::serve('/performances/*', function () {
                 Route::redirect('/performances/managePerformances');
                 break;
         }
-    }
-    else{
+    } else {
         Route::redirect('/jazz');
     }
 }, Method::ALL);
-

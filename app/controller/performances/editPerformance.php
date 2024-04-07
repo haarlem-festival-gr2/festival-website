@@ -5,13 +5,13 @@ use Core\Route\Route;
 use service\JazzService;
 use Service\ValidateInputService;
 
-require_once __DIR__ . '/../../service/JazzService.php';
-require_once __DIR__ . '/../../service/ValidateInputService.php';
+require_once __DIR__.'/../../service/JazzService.php';
+require_once __DIR__.'/../../service/ValidateInputService.php';
 
 $jazzService = new JazzService();
 
 Route::serve('/performances/editPerformance', function (array $props) use ($jazzService) {
-    if(!isset($props['id'])) {
+    if (! isset($props['id'])) {
         Route::redirect('/performances/managePerformances');
     }
 
@@ -26,7 +26,6 @@ Route::serve('/performances/editPerformance', function (array $props) use ($jazz
         'jazzDays' => $jazzDays,
     ]);
 }, Method::GET);
-
 
 Route::serve('/performances/editPerformance', function (array $props) use ($jazzService) {
     $validateInputService = new ValidateInputService();
