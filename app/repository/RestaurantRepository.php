@@ -3,6 +3,7 @@
 namespace repository;
 
 use Model\Restaurant;
+use PDO;
 
 require_once __DIR__ . '/../repository/BaseRepository.php';
 require_once __DIR__ . '/../model/Restaurant.php';
@@ -12,6 +13,7 @@ require_once __DIR__ . '/../model/YummyHome.php';
 
 class RestaurantRepository extends BaseRepository
 {
+    //region Create
     public function createRestaurant(array $restaurantData): bool
     {
         $query = $this->connection->prepare('
@@ -31,12 +33,50 @@ class RestaurantRepository extends BaseRepository
         return $query->execute($data);
     }
 
+    public function createYummyEventDay(array $yummyEventDayData): bool
+    {
+        // Prepare the SQL query with placeholders for the columns to insert
+        $query = $this->connection->prepare('
+        INSERT INTO YummyEventDays (DayID, Date) VALUES (?, ?)
+    ');
+
+        // Extract the values from the $yummyEventDayData array
+        $dayId = $yummyEventDayData['DayID'] ?? null;
+        $date = $yummyEventDayData['Date'] ?? null;
+
+        // Bind the values to the prepared statement
+        $query->bindParam(1, $dayId, PDO::PARAM_INT);
+        $query->bindParam(2, $date, PDO::PARAM_STR);
+
+        // Execute the query
+        return $query->execute();
+    }
+
+
+    public function createSession(array $sessionData): bool
+    {
+        $query = $this->connection->prepare('
+        INSERT INTO Session (
+            SessionID, RestaurantID, DayID, Name, Description, StartDateTime, EndDateTime, TotalSeats, RemainingSeats
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ');
+        $data = [];
+
+        foreach ($sessionData as $key => $value) {
+            $data[] = $value;
+        }
+
+        return $query->execute($data);
+    }
+    //endregion
+
+    //region Read
     public function getAllYummy(): array
     {
         $query = $this->connection->prepare('SELECT * FROM YummyHome');
         $query->execute();
 
-        $yummies = $query->fetchAll(\PDO::FETCH_CLASS, "\Model\YummyHome");
+        $yummies = $query->fetchAll(PDO::FETCH_CLASS, "\Model\YummyHome");
 
         return $yummies;
     }
@@ -46,7 +86,7 @@ class RestaurantRepository extends BaseRepository
         $query = $this->connection->prepare('SELECT * FROM Restaurant');
         $query->execute();
 
-        $restaurants = $query->fetchAll(\PDO::FETCH_CLASS, "\Model\Restaurant");
+        $restaurants = $query->fetchAll(PDO::FETCH_CLASS, "\Model\Restaurant");
 
         return $restaurants;
     }
@@ -56,7 +96,7 @@ class RestaurantRepository extends BaseRepository
         $query = $this->connection->prepare('SELECT * FROM Restaurant WHERE RestaurantID = ?');
         $query->execute([$id]);
 
-        $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\Restaurant");
+        $query->setFetchMode(PDO::FETCH_CLASS, "\Model\Restaurant");
 
         $restaurant = $query->fetch();
 
@@ -75,6 +115,46 @@ class RestaurantRepository extends BaseRepository
         return $query->fetchColumn() > 0;
     }
 
+    public function restaurantExists(int $id): bool
+    {
+        $query = $this->connection->prepare('SELECT COUNT(*) FROM Restaurant WHERE RestaurantID = ?');
+        $query->execute([$id]);
+
+        return $query->fetchColumn() > 0;
+    }
+
+    public function getAllSessions(): array
+    {
+        $query = $this->connection->prepare('SELECT * FROM Session');
+        $query->execute();
+
+        $query->setFetchMode(PDO::FETCH_CLASS, "\Model\Session");
+
+        return $query->fetchAll();
+    }
+
+    public function getSessionsByRestaurantId(int $restaurantId): array
+    {
+        $query = $this->connection->prepare('SELECT * FROM Session WHERE RestaurantID = ?');
+        $query->execute([$restaurantId]);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, "\Model\Session");
+
+        return $query->fetchAll();
+    }
+
+    public function getYummyEventDays(): array
+    {
+        $query = $this->connection->prepare('SELECT * FROM YummyEventDays');
+        $query->execute();
+
+        $yummyEventDays = $query->fetchAll(PDO::FETCH_CLASS, "\Model\YummyEventDays");
+
+        return $yummyEventDays;
+    }
+    //endregion
+
+    //region Update
     public function updateYummy(array $yummyData): bool
     {
         $sql = 'UPDATE YummyHome SET ';
@@ -101,14 +181,6 @@ class RestaurantRepository extends BaseRepository
 
         $query = $this->connection->prepare($sql);
         return $query->execute($data);
-    }
-    
-    public function restaurantExists(int $id): bool
-    {
-        $query = $this->connection->prepare('SELECT COUNT(*) FROM Restaurant WHERE RestaurantID = ?');
-        $query->execute([$id]);
-
-        return $query->fetchColumn() > 0;
     }
 
     public function updateRestaurant(array $restaurantData): bool
@@ -138,8 +210,9 @@ class RestaurantRepository extends BaseRepository
         $query = $this->connection->prepare($sql);
         return $query->execute($data);
     }
+    //endregion
 
-
+    //region Delete
     public function deleteRestaurant(int $id): bool
     {
         $query = $this->connection->prepare('DELETE FROM Restaurant WHERE RestaurantID = ?');
@@ -147,24 +220,5 @@ class RestaurantRepository extends BaseRepository
 
         return $success;
     }
-
-    public function getSessionsByRestaurantId(int $restaurantId): array
-    {
-        $query = $this->connection->prepare('SELECT * FROM Session WHERE RestaurantID = ?');
-        $query->execute([$restaurantId]);
-
-        $query->setFetchMode(\PDO::FETCH_CLASS, "\Model\Session");
-
-        return $query->fetchAll();
-    }
-
-    public function getYummyEventDays(): array
-    {
-        $query = $this->connection->prepare('SELECT * FROM YummyEventDays');
-        $query->execute();
-
-        $yummyEventDays = $query->fetchAll(\PDO::FETCH_CLASS, "\Model\YummyEventDays");
-
-        return $yummyEventDays;
-    }
+    //endregion
 }

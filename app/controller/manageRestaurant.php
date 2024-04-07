@@ -15,10 +15,35 @@ Route::serve('/manageRestaurants', function (array $props) {
 
     if (isset ($props['action'])) {
         $restaurantData = [];
+        // Create ReflectionClass for Restaurant
         $reflectionClass = new ReflectionClass(Restaurant::class);
+        // Get public properties of Restaurant class
         $properties = $reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC);
 
         switch ($props['action']) {
+            case 'create':
+                foreach ($properties as $property) {
+                    if ($property->getName() !== 'RestaurantID') {
+                        $propertyName = $property->getName();
+
+                        if (in_array($propertyName, ['HeaderImg', 'FoodImg1', 'FoodImg2', 'FoodImg3', 'RecipeImg'])) {
+                            if (isset ($_FILES[$propertyName])) {
+                                try {
+                                    $imagePath = $imageService->uploadImage($_FILES[$propertyName], 'yummy');
+                                    $restaurantData[$propertyName] = $imagePath;
+                                } catch (Exception $e) {
+                                    echo 'Error uploading ' . $propertyName . ' image: ' . $e->getMessage();
+                                    return;
+                                }
+                            }
+                        } else {
+                            $restaurantData[$propertyName] = $_POST[$propertyName];
+                        }
+                    }
+                }
+                $restaurantService->createRestaurant($restaurantData);
+                break;
+
             case 'editYummy':
                 foreach ($properties as $property) {
                     $propertyName = $property->getName();
@@ -47,10 +72,8 @@ Route::serve('/manageRestaurants', function (array $props) {
 
                 try {
                     $restaurantService->updateYummy($yummyData);
-                    // Handle success
                 } catch (\Exception $e) {
                     echo 'Error updating yummy: ' . $e->getMessage();
-                    // Handle error
                 }
                 break;
 
@@ -77,29 +100,6 @@ Route::serve('/manageRestaurants', function (array $props) {
                     }
                 }
                 $restaurantService->updateRestaurant($restaurantData);
-                break;
-
-            case 'create':
-                foreach ($properties as $property) {
-                    if ($property->getName() !== 'RestaurantID') {
-                        $propertyName = $property->getName();
-
-                        if (in_array($propertyName, ['HeaderImg', 'FoodImg1', 'FoodImg2', 'FoodImg3', 'RecipeImg'])) {
-                            if (isset ($_FILES[$propertyName])) {
-                                try {
-                                    $imagePath = $imageService->uploadImage($_FILES[$propertyName], 'yummy');
-                                    $restaurantData[$propertyName] = $imagePath;
-                                } catch (Exception $e) {
-                                    echo 'Error uploading ' . $propertyName . ' image: ' . $e->getMessage();
-                                    return;
-                                }
-                            }
-                        } else {
-                            $restaurantData[$propertyName] = $_POST[$propertyName];
-                        }
-                    }
-                }
-                $restaurantService->createRestaurant($restaurantData);
                 break;
 
             case 'delete':

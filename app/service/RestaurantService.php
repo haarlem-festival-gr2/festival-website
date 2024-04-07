@@ -17,11 +17,24 @@ class RestaurantService extends BaseService
         $this->repository = new RestaurantRepository();
     }
 
+    //region Create
     public function createRestaurant(array $restaurantData): bool
     {
         return $this->repository->createRestaurant($restaurantData);
     }
 
+    public function createYummyEventDay(array $yummyEventDayData): bool
+    {
+        return $this->repository->createYummyEventDay($yummyEventDayData);
+    }
+
+    public function createSession(array $sessionData): bool
+    {
+        return $this->repository->createSession($sessionData);
+    }
+    //endregion
+
+    //region Read
     public function getAllYummy(): array
     {
         return $this->repository->getAllYummy();
@@ -30,6 +43,16 @@ class RestaurantService extends BaseService
     public function getAllRestaurants(): array
     {
         return $this->repository->getAllRestaurants();
+    }
+
+    public function getYummyEventDays(): array
+    {
+        return $this->repository->getYummyEventDays();
+    }
+
+    public function getAllSessions(): array
+    {
+        return $this->repository->getAllSessions();
     }
 
     public function getRestaurantById(int $id): ?Restaurant
@@ -43,6 +66,13 @@ class RestaurantService extends BaseService
         }
     }
 
+    public function getSessionsByRestaurantId(int $restaurantId): array
+    {
+        return $this->repository->getSessionsByRestaurantId($restaurantId);
+    }
+    //endregion
+
+    //region Update
     public function updateYummy(array $yummyData): bool
     {
         $yummyId = $yummyData['YummyID'];
@@ -64,19 +94,12 @@ class RestaurantService extends BaseService
 
         return $this->repository->updateRestaurant($restaurantData);
     }
+    //endregion
 
+    //region Delete
     public function deleteRestaurant(int $id): bool
     {
         return $this->repository->deleteRestaurant($id);
     }
-
-    public function getSessionsByRestaurantId(int $restaurantId): array
-    {
-        return $this->repository->getSessionsByRestaurantId($restaurantId);
-    }
-
-    public function getYummyEventDays(): array
-    {
-        return $this->repository->getYummyEventDays();
-    }
+    //endregion
 }
