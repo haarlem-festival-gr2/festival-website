@@ -69,8 +69,6 @@ Route::serve('/manageRestaurants', function (array $props) {
                 }
                 $yummyData['YummyID'] = $_POST['YummyID'] ?? null;
 
-                var_dump($yummyData);
-
                 try {
                     $restaurantService->updateYummy($yummyData);
                 } catch (\Exception $e) {

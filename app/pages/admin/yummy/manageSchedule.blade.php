@@ -70,7 +70,7 @@
                         <h3 class="text-lg leading-6 font-semibold text-gray-900">Create Session</h3>
                     </div>
                     <div class="border-t border-gray-200">
-                        <form action="/manageSchedule" method="POST"
+                        <form action="/editYummyEventDays" method="POST"
                             class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" enctype="multipart/form-data">
                             <input type="hidden" name="action" value="createSession">
                             @foreach ($sessionFields as $fieldName)
@@ -114,9 +114,9 @@
                                 <h3 class="text-lg leading-6 font-semibold text-gray-900">Sessions for
                                     {{ date('l, F Y', strtotime($day->Date)) }}</h3>
                                 <div class="flex justify-end my-2">
-                                    <form action="/manageSchedule" method="POST"
+                                    <form action="/editYummyEventDays" method="POST"
                                         onsubmit="return confirm('Are you sure you want to delete this day?');">
-                                        <input type="hidden" name="action" value="deleteDay">
+                                        <input type="hidden" name="action" value="deleteYummyEventDay">
                                         <input type="hidden" name="DayID" value="{{ $day->DayID }}">
                                         <button type="submit"
                                             class="bg-red-500 hover:bg-red-700 text-white px-3 py-2 rounded text-sm mr-2">Delete
@@ -152,7 +152,7 @@
                                                 @endif
                                             @endforeach
                                             <div class="px-4 py-3 sm:px-6 flex justify-end">
-                                                <form action="/manageSchedule" method="POST"
+                                                <form action="/editYummyEventDays" method="POST"
                                                     onsubmit="return confirm('Are you sure you want to delete this session?');">
                                                     <input type="hidden" name="action" value="deleteSession">
                                                     <input type="hidden" name="SessionID"

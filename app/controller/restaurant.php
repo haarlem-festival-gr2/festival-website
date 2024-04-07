@@ -22,11 +22,11 @@ Route::serve('/restaurant', function (array $props) {
 
     $restaurant = $restaurantService->getRestaurantById($restaurantId);
     $sessions = $restaurantService->getSessionsByRestaurantId($restaurantId);
-    $yummyEventDays = $restaurantService->getYummyEventDays();
+    $yummyEventDays = $restaurantService->getAllYummyEventDays();
 
     $restaurantSessions = [];
     foreach ($yummyEventDays as $yummyEventDay) {
-        $dayOfWeek = date('l', strtotime($yummyEventDay->Date)); // Make more use of models to pass along information / data
+        $dayOfWeek = date('l', strtotime($yummyEventDay->Date));
 
         $sessionsForDay = array_filter($sessions, function ($session) use ($yummyEventDay) {
             return $session->getDayID() === $yummyEventDay->getDayID();

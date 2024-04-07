@@ -5,11 +5,11 @@ namespace repository;
 use Model\Restaurant;
 use PDO;
 
-require_once __DIR__.'/../repository/BaseRepository.php';
-require_once __DIR__.'/../model/Restaurant.php';
-require_once __DIR__.'/../model/Session.php';
-require_once __DIR__.'/../model/YummyEventDays.php';
-require_once __DIR__.'/../model/YummyHome.php';
+require_once __DIR__ . '/../repository/BaseRepository.php';
+require_once __DIR__ . '/../model/Restaurant.php';
+require_once __DIR__ . '/../model/Session.php';
+require_once __DIR__ . '/../model/YummyEventDays.php';
+require_once __DIR__ . '/../model/YummyHome.php';
 
 class RestaurantRepository extends BaseRepository
 {
@@ -57,8 +57,8 @@ class RestaurantRepository extends BaseRepository
     {
         $query = $this->connection->prepare('
         INSERT INTO Session (
-            SessionID, RestaurantID, DayID, Name, Description, StartDateTime, EndDateTime, TotalSeats, RemainingSeats
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            RestaurantID, DayID, Name, Description, StartDateTime, EndDateTime, TotalSeats, RemainingSeats
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ');
         $data = [];
 
@@ -89,6 +89,26 @@ class RestaurantRepository extends BaseRepository
         $restaurants = $query->fetchAll(PDO::FETCH_CLASS, "\Model\Restaurant");
 
         return $restaurants;
+    }
+
+    public function getAllSessions(): array
+    {
+        $query = $this->connection->prepare('SELECT * FROM Session');
+        $query->execute();
+
+        $sessions = $query->fetchAll(PDO::FETCH_CLASS, "\Model\Session");
+
+        return $sessions;
+    }
+
+    public function getAllYummyEventDays(): array
+    {
+        $query = $this->connection->prepare('SELECT * FROM YummyEventDays');
+        $query->execute();
+
+        $yummyEventDays = $query->fetchAll(PDO::FETCH_CLASS, "\Model\YummyEventDays");
+
+        return $yummyEventDays;
     }
 
     public function getRestaurantById(int $id): ?Restaurant
@@ -123,16 +143,6 @@ class RestaurantRepository extends BaseRepository
         return $query->fetchColumn() > 0;
     }
 
-    public function getAllSessions(): array
-    {
-        $query = $this->connection->prepare('SELECT * FROM Session');
-        $query->execute();
-
-        $query->setFetchMode(PDO::FETCH_CLASS, "\Model\Session");
-
-        return $query->fetchAll();
-    }
-
     public function getSessionsByRestaurantId(int $restaurantId): array
     {
         $query = $this->connection->prepare('SELECT * FROM Session WHERE RestaurantID = ?');
@@ -141,16 +151,6 @@ class RestaurantRepository extends BaseRepository
         $query->setFetchMode(PDO::FETCH_CLASS, "\Model\Session");
 
         return $query->fetchAll();
-    }
-
-    public function getYummyEventDays(): array
-    {
-        $query = $this->connection->prepare('SELECT * FROM YummyEventDays');
-        $query->execute();
-
-        $yummyEventDays = $query->fetchAll(PDO::FETCH_CLASS, "\Model\YummyEventDays");
-
-        return $yummyEventDays;
     }
     //endregion
 
@@ -166,8 +166,8 @@ class RestaurantRepository extends BaseRepository
             }
 
             // If value is not empty, add to the SQL query and $data[]
-            if (! empty($value)) {
-                $sql .= $key.' = ?, ';
+            if (!empty($value)) {
+                $sql .= $key . ' = ?, ';
                 $data[] = $value;
             }
         }
@@ -195,8 +195,8 @@ class RestaurantRepository extends BaseRepository
             }
 
             // If value is not empty, add to the SQL query and $data[]
-            if (! empty($value)) {
-                $sql .= $key.' = ?, ';
+            if (!empty($value)) {
+                $sql .= $key . ' = ?, ';
                 $data[] = $value;
             }
         }
@@ -218,6 +218,22 @@ class RestaurantRepository extends BaseRepository
     public function deleteRestaurant(int $id): bool
     {
         $query = $this->connection->prepare('DELETE FROM Restaurant WHERE RestaurantID = ?');
+        $success = $query->execute([$id]);
+
+        return $success;
+    }
+
+    public function deleteYummyEventDay(int $id): bool
+    {
+        $query = $this->connection->prepare('DELETE FROM YummyEventDays WHERE DayID = ?');
+        $success = $query->execute([$id]);
+
+        return $success;
+    }
+
+    public function deleteSession(int $id): bool
+    {
+        $query = $this->connection->prepare('DELETE FROM Session WHERE SessionID = ?');
         $success = $query->execute([$id]);
 
         return $success;

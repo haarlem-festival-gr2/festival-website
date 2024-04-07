@@ -15,7 +15,7 @@ Route::serve('/manageSchedule', function (array $props) {
     $restaurantService = new RestaurantService();
 
     $sessions = $restaurantService->getAllSessions();
-    $yummyEventDays = $restaurantService->getYummyEventDays();
+    $yummyEventDays = $restaurantService->getAllYummyEventDays();
 
     $sessionFields = array_keys(get_class_vars(Session::class));
     $yummyEventDayFields = array_keys(get_class_vars(YummyEventDays::class));
