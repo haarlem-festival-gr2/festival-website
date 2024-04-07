@@ -37,14 +37,14 @@ class JazzService extends BaseService
         return $this->repository->getAllArtists();
     }
 
-    public function updateArtist(int $artistId, string $name, string $bio, ?array $songs, ?array $albums, ?string $headerImg, ?string $artistImg1, ?string $artistImg2, ?string $performanceImg): void
+    public function updateArtist(int $artistId, string $name, string $bio, array $songs, array $albums, ?string $headerImg, ?string $artistImg1, ?string $artistImg2, ?string $performanceImg): void
     {
         $artist = $this->repository->getArtistById($artistId);
 
-        $this->setDefaultSongsAndAlbumsIfEmpty($songs, $albums);
         $this->repository->updateArtist($artistId, $name, $bio, $songs, $albums, $headerImg, $artistImg1, $artistImg2, $performanceImg);
 
-        // delete old images if new were uploaded and if old images aren't placeholders
+        // if the user updated image , delete the old one
+        // if the image is a placeholder don't delete it
         if ($headerImg !== null && $artist->HeaderImg !== '/img/jazz/artists/artistPlaceholder.jpg') {
             $this->imageService->deleteImage($artist->HeaderImg);
         }
@@ -61,8 +61,6 @@ class JazzService extends BaseService
 
     public function createArtist(string $name, string $bio, string $headerImg, string $artistImg1, string $artistImg2, string $performanceImg, array $songs, array $albums): bool
     {
-        $this->setDefaultSongsAndAlbumsIfEmpty($songs, $albums);
-
         return $this->repository->createArtist($name, $bio, $headerImg, $artistImg1, $artistImg2, $performanceImg, $songs, $albums);
     }
 
@@ -85,28 +83,6 @@ class JazzService extends BaseService
             $this->imageService->deleteImage($artist->PerformanceImg);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
-        }
-    }
-
-    private function setDefaultSongsAndAlbumsIfEmpty(array &$songs, array &$albums): void
-    {
-        if ($albums[0] == null) {
-            $albums[0] = '7oBC2PuPSvXkLEZdoCxsv5';
-        }
-        if ($albums[1] == null) {
-            $albums[1] = '18g4jSwIbYcbJI5U7PIzMz';
-        }
-        if ($albums[2] == null) {
-            $albums[2] = '0B7DKUR00yRXncWrlQwIR6';
-        }
-        if ($songs[0] == null) {
-            $songs[0] = '6XQHlsNu6so4PdglFkJQRJ';
-        }
-        if ($songs[1] == null) {
-            $songs[1] = '2VvDKx7lzdarObpQFn1iAh';
-        }
-        if ($songs[2] == null) {
-            $songs[2] = '1otrWVcbCxemNnn7eiKW1P';
         }
     }
 

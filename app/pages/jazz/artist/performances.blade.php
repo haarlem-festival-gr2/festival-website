@@ -19,7 +19,7 @@
             @if ($performance->Price != '0.00')
                 <div class="mt-4 flex justify-center w-full">
                     @if ($performance->AvailableTickets > 0)
-                        <a href="/agenda/purchase?name={{$artist->Name}}" class="p-2 sm:p-3 rounded-md font-semibold uppercase cursor-pointer text-sm sm:text-base w-48 bg-pink-500 text-black">
+                        <a href="/agenda/purchase?name={{$artist->Name}}" class="p-2 sm:p-3 rounded-md font-semibold uppercase cursor-pointer text-sm sm:text-base w-48 bg-pink-500 text-white">
                             Buy Tickets!</a>
                     @else
                         <button class="p-2 sm:p-3 rounded-md font-semibold uppercase cursor-pointer text-sm sm:text-base w-48 bg-red-500 text-white" disabled>

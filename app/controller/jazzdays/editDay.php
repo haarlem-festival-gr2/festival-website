@@ -36,7 +36,7 @@ Route::serve('/jazzdays/editDay', function (array $props) use ($jazzService)    
     $note = $props['note'];
 
     $validateInputService->checkRequiredFields([$date, $venueId]);
-    $imgPath = $validateInputService->handleImageUpload('image', 'jazz');
+    $imgPath = $validateInputService->updateImage('image', 'jazz');
 
     $jazzService->updateJazzDay($dayId, $date, $venueId, $note, $imgPath);
 

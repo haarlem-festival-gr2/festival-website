@@ -34,14 +34,14 @@
     </div>
 
     <div class="p-4 mx-2 my-4 overflow-hidden text-center">
-        <div class="bg-pink-500 p-4 inline-block max-h-[60vh] overflow-hidden rounded-lg">
-            <img src="{{ $artist->ArtistImg2 }}" alt="{{ $artist->Name }}" class="max-h-[50vh] w-auto rounded-lg shadow-lg"/>
+        <div class="bg-pink-500 p-4 inline-block max-h-[70vh] overflow-hidden rounded-lg">
+            <img src="{{ $artist->ArtistImg2 }}" alt="{{ $artist->Name }}" class="max-h-[55vh] w-auto rounded-lg shadow-lg"/>
         </div>
     </div>
 
     <div class="p-4 mx-2 my-4 overflow-hidden text-center">
-        <div class="bg-pink-500 p-4 inline-block max-h-[60vh] overflow-hidden rounded-lg">
-            <img src="{{ $artist->ArtistImg1 }}" alt="{{ $artist->Name }}" class="max-h-[50vh] w-auto rounded-lg shadow-lg "/>
+        <div class="bg-pink-500 p-4 inline-block max-h-[70vh] overflow-hidden rounded-lg">
+            <img src="{{ $artist->ArtistImg1 }}" alt="{{ $artist->Name }}" class="max-h-[55vh] w-auto rounded-lg shadow-lg "/>
         </div>
     </div>
 
