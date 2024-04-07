@@ -1,18 +1,18 @@
 <?php
 
 use Core\Route\Route;
+use Model\HistoryTicket;
 use Repository\HistoryRepository;
 use Service\HistoryService;
-use Model\HistoryTicket;
 
-require_once __DIR__ . '/../repository/HistoryRepository.php';
-require_once __DIR__ . '/../service/HistoryService.php';
-require_once __DIR__ . '/../model/HistoryTicket.php';
+require_once __DIR__.'/../repository/HistoryRepository.php';
+require_once __DIR__.'/../service/HistoryService.php';
+require_once __DIR__.'/../model/HistoryTicket.php';
 
 Route::serve('/editTicketHistory', function (array $props) {
-    if (!isset ($_GET['ticketId'])) {
+    if (! isset($_GET['ticketId'])) {
         header('Location: /errorPage');
-        exit ();
+        exit();
     }
 
     $ticketId = $_GET['ticketId'];
@@ -42,7 +42,6 @@ Route::serve('/editTicketHistory', function (array $props) {
 
     $dayId = (int) $dayId;
 
-
     // Create a new ticket object with updated data
     $ticket = new HistoryTicket();
     $ticket->TourID = $ticketId;
@@ -66,5 +65,3 @@ Route::serve('/editTicketHistory', function (array $props) {
     //     exit ();
     // }
 });
-
-?>

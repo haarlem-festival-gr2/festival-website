@@ -7,12 +7,13 @@ use TCPDF;
 
 class PDFGenerateService
 {
-    private function initializePDF($pdf, string $title, string $subject): void {
+    private function initializePDF($pdf, string $title, string $subject): void
+    {
         $pdf->SetCreator('Haarlem Festival');
         $pdf->SetAuthor('Haarlem Festival');
         $pdf->SetTitle($title);
         $pdf->SetSubject($subject);
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM);
         $pdf->AddPage();
     }
 
@@ -24,6 +25,7 @@ class PDFGenerateService
         $htmlContent = $this->generateHTMLForInvoice($payment, $lineItems);
 
         $pdf->writeHTML($htmlContent, true, false, true, false, '');
+
         return $pdf->Output('', 'S');
     }
 
@@ -49,13 +51,14 @@ class PDFGenerateService
                          </tr>";
         }
         $htmlContent .= '</table>';
-        $htmlContent .= "<p><strong>Total Amount:</strong> " . $payment->getCurrency() . " " . number_format($payment->getTotalAmount(), 2) . "</p>";
-        $htmlContent .= "<p><strong>Tax (included):</strong> " . $payment->getCurrency() . " " . number_format($payment->getTax(), 2) . "</p>";
+        $htmlContent .= '<p><strong>Total Amount:</strong> '.$payment->getCurrency().' '.number_format($payment->getTotalAmount(), 2).'</p>';
+        $htmlContent .= '<p><strong>Tax (included):</strong> '.$payment->getCurrency().' '.number_format($payment->getTax(), 2).'</p>';
 
         return $htmlContent;
     }
 
-    public function generateTickets(array $tickets): string {
+    public function generateTickets(array $tickets): string
+    {
         $pdf = new TCPDF();
         $this->initializePDF($pdf, 'Haarlem Festival Tickets', 'Your Tickets');
 
@@ -66,9 +69,10 @@ class PDFGenerateService
             $qrCodeService = new QRCodeService();
             $qrImageString = $qrCodeService->generateQRCode($ticket->getTicketUUID());
 
-            $pdf->Image('@' . $qrImageString, 150, $pdf->GetY() - 55, 50, 0, 'PNG', '', '', false, 300, '', false, false, 0, false, false, false);
+            $pdf->Image('@'.$qrImageString, 150, $pdf->GetY() - 55, 50, 0, 'PNG', '', '', false, 300, '', false, false, 0, false, false, false);
             $pdf->SetY($pdf->GetY() + 25);
         }
+
         return $pdf->Output('', 'S');
     }
 
@@ -81,6 +85,7 @@ class PDFGenerateService
                         <p>Name: {$ticket->getCustomerName()}</p>
                         <p>Additional Info: {$ticket->getNote()} </p>
                         </div>";
+
         return $htmlContent;
     }
 }

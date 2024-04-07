@@ -4,7 +4,7 @@ use Core\Route\ErrorCode;
 use Core\Route\Route;
 use Service\SoldTicketService;
 
-Route::serve("/scan", function($props) {
+Route::serve('/scan', function ($props) {
     // not authenticated
     $role = @Route::auth()->Role;
     if ($role !== 'admin' && $role !== 'employee') {
@@ -17,7 +17,7 @@ Route::serve("/scan", function($props) {
     $id = @$_GET['id'];
 
     if ($id === null) {
-        echo "Use your camera app to scan tickets";
+        echo 'Use your camera app to scan tickets';
         exit;
     }
 
@@ -40,16 +40,16 @@ Route::serve("/scan", function($props) {
         $endDate = $edt->format('d / m / Y');
         $endTime = $edt->format('H:i');
 
-        echo 'Customer name: ' . $ticket->CustomerName . '<br>';
-        echo 'Event: ' . $ticket->Type . ' - ' . $ticket->EventName . '<br>';
-        echo 'Quantity: ' . $ticket->Quantity . '<br>';
-        echo 'Venue: ' . $ticket->Venue . '<br>';
-        echo 'Start Date: ' . $startDate . '<br>';
-        echo 'Start Time: ' . $startTime . '<br>';
-        echo 'End Date: ' . $endDate . '<br>';
-        echo 'End Time: ' . $endTime . '<br>';
-        echo 'Note: ' . $ticket->Note . '<br>';
+        echo 'Customer name: '.$ticket->CustomerName.'<br>';
+        echo 'Event: '.$ticket->Type.' - '.$ticket->EventName.'<br>';
+        echo 'Quantity: '.$ticket->Quantity.'<br>';
+        echo 'Venue: '.$ticket->Venue.'<br>';
+        echo 'Start Date: '.$startDate.'<br>';
+        echo 'Start Time: '.$startTime.'<br>';
+        echo 'End Date: '.$endDate.'<br>';
+        echo 'End Time: '.$endTime.'<br>';
+        echo 'Note: '.$ticket->Note.'<br>';
     } catch (Exception $e) {
-        echo "TICKET NOT FOUND";
+        echo 'TICKET NOT FOUND';
     }
 });

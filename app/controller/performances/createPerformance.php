@@ -5,8 +5,8 @@ use Core\Route\Route;
 use service\JazzService;
 use Service\ValidateInputService;
 
-require_once __DIR__ . '/../../service/JazzService.php';
-require_once __DIR__ . '/../../service/ValidateInputService.php';
+require_once __DIR__.'/../../service/JazzService.php';
+require_once __DIR__.'/../../service/ValidateInputService.php';
 
 $jazzService = new JazzService();
 
@@ -20,8 +20,7 @@ Route::serve('/performances/createPerformance', function (array $props) use ($ja
     ]);
 }, Method::GET);
 
-
-Route::serve('/performances/createPerformance', function (array $props) use ($jazzService){
+Route::serve('/performances/createPerformance', function (array $props) use ($jazzService) {
     $validateInputService = new ValidateInputService();
 
     $artistId = $props['artist'];
@@ -43,14 +42,3 @@ Route::serve('/performances/createPerformance', function (array $props) use ($ja
 
     Route::redirect('/performances/managePerformances');
 }, Method::POST);
-
-
-
-
-
-
-
-
-
-
-

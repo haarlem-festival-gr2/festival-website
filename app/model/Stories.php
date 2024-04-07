@@ -15,5 +15,4 @@ class Stories
     public $ImagePath;
 
     public $ImageAlt;
-
 }

@@ -5,9 +5,9 @@ namespace Service;
 use Model\HistoryTicket;
 use Repository\HistoryRepository;
 
-require_once __DIR__ . '/../repository/HistoryRepository.php';
+require_once __DIR__.'/../repository/HistoryRepository.php';
 
-require_once __DIR__ . '/../model/HistoryTicket.php';
+require_once __DIR__.'/../model/HistoryTicket.php';
 
 class HistoryService
 {
@@ -62,6 +62,7 @@ class HistoryService
     {
         return $this->historyRepository->getStoriesByDetailPageId($detailPageId);
     }
+
     // Add method to get all detail pages
     public function getAllDetailPages(): array
     {
@@ -100,8 +101,6 @@ class HistoryService
     {
         return $this->historyRepository->getTicketById($ticketId);
     }
-
-
 
     // public function addTicket(string $name, int $tourID, int $dayID, int $languageID, string $startDateTime, string $endDateTime, int $totalTickets): bool
     // {
@@ -142,5 +141,4 @@ class HistoryService
     {
         return $this->historyRepository->deleteTicket($ticketId);
     }
-
 }

@@ -7,15 +7,25 @@ use DateTime;
 class OrderItem
 {
     private int $ItemID;
+
     private string $EventName;
+
     private string $Venue;
+
     private string $StartDateTime;
+
     private string $EndDateTime;
+
     private float $Price;
+
     private int $Quantity;
+
     private string $CustomerName;
+
     private string $EventID;
+
     private string $Type;
+
     private ?string $Note;
 
     public function getType(): string
@@ -78,10 +88,9 @@ class OrderItem
         return new DateTime($this->EndDateTime);
     }
 
-
     public function setStartDateTime($startDateTime): void
     {
-        if (!is_string($startDateTime)) {
+        if (! is_string($startDateTime)) {
             $startDateTime = $startDateTime->format('Y-m-d H:i:s');
         }
         $this->StartDateTime = $startDateTime;
@@ -89,8 +98,9 @@ class OrderItem
 
     public function setEndDateTime($endDateTime): void
     {
-        if (!is_string($endDateTime))
+        if (! is_string($endDateTime)) {
             $endDateTime = $endDateTime->format('Y-m-d H:i:s');
+        }
         $this->EndDateTime = $endDateTime;
     }
 
@@ -111,7 +121,7 @@ class OrderItem
 
     public function getEventIDInt(): int
     {
-        return (int)preg_replace('/\D/', '', $this->EventID);
+        return (int) preg_replace('/\D/', '', $this->EventID);
     }
 
     public function setQuantity(int $Quantity): void
@@ -133,6 +143,7 @@ class OrderItem
     {
         $this->Venue = $venue;
     }
+
     public function getVenue(): string
     {
         return $this->Venue;

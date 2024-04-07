@@ -2,16 +2,20 @@
 
 namespace model;
 
-use DateTime;
-
 class Order
 {
     private string $OrderUUID;
+
     private int $UserID;
+
     private string $SessionID;
+
     private string $Status;
+
     private float $TotalPrice;
+
     private array $OrderItems = [];
+
     private string $DateTime;
 
     public function getOrderUUID(): string
@@ -64,11 +68,13 @@ class Order
         $this->TotalPrice = $TotalPrice;
     }
 
-    public function getDatetime(): string {
+    public function getDatetime(): string
+    {
         return $this->DateTime;
     }
 
-    public function setDatetime(string $Datetime): void {
+    public function setDatetime(string $Datetime): void
+    {
         $this->DateTime = $Datetime;
     }
 
@@ -83,7 +89,6 @@ class Order
     }
 
     const ORDER_STATUS_PAID = 'paid';
+
     const ORDER_STATUS_UNPAID = 'unpaid';
 }
-
-

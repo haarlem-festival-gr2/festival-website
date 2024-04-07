@@ -3,7 +3,7 @@
 use Core\Route\Route;
 use service\HistoryService;
 
-require_once __DIR__ . '/../service/HistoryService.php';
+require_once __DIR__.'/../service/HistoryService.php';
 
 Route::serve('/history', function (array $props) {
     $historyService = new HistoryService();
@@ -13,14 +13,12 @@ Route::serve('/history', function (array $props) {
 
     $dayNames = $historyService->getDayNames();
 
-
     $dayID = 1;
     $ticketsInfo = $historyService->getTicketsByDay($dayID);
 
     $dataGetter = function ($dayID) use ($historyService) {
         return $historyService->getTicketsByDay($dayID);
     };
-
 
     // I get day names from the database
     $historyDays = $historyService->getHistoryDays();
@@ -34,16 +32,15 @@ Route::serve('/history', function (array $props) {
     $date3 = new DateTime($ticketsInfo[2]->StartDateTime);
     $date4 = new DateTime($ticketsInfo[3]->StartDateTime);
 
-
     Route::render('history.history', [
         'firstTicket' => $dataGetter(1),
         'secondTicketDay2' => $dataGetter(2),
         'thirdTicketDay3' => $dataGetter(3),
         'fourthTicketDay4' => $dataGetter(4),
-        'firstTicketDate' => $date1->format("jS F Y"),
-        'secondTicketDate' => $date2->format("jS F Y"),
-        'thirdTicketDate' => $date3->format("jS F Y"),
-        'fourthTicketDate' => $date4->format("jS F Y"),
+        'firstTicketDate' => $date1->format('jS F Y'),
+        'secondTicketDate' => $date2->format('jS F Y'),
+        'thirdTicketDate' => $date3->format('jS F Y'),
+        'fourthTicketDate' => $date4->format('jS F Y'),
         'ticketsInfo' => $ticketsInfo[0],
         'ticketsInfo2' => $ticketsInfo[1],
         'locations' => $locations,

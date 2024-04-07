@@ -12,21 +12,20 @@ use Stripe\Stripe;
 Payment requires authentication - 4000 0025 0000 3155
 Payment is declined - 4000 0000 0000 9995*/
 
-require_once __DIR__ . '/../model/Order.php';
-require_once __DIR__ . '/../model/OrderItem.php';
-require_once __DIR__ . '/../service/PaymentService.php';
-
+require_once __DIR__.'/../model/Order.php';
+require_once __DIR__.'/../model/OrderItem.php';
+require_once __DIR__.'/../service/PaymentService.php';
 
 Route::serve('/payment', function () {
 
     $user = Route::auth();
-    if (!$user) {
+    if (! $user) {
         Route::redirect('/login');
     }
 
     //card is empty
     $cart = $_SESSION['cart'];
-    if(!$cart) {
+    if (! $cart) {
         Route::redirect('/agenda');
     }
 
@@ -39,7 +38,7 @@ Route::serve('/payment', function () {
 
     $lineItems = generateLineItems($orderItems);
 
-    Stripe::setApiKey(getenv("STRIPE_KEY"));
+    Stripe::setApiKey(getenv('STRIPE_KEY'));
     $host = getenv('HOST_ADDR');
     $session = Session::create([
         'mode' => 'payment',
@@ -65,7 +64,7 @@ Route::serve('/payment', function () {
 
 function countQuantity($cart): array
 {
-    if(count($cart) > 99) {
+    if (count($cart) > 99) {
         Route::redirect('/agenda');
     }
     $events = [];
@@ -81,6 +80,7 @@ function countQuantity($cart): array
     if (empty($events)) {
         Route::redirect('/agenda');
     }
+
     return $events;
 }
 
@@ -101,15 +101,16 @@ function createOrderItems($events, $user): array
         $orderItem->setCustomerName($user->Name);
         $orderItem->setEventID($event->getID());
         $orderItem->setType($event->getType());
-        if($event->getType() == 'YUMMY') {
+        if ($event->getType() == 'YUMMY') {
             $orderItem->setNote('This is the reservation fee for the restaurant.');
         }
         $orderItems[] = $orderItem;
         $totalPrice += $orderItem->getPrice() * $orderItem->getQuantity();
     }
+
     return [
         'orderItems' => $orderItems,
-        'totalPrice' => $totalPrice
+        'totalPrice' => $totalPrice,
     ];
 }
 
@@ -125,11 +126,12 @@ function generateLineItems($orderItems): array
                 'unit_amount' => $orderItem->getPrice() * 100, // in cents
                 'product_data' => [
                     'name' => $orderItem->getEventName(),
-                    'description' => $orderItem->getVenue() . (empty($orderItem->getNote()) ? '' : '. ' . $orderItem->getNote()),
+                    'description' => $orderItem->getVenue().(empty($orderItem->getNote()) ? '' : '. '.$orderItem->getNote()),
                 ],
             ],
         ];
     }
+
     return $lineItems;
 }
 
@@ -141,5 +143,6 @@ function createOrder($sessionId, $userId, $orderItems, $totalPrice): Order
     $order->setSessionID($sessionId);
     $order->setOrderItems($orderItems);
     $order->setUserID($userId);
+
     return $order;
 }

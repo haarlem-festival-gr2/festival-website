@@ -1,11 +1,11 @@
 <?php
 
-use Core\Route\Route;
-use service\HistoryService;
-use Model\HistoryTicket;
 use Core\Route\Method;
+use Core\Route\Route;
+use Model\HistoryTicket;
+use service\HistoryService;
 
-require_once __DIR__ . '/../service/HistoryService.php';
+require_once __DIR__.'/../service/HistoryService.php';
 
 Route::serve('/manageHistoryPage', function (array $props) {
     $historyService = new HistoryService();
@@ -21,7 +21,7 @@ Route::serve('/manageHistoryPage', function (array $props) {
     }
 
     // Check if the request method is POST and if the form to add a new ticket was submitted
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset ($_POST['name'], $_POST['tour_id'], $_POST['day_id'], $_POST['language_id'], $_POST['start_date_time'], $_POST['end_date_time'], $_POST['total_tickets'], $_POST['remaining_tickets'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['tour_id'], $_POST['day_id'], $_POST['language_id'], $_POST['start_date_time'], $_POST['end_date_time'], $_POST['total_tickets'], $_POST['remaining_tickets'])) {
         // Create a new ticket object with the form data
         $newTicket = new HistoryTicket();
         $newTicket->Name = $_POST['name'];
@@ -35,7 +35,7 @@ Route::serve('/manageHistoryPage', function (array $props) {
         $newTicket->RemainingTickets = $_POST['remaining_tickets'];
 
         // Add the new ticket to the list of tickets for the corresponding day
-        if (isset ($ticketsByDay[$newTicket->DayID])) {
+        if (isset($ticketsByDay[$newTicket->DayID])) {
             $ticketsByDay[$newTicket->DayID][] = $newTicket;
         } else {
             $ticketsByDay[$newTicket->DayID] = [$newTicket];
@@ -51,13 +51,13 @@ Route::serve('/manageHistoryPage', function (array $props) {
     //     header("Location: /manageHistoryPage");
     //     exit ();
     // }
-    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset ($_GET['deleteTicket'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['deleteTicket'])) {
         $ticketId = $_GET['deleteTicket'];
         $success = $historyService->deleteTicket((int) $ticketId);
 
         // Optionally, you might want to implement some feedback mechanism to the user
         // Redirect back to the same page after deletion
-        header("Location: /manageHistoryPage");
+        header('Location: /manageHistoryPage');
         exit;
     }
 

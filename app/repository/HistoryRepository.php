@@ -2,27 +2,19 @@
 
 namespace Repository;
 
-use Model\HistoryDays;
-use Model\HistoryLanguageType;
-use Model\HistoryTicket;
-use Model\HistoryHome;
 use Model\DetailPage;
-use Model\Locations;
-use Model\Stories;
-
+use Model\HistoryHome;
+use Model\HistoryTicket;
 use PDO;
 
-require_once __DIR__ . '/BaseRepository.php';
-require_once __DIR__ . '/../model/HistoryDays.php';
-require_once __DIR__ . '/../model/HistoryLanguageType.php';
-require_once __DIR__ . '/../model/HistoryTicket.php';
-require_once __DIR__ . '/../model/HistoryHome.php';
-require_once __DIR__ . '/../model/DetailPage.php';
-require_once __DIR__ . '/../model/Locations.php';
-require_once __DIR__ . '/../model/Stories.php';
-
-
-
+require_once __DIR__.'/BaseRepository.php';
+require_once __DIR__.'/../model/HistoryDays.php';
+require_once __DIR__.'/../model/HistoryLanguageType.php';
+require_once __DIR__.'/../model/HistoryTicket.php';
+require_once __DIR__.'/../model/HistoryHome.php';
+require_once __DIR__.'/../model/DetailPage.php';
+require_once __DIR__.'/../model/Locations.php';
+require_once __DIR__.'/../model/Stories.php';
 
 class HistoryRepository extends BaseRepository
 {
@@ -30,6 +22,7 @@ class HistoryRepository extends BaseRepository
     {
         $query = $this->connection->prepare('SELECT * FROM HistoryDays');
         $query->execute();
+
         return $query->fetchAll(PDO::FETCH_CLASS, "\Model\HistoryDays");
     }
 
@@ -37,6 +30,7 @@ class HistoryRepository extends BaseRepository
     {
         $query = $this->connection->prepare('SELECT * FROM HistoryLanguageType');
         $query->execute();
+
         return $query->fetchAll(PDO::FETCH_CLASS, "\Model\HistoryLanguageType");
     }
 
@@ -59,13 +53,13 @@ class HistoryRepository extends BaseRepository
         return $tickets ? $tickets : [];
     }
 
-
     public function getHomeInformation(): ?HistoryHome
     {
         $query = $this->connection->prepare('SELECT * FROM HistoryHome LIMIT 1');
         $query->execute();
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "Model\HistoryHome");
+
         return $query->fetch();
     }
 
@@ -75,6 +69,7 @@ class HistoryRepository extends BaseRepository
         $query->execute();
 
         $query->setFetchMode(\PDO::FETCH_CLASS, "model\Location");
+
         return $query->fetchAll();
     }
 
@@ -82,6 +77,7 @@ class HistoryRepository extends BaseRepository
     {
         $query = $this->connection->prepare('SELECT DayOfTheWeek FROM HistoryDays');
         $query->execute();
+
         return $query->fetchAll(PDO::FETCH_COLUMN);
     }
 
@@ -92,6 +88,7 @@ class HistoryRepository extends BaseRepository
         $query->execute();
 
         $query->setFetchMode(PDO::FETCH_CLASS, "Model\DetailPage");
+
         return $query->fetch();
     }
 
@@ -129,7 +126,7 @@ class HistoryRepository extends BaseRepository
         $query = $this->connection->prepare('UPDATE HistoryTicket SET Name = :name, LanguageID = :languageID, DayID = :dayID, StartDateTime = :startDateTime, EndDateTime = :endDateTime, TotalTickets = :totalTickets, RemainingTickets = :remainingTickets WHERE TourID = :tourID');
         $query->bindValue(':name', $ticket->Name, PDO::PARAM_STR);
         $query->bindValue(':languageID', $ticket->LanguageID, PDO::PARAM_INT);
-        $query->bindValue(':dayID', $ticket->DayID, PDO::PARAM_INT); 
+        $query->bindValue(':dayID', $ticket->DayID, PDO::PARAM_INT);
         $query->bindValue(':startDateTime', $ticket->StartDateTime, PDO::PARAM_STR);
         $query->bindValue(':endDateTime', $ticket->EndDateTime, PDO::PARAM_STR);
         $query->bindValue(':totalTickets', $ticket->TotalTickets, PDO::PARAM_INT);
@@ -146,9 +143,9 @@ class HistoryRepository extends BaseRepository
         $query->execute();
 
         $query->setFetchMode(PDO::FETCH_CLASS, "\Model\HistoryTicket");
+
         return $query->fetch();
     }
-
 
     public function addTicket(HistoryTicket $ticket): bool
     {
@@ -169,10 +166,7 @@ class HistoryRepository extends BaseRepository
     {
         $query = $this->connection->prepare('DELETE FROM HistoryTicket WHERE TourID = :ticketId');
         $query->bindValue(':ticketId', $ticketId, PDO::PARAM_INT);
+
         return $query->execute();
     }
-
 }
-
-
-

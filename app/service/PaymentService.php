@@ -2,7 +2,6 @@
 
 namespace Service;
 
-use Model\Payment;
 use model\Order;
 use Repository\PaymentRepository;
 
@@ -13,7 +12,9 @@ require_once __DIR__.'/../service/EmailService.php';
 class PaymentService extends BaseService
 {
     private PaymentRepository $repository;
+
     private PDFGenerateService $pdfService;
+
     private EmailService $emailService;
 
     public function __construct()
@@ -40,7 +41,7 @@ class PaymentService extends BaseService
         return $this->repository->updateOrderStatus($sessionID, $newStatus);
     }
 
-    public function registerPayment(string $paymentDateTime, string $customerName, string $email, string $phoneNumber, string $paymentMethod, string $billingAddress, float $totalAmount, float $tax,string $currency, string $orderUUID): int
+    public function registerPayment(string $paymentDateTime, string $customerName, string $email, string $phoneNumber, string $paymentMethod, string $billingAddress, float $totalAmount, float $tax, string $currency, string $orderUUID): int
     {
         return $this->repository->registerPayment($paymentDateTime, $customerName, $email, $phoneNumber, $paymentMethod, $billingAddress, $totalAmount, $tax, $currency, $orderUUID);
     }
@@ -79,8 +80,8 @@ class PaymentService extends BaseService
     {
         $orderItems = $this->repository->getOrderItemsByOrderID($orderId);
 
-        foreach($orderItems as $orderItem){
-            switch($orderItem->getType()){
+        foreach ($orderItems as $orderItem) {
+            switch ($orderItem->getType()) {
                 case 'JAZZ':
                     $this->repository->updateJazzTickets($orderItem->getEventIDInt(), $orderItem->getQuantity());
                     break;
@@ -100,5 +101,3 @@ class PaymentService extends BaseService
         }
     }
 }
-
-

@@ -3,7 +3,7 @@
 use Core\Route\Route;
 use Service\HistoryService;
 
-require_once __DIR__ . '/../service/HistoryService.php';
+require_once __DIR__.'/../service/HistoryService.php';
 
 Route::serve('/molenDeAdriaan', function (array $props) {
     $historyService = new HistoryService();
@@ -15,7 +15,7 @@ Route::serve('/molenDeAdriaan', function (array $props) {
 
     $detailPage = $historyService->getDetailPageById($detailPageId);
     $stories = $historyService->getStoriesByDetailPageId($detailPageId);
-    // var_dump($stories); 
+    // var_dump($stories);
 
     $allDetailPages = $historyService->getAllDetailPages();
 
@@ -28,5 +28,5 @@ Route::serve('/molenDeAdriaan', function (array $props) {
     ]);
 
     // Route::serve('/molenDeAdriaan', function (array $props) {
-//     Route::render('history.molenDeAdriaan', []);
+    //     Route::render('history.molenDeAdriaan', []);
 });

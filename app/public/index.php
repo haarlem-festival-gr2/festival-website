@@ -27,7 +27,7 @@ Route::start_router(function (array $routes) {
         if ($ret === false) {
             Route::error(ErrorCode::NOT_FOUND);
         } else {
-            Route::render('main.mainpage_head', ['content' => function() use ($ret) {
+            Route::render('main.mainpage_head', ['content' => function () use ($ret) {
                 echo $ret;
             }]);
         }

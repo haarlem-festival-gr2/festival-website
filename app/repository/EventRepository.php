@@ -68,8 +68,9 @@ class EventRepository extends BaseRepository
         return "$queryHistorySingle UNION $queryHistoryFour";
     }
 
-    public function get_date_sql(): string {
-        return "StartDateTime >= ? AND EndDateTime <= ?";
+    public function get_date_sql(): string
+    {
+        return 'StartDateTime >= ? AND EndDateTime <= ?';
     }
 
     /**

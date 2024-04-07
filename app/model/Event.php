@@ -70,7 +70,6 @@ class Event
     {
         $img = $this->Img;
 
-
         if ($img[0] !== '/') {
             $img = "/$img";
         }

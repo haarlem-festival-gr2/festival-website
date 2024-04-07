@@ -6,7 +6,8 @@ use Service\EventService;
 
 $service = new EventService();
 
-function renderCards(array $eventCards) {
+function renderCards(array $eventCards)
+{
     foreach ($eventCards as $key => $event) {
         $item = Route::render('agenda.event_horiz', [
             'img' => $event->getImg(),
@@ -28,6 +29,7 @@ Route::serve('/agenda/purchase', function ($props) use ($service) {
 
     if (Route::auth() === false) {
         Route::redirect('/login');
+
         return; // just in case, php is weird
     }
 
@@ -36,11 +38,10 @@ Route::serve('/agenda/purchase', function ($props) use ($service) {
         $name = $props['name'];
     }
 
-    $eventCards = $service->getEventsWithFilter([["History", "Jazz", "Yummy"], [25,26,27,28]], $name);
+    $eventCards = $service->getEventsWithFilter([['History', 'Jazz', 'Yummy'], [25, 26, 27, 28]], $name);
     $renderDefault = function () use ($eventCards) {
         renderCards($eventCards);
     };
-
 
     Route::render('agenda.purchase', ['renderDefault' => $renderDefault, 'cart' => []]);
 
@@ -49,6 +50,7 @@ Route::serve('/agenda/purchase', function ($props) use ($service) {
 Route::serve('/agenda/purchase', function ($props) use ($service) {
     if (Route::auth() === false) {
         Route::redirect('/login');
+
         return; // just in case, php is weird
     }
 
@@ -134,7 +136,7 @@ Route::serve('/agenda/purchase', function ($props) use ($service) {
             break;
         default:
             http_response_code(422);
-            echo "422 Unprocessable Entity";
+            echo '422 Unprocessable Entity';
             exit;
             break;
     }

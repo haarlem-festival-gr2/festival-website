@@ -2,16 +2,15 @@
 
 use Core\Route\Method;
 use Core\Route\Route;
-use Service\ImageService;
 use service\JazzService;
 use Service\ValidateInputService;
 
-require_once __DIR__ . '/../../service/JazzService.php';
-require_once __DIR__ . '/../../service/ValidateInputService.php';
+require_once __DIR__.'/../../service/JazzService.php';
+require_once __DIR__.'/../../service/ValidateInputService.php';
 
 $jazzService = new JazzService();
 
-Route::serve('/jazzdays/createDay', function (array $props)use ($jazzService) {
+Route::serve('/jazzdays/createDay', function (array $props) use ($jazzService) {
     $venues = $jazzService->getAllVenues();
 
     Route::render('admin.jazz.create.day', [
@@ -19,8 +18,7 @@ Route::serve('/jazzdays/createDay', function (array $props)use ($jazzService) {
     ]);
 }, Method::GET);
 
-
-Route::serve('/jazzdays/createDay', function (array $props) use ($jazzService)  {
+Route::serve('/jazzdays/createDay', function (array $props) use ($jazzService) {
     $validateInputService = new ValidateInputService();
 
     $date = $props['date'];

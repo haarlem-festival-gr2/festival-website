@@ -67,5 +67,4 @@ class HistoryHome
     public $ContactTitle;
 
     public $ContactSubtitle;
-
 }

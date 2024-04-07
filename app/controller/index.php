@@ -9,7 +9,7 @@ $service = new DynPageService();
 
 Route::serve('/index', function (array $props) use ($service) {
     $user = Route::auth();
-    
+
     $uri = $_SERVER['REQUEST_URI'];
     $uri = explode('?', $uri)[0];
 
@@ -25,10 +25,11 @@ Route::serve('/index', function (array $props) use ($service) {
             }
             $html = $service->getPageFromId($id);
             if ($html === false) {
-                $html = "Edit this page to your liking!";
+                $html = 'Edit this page to your liking!';
             }
 
-            Route::render("admin.edithome", ['current' => $html, 'pages' => $service->getAllPageData(), 'editpageid' => $id]);
+            Route::render('admin.edithome', ['current' => $html, 'pages' => $service->getAllPageData(), 'editpageid' => $id]);
+
             return;
         } else {
             Route::error(ErrorCode::NOT_FOUND);
@@ -36,8 +37,8 @@ Route::serve('/index', function (array $props) use ($service) {
         exit;
     }
 
-    Route::render('main.mainpage_head', ['content' => function() use ($service) {
-        echo $service->getPage("index");
+    Route::render('main.mainpage_head', ['content' => function () use ($service) {
+        echo $service->getPage('index');
     }]);
 });
 
@@ -46,7 +47,7 @@ Route::serve('/index/edit', function (array $props) use ($service) {
 
     $uri = $_SERVER['REQUEST_URI'];
     $uri = explode('?', $uri)[0];
-    if (!($uri === '/index/edit' && $user !== false && $user->Role === 'admin')) {
+    if (! ($uri === '/index/edit' && $user !== false && $user->Role === 'admin')) {
         exit;
     }
     $html = $props['wysiwyg'];

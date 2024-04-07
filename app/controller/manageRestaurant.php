@@ -2,18 +2,18 @@
 
 use Core\Route\Method;
 use Core\Route\Route;
-use Service\RestaurantService;
-use Service\ImageService;
 use model\Restaurant;
+use Service\ImageService;
+use Service\RestaurantService;
 
-require_once __DIR__ . '/../repository/BaseRepository.php';
-require_once __DIR__ . '/../service/RestaurantService.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
+require_once __DIR__.'/../service/RestaurantService.php';
 
 Route::serve('/manageRestaurants', function (array $props) {
     $restaurantService = new RestaurantService();
     $imageService = new ImageService();
 
-    if (isset ($props['action'])) {
+    if (isset($props['action'])) {
         $restaurantData = [];
         $reflectionClass = new ReflectionClass(Restaurant::class);
         $properties = $reflectionClass->getProperties(ReflectionProperty::IS_PUBLIC);
@@ -24,15 +24,16 @@ Route::serve('/manageRestaurants', function (array $props) {
                     $propertyName = $property->getName();
 
                     if (in_array($propertyName, ['HeaderImg', 'FoodImg1', 'FoodImg2', 'FoodImg3', 'FoodImg4', 'FoodImg5'])) {
-                        if (!empty ($_FILES[$propertyName]['tmp_name'])) {
+                        if (! empty($_FILES[$propertyName]['tmp_name'])) {
                             try {
                                 $imagePath = $imageService->uploadImage($_FILES[$propertyName], 'yummy');
                                 $yummyData[$propertyName] = $imagePath;
                             } catch (Exception $e) {
-                                echo 'Error uploading ' . $propertyName . ' image: ' . $e->getMessage();
+                                echo 'Error uploading '.$propertyName.' image: '.$e->getMessage();
+
                                 return;
                             }
-                        } elseif (!empty ($_POST[$propertyName])) {
+                        } elseif (! empty($_POST[$propertyName])) {
                             $yummyData[$propertyName] = $_POST[$propertyName];
                         } else {
                             $yummyData[$propertyName] = null;
@@ -49,7 +50,7 @@ Route::serve('/manageRestaurants', function (array $props) {
                     $restaurantService->updateYummy($yummyData);
                     // Handle success
                 } catch (\Exception $e) {
-                    echo 'Error updating yummy: ' . $e->getMessage();
+                    echo 'Error updating yummy: '.$e->getMessage();
                     // Handle error
                 }
                 break;
@@ -59,15 +60,16 @@ Route::serve('/manageRestaurants', function (array $props) {
                     $propertyName = $property->getName();
 
                     if (in_array($propertyName, ['HeaderImg', 'FoodImg1', 'FoodImg2', 'FoodImg3', 'RecipeImg'])) {
-                        if (!empty ($_FILES[$propertyName]['tmp_name'])) {
+                        if (! empty($_FILES[$propertyName]['tmp_name'])) {
                             try {
                                 $imagePath = $imageService->uploadImage($_FILES[$propertyName], 'yummy');
                                 $restaurantData[$propertyName] = $imagePath;
                             } catch (Exception $e) {
-                                echo 'Error uploading ' . $propertyName . ' image: ' . $e->getMessage();
+                                echo 'Error uploading '.$propertyName.' image: '.$e->getMessage();
+
                                 return;
                             }
-                        } elseif (!empty ($_POST[$propertyName])) {
+                        } elseif (! empty($_POST[$propertyName])) {
                             $restaurantData[$propertyName] = $_POST[$propertyName];
                         } else {
                             $restaurantData[$propertyName] = null;
@@ -85,12 +87,13 @@ Route::serve('/manageRestaurants', function (array $props) {
                         $propertyName = $property->getName();
 
                         if (in_array($propertyName, ['HeaderImg', 'FoodImg1', 'FoodImg2', 'FoodImg3', 'RecipeImg'])) {
-                            if (isset ($_FILES[$propertyName])) {
+                            if (isset($_FILES[$propertyName])) {
                                 try {
                                     $imagePath = $imageService->uploadImage($_FILES[$propertyName], 'yummy');
                                     $restaurantData[$propertyName] = $imagePath;
                                 } catch (Exception $e) {
-                                    echo 'Error uploading ' . $propertyName . ' image: ' . $e->getMessage();
+                                    echo 'Error uploading '.$propertyName.' image: '.$e->getMessage();
+
                                     return;
                                 }
                             }

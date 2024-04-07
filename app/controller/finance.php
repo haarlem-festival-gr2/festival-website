@@ -38,11 +38,11 @@ Route::serve('finance', function ($props) {
     $info = $service->getFiscalInfo();
 
     foreach ($info as &$row) {
-        echo $row['TicketUUID'] . ','
-            . $row['CustomerID'] . ','
-            . $row['OrderItemID'] . ','
-            . $row['EventName'] . ','
-            . $row['Cost'] . "\n";
+        echo $row['TicketUUID'].','
+            .$row['CustomerID'].','
+            .$row['OrderItemID'].','
+            .$row['EventName'].','
+            .$row['Cost']."\n";
     }
 
     echo ",,,Total,=SUM(E2:E9)\n";

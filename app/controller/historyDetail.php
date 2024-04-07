@@ -3,7 +3,7 @@
 use Core\Route\Route;
 use Service\HistoryService;
 
-require_once __DIR__ . '/../service/HistoryService.php';
+require_once __DIR__.'/../service/HistoryService.php';
 
 Route::serve('/deHallen', function (array $props) {
     $historyService = new HistoryService();
@@ -15,7 +15,7 @@ Route::serve('/deHallen', function (array $props) {
 
     if ($id === null) {
         http_response_code(422);
-        echo "422 Unprocessable Entity";
+        echo '422 Unprocessable Entity';
     }
 
     $detailPageId = $id;

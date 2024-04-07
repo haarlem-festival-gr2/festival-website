@@ -1,10 +1,10 @@
 <?php
 
+use Core\Route\Method;
 use Core\Route\Route;
 use Service\HistoryService;
-use Core\Route\Method;
 
-require_once __DIR__ . '/../service/HistoryService.php';
+require_once __DIR__.'/../service/HistoryService.php';
 
 Route::serve('/addTicketHistory', function () {
     $historyService = new HistoryService();
@@ -36,9 +36,9 @@ Route::serve('/addTicketHistory', function () {
 
     if ($success) {
         header('Location: /manageHistoryPage');
-        exit ();
+        exit();
     } else {
-        echo "Failed to add the ticket. Please try again.";
-        exit ();
+        echo 'Failed to add the ticket. Please try again.';
+        exit();
     }
 }, Method::POST);

@@ -9,15 +9,18 @@ class SoldTicketService extends BaseService
 {
     private TicketRepository $repository;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->repository = new TicketRepository();
     }
 
-    public function getByUUID(string $uuid): SoldTicket {
+    public function getByUUID(string $uuid): SoldTicket
+    {
         return $this->repository->get_from_uuid($uuid);
     }
 
-    public function markScanned(SoldTicket $ticket): void {
+    public function markScanned(SoldTicket $ticket): void
+    {
         $this->repository->mark_scanned($ticket->TicketUUID);
     }
 
@@ -26,7 +29,7 @@ class SoldTicketService extends BaseService
         $all = $this->repository->get_all();
 
         $result = [];
-        
+
         foreach ($all as &$ticket) {
             $result[] = [
                 'TicketUUID' => $ticket->TicketUUID,

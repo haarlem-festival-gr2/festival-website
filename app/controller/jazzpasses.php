@@ -25,4 +25,3 @@ Route::serve('/jazzpasses/*', function () {
         Route::redirect('/jazz');
     }
 }, Method::ALL);
-

@@ -2,11 +2,13 @@
 
 namespace Service;
 
-use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
-class EmailService {
+class EmailService
+{
     const TYPE_TICKET = 'ticket';
+
     const TYPE_INVOICE = 'invoice';
 
     public function sendEmail($type, string $attachment, string $email, string $name): void
@@ -25,13 +27,13 @@ class EmailService {
 
             $mail->isHTML(true);
 
-            $mail->SMTPOptions = array(
-                'ssl' => array(
+            $mail->SMTPOptions = [
+                'ssl' => [
                     'verify_peer' => false,
                     'verify_peer_name' => false,
-                    'allow_self_signed' => true
-                )
-            );
+                    'allow_self_signed' => true,
+                ],
+            ];
 
             //$mail->SMTPDebug = 3;
 
@@ -43,7 +45,7 @@ class EmailService {
                     $this->configureInvoiceEmail($mail, $attachment, $email, $name);
                     break;
                 default:
-                    throw new Exception("Invalid email type");
+                    throw new Exception('Invalid email type');
             }
             $mail->send();
             //echo 'Message has been sent';

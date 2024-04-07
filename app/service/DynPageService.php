@@ -7,7 +7,9 @@ use Repository\DynPageRepository;
 class DynPageService extends BaseService
 {
     public DynPageRepository $repository;
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->repository = new DynPageRepository();
     }
 
@@ -45,6 +47,7 @@ class DynPageService extends BaseService
     {
         try {
             $data = $this->repository->set_page($path, $content);
+
             return true;
         } catch (\Exception $e) {
             return false;
@@ -55,6 +58,7 @@ class DynPageService extends BaseService
     {
         try {
             $data = $this->repository->set_page_title($path, $title);
+
             return true;
         } catch (\Exception $e) {
             return false;

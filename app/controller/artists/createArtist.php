@@ -2,17 +2,15 @@
 
 use Core\Route\Method;
 use Core\Route\Route;
-use Service\ImageService;
 use service\JazzService;
 use Service\ValidateInputService;
 
-require_once __DIR__ . '/../../service/JazzService.php';
-require_once __DIR__ . '/../../service/ValidateInputService.php';
+require_once __DIR__.'/../../service/JazzService.php';
+require_once __DIR__.'/../../service/ValidateInputService.php';
 
 Route::serve('/artists/createArtist', function (array $props) {
     Route::render('admin.jazz.create.artist', []);
 }, Method::GET);
-
 
 Route::serve('/artists/createArtist', function (array $props) {
     $jazzService = new JazzService();
@@ -24,7 +22,7 @@ Route::serve('/artists/createArtist', function (array $props) {
     $inputService->checkRequiredFields([$name, $bio]);
     $inputService->validateArtistBio($bio);
 
-    $songs  = [$props['song1'], $props['song2'], $props['song3']];
+    $songs = [$props['song1'], $props['song2'], $props['song3']];
     $albums = [$props['album1'], $props['album2'], $props['album3']];
 
     $inputService->validateAlbums($albums);
@@ -39,4 +37,3 @@ Route::serve('/artists/createArtist', function (array $props) {
 
     Route::redirect('/artists/manageArtists');
 }, Method::POST);
-
