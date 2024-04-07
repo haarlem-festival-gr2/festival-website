@@ -1,12 +1,11 @@
 <div id="cart" hx-swap-oob="beforeend">
-    <form hx-post id="cart-item-{{$key}}">
+    <form hx-post class="p-4" hx-swap="outerHTML">
         <p>{{$title}}</p>
-        <p>{{$id}}</p>
+        <p>€{{$cost}} Each x {{$quantity}} (€{{ $cost * $quantity}})</p>
         <input type="hidden" name="key" value="{{$key}}">
+        <input type="hidden" name="cartkey" value="{{$cartkey}}">
         <div>
-            <input type="submit" name="action" value="Remove all">
-            <input type="submit" name="action" value="Remove one">
-            <input type="submit" name="action" value="Add one">
+            <input class="border border-black p-1 cursor-pointer" type="submit" name="action" value="Remove all">
         </div>
     </form>
 </div>
