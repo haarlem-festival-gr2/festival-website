@@ -362,7 +362,7 @@
             <div class="flex-1">
                 <ul>
                     @foreach ($locations as $location)
-                        <li>{{ $location->Name }}</li>
+                        <li> <a href='/historyDetail?id={{$location->DetailPageID}}'>{{ $location->Name }}</a> </li>
                     @endforeach
             </div>
         </section>
