@@ -30,7 +30,7 @@ class Ticket
     public function getTicketUUID(): string
     {
         // actually, we are gonna set it to be a url
-        return 'http://' . getenv('HOST_ADDR') . '/?id=' . $this->TicketUUID;
+        return 'http://' . getenv('HOST_ADDR') . '/scan?id=' . $this->TicketUUID;
     }
 
     public function setTicketUUID(string $TicketUUID): void
