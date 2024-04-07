@@ -43,6 +43,17 @@ class RestaurantService extends BaseService
         }
     }
 
+    public function updateYummy(array $yummyData): bool
+    {
+        $yummyId = $yummyData['YummyID'];
+
+        if (!$this->repository->yummyExists($yummyId)) {
+            throw new \Exception("Yummy with ID $yummyId not found.");
+        }
+
+        return $this->repository->updateYummy($yummyData);
+    }
+
     public function updateRestaurant(array $restaurantData): bool
     {
         $restaurantId = $restaurantData['RestaurantID'];
@@ -51,7 +62,7 @@ class RestaurantService extends BaseService
             throw new \Exception("Restaurant with ID $restaurantId not found.");
         }
 
-        return $this->repository->updateRestaurant($restaurantId, $restaurantData);
+        return $this->repository->updateRestaurant($restaurantData);
     }
 
     public function deleteRestaurant(int $id): bool

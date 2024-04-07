@@ -121,7 +121,7 @@
     </div>
 </div>
 
-<!-- tickets-->
+<!-- performances and btn-->
 @foreach ($performances as $performance)
     <div class="text-center">
         <div class="flex flex-col bg-pink-200 items-center p-8 m-6">
@@ -140,11 +140,18 @@
             </p>
             @if ($performance->Price != '0.00')
                 <div class="mt-4 flex justify-center w-full">
-                    @include('jazz.addTicket')
+                    @if ($performance->AvailableTickets > 0)
+                        <a href="/agenda/purchase?name={{$artist->Name}}" class="p-3 rounded-md font-semibold uppercase cursor-pointer text-xs w-48 bg-yellow-400 text-black">
+                            Buy Tickets!</a>
+                    @else
+                        <button class="p-3 rounded-md font-semibold uppercase cursor-pointer text-xs w-48 bg-red-500 text-white" disabled>
+                            Sold Out
+                        </button>
+                    @endif
                 </div>
             @else
                 <div class="mt-4 flex justify-center">
-                    <span class="inline-block px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs text-black">
+                    <span class="inline-block p-3 rounded-md font-semibold uppercase cursor-pointer text-xs text-black">
                         For free!
                     </span>
                 </div>

@@ -64,17 +64,25 @@ Route::serve('/payment', function () {
 
 function countQuantity($cart): array
 {
+    if(count($cart) > 99) {
+        Route::redirect('/agenda');
+    }
     $events = [];
     foreach ($cart as $item) {
-        $itemId = $item->getID();
-        if (!isset($events[$itemId])) {
-            $events[$itemId] = [
-                'event' => $item,
-                'quantity' => 1
-            ];
-        } else {
-            $events[$itemId]['quantity']++;
+        if ($item->getPrice() > 0) {
+            $itemId = $item->getID();
+            if (!isset($events[$itemId])) {
+                $events[$itemId] = [
+                    'event' => $item,
+                    'quantity' => 1
+                ];
+            } else {
+                $events[$itemId]['quantity']++;
+            }
         }
+    }
+    if (empty($events)) {
+        Route::redirect('/agenda');
     }
     return $events;
 }

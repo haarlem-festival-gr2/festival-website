@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -13,11 +12,7 @@
 </head>
 <body class="font-montserrat">
 
-<!-- TODO temporary stuff -->
-<p>fix add to program button, disable if tickets are sold out</p>
-
 @include('main.navbar')
-<!-- delete later -->
 
 <!-- header-->
 <div class="relative w-full">
@@ -91,7 +86,14 @@
                         @endif
                     </p>
                     @if ($performance->Price != '0.00')
-                    @include('jazz.addTicket', ['buttonClass' => 'ml-44 mr-[2rem]'])
+                        @if ($performance->AvailableTickets > 0)
+                            <a href="/agenda/purchase?name={{$performance->Artist->Name}}" class="px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs ml-44 mr-[2rem] w-48 bg-yellow-400 text-black block text-center">
+                                Buy Tickets!</a>
+                        @else
+                            <button class="px-3 py-1.5 rounded-md font-semibold uppercase cursor-pointer text-xs w-48 bg-red-500 text-white ml-44 mr-[2rem]" disabled>
+                                Sold Out
+                            </button>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -106,12 +108,19 @@
                         {{ $pass->Note }}<br>
                         Price: €{{ number_format($pass->Price, 2) }}<br>
                     </p>
-                    @include('jazz.addPass')
+                    @if($pass->AvailableTickets > 0)
+                        <a href="/agenda/purchase?name=Jazz day" class="p-3 rounded-md font-semibold uppercase cursor-pointer text-xs ml-44 mr-[2rem] w-48 bg-pink-500 text-white block text-center">
+                            Buy Jazz Pass!
+                        </a>
+                    @else
+                        <button class="p-3 rounded-md font-semibold uppercase cursor-pointer text-xs ml-44 mr-[2rem] w-48 bg-red-500 text-white text-center block" disabled>
+                            Sold Out
+                        </button>
+                    @endif
                 </div>
             </div>
         @endforeach
         <!-- end-->
-
     </div>
 
     <!-- artists-->
@@ -134,7 +143,6 @@
     </div>
     <!-- end-->
 @endforeach
-
 
 @include('main.footer')
 </body>

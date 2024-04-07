@@ -33,7 +33,7 @@ class RestaurantRepository extends BaseRepository
 
     public function getAllYummy(): array
     {
-        $query = $this->connection->prepare('SELECT * FROM YummyHome WHERE YummyID');
+        $query = $this->connection->prepare('SELECT * FROM YummyHome');
         $query->execute();
 
         $yummies = $query->fetchAll(\PDO::FETCH_CLASS, "\Model\YummyHome");
@@ -67,6 +67,42 @@ class RestaurantRepository extends BaseRepository
         return $restaurant;
     }
 
+    public function yummyExists(int $id): bool
+    {
+        $query = $this->connection->prepare('SELECT COUNT(*) FROM YummyHome WHERE YummyID = ?');
+        $query->execute([$id]);
+
+        return $query->fetchColumn() > 0;
+    }
+
+    public function updateYummy(array $yummyData): bool
+    {
+        $sql = 'UPDATE YummyHome SET ';
+        $data = [];
+
+        foreach ($yummyData as $key => $value) {
+            if ($key === 'YummyID') {
+                continue;
+            }
+
+            // If value is not empty, add to the SQL query and $data[]
+            if (!empty($value)) {
+                $sql .= $key . ' = ?, ';
+                $data[] = $value;
+            }
+        }
+
+        // Remove comma and space from SQL query
+        $sql = rtrim($sql, ', ');
+
+        $sql .= ' WHERE YummyID = ?';
+
+        $data[] = $yummyData['YummyID'];
+
+        $query = $this->connection->prepare($sql);
+        return $query->execute($data);
+    }
+    
     public function restaurantExists(int $id): bool
     {
         $query = $this->connection->prepare('SELECT COUNT(*) FROM Restaurant WHERE RestaurantID = ?');
@@ -75,24 +111,34 @@ class RestaurantRepository extends BaseRepository
         return $query->fetchColumn() > 0;
     }
 
-    public function updateRestaurant(int $id, array $restaurantData): bool
+    public function updateRestaurant(array $restaurantData): bool
     {
-        $query = $this->connection->prepare('
-        UPDATE Restaurant SET
-            Title = ?, SubTitle = ?, HeaderImg = ?, HeaderAlt = ?, Category1 = ?, Category2 = ?, Category3 = ?, Location = ?, Stars = ?, FoodImg1 = ?, 
-            FoodAlt1 = ?, FoodImg2 = ?, FoodAlt2 = ?, FoodImg3 = ?, FoodAlt3 = ?, SessionsADay = ?, SessionsDuration = ?, SessionsStartTime = ?, SessionsTotalSeats = ?, 
-            PriceAdult = ?, PriceChild = ?, Recipe = ?, RecipeImg = ?, RecipeAlt = ?, Telephone = ?, Email = ?, ChamberOfCommerce = ?
-        WHERE RestaurantID = ?
-    ');
-
+        $sql = 'UPDATE Restaurant SET ';
         $data = [];
 
-        foreach ($restaurantData as $value) {
-            $data[] = $value;
+        foreach ($restaurantData as $key => $value) {
+            if ($key === 'RestaurantID') {
+                continue;
+            }
+
+            // If value is not empty, add to the SQL query and $data[]
+            if (!empty($value)) {
+                $sql .= $key . ' = ?, ';
+                $data[] = $value;
+            }
         }
 
+        // Remove comma and space from SQL query
+        $sql = rtrim($sql, ', ');
+
+        $sql .= ' WHERE RestaurantID = ?';
+
+        $data[] = $restaurantData['RestaurantID'];
+
+        $query = $this->connection->prepare($sql);
         return $query->execute($data);
     }
+
 
     public function deleteRestaurant(int $id): bool
     {
