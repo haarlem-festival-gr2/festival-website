@@ -54,7 +54,7 @@ class DynPageService extends BaseService
     public function newPage(string $path, string $title): bool
     {
         try {
-            $data = $this->repository->set_page_title($path, '', $title);
+            $data = $this->repository->set_page_title($path, $title);
             return true;
         } catch (\Exception $e) {
             return false;

@@ -55,6 +55,8 @@ Route::serve('/admin/*', function($props) use ($service) {
         if (!$service->newPage($path, $title)) {
             http_response_code(500);
             echo "500 Internal Server Error";
+        } else {
+            Route::redirect('/index/edit');
         }
 
     }

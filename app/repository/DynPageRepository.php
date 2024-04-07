@@ -41,11 +41,11 @@ class DynPageRepository extends BaseRepository
         $query->execute([$content, $path]);
     }
 
-    public function set_page_title(string $path, string $content, string $title): void
+    public function set_page_title(string $path, string $title): void
     {
-        $query = $this->connection->prepare("INSERT INTO DynPages (Content, Path, Title) VALUES (?, ?, ?)
-            ON DUPLICATE KEY UPDATE Content = VALUES(Content)");
-        $query->execute([$content, $path, $title]);
+        $query = $this->connection->prepare("INSERT INTO DynPages (Path, Title) VALUES (?, ?)
+            ON DUPLICATE KEY UPDATE Title = VALUES(Title)");
+        $query->execute([$path, $title]);
     }
 
     public function set_page_id(string $path, string $content): void
