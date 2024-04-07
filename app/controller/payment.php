@@ -140,10 +140,10 @@ function generateLineItems($orderItems): array
 function createOrder($sessionId, $userId, $orderItems, $totalPrice): Order
 {
     $order = new Order();
-    $order->SetStatus(Order::ORDER_STATUS_UNPAID);
-    $order->SetTotalPrice($totalPrice);
-    $order->SetSessionID($sessionId);
+    $order->setStatus(Order::ORDER_STATUS_UNPAID);
+    $order->setTotalPrice($totalPrice);
+    $order->setSessionID($sessionId);
     $order->setOrderItems($orderItems);
-    $order->SetUserID($userId);
+    $order->setUserID($userId);
     return $order;
 }

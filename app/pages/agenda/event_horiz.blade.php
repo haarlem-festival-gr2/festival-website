@@ -21,6 +21,7 @@
     </div>
     <form hx-target="#event-item-{{$key}}" hx-swap="outerHTML" hx-post class="flex flex-col gap-4" hx-vals='{"key": "{{$key}}"}'>
         <input type="submit" name="action" value="Add to Cart" class="cursor-pointer border-black border rounded bg-white px-4">
+        <input class="border border-black p-1 cursor-pointer" type="number" min="1" max="{{$max}}" name="quantity" value="1">
         <!-- <input type="submit" name="action" value="More Info" class="cursor-pointer border-black border rounded bg-white px-4"> -->
     </form>
 </div>
