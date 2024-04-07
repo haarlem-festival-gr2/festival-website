@@ -40,6 +40,7 @@ Route::serve('/payment', function () {
     $lineItems = generateLineItems($orderItems);
 
     Stripe::setApiKey(getenv("STRIPE_KEY"));
+    $host = getenv('HOST_ADDR');
     $session = Session::create([
         'mode' => 'payment',
         'phone_number_collection' => ['enabled' => true],
@@ -51,8 +52,8 @@ Route::serve('/payment', function () {
             ],
             'submit' => ['message' => 'Your tickets will be sent to the provided email address.'],
         ],
-        'success_url' => "http://localhost:8080/success?session_id={CHECKOUT_SESSION_ID}",
-        'cancel_url' => "http://localhost:8080/agenda",
+        'success_url' => "http://$host/success?session_id={CHECKOUT_SESSION_ID}",
+        'cancel_url' => "http://$host/agenda",
         'billing_address_collection' => 'required',
     ]);
 
