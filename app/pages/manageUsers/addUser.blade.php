@@ -11,29 +11,7 @@
 <body class="bg-gray-100">
     <div class="flex h-screen">
         <!-- Admin Panel -->
-        <aside class="w-1/5 bg-gray-200 p-4">
-            <h2 class="text-xl font-bold mb-4">Admin Panel</h2>
-            <ul>
-                <li class="mb-4">
-                    <a href="/manageUsers"
-                        class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg mb-2 text-lg">
-                        View Users
-                    </a>
-                </li>
-                <li class="mb-4">
-                    <a href="#"
-                        class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg mb-2 text-lg">
-                        Add Users
-                    </a>
-                </li>
-                {{-- <li class="mb-4">
-                    <a href="/updateUser"
-                        class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg mb-2 text-lg">
-                        Update Users
-                    </a>
-                </li> --}}
-            </ul>
-        </aside>
+        @include('admin.panel')
 
 
         <!-- Add User Container -->
@@ -76,9 +54,9 @@
                     <div>
                         <button type="submit"
                             class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Submit</button>
-                        <form action="createUser.php" method="POST">
-                            <button type="submit"
-                                class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Cancel</button>
+                        <a href="/manageUsers"
+                            class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">Cancel</a>
+
 
                     </div>
                 </form>

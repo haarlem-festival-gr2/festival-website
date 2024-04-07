@@ -2,10 +2,12 @@
 
 namespace Service;
 
+use Model\HistoryTicket;
 use Repository\HistoryRepository;
 
 require_once __DIR__ . '/../repository/HistoryRepository.php';
 
+require_once __DIR__ . '/../model/HistoryTicket.php';
 
 class HistoryService
 {
@@ -66,6 +68,79 @@ class HistoryService
         return $this->historyRepository->getAllDetailPages();
     }
 
+    // public function updateTicket(HistoryTicket $ticket): bool
+    // {
+    //     return $this->historyRepository->updateTicket($ticket);
+    // }
 
+    // public function updateTicket(int $tourID, string $name, int $languageID, string $startDateTime, string $endDateTime, int $totalTickets, int $remainingTickets): bool
+    // {
+    //     $ticket = new HistoryTicket();
+    //     $ticket->TourID = $tourID;
+    //     $ticket->Name = $name;
+    //     $ticket->LanguageID = $languageID;
+    //     $ticket->StartDateTime = $startDateTime;
+    //     $ticket->EndDateTime = $endDateTime;
+    //     $ticket->TotalTickets = $totalTickets;
+    //     $ticket->RemainingTickets = $remainingTickets;
+
+    //     return $this->historyRepository->updateTicket($ticket);
+    // }
+
+    // public function updateTicket(HistoryTicket $ticket): bool
+    // {
+    //     return $this->historyRepository->updateTicket($ticket);
+    // }
+    public function updateTicket(HistoryTicket $ticket): bool
+    {
+        return $this->historyRepository->updateTicket($ticket);
+    }
+
+    public function getTicketById(int $ticketId): ?HistoryTicket
+    {
+        return $this->historyRepository->getTicketById($ticketId);
+    }
+
+
+
+    // public function addTicket(string $name, int $tourID, int $dayID, int $languageID, string $startDateTime, string $endDateTime, int $totalTickets): bool
+    // {
+    //     $ticket = new HistoryTicket();
+    //     $ticket->Name = $name;
+    //     $ticket->TourID = $tourID;
+    //     $ticket->DayID = $dayID;
+    //     $ticket->LanguageID = $languageID;
+    //     $ticket->StartDateTime = $startDateTime;
+    //     $ticket->EndDateTime = $endDateTime;
+    //     $ticket->TotalTickets = $totalTickets;
+
+    //     return $this->historyRepository->addTicket($ticket);
+    // }
+
+    public function addTicket(string $name, int $tourID, int $dayID, int $languageID, string $startDateTime, string $endDateTime, int $totalTickets, int $remainingTickets): bool
+    {
+        $ticket = new HistoryTicket();
+        $ticket->Name = $name;
+        $ticket->TourID = $tourID;
+        $ticket->DayID = $dayID;
+        $ticket->LanguageID = $languageID;
+        $ticket->StartDateTime = $startDateTime;
+        $ticket->EndDateTime = $endDateTime;
+        $ticket->TotalTickets = $totalTickets;
+
+        $ticket->RemainingTickets = $remainingTickets;
+
+        return $this->historyRepository->addTicket($ticket);
+    }
+
+    // public function deleteTicket(int $ticketId): bool
+    // {
+    //     return $this->historyRepository->deleteTicket($ticketId);
+    // }
+
+    public function deleteTicket(int $ticketId): bool
+    {
+        return $this->historyRepository->deleteTicket($ticketId);
+    }
 
 }
