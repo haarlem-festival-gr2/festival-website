@@ -13,6 +13,7 @@
 
 <body class="font-montserrat">
 
+@include('main.navbar')
 <!-- header-->
 <div class="relative w-full">
     @if ($artist->HeaderImg)
@@ -159,5 +160,8 @@
         </div>
     </div>
 @endforeach
+
+@include('main.footer')
+
 </body>
 </html>
