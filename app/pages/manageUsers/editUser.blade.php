@@ -46,8 +46,9 @@
             <div class="mb-4">
                 <label for="role" class="block mb-2">Role:</label>
                 <select id="role" name="role" class="w-full border rounded-md px-3 py-2" required>
-                    <option value="admin" @if ($userDetails->Role == 'admin') selected @endif>Admin</option>
-                    <option value="user" @if ($userDetails->Role == 'user') selected @endif>User</option>
+                    <option value="admin" @if ($userDetails->Role == 'admin') selected @endif>admin</option>
+                    <option value="user" @if ($userDetails->Role == 'user') selected @endif>user</option>
+                    <option value="employee" @if ($userDetails->Role == 'employee') selected @endif>employee</option>
                 </select>
             </div>
 

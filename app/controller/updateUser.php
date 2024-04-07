@@ -1,16 +1,35 @@
 <?php
 
+use Core\Route\Method;
 use Core\Route\Route;
+use Model\User;
+use Service\UserService;
 
 Route::serve('/updateUser', function (array $props) {
-    Route::render('manageUsers.updateUser', []);
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $userId = $_POST['userId'];
-
-        header("Location: /editUser?userId=$userId");
-        exit;
-    } else {
-        header('Location: /manageUsers');
-        exit;
-    }
+    header('Location: /manageUsers');
+    exit;
 });
+
+Route::serve('/updateUser', function (array $props) {
+    // Route::render('manageUsers.updateUser', []);
+
+    $service = new UserService();
+
+    $userId = $props['userId'];
+    $firstName = $props['firstName'];
+    $username = $props['username'];
+    $email = $props['email'];
+    $role = $props['role'];
+
+    $user = new User();
+
+    $user->UserID = $userId;
+    $user->Name = $firstName;
+    $user->Username = $username;
+    $user->Email = $email;
+    $user->Role = $role;
+
+    $service->updateUser($user);
+
+    header("Location: /editUser?userId=$userId");
+}, Method::POST);
