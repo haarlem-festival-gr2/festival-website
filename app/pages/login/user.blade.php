@@ -24,7 +24,7 @@
         inline-block bg-white border border-black rounded hover:bg-gray-100 h-10 px-4 py-2">View Finance</a>
     <a href="#" class="text-center cursor-pointer 
         inline-block bg-white border border-black rounded hover:bg-gray-100 h-10 px-4 py-2">Dashboard</a>
-    <a href="#" class="text-center cursor-pointer
+    <a href="/index/edit" class="text-center cursor-pointer
         inline-block bg-white border border-black rounded hover:bg-gray-100 h-10 px-4 py-2">Dynamic page editor</a>
     @endif
     @if ($isEmployee)

@@ -7,11 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.tiny.cloud/1/fti0kzn0bxks5cqawp2swwpmujnbumsxor130pj92h845m5m/tinymce/7/tinymce.min.js"
         referrerpolicy="origin"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous">
+        </script>
     <script>
         tinymce.init({
             selector: '#htmledit',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion visualblocks',
+            toolbar: "undo redo | accordion accordionremove | Payment | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | print | pagebreak anchor codesample | ltr rtl",
+            menubar: 'file edit view insert format tools table help',
             tinycomments_mode: 'embedded',
             tinycomments_author: 'Author name',
             mergetags_list: [
@@ -26,19 +31,58 @@
             return a;
         };
     </script>
-    <script src="https://unpkg.com/htmx.org@1.9.10"
-        integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous">
-        </script>
 </head>
 
 <body>
-    <form hx-post hx-target="#out" hx-vals="js:{'wysiwyg': parseHtmlIntoResponse()}" hx-trigger="submit, every 300s">
+    <script>
+        function openDia() {
+            document.getElementById("dialog").showModal();
+        }
+        function closeDia() {
+            document.getElementById("dialog").close();
+        }
+    </script>
+
+    <dialog id="dialog" class="p-4">
+        <button type="button" onclick="closeDia()"
+            class="bg-white-200 border border-black px-4 py-2 m-2 cursor-pointer rounded-2xl font-bold text-lg">
+            Close
+        </button>
+        <form hx-post="/admin/editpage" hx-swap="none">
+            <input type="text" name="title" placeholder="Page Title"
+                class="bg-white-200 border border-black px-4 py-2 m-2 cursor-text rounded-2xl font-bold text-lg">
+            <input type="text" name="path" placeholder="Path"
+                class="bg-white-200 border border-black px-4 py-2 m-2 cursor-text rounded-2xl font-bold text-lg">
+            <input type="submit" value="Add or Edit"
+                class="bg-white-200 border border-black px-4 py-2 m-2 cursor-pointer rounded-2xl font-bold text-lg">
+            </input>
+        </form>
+        <form hx-post="/admin/editpage" hx-swap="none">
+            <select name="pageid"
+                class="bg-white-200 border border-black px-4 py-2 m-2 cursor-pointer rounded-2xl font-bold text-lg">
+                @foreach($pages as $page)
+                <option value="{{$page['ID']}}">{{$page['Title']}} (/{{$page['Path']}})</option>
+                @endforeach
+            </select>
+            <input type="submit" value="Edit this page" name="action"
+                class="bg-white border border-black px-4 py-2 m-2 cursor-pointer rounded-2xl font-bold text-lg">
+            </input>
+            <input type="submit" value="Delete this page" name="action"
+                class="bg-red-200 border border-black px-4 py-2 m-2 cursor-pointer rounded-2xl font-bold text-lg">
+            </input>
+        </form>
+    </dialog>
+
+    <form hx-post hx-target="#out" hx-vals="js:{'wysiwyg': parseHtmlIntoResponse()}" hx-trigger="submit">
         <input type="submit" name="action" value="Save"
-            style="background-color: lightcyan; border: 1 black; padding: 12px; margin-bottom: 12px; cursor: pointer; border-radius: 12px; font-weight: bold; font-size: 16px;">
-        <input type="submit" name="action" value="Load Default"
-            style="background-color: white; border: 1 black; padding: 12px; margin-bottom: 12px; cursor: pointer; border-radius: 12px; font-weight: bold; font-size: 16px;">
+            class="bg-cyan-200 border border-black px-4 py-2 m-2 cursor-pointer rounded-2xl font-bold text-lg">
+        <button type="button" onclick="openDia()"
+            class="bg-white border border-black px-4 py-2 m-2 cursor-pointer rounded-2xl font-bold text-lg">
+            Open management panel
+        </button>
+        <input id="editpageid" type="hidden" name="editpageid" value="{{$editpageid}}">
         <div id="out"></div>
-        <textarea id="htmledit" style="height: calc(100vh - 6rem);">
+        <textarea id="htmledit" style="height: calc(100vh - 9rem);">
             {{$current}}
         </textarea>
     </form>
