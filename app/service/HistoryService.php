@@ -51,6 +51,11 @@ class HistoryService
         return $this->historyRepository->getDetailPageById($id);
     }
 
+    public function getNameFromId(int $id): string
+    {
+        return $this->historyRepository->getNameFromId($id);
+    }
+
     public function getStoriesByDetailPageId($detailPageId)
     {
         return $this->historyRepository->getStoriesByDetailPageId($detailPageId);

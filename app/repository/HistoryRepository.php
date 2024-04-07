@@ -102,5 +102,17 @@ class HistoryRepository extends BaseRepository
         return $query->fetchAll(PDO::FETCH_CLASS, "Model\DetailPage");
     }
 
+    public function getNameFromId(int $id): string
+    {
+        $query = $this->connection->prepare('SELECT Name FROM Locations as l 
+            JOIN DetailPage as d ON l.DetailPageID = d.DetailPageID WHERE l.DetailPageId = ?');
+
+        $query->execute([$id]);
+
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+
+        return $query->fetch()['Name'];
+    }
+
 
 }
