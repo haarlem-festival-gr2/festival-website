@@ -10,7 +10,7 @@ require_once __DIR__ . '/../../service/JazzService.php';
 require_once __DIR__ . '/../../service/ValidateInputService.php';
 
 $jazzService = new JazzService();
- 
+
 Route::serve('/artists/editArtist', function (array $props) use ($jazzService){
     if(!isset($props['id'])) {
         Route::redirect('/artists/manageArtists');
@@ -33,14 +33,18 @@ Route::serve('/artists/editArtist', function (array $props) use ($jazzService){
     $bio = $props['bio'];
 
     $validateInputService->checkRequiredFields([$name, $bio]);
+    $validateInputService->validateArtistBio($bio);
 
-    $songs = [$_POST['song1'] ?? null, $_POST['song2'] ?? null, $_POST['song3'] ?? null];
-    $albums = [$_POST['album1'] ?? null, $_POST['album2'] ?? null, $_POST['album3'] ?? null];
+    $songs  = [$props['song1'], $props['song2'], $props['song3']];
+    $albums = [$props['album1'], $props['album2'], $props['album3']];
 
-    $headerImgPath = $validateInputService->handleImageUpload('header_img', 'jazz/artists');
-    $artistImg1Path = $validateInputService->handleImageUpload('artist_img1', 'jazz/artists');
-    $artistImg2Path = $validateInputService->handleImageUpload('artist_img2', 'jazz/artists');
-    $performanceImgPath = $validateInputService->handleImageUpload('performance_img', 'jazz/performances');
+    $validateInputService->validateAlbums($albums);
+    $validateInputService->validateSongs($songs);
+
+    $headerImgPath = $validateInputService->updateImage('header_img', 'jazz/artists');
+    $artistImg1Path = $validateInputService->updateImage('artist_img1', 'jazz/artists');
+    $artistImg2Path = $validateInputService->updateImage('artist_img2', 'jazz/artists');
+    $performanceImgPath = $validateInputService->updateImage('performance_img', 'jazz/performances');
 
     $jazzService->updateArtist($id, $name, $bio, $songs, $albums, $headerImgPath, $artistImg1Path, $artistImg2Path, $performanceImgPath);
 

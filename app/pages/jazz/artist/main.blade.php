@@ -13,151 +13,78 @@
 
 <body class="font-montserrat">
 
-<!-- header-->
-<div class="relative w-full">
-    @if ($artist->HeaderImg)
-        <img src="{{ $artist->HeaderImg }}" alt="{{ $artist->Name }}" class="w-full"/>
-    @else
-        <!-- remove?-->
-        <p class="text-gray-500">Header Image</p>
-    @endif
+@include('main.navbar')
 
-    <div class="absolute inset-0 flex flex-col justify-center items-center p-8 text-center text-white">
-        <h1 class="text-7xl font-medium mb-2 font-noto-serif uppercase">
-            {{ $artist->Name }}
-        </h1>
-    </div>
+@include('jazz.artist.header')
+
+<div class="text-center pt-6">
+    <h2 class="text-xl sm:text-2xl md:text-4xl font-noto-serif">
+        Biography of {{ $artist->Name }}
+    </h2>
 </div>
 
-<!-- bio with img-->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-    <div class="flex flex-col bg-[#FCC040] p-8 m-10">
-        <div class="text-left mx-auto">
-            @php
-                $bioPart1 = 'Some bio';
-                $bioPart2 = 'Some bio';
-                if($artist->Bio){
-                    $words = explode(' ', $artist->Bio);
-                    $wordsPerPart = ceil(count($words) / 2);
-                    $bioPart1 = implode(' ', array_slice($words, 0, $wordsPerPart));
-                    $bioPart2 = implode(' ', array_slice($words, $wordsPerPart));
-                }
-            @endphp
-            <p class="mt-4 leading-relaxed">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
+
+    <div class="flex flex-col items-center justify-center bg-[#FCC040] p-4 md:p-8 m-8 rounded-lg">
+        <div class="text-left mx-auto overflow-hidden">
+            <p class="leading-relaxed">
                 {{ $bioPart1 }}
             </p>
         </div>
     </div>
-    <div class="p-6 m-4 overflow-hidden text-center">
-        @if($artist->ArtistImg1)
-            <img src="{{ $artist->ArtistImg1 }}" alt="{{ $artist->Name }}"
-                 class="object-contain max-h-80 mx-auto"/>
-        @else
-            <p class="text-gray-500">Image</p>
-        @endif
+
+    <div class="p-4 mx-2 my-4 overflow-hidden text-center">
+        <div class="bg-pink-500 p-4 inline-block max-h-[70vh] overflow-hidden rounded-lg">
+            <img src="{{ $artist->ArtistImg2 }}" alt="{{ $artist->Name }}" class="max-h-[55vh] w-auto rounded-lg shadow-lg"/>
+        </div>
     </div>
-    <div class="p-6 m-4 overflow-hidden text-center">
-        @if($artist->ArtistImg2)
-            <img src="{{ $artist->ArtistImg2 }}" alt="{{ $artist->Name }}"
-                 class="object-contain max-h-80 mx-auto"/>
-        @else
-            <p class="text-gray-500">Image</p>
-        @endif
+
+    <div class="p-4 mx-2 my-4 overflow-hidden text-center">
+        <div class="bg-pink-500 p-4 inline-block max-h-[70vh] overflow-hidden rounded-lg">
+            <img src="{{ $artist->ArtistImg1 }}" alt="{{ $artist->Name }}" class="max-h-[55vh] w-auto rounded-lg shadow-lg "/>
+        </div>
     </div>
-    <div class="flex flex-col p-8 m-10 bg-[#FCC040]">
+
+    <div class="flex flex-col items-center justify-center bg-[#FCC040] p-4 md:p-8 m-8 rounded-lg">
         <div class="text-left mx-auto overflow-hidden">
-            <p class="mt-4 leading-relaxed">
+            <p class="leading-relaxed">
                 {{ $bioPart2 }}
             </p>
         </div>
     </div>
-</div>
 
-<!-- albums-->
-<div class="text-center py-6">
-    <h2 class="text-4xl font-noto-serif">
-        Discover albums of {{ $artist->Name }}!
-    </h2>
 </div>
-<div class="container mx-auto p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        @foreach ($artist->Albums as $album)
-            <div class="p-4">
-                <div class="p-4 text-center bg-pink-200 rounded-lg overflow-hidden cursor-pointer block">
-                    <iframe style="border-radius: 12px"
-                            src="https://open.spotify.com/embed/album/{{ $album }}?utm_source=generator"
-                            width="100%" height="352" allowfullscreen=""
-                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                            loading="lazy">
-                    </iframe>
-                </div>
-            </div>
-        @endforeach
+    <!-- albums-->
+    <div class="text-center py-6">
+        <h2 class="text-3xl md:text-4xl font-noto-serif">
+            Discover albums of {{ $artist->Name }}
+        </h2>
     </div>
-</div>
-
-<!-- songs-->
-<div class="text-center py-6">
-    <h2 class="text-4xl font-noto-serif">
-        Discover most popular songs of {{ $artist->Name }}!
-    </h2>
-</div>
-<div class="container mx-auto p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        @foreach ($artist->Songs as $song)
-            <div class="p-4">
-                <div class="text-center mb-4 md:mb-0">
-                    <div class="p-4 text-center overflow-hidden cursor-pointer block">
-                        <iframe style="border-radius: 12px"
-                                src="https://open.spotify.com/embed/track/{{ $song }}?utm_source=generator"
-                                width="100%" height="352" allowfullscreen=""
-                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                loading="lazy">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-</div>
-
-<!-- performances and btn-->
-@foreach ($performances as $performance)
-    <div class="text-center">
-        <div class="flex flex-col bg-pink-200 items-center p-8 m-6">
-            <p>
-                Come to {{ $performance->Day->Venue->Name }}
-                on {{ date('j F', strtotime($performance->StartDateTime)) }}
-                to enjoy {{ $artist->Name }}'s music!<br/>
-                {{ date('H:i', strtotime($performance->StartDateTime)) }}
-                - {{ date('H:i', strtotime($performance->EndDateTime)) }}
-                @if (trim($performance->Details) !== '')
-                    | {{ $performance->Details }}
-                @endif
-                @if ($performance->Price != '0.00')
-                    - € {{ number_format($performance->Price, 2) }}
-                @endif
-            </p>
-            @if ($performance->Price != '0.00')
-                <div class="mt-4 flex justify-center w-full">
-                    @if ($performance->AvailableTickets > 0)
-                        <a href="/agenda/purchase?name={{$artist->Name}}" class="p-3 rounded-md font-semibold uppercase cursor-pointer text-xs w-48 bg-yellow-400 text-black">
-                            Buy Tickets!</a>
-                    @else
-                        <button class="p-3 rounded-md font-semibold uppercase cursor-pointer text-xs w-48 bg-red-500 text-white" disabled>
-                            Sold Out
-                        </button>
-                    @endif
-                </div>
-            @else
-                <div class="mt-4 flex justify-center">
-                    <span class="inline-block p-3 rounded-md font-semibold uppercase cursor-pointer text-xs text-black">
-                        For free!
-                    </span>
-                </div>
-            @endif
+    <div class="container mx-auto p-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @foreach ($artist->Albums as $album)
+                @include('jazz.artist.albums')
+            @endforeach
         </div>
     </div>
-@endforeach
+
+    <!-- songs-->
+    <div class="text-center py-6">
+        <h2 class="text-3xl font-noto-serif">
+            Discover most popular songs of {{ $artist->Name }}!
+        </h2>
+    </div>
+    <div class="container mx-auto p-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            @foreach ($artist->Songs as $song)
+                @include('jazz.artist.songs')
+            @endforeach
+        </div>
+    </div>
+
+        @include('jazz.artist.performances')
+
+    @include('main.footer')
+
 </body>
 </html>

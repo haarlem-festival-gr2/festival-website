@@ -13,7 +13,9 @@
     <link href="/css/jazzStyles.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100 flex justify-center items-center h-screen font-montserrat">
+<body class="bg-gray-100 font-montserrat">
+@include('main.navbar')
+<div class="flex justify-center items-center h-screen">
 <div class="flex w-full justify-between">
 
     @include('admin.panel')

@@ -22,14 +22,18 @@ Route::serve('/artists/createArtist', function (array $props) {
     $bio = $props['bio'];
 
     $inputService->checkRequiredFields([$name, $bio]);
+    $inputService->validateArtistBio($bio);
 
-    $songs = [$_POST['song1'] ?? null, $_POST['song2'] ?? null, $_POST['song3'] ?? null];
-    $albums = [$_POST['album1'] ?? null, $_POST['album2'] ?? null, $_POST['album3'] ?? null];
+    $songs  = [$props['song1'], $props['song2'], $props['song3']];
+    $albums = [$props['album1'], $props['album2'], $props['album3']];
 
-    $headerImgPath = $inputService->checkAndUploadImage('header_img', 'jazz/artists');
-    $artistImg1Path = $inputService->checkAndUploadImage('artist_img1', 'jazz/artists');
-    $artistImg2Path = $inputService->checkAndUploadImage('artist_img2', 'jazz/artists');
-    $performanceImgPath = $inputService->checkAndUploadImage('performance_img', 'jazz/performances');
+    $inputService->validateAlbums($albums);
+    $inputService->validateSongs($songs);
+
+    $headerImgPath = $inputService->validateAndUploadImage('header_img', 'jazz/artists');
+    $artistImg1Path = $inputService->validateAndUploadImage('artist_img1', 'jazz/artists');
+    $artistImg2Path = $inputService->validateAndUploadImage('artist_img2', 'jazz/artists');
+    $performanceImgPath = $inputService->validateAndUploadImage('performance_img', 'jazz/performances');
 
     $jazzService->createArtist($name, $bio, $headerImgPath, $artistImg1Path, $artistImg2Path, $performanceImgPath, $songs, $albums);
 
