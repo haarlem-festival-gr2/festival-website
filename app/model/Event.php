@@ -45,9 +45,14 @@ class Event
 
     public function getTotalTickets(): int
     {
+        if ($this->Price == 0) {
+            return 1;
+        }
+
         if ($this->Name != 'Jazz Day Pass') {
             return floor($this->TotalTickets * 0.9);
         }
+
         return $this->TotalTickets;
     }
 

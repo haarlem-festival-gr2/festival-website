@@ -130,7 +130,7 @@ Route::serve('/agenda/purchase', function ($props) use ($service) {
             ]);
             break;
         case 'Pay for your cart':
-            echo "H!";
+            Route::redirect('/payment');
             break;
         default:
             http_response_code(422);

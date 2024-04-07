@@ -70,16 +70,12 @@ function countQuantity($cart): array
     }
     $events = [];
     foreach ($cart as $item) {
-        if ($item->getPrice() > 0) {
+        if ($item !== null && $item->getPrice() > 0) {
             $itemId = $item->getID();
-            if (!isset($events[$itemId])) {
-                $events[$itemId] = [
-                    'event' => $item,
-                    'quantity' => 1
-                ];
-            } else {
-                $events[$itemId]['quantity']++;
-            }
+            $events[$itemId] = [
+                'event' => $item,
+                'quantity' => $item->Quantity,
+            ];
         }
     }
     if (empty($events)) {
