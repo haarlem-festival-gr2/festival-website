@@ -13,7 +13,7 @@
     <div class="flex justify-center items-center min-h-screen">
         <div class="w-full max-w-md">
             <h1 class="text-2xl font-bold mb-4">Edit Ticket</h1>
-            <form action="/manageHistoryPage" method="POST">
+            <form action="/editTicketHistory" method="POST">
                 <input type="hidden" name="ticketId" value="{{ $ticket->TourID }}">
                 <div class="mb-4">
                     <label for="name" class="block text-gray-700 font-bold mb-2">Name</label>
@@ -37,13 +37,13 @@
                 </div>
                 <div class="mb-4">
                     <label for="start_date_time" class="block text-gray-700 font-bold mb-2">Start Date Time</label>
-                    <input type="text" id="start_date_time" name="start_date_time"
+                    <input type="datetime-local" id="start_date_time" name="start_date_time"
                         value="{{ date('d-m-Y H:i', strtotime($ticket->StartDateTime)) }}"
                         class="border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                 </div>
                 <div class="mb-4">
                     <label for="end_date_time" class="block text-gray-700 font-bold mb-2">End Date Time</label>
-                    <input type="text" id="end_date_time" name="end_date_time"
+                    <input type="datetime-local" id="end_date_time" name="end_date_time"
                         value="{{ date('d-m-Y H:i', strtotime($ticket->EndDateTime)) }}"
                         class="border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                 </div>
@@ -65,8 +65,9 @@
                     <button type="button" onclick="window.location.href='/manageHistoryPage'"
                         class="bg-gray-400 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Cancel</button>
                 </div>
-
+            </form>
         </div>
+    </div>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 <?php
 
+use Core\Route\Method;
 use Core\Route\Route;
 use Model\HistoryTicket;
 use Repository\HistoryRepository;
@@ -33,7 +34,7 @@ Route::serve('/editTicketHistory', function (array $props) {
     $totalTickets = $_POST['total_tickets'] ?? 0;
     $remainingTickets = $_POST['remaining_tickets'] ?? 0;
 
-    var_dump($_POST);
+    //var_dump($_POST);
 
     $ticketId = (int) $ticketId;
     $languageId = (int) $languageId;
@@ -57,11 +58,11 @@ Route::serve('/editTicketHistory', function (array $props) {
     $historyService = new HistoryService();
     $success = $historyService->updateTicket($ticket);
 
-    // if ($success) {
-    //     header('Location: /manageHistoryPage');
-    //     exit ();
-    // } else {
-    //     header('Location: /ticketUpdateFailed');
-    //     exit ();
-    // }
-});
+     if ($success) {
+         header('Location: /manageHistoryPage');
+         exit ();
+     } else {
+         header('Location: /ticketUpdateFailed');
+         exit ();
+     }
+}, Method::POST);
