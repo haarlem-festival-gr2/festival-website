@@ -30,7 +30,7 @@ Route::serve('/addTicketHistory', function () {
     $endDateTime = $_POST['end_date_time'] ?? '';
     $totalTickets = $_POST['total_tickets'] ?? 0;
 
-    $RemainingTickets = $_POST['remaining'] ?? 0;
+    $RemainingTickets = $_POST['remaining_tickets'] ?? 0;
 
     $success = $historyService->addTicket($name, (int) $tourID, (int) $dayID, (int) $languageID, $startDateTime, $endDateTime, (int) $totalTickets, (int) $RemainingTickets);
 

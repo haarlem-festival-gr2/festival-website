@@ -15,37 +15,37 @@
 
         <div class="mb-4">
             <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-            <input type="text" name="name" id="name" class="mt-1 p-2 w-full border rounded-md">
+            <input type="text" name="name" id="name" required class="mt-1 p-2 w-full border rounded-md">
         </div>
         <div class="mb-4">
             <label for="tour_id" class="block text-sm font-medium text-gray-700">Tour ID</label>
-            <input type="text" name="tour_id" id="tour_id" class="mt-1 p-2 w-full border rounded-md">
+            <input type="text" name="tour_id" id="tour_id" required class="mt-1 p-2 w-full border rounded-md">
         </div>
         <div class="mb-4">
             <label for="day_id" class="block text-sm font-medium text-gray-700">Day ID</label>
-            <input type="text" name="day_id" id="day_id" class="mt-1 p-2 w-full border rounded-md">
+            <input type="text" name="day_id" id="day_id" required class="mt-1 p-2 w-full border rounded-md">
         </div>
         <div class="mb-4">
             <label for="language_id" class="block text-sm font-medium text-gray-700">Language ID</label>
-            <input type="text" name="language_id" id="language_id" class="mt-1 p-2 w-full border rounded-md">
+            <input type="text" name="language_id" id="language_id" required class="mt-1 p-2 w-full border rounded-md">
         </div>
         <div class="mb-4">
             <label for="start_date_time" class="block text-sm font-medium text-gray-700">Start Date Time</label>
             <input type="datetime-local" name="start_date_time" id="start_date_time"
-                class="mt-1 p-2 w-full border rounded-md">
+                required class="mt-1 p-2 w-full border rounded-md">
         </div>
         <div class="mb-4">
             <label for="end_date_time" class="block text-sm font-medium text-gray-700">End Date Time</label>
             <input type="datetime-local" name="end_date_time" id="end_date_time"
-                class="mt-1 p-2 w-full border rounded-md">
+                required class="mt-1 p-2 w-full border rounded-md">
         </div>
         <div class="mb-4">
             <label for="total_seats" class="block text-sm font-medium text-gray-700">Total Tickets</label>
-            <input type="number" name="total_tickets" id="total_tickets" class="mt-1 p-2 w-full border rounded-md">
+            <input type="number" name="total_tickets" id="total_tickets" required class="mt-1 p-2 w-full border rounded-md">
         </div>
         <div class="mb-4">
             <label for="total_seats" class="block text-sm font-medium text-gray-700">Remaining Tickets</label>
-            <input type="number" name="remaining_tickets" id="total_tickets" class="mt-1 p-2 w-full border rounded-md">
+            <input type="number" name="remaining_tickets" id="total_tickets" required class="mt-1 p-2 w-full border rounded-md">
         </div>
         <div class="flex justify-end">
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
