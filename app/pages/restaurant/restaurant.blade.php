@@ -139,10 +139,10 @@
                         </button>
                     </div>
                     <div class="col-span-1 flex justify-center">
-                        <button type="button"
+                        <a href="/agenda/purchase?name={{ $restaurant->Title }}"
                             class="bg-pink-500 hover:bg-pink-600 text-white text-3xl font-bold py-4 px-16 rounded-3xl focus:outline-none focus:shadow-outline">
                             Reserve Now
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

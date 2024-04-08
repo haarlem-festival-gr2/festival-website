@@ -10,7 +10,6 @@
     <script>
         function confirmDelete(userId) {
             if (confirm("Are you sure you want to delete this user?")) {
-                // If user confirms, redirect to delete user endpoint passing the userId
                 window.location.href = "/deleteUser?userId=" + userId;
             }
         }

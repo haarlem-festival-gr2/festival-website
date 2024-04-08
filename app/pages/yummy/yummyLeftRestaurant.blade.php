@@ -58,10 +58,9 @@
         <!-- Buttons -->
         <div class="bg-pink-400 md:h-32 h-40">
             <div class="flex justify-center items-center md:h-full h-auto">
-                <a href="/restaurant"
+                <a href="/agenda/purchase?name={{ $name }}"
                     class="button rounded-full text-4xl md:text-5xl mx-4 md:mx-16 mt-4 text-center">Make
                     Reservation!</a>
-                <!-- Replace with Reservation -->
                 <a href="/restaurant?restaurant_id={{ $restaurantID }}"
                     class="button rounded-full text-4xl md:text-5xl mx-4 md:mx-16 mt-4 text-center">More Information</a>
             </div>
