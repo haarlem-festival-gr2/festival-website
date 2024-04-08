@@ -19,6 +19,8 @@
 </head>
 
 <body class="font-open-sans bg-amber-100 text-black">
+    @include('main.navbar')
+
     <section>
         <!-- Header -->
         @include('restaurant.restaurantHeader', [
