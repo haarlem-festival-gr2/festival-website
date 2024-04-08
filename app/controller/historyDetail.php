@@ -5,7 +5,7 @@ use Service\HistoryService;
 
 require_once __DIR__.'/../service/HistoryService.php';
 
-Route::serve('/deHallen', function (array $props) {
+Route::serve('/historyDetail', function (array $props) {
     $historyService = new HistoryService();
 
     $homeInfo = $historyService->getHomeInformation();
