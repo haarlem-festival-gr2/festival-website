@@ -129,6 +129,38 @@ class RestaurantRepository extends BaseRepository
         return $restaurant;
     }
 
+    public function getYummyEventDayById(int $id): ?YummyEventDays
+    {
+        $query = $this->connection->prepare('SELECT * FROM YummyEventDays WHERE DayID = ?');
+        $query->execute([$id]);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, "\Model\YummyEventDays");
+
+        $yummyEventDay = $query->fetch();
+
+        if ($yummyEventDay === false) {
+            return null;
+        }
+
+        return $yummyEventDay;
+    }
+
+    public function getSessionById(int $id): ?Session
+    {
+        $query = $this->connection->prepare('SELECT * FROM Session WHERE SessionID = ?');
+        $query->execute([$id]);
+
+        $query->setFetchMode(PDO::FETCH_CLASS, "\Model\Session");
+
+        $session = $query->fetch();
+
+        if ($session === false) {
+            return null;
+        }
+
+        return $session;
+    }
+
     public function yummyExists(int $id): bool
     {
         $query = $this->connection->prepare('SELECT COUNT(*) FROM YummyHome WHERE YummyID = ?');
