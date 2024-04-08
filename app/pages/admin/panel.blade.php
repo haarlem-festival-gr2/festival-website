@@ -2,6 +2,12 @@
     <h1 class="text-xl font-bold mb-4">Admin Panel</h1>
     <ul>
         <li class="mb-4">
+            <a href="/"
+               class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg mb-2 text-md">
+                Home Page
+            </a>
+        </li>
+        <li class="mb-4">
             <a href="/manageUsers"
                 class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg mb-2 text-md">
                 Manage Users

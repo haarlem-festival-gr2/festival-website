@@ -15,7 +15,6 @@
 
 
 <body class="bg-gray-100 font-montserrat">
-@include('main.navbar')
 <div class="flex justify-center items-center h-screen">
 
 <div class="flex w-full justify-between">
@@ -64,6 +63,6 @@
         </div>
     </section>
 </div>
-
+</div>
 </body>
 </html>
