@@ -3,6 +3,8 @@
 namespace service;
 
 use model\Restaurant;
+use model\YummyEventDays;
+use model\Session;
 use Repository\RestaurantRepository;
 
 require_once __DIR__ . '/../service/BaseService.php';
@@ -58,12 +60,16 @@ class RestaurantService extends BaseService
     public function getRestaurantById(int $id): ?Restaurant
     {
         return $this->repository->getRestaurantById($id);
+    }
 
-        if ($restaurant) {
-            return $restaurant;
-        } else {
-            return null;
-        }
+    public function getYummyEventDayById(int $id): ?YummyEventDays
+    {
+        return $this->repository->getYummyEventDayById($id);
+    }
+
+    public function getSessionById(int $id): ?Session
+    {
+        return $this->repository->getSessionById($id);
     }
 
     public function getSessionsByRestaurantId(int $restaurantId): array
@@ -83,7 +89,7 @@ class RestaurantService extends BaseService
 
         return $this->repository->updateYummy($yummyData);
     }
-
+    
     public function updateRestaurant(array $restaurantData): bool
     {
         $restaurantId = $restaurantData['RestaurantID'];
@@ -93,6 +99,28 @@ class RestaurantService extends BaseService
         }
 
         return $this->repository->updateRestaurant($restaurantData);
+    }
+
+    public function updateYummyEventDay(array $yummyEventDayData): bool
+    {
+        $dayId = $yummyEventDayData['DayID'];
+
+        if (!$this->repository->yummyEventDayExists($dayId)) {
+            throw new \Exception("Yummy Event Day with ID $dayId not found.");
+        }
+
+        return $this->repository->updateYummyEventDay($yummyEventDayData);
+    }
+
+    public function updateSession(array $sessionData): bool
+    {
+        $sessionId = $sessionData['SessionID'];
+
+        if (!$this->repository->sessionExists($sessionId)) {
+            throw new \Exception("Session with ID $sessionId not found.");
+        }
+
+        return $this->repository->updateSession($sessionData);
     }
     //endregion
 

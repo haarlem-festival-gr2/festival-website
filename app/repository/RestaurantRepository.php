@@ -3,6 +3,8 @@
 namespace repository;
 
 use Model\Restaurant;
+use Model\YummyEventDays;
+use Model\Session;
 use PDO;
 
 require_once __DIR__ . '/../repository/BaseRepository.php';
@@ -143,6 +145,22 @@ class RestaurantRepository extends BaseRepository
         return $query->fetchColumn() > 0;
     }
 
+    public function yummyEventDayExists(int $id): bool
+    {
+        $query = $this->connection->prepare('SELECT COUNT(*) FROM YummyEventDays WHERE DayID = ?');
+        $query->execute([$id]);
+
+        return $query->fetchColumn() > 0;
+    }
+
+    public function sessionExists(int $id): bool
+    {
+        $query = $this->connection->prepare('SELECT COUNT(*) FROM Session WHERE SessionID = ?');
+        $query->execute([$id]);
+
+        return $query->fetchColumn() > 0;
+    }
+
     public function getSessionsByRestaurantId(int $restaurantId): array
     {
         $query = $this->connection->prepare('SELECT * FROM Session WHERE RestaurantID = ?');
@@ -207,6 +225,64 @@ class RestaurantRepository extends BaseRepository
         $sql .= ' WHERE RestaurantID = ?';
 
         $data[] = $restaurantData['RestaurantID'];
+
+        $query = $this->connection->prepare($sql);
+
+        return $query->execute($data);
+    }
+
+    public function updateYummyEventDay(array $yummyEventDayData): bool
+    {
+        $sql = 'UPDATE YummyEventDays SET ';
+        $data = [];
+
+        foreach ($yummyEventDayData as $key => $value) {
+            if ($key === 'DayID') {
+                continue;
+            }
+
+            // If value is not empty, add to the SQL query and $data[]
+            if (!empty($value)) {
+                $sql .= $key . ' = ?, ';
+                $data[] = $value;
+            }
+        }
+
+        // Remove comma and space from SQL query
+        $sql = rtrim($sql, ', ');
+
+        $sql .= ' WHERE DayID = ?';
+
+        $data[] = $yummyEventDayData['DayID'];
+
+        $query = $this->connection->prepare($sql);
+
+        return $query->execute($data);
+    }
+
+    public function updateSession(array $sessionData): bool
+    {
+        $sql = 'UPDATE Session SET ';
+        $data = [];
+
+        foreach ($sessionData as $key => $value) {
+            if ($key === 'SessionID') {
+                continue;
+            }
+
+            // If value is not empty, add to the SQL query and $data[]
+            if (!empty($value)) {
+                $sql .= $key . ' = ?, ';
+                $data[] = $value;
+            }
+        }
+
+        // Remove comma and space from SQL query
+        $sql = rtrim($sql, ', ');
+
+        $sql .= ' WHERE SessionID = ?';
+
+        $data[] = $sessionData['SessionID'];
 
         $query = $this->connection->prepare($sql);
 

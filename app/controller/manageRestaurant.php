@@ -6,14 +6,14 @@ use model\Restaurant;
 use Service\ImageService;
 use Service\RestaurantService;
 
-require_once __DIR__.'/../repository/BaseRepository.php';
-require_once __DIR__.'/../service/RestaurantService.php';
+require_once __DIR__ . '/../repository/BaseRepository.php';
+require_once __DIR__ . '/../service/RestaurantService.php';
 
 Route::serve('/manageRestaurants', function (array $props) {
     $restaurantService = new RestaurantService();
     $imageService = new ImageService();
 
-    if (isset($props['action'])) {
+    if (isset ($props['action'])) {
         $restaurantData = [];
         // Create ReflectionClass for Restaurant
         $reflectionClass = new ReflectionClass(Restaurant::class);
@@ -49,16 +49,16 @@ Route::serve('/manageRestaurants', function (array $props) {
                     $propertyName = $property->getName();
 
                     if (in_array($propertyName, ['HeaderImg', 'FoodImg1', 'FoodImg2', 'FoodImg3', 'FoodImg4', 'FoodImg5'])) {
-                        if (! empty($_FILES[$propertyName]['tmp_name'])) {
+                        if (!empty ($_FILES[$propertyName]['tmp_name'])) {
                             try {
                                 $imagePath = $imageService->uploadImage($_FILES[$propertyName], 'yummy');
                                 $yummyData[$propertyName] = $imagePath;
                             } catch (Exception $e) {
-                                echo 'Error uploading '.$propertyName.' image: '.$e->getMessage();
+                                echo 'Error uploading ' . $propertyName . ' image: ' . $e->getMessage();
 
                                 return;
                             }
-                        } elseif (! empty($_POST[$propertyName])) {
+                        } elseif (!empty ($_POST[$propertyName])) {
                             $yummyData[$propertyName] = $_POST[$propertyName];
                         } else {
                             $yummyData[$propertyName] = null;
@@ -72,7 +72,7 @@ Route::serve('/manageRestaurants', function (array $props) {
                 try {
                     $restaurantService->updateYummy($yummyData);
                 } catch (\Exception $e) {
-                    echo 'Error updating yummy: ' . $e->getMessage();
+                    echo 'Error updating Yummy: ' . $e->getMessage();
                 }
                 break;
 
@@ -81,16 +81,16 @@ Route::serve('/manageRestaurants', function (array $props) {
                     $propertyName = $property->getName();
 
                     if (in_array($propertyName, ['HeaderImg', 'FoodImg1', 'FoodImg2', 'FoodImg3', 'RecipeImg'])) {
-                        if (! empty($_FILES[$propertyName]['tmp_name'])) {
+                        if (!empty ($_FILES[$propertyName]['tmp_name'])) {
                             try {
                                 $imagePath = $imageService->uploadImage($_FILES[$propertyName], 'yummy');
                                 $restaurantData[$propertyName] = $imagePath;
                             } catch (Exception $e) {
-                                echo 'Error uploading '.$propertyName.' image: '.$e->getMessage();
+                                echo 'Error uploading ' . $propertyName . ' image: ' . $e->getMessage();
 
                                 return;
                             }
-                        } elseif (! empty($_POST[$propertyName])) {
+                        } elseif (!empty ($_POST[$propertyName])) {
                             $restaurantData[$propertyName] = $_POST[$propertyName];
                         } else {
                             $restaurantData[$propertyName] = null;
@@ -99,11 +99,19 @@ Route::serve('/manageRestaurants', function (array $props) {
                         $restaurantData[$propertyName] = $_POST[$propertyName] ?? null;
                     }
                 }
-                $restaurantService->updateRestaurant($restaurantData);
+                try {
+                    $restaurantService->updateRestaurant($restaurantData);
+                } catch (\Exception $e) {
+                    echo 'Error editing Restaurant: ' . $e->getMessage();
+                }
                 break;
 
             case 'delete':
-                $restaurantService->deleteRestaurant($props['RestaurantID']);
+                try {
+                    $restaurantService->deleteRestaurant($props['RestaurantID']);
+                } catch (\Exception $e) {
+                    echo 'Error deleting Restaurant: ' . $e->getMessage();
+                }
                 break;
         }
     }

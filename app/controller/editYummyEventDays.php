@@ -22,7 +22,6 @@ Route::serve('/manageYummyEventDays', function (array $props) {
 
         switch ($props['action']) {
             case 'createSession':
-                $sessionData = [];
                 foreach ($sessionProperties as $property) {
                     if ($property->getName() !== 'SessionID') {
                         $propertyName = $property->getName();
@@ -38,7 +37,6 @@ Route::serve('/manageYummyEventDays', function (array $props) {
 
                 break;
             case 'createYummyEventDay':
-                $yummyEventDayData = [];
                 foreach ($yummyEventDayProperties as $property) {
                     if ($property->getName() !== 'DayID') {
                         $propertyName = $property->getName();
@@ -51,12 +49,45 @@ Route::serve('/manageYummyEventDays', function (array $props) {
                 $restaurantService->createYummyEventDay($yummyEventDayData);
                 break;
 
+            case 'editSession':
+                foreach ($sessionProperties as $property) {
+                    $propertyName = $property->getName();
+                    $sessionData[$propertyName] = $_POST[$propertyName] ?? null;
+                }
+                try {
+                    $restaurantService->updateSession($sessionData);
+                } catch (\Exception $e) {
+                    echo 'Error editing Session: ' . $e->getMessage();
+                }
+                break;
+
+
+            case 'editYummyEventDay':
+                foreach ($yummyEventDayProperties as $property) {
+                    $propertyName = $property->getName();
+                    $yummyEventDayData[$propertyName] = $_POST[$propertyName] ?? null;
+                }
+                try {
+                    $restaurantService->updateYummyEventDay($yummyEventDayData);
+                } catch (\Exception $e) {
+                    echo 'Error editing YummyEventDay: ' . $e->getMessage();
+                }
+                break;
+
             case 'deleteSession':
-                $restaurantService->deleteSession($props['SessionID']);
+                try {
+                    $restaurantService->deleteSession($props['SessionID']);
+                } catch (\Exception $e) {
+                    echo 'Error deleting Session: ' . $e->getMessage();
+                }
                 break;
 
             case 'deleteYummyEventDay':
-                $restaurantService->deleteYummyEventDay($props['DayID']);
+                try {
+                    $restaurantService->deleteYummyEventDay($props['DayID']);
+                } catch (\Exception $e) {
+                    echo 'Error deleting YummyEventDay: ' . $e->getMessage();
+                }
                 break;
         }
     }

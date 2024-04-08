@@ -49,5 +49,11 @@
                 Manage Yummy
             </a>
         </li>
+        <li class="mb-4">
+            <a href="/manageSchedule"
+                class="block text-left bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg mb-2 text-md">
+                Manage Yummy Schedule
+            </a>
+        </li>
     </ul>
 </aside>
