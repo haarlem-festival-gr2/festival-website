@@ -24,18 +24,23 @@ services:
     volumes:
       - ./app:/app
       - ./vendor:/app/vendor
+      - ./build/zzz-docker.conf:/usr/local/etc/php-fpm.d/zzz-docker.conf
     environment:
       PS_DB_HOST: ${PS_DB_HOST}
       PS_DB_USERNAME: ${PS_DB_USERNAME}
       PS_DB_PASSWORD: ${PS_DB_PASSWORD}
       PS_DB_NAME: ${PS_DB_NAME}
+      RESEND_API: ${RESEND_API}
+      HOST_ADDR: ${HOST_ADDR}
+      STRIPE_KEY: ${STRIPE_KEY}
     depends_on:
       composer:
         condition: service_completed_successfully
+    command: php-fpm -R
   phpmyadmin:
     image: phpmyadmin:latest
-    volumes:
-      - ./build/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+#   volumes:
+#     - ./build/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
     ports:
       - 8081:80
     environment:

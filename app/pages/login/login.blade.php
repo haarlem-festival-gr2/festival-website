@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"
         integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous">
-    </script>
+        </script>
 </head>
 
 <body style="background-image: url(&quot;/img/login/background.png&quot;)"
@@ -24,15 +24,15 @@
             </label>
             <label for="password" class="flex flex-col">
                 Password
-                <input id="password" type="password" name="password" class="border border-black rounded p-2"
-                    required />
+                <input id="password" type="password" name="password" class="border border-black rounded p-2" required />
             </label>
         </div>
         <div class="flex flex-col">
             <input type="submit" name="action" value="Login"
                 class="cursor-pointer bg-white border border-black rounded hover:bg-gray-100 h-10" />
-            <p class="text-red-700" id="error"></p>
+            <p class="text-red-700" id="error">{{ $error }}</p>
             <a class="text-gray-600 hover:underline" href="/register">Register for a new account</a>
+            <a class="text-gray-600 hover:underline" href="/reset">Forgot password? Reset it here</a>
         </div>
     </form>
 </body>

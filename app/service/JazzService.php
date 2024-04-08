@@ -2,31 +2,118 @@
 
 namespace service;
 
+use Exception;
+use Model\Artist;
+use model\JazzDay;
+use Model\JazzPass;
+use model\Performance;
+use model\Venue;
 use Repository\JazzRepository;
 
 require_once __DIR__.'/../service/BaseService.php';
 require_once __DIR__.'/../repository/JazzRepository.php';
+require_once __DIR__.'/../service/ImageService.php';
 
 class JazzService extends BaseService
 {
     private JazzRepository $repository;
 
+    private ImageService $imageService;
+
     public function __construct()
     {
         $this->repository = new JazzRepository();
+        $this->imageService = new ImageService();
     }
 
-    public function getArtistById(int $id): mixed
+    //artist
+    public function getArtistById(int $id): Artist
     {
         return $this->repository->getArtistById($id);
     }
 
-    public function getVenueById(int $id): mixed
+    public function getAllArtists(): array
+    {
+        return $this->repository->getAllArtists();
+    }
+
+    public function updateArtist(int $artistId, string $name, string $bio, array $songs, array $albums, ?string $headerImg, ?string $artistImg1, ?string $artistImg2, ?string $performanceImg): void
+    {
+        $artist = $this->repository->getArtistById($artistId);
+
+        $this->repository->updateArtist($artistId, $name, $bio, $songs, $albums, $headerImg, $artistImg1, $artistImg2, $performanceImg);
+
+        // if the user updated image , delete the old one
+        // if the image is a placeholder don't delete it
+        if ($headerImg !== null && $artist->HeaderImg !== '/img/jazz/artists/artistPlaceholder.jpg') {
+            $this->imageService->deleteImage($artist->HeaderImg);
+        }
+        if ($artistImg1 !== null && $artist->ArtistImg1 !== '/img/jazz/artists/placeholder.jpg') {
+            $this->imageService->deleteImage($artist->ArtistImg1);
+        }
+        if ($artistImg2 !== null && $artist->ArtistImg2 !== '/img/jazz/artists/placeholder.jpg') {
+            $this->imageService->deleteImage($artist->ArtistImg2);
+        }
+        if ($performanceImg !== null) {
+            $this->imageService->deleteImage($artist->PerformanceImg);
+        }
+    }
+
+    public function createArtist(string $name, string $bio, string $headerImg, string $artistImg1, string $artistImg2, string $performanceImg, array $songs, array $albums): bool
+    {
+        return $this->repository->createArtist($name, $bio, $headerImg, $artistImg1, $artistImg2, $performanceImg, $songs, $albums);
+    }
+
+    public function deleteArtist(int $id): void
+    {
+        try {
+            $artist = $this->repository->getArtistById($id);
+            $this->repository->deleteArtist($id);
+
+            // delete images if they aren't placeholders
+            if ($artist->HeaderImg !== '/img/jazz/artists/artistPlaceholder.jpg') {
+                $this->imageService->deleteImage($artist->HeaderImg);
+            }
+            if ($artist->ArtistImg1 !== '/img/jazz/artists/placeholder.jpg') {
+                $this->imageService->deleteImage($artist->ArtistImg1);
+            }
+            if ($artist->ArtistImg2 !== '/img/jazz/artists/placeholder.jpg') {
+                $this->imageService->deleteImage($artist->ArtistImg2);
+            }
+            $this->imageService->deleteImage($artist->PerformanceImg);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    // venues
+    public function getVenueById(int $id): Venue
     {
         return $this->repository->getVenueById($id);
     }
 
-    public function getJazzDayById(int $id): mixed
+    public function getAllVenues(): array
+    {
+        return $this->repository->getAllVenues();
+    }
+
+    public function updateVenue(int $venueId, string $name, string $address, string $contactDetails): bool
+    {
+        return $this->repository->updateVenue($venueId, $name, $address, $contactDetails);
+    }
+
+    public function createVenue(string $name, string $address, string $contactDetails): bool
+    {
+        return $this->repository->createVenue($name, $address, $contactDetails);
+    }
+
+    public function deleteVenue(int $venueId): bool
+    {
+        return $this->repository->deleteVenue($venueId);
+    }
+
+    // jazz days
+    public function getJazzDayById(int $id): JazzDay
     {
         return $this->repository->getJazzDayById($id);
     }
@@ -36,33 +123,118 @@ class JazzService extends BaseService
         return $this->repository->getAllJazzDays();
     }
 
-    public function getPerformancesByArtistId(int $artistId): array
+    public function updateJazzDay(int $id, string $date, int $venueId, string $note, ?string $imgPath = null): void
     {
-        return $this->repository->getPerformancesByArtistId($artistId);
+        $currentImg = $this->repository->getJazzDayById($id)->ImgPath;
+
+        $this->repository->updateJazzDay($id, $date, $venueId, $note, $imgPath);
+
+        if ($imgPath !== null) {
+            $this->imageService->deleteImage($currentImg);
+        }
     }
 
-    public function getPerformancesByJazzDay(int $dayID): array
+    public function createJazzDay(string $date, int $venueId, string $note, ?string $imgPath): bool
     {
-        return $this->repository->getPerformancesByJazzDay($dayID);
+        return $this->repository->createJazzDay($date, $venueId, $note, $imgPath);
     }
 
+    public function deleteJazzDay(int $id): void
+    {
+        try {
+            $imgPath = $this->repository->getJazzDayById($id)->ImgPath;
+            $this->repository->deleteJazzDay($id);
+
+            $this->imageService->deleteImage($imgPath);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    // jazz overview page
+    public function getEventDaysWithDetails(): array
+    {
+        $days = $this->repository->getAllJazzDays();
+
+        $eventDays = [];
+        foreach ($days as $day) {
+            $performances = $this->repository->getPerformancesByJazzDay($day);
+            if (! empty($performances)) {
+                $jazzPasses = $this->repository->getJazzPassesByDate($day->Date);
+                $eventDays[] = [
+                    'day' => $day,
+                    'performances' => $performances,
+                    'passes' => $jazzPasses,
+                ];
+            }
+        }
+
+        return $eventDays;
+    }
+
+    // performances
+    public function getPerformancesByArtist(Artist $artist): array
+    {
+        return $this->repository->getPerformancesByArtist($artist);
+    }
+
+    public function getAllPerformances(): array
+    {
+        return $this->repository->getAllPerformances();
+    }
+
+    public function getPerformanceById(int $performanceId): Performance
+    {
+        return $this->repository->getPerformanceById($performanceId);
+    }
+
+    public function deletePerformance(int $performanceId): bool
+    {
+        return $this->repository->deletePerformance($performanceId);
+    }
+
+    public function createPerformance(int $ArtistID, int $DayID, float $Price, string $StartDateTime, string $EndDateTime, int $AvailableTickets, int $TotalTickets, string $Details): bool
+    {
+        $date = ($this->repository->getJazzDayById($DayID))->Date;
+
+        return $this->repository->createPerformance($ArtistID, $DayID, $Price, $date.' '.$StartDateTime, $date.' '.$EndDateTime, $AvailableTickets, $TotalTickets, $Details);
+    }
+
+    public function updatePerformance(int $PerformanceID, int $ArtistID, int $DayID, float $Price, string $StartDateTime, string $EndDateTime, int $AvailableTickets, int $TotalTickets, string $Details): bool
+    {
+        $date = ($this->repository->getJazzDayById($DayID))->Date;
+
+        return $this->repository->updatePerformance($PerformanceID, $ArtistID, $DayID, $Price, $date.' '.$StartDateTime, $date.' '.$EndDateTime, $AvailableTickets, $TotalTickets, $Details);
+    }
+
+    // passes
     public function getJazzPassesByDate(string $date): array
     {
         return $this->repository->getJazzPassesByDate($date);
     }
 
-    public function getSongsByArtistId(int $artistId): array
+    public function getJazzPassById(int $id): JazzPass
     {
-        return $this->repository->getSongsByArtistId($artistId);
+        return $this->repository->getJazzPassById($id);
     }
 
-    public function getAlbumsByArtistId(int $artistId): array
+    public function getAllJazzPasses(): array
     {
-        return $this->repository->getAlbumsByArtistId($artistId);
+        return $this->repository->getAllJazzPasses();
     }
 
-    public function getVenueByPerformanceId(int $performanceId): mixed
+    public function updatePass(int $id, float $price, string $startDateTime, string $endDateTime, string $note, int $totalTickets, int $availableTickets): bool
     {
-        return $this->repository->getVenueByPerformanceId($performanceId);
+        return $this->repository->updatePass($id, $price, $startDateTime, $endDateTime, $note, $totalTickets, $availableTickets);
+    }
+
+    public function deletePass(int $id): bool
+    {
+        return $this->repository->deletePass($id);
+    }
+
+    public function createPass(float $price, string $startDateTime, string $endDateTime, string $note, int $totalTickets, int $availableTickets): bool
+    {
+        return $this->repository->createPass($price, $startDateTime, $endDateTime, $note, $totalTickets, $availableTickets);
     }
 }

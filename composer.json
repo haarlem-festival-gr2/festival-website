@@ -3,6 +3,18 @@
         "laravel/pint": "^1.13"
     },
     "require": {
-        "jenssegers/blade": "^2.0"
+        "jenssegers/blade": "^2.0",
+        "stripe/stripe-php": "*",
+        "phpmailer/phpmailer": "^6.5",
+        "tecnickcom/tcpdf": "^6.7",
+        "endroid/qr-code": "^5.0"
+    },
+    "autoload": {
+      "psr-4": {
+        "Core\\Route\\": "core",
+        "Repository\\": "repository",
+        "Service\\": "service",
+        "Model\\": "model"
+      }
     }
 }
