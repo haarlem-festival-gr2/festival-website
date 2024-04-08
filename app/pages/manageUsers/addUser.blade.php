@@ -42,6 +42,7 @@
                         <select id="role" name="role" class="w-full border rounded-md px-3 py-2" required>
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
+                            <option value="user">Employee</option>
                         </select>
                     </div>
 
