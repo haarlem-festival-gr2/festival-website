@@ -34,7 +34,7 @@ Route::serve('finance', function ($props) {
     $service = new SoldTicketService();
 
     header('Content-Type: text/csv');
-    echo "TicketUUID,CustomerID,OrderItemID,EventName,Cost\n";
+    echo "TicketUUID,CustomerID,OrderItemID,EventName,Cost,Total,=SUM(E:E)\n";
     $info = $service->getFiscalInfo();
 
     foreach ($info as &$row) {
@@ -44,6 +44,4 @@ Route::serve('finance', function ($props) {
             .$row['EventName'].','
             .$row['Cost']."\n";
     }
-
-    echo ",,,Total,=SUM(E2:E9)\n";
 }, Method::POST);
