@@ -14,15 +14,13 @@ Route::serve('/manageHistoryPage', function (array $props) {
     $dayNames = $historyService->getDayNames();
     $historyDays = $historyService->getHistoryDays();
 
-    // Assuming you want to fetch tickets for all days
+
     $ticketsByDay = [];
     foreach ($historyDays as $day) {
         $ticketsByDay[$day->DayID] = $historyService->getTicketsByDay($day->DayID);
     }
 
-    // Check if the request method is POST and if the form to add a new ticket was submitted
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['tour_id'], $_POST['day_id'], $_POST['language_id'], $_POST['start_date_time'], $_POST['end_date_time'], $_POST['total_tickets'], $_POST['remaining_tickets'])) {
-        // Create a new ticket object with the form data
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset ($_POST['name'], $_POST['tour_id'], $_POST['day_id'], $_POST['language_id'], $_POST['start_date_time'], $_POST['end_date_time'], $_POST['total_tickets'], $_POST['remaining_tickets'])) {
         $newTicket = new HistoryTicket();
         $newTicket->Name = $_POST['name'];
         $newTicket->TourID = $_POST['tour_id'];
