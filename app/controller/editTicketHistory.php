@@ -58,11 +58,11 @@ Route::serve('/editTicketHistory', function (array $props) {
     $historyService = new HistoryService();
     $success = $historyService->updateTicket($ticket);
 
-     if ($success) {
-         header('Location: /manageHistoryPage');
-         exit ();
-     } else {
-         header('Location: /ticketUpdateFailed');
-         exit ();
-     }
+    if ($success) {
+        header('Location: /manageHistoryPage');
+        exit();
+    } else {
+        header('Location: /ticketUpdateFailed');
+        exit();
+    }
 }, Method::POST);

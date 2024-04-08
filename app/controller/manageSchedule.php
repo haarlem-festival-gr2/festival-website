@@ -1,15 +1,14 @@
 <?php
 
-use Core\Route\Method;
 use Core\Route\Route;
-use Service\RestaurantService;
 use model\Session;
 use model\YummyEventDays;
+use Service\RestaurantService;
 
-require_once __DIR__ . '/../repository/BaseRepository.php';
-require_once __DIR__ . '/../service/RestaurantService.php';
-require_once __DIR__ . '/../model/Session.php';
-require_once __DIR__ . '/../model/YummyEventDays.php';
+require_once __DIR__.'/../repository/BaseRepository.php';
+require_once __DIR__.'/../service/RestaurantService.php';
+require_once __DIR__.'/../model/Session.php';
+require_once __DIR__.'/../model/YummyEventDays.php';
 
 Route::serve('/manageSchedule', function (array $props) {
     $restaurantService = new RestaurantService();
@@ -24,6 +23,6 @@ Route::serve('/manageSchedule', function (array $props) {
         'sessions' => $sessions,
         'yummyEventDays' => $yummyEventDays,
         'sessionFields' => $sessionFields,
-        'yummyEventDayFields' => $yummyEventDayFields
+        'yummyEventDayFields' => $yummyEventDayFields,
     ]);
 });

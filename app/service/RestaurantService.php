@@ -3,12 +3,12 @@
 namespace service;
 
 use model\Restaurant;
-use model\YummyEventDays;
 use model\Session;
+use model\YummyEventDays;
 use Repository\RestaurantRepository;
 
-require_once __DIR__ . '/../service/BaseService.php';
-require_once __DIR__ . '/../repository/RestaurantRepository.php';
+require_once __DIR__.'/../service/BaseService.php';
+require_once __DIR__.'/../repository/RestaurantRepository.php';
 
 class RestaurantService extends BaseService
 {
@@ -83,18 +83,18 @@ class RestaurantService extends BaseService
     {
         $yummyId = $yummyData['YummyID'];
 
-        if (!$this->repository->yummyExists($yummyId)) {
+        if (! $this->repository->yummyExists($yummyId)) {
             throw new \Exception("Yummy with ID $yummyId not found.");
         }
 
         return $this->repository->updateYummy($yummyData);
     }
-    
+
     public function updateRestaurant(array $restaurantData): bool
     {
         $restaurantId = $restaurantData['RestaurantID'];
 
-        if (!$this->repository->restaurantExists($restaurantId)) {
+        if (! $this->repository->restaurantExists($restaurantId)) {
             throw new \Exception("Restaurant with ID $restaurantId not found.");
         }
 
@@ -105,7 +105,7 @@ class RestaurantService extends BaseService
     {
         $dayId = $yummyEventDayData['DayID'];
 
-        if (!$this->repository->yummyEventDayExists($dayId)) {
+        if (! $this->repository->yummyEventDayExists($dayId)) {
             throw new \Exception("Yummy Event Day with ID $dayId not found.");
         }
 
@@ -116,7 +116,7 @@ class RestaurantService extends BaseService
     {
         $sessionId = $sessionData['SessionID'];
 
-        if (!$this->repository->sessionExists($sessionId)) {
+        if (! $this->repository->sessionExists($sessionId)) {
             throw new \Exception("Session with ID $sessionId not found.");
         }
 

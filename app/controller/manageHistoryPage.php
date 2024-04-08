@@ -14,13 +14,12 @@ Route::serve('/manageHistoryPage', function (array $props) {
     $dayNames = $historyService->getDayNames();
     $historyDays = $historyService->getHistoryDays();
 
-
     $ticketsByDay = [];
     foreach ($historyDays as $day) {
         $ticketsByDay[$day->DayID] = $historyService->getTicketsByDay($day->DayID);
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset ($_POST['name'], $_POST['tour_id'], $_POST['day_id'], $_POST['language_id'], $_POST['start_date_time'], $_POST['end_date_time'], $_POST['total_tickets'], $_POST['remaining_tickets'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['name'], $_POST['tour_id'], $_POST['day_id'], $_POST['language_id'], $_POST['start_date_time'], $_POST['end_date_time'], $_POST['total_tickets'], $_POST['remaining_tickets'])) {
         $newTicket = new HistoryTicket();
         $newTicket->Name = $_POST['name'];
         $newTicket->TourID = $_POST['tour_id'];

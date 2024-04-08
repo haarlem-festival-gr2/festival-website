@@ -24,7 +24,7 @@ Route::serve('/churchBavo', function (array $props) {
         'stories' => $stories,
         'locations' => $locations,
         'homeInfo' => $homeInfo,
-        'allDetailPages' => $allDetailPages, 
+        'allDetailPages' => $allDetailPages,
     ]);
 
     // Route::serve('/molenDeAdriaan', function (array $props) {
