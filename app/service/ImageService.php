@@ -19,7 +19,7 @@ class ImageService extends BaseService
      */
     public function uploadImage(array $image, string $subDir = ''): string
     {
-        $validTypes = ['image/jpeg', 'image/png'];
+        $validTypes = ['image/jpeg', 'image/png', 'image/webp'];
         $imgDir = '/img/'.($subDir ? $subDir.'/' : '');
         $uploadDir = $_SERVER['DOCUMENT_ROOT'].$imgDir;
 

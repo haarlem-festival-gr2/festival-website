@@ -24,6 +24,7 @@ services:
     volumes:
       - ./app:/app
       - ./vendor:/app/vendor
+      - ./build/zzz-docker.conf:/usr/local/etc/php-fpm.d/zzz-docker.conf
     environment:
       PS_DB_HOST: ${PS_DB_HOST}
       PS_DB_USERNAME: ${PS_DB_USERNAME}
@@ -35,6 +36,7 @@ services:
     depends_on:
       composer:
         condition: service_completed_successfully
+    command: php-fpm -R
   phpmyadmin:
     image: phpmyadmin:latest
 #   volumes:
