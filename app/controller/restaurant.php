@@ -12,14 +12,6 @@ Route::serve('/restaurant', function (array $props) {
     $restaurantService = new RestaurantService();
     $totalRestaurants = count($restaurantService->getAllRestaurants());
 
-    if (! is_numeric($restaurantId)) {
-        $restaurantId = 1;
-    } else {
-        if ($restaurantId < 1 || $restaurantId > $totalRestaurants) {
-            $restaurantId = 1;
-        }
-    }
-
     $restaurant = $restaurantService->getRestaurantById($restaurantId);
     $sessions = $restaurantService->getSessionsByRestaurantId($restaurantId);
     $yummyEventDays = $restaurantService->getAllYummyEventDays();
