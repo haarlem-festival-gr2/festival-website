@@ -19,6 +19,7 @@
             menubar: 'file edit view insert format tools table help',
             tinycomments_mode: 'embedded',
             tinycomments_author: 'Author name',
+            images_upload_url: '/uploadimage',
             mergetags_list: [
                 {value: 'First.Name', title: 'First Name'},
                 {value: 'Email', title: 'Email'},
