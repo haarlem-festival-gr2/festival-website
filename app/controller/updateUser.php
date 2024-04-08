@@ -31,5 +31,5 @@ Route::serve('/updateUser', function (array $props) {
 
     $service->updateUser($user);
 
-    header("Location: /editUser?userId=$userId");
+    header("Location: /manageUsers");
 }, Method::POST);
