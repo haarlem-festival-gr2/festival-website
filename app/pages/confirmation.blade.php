@@ -8,10 +8,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
     <link href="/css/jazzStyles.css" rel="stylesheet">
+    <link href="/css/navBarStyle.css" rel="stylesheet">
 </head>
 
 <body class="font-montserrat bg-cover bg-no-repeat" style="background-image: url('/img/confirmation.png');">
 
+@include('main.navbar')
 <div class="container mx-auto my-10 p-8 bg-gray-100 bg-opacity-25 rounded-lg shadow-xl">
     <div class="header text-center text-4xl font-bold py-4 border-b-4 border-black mb-6">Confirmation</div>
     <div class="md:flex md:justify-center">
@@ -21,7 +23,7 @@
         </div>
     </div>
     <div class="flex justify-center space-x-12 mt-6">
-        <a href="/agenda/overview" class="custom-button py-4 px-8 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-lg shadow-lg inline-block leading-6">Go to Personal Program🌟</a>
+        <a href="/" class="custom-button py-4 px-8 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-lg shadow-lg inline-block leading-6">Go to Homepage</a>
     </div>
 </div>
 
